@@ -1,11 +1,11 @@
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- */
+import { MixerConnection } from 'fmalcher/soundcraft-ui-connection';
 
 import * as express from 'express';
 
 const app = express();
+
+const connection = new MixerConnection('10.75.23.95');
+connection.connect();
 
 app.get('/api', (req, res) => {
   res.send({ message: 'Welcome to ui-testbed!' });

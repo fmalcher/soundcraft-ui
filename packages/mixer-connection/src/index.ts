@@ -1,1 +1,1 @@
-export * from './lib/mixer-connection';
+export * from './lib/soundcraft-ui';
