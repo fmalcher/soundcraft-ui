@@ -27,7 +27,9 @@
   },
   "private": true,
   "dependencies": {
-    "express": "4.17.1"
+    "express": "4.17.1",
+    "rxjs": "^6.6.3",
+    "ws": "^7.3.1"
   },
   "devDependencies": {
     "@nrwl/cli": "10.3.0",
