@@ -15,7 +15,14 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@soundcraft-ui/mixer-connection": [
+        "packages/mixer-connection/src/index.ts"
+      ],
+      "fmalcher/soundcraft-ui-connection": [
+        "packages/mixer-connection/src/index.ts"
+      ]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
