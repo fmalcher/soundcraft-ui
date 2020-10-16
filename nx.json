@@ -25,6 +25,9 @@
   "projects": {
     "mixer-connection": {
       "tags": []
+    },
+    "ui-testbed": {
+      "tags": []
     }
   },
   "workspaceLayout": {

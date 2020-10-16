@@ -31,9 +31,60 @@
           }
         }
       }
+    },
+    "ui-testbed": {
+      "root": "packages/ui-testbed",
+      "sourceRoot": "packages/ui-testbed/src",
+      "projectType": "application",
+      "prefix": "ui-testbed",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/packages/ui-testbed",
+            "main": "packages/ui-testbed/src/main.ts",
+            "tsConfig": "packages/ui-testbed/tsconfig.app.json",
+            "assets": ["packages/ui-testbed/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "packages/ui-testbed/src/environments/environment.ts",
+                  "with": "packages/ui-testbed/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "ui-testbed:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/ui-testbed/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "packages/ui-testbed/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {
-    "defaultCollection": "@nrwl/workspace"
-  }
+    "defaultCollection": "@nrwl/express"
+  },
+  "defaultProject": "ui-testbed"
 }
