@@ -1,7 +1,10 @@
-# mixer-connection
+# soundcraft-ui-connection
 
-This library was generated with [Nx](https://nx.dev).
+This library provides a generic connection interface for the Soundcraft Ui series audio mixers.
 
-## Running unit tests
+
+## Development
+
+### Running unit tests
 
 Run `nx test mixer-connection` to execute the unit tests via [Jest](https://jestjs.io).
