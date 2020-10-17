@@ -15,6 +15,8 @@ import {
 } from 'rxjs/operators';
 import * as WebSocket from 'ws';
 
+import { MixerState } from './mixer-state';
+
 export class MixerConnection {
   private outboundSubject$: Subject<string>;
   private socket$: WebSocketSubject<string>;
@@ -41,18 +43,9 @@ export class MixerConnection {
     this.outboundSubject$ = new Subject<string>();
     this.outbound$ = this.outboundSubject$.asObservable();
 
-    this.inbound$ = this.socket$.pipe(
-      mergeMap(message => message.split('\n')),
-      filter(msg => msg.startsWith('SETD'))
-    );
+    this.inbound$ = this.socket$.pipe(mergeMap(message => message.split('\n')));
 
     this.allMessages$ = merge(this.outbound$, this.inbound$).pipe(share());
-
-    /*this.inbound$.subscribe({
-      next: e => console.log('NEXT', e),
-      error: e => console.log('ERR', e),
-      complete: () => console.log('COMPLETE'),
-    });*/
 
     /**
      * Keepalive interval
@@ -78,15 +71,6 @@ export class MixerConnection {
         map(msg => `3:::${msg}`)
       )
       .subscribe(this.socket$);
-
-    /*interval(1000).pipe(map(i => {
-      if (i % 2 === 0) {
-        return 'SETD^i.6.mute^1';
-      } else {
-        return 'SETD^i.6.mute^0';
-
-      }
-    })).subscribe(this.outbound$);*/
   }
 
   /**
