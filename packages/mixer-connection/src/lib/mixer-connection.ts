@@ -45,10 +45,6 @@ export class MixerConnection {
 
     this.allMessages$ = merge(this.outbound$, this.inbound$).pipe(share());
 
-    this.allMessages$
-      .pipe(filter(m => m.startsWith('SETD')))
-      .subscribe(e => console.log('MSG', e));
-
     /**
      * Keepalive interval
      * every 2 seconds

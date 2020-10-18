@@ -41,7 +41,7 @@ export class Master {
     return new MasterChannel(this.conn, this.state, 'f', channel);
   }
 
-  subGroup(channel: number) {
+  sub(channel: number) {
     return new MasterChannel(this.conn, this.state, 's', channel);
   }
 
@@ -53,6 +53,11 @@ export class Master {
 
   setFaderLevel(value: number) {
     const command = `SETD^m.mix^${value}`;
+    this.conn.sendMessage(command);
+  }
+
+  pan(value: number) {
+    const command = `SETD^m.pan^${value}`;
     this.conn.sendMessage(command);
   }
 
