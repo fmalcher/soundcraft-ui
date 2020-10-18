@@ -20,7 +20,7 @@ sui.state.getFaderValue('f', 2).subscribe(logObserver('Master FX2'));
 sui.state.getFaderValue('i', 3, 'aux', 4).subscribe(logObserver('AUX4 CH3'));
 sui.state.getFaderValue('i', 3, 'fx', 1).subscribe(logObserver('FX1 CH3'));
 
-sui.state.getMute('i', 3).subscribe(logObserver('Master CH3 Mute'));
+sui.state.getMute('i', 5).subscribe(logObserver('Master CH5 Mute'));
 sui.state.getMute('i', 3, 'aux', 4).subscribe(logObserver('AUX4 CH3 Mute'));
 
 sui.state.getSolo('i', 3).subscribe(logObserver('Master CH3 Solo'));
@@ -42,6 +42,24 @@ api.post('/disconnect', (req, res, next) => {
 
 api.post('/dim/:value', (req, res, next) => {
   sui.dim(req.params.value);
+  res.send();
+});
+
+api.post('/mute/:channel', (req, res, next) => {
+  const channelId = parseInt(req.params.channel);
+  sui.input(channelId).mute();
+  res.send();
+});
+
+api.post('/unmute/:channel', (req, res, next) => {
+  const channelId = parseInt(req.params.channel);
+  sui.input(channelId).unmute();
+  res.send();
+});
+
+api.post('/togglemute/:channel', (req, res, next) => {
+  const channelId = parseInt(req.params.channel);
+  sui.input(channelId).toggleMute();
   res.send();
 });
 

@@ -15,8 +15,6 @@ import {
 } from 'rxjs/operators';
 import * as WebSocket from 'ws';
 
-import { MixerState } from './mixer-state';
-
 export class MixerConnection {
   private outboundSubject$: Subject<string>;
   private socket$: WebSocketSubject<string>;
@@ -46,6 +44,10 @@ export class MixerConnection {
     this.inbound$ = this.socket$.pipe(mergeMap(message => message.split('\n')));
 
     this.allMessages$ = merge(this.outbound$, this.inbound$).pipe(share());
+
+    this.allMessages$
+      .pipe(filter(m => m.startsWith('SETD')))
+      .subscribe(e => console.log('MSG', e));
 
     /**
      * Keepalive interval

@@ -3,7 +3,7 @@ import * as objectPath from 'object-path';
 import { OperatorFunction, pipe } from 'rxjs';
 
 import { ChannelType, BusType } from './types';
-import { MixerState } from './mixer-state';
+import { MixerState } from './mixer-state.models';
 
 type Projector<T> = (state: MixerState) => T;
 type Selector<T> = (...args: any[]) => Projector<T>;
