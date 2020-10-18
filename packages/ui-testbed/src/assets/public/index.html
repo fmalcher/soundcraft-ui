@@ -11,11 +11,17 @@
     <button onclick="send('disconnect')">Disconnect</button>
 
     <h2>Other</h2>
+    <button onclick="send('/master/level/0.5')">master level 0.5</button>
+    <button onclick="send('/master/level/0.9')">master level 0.9</button>
     <button onclick="send('mute/4')">Mute 4</button>
     <button onclick="send('unmute/4')">Unmute 4</button>
     <button onclick="send('togglemute/4')">Toggle mute 4</button>
-    <button onclick="send('dim/1')">DIM 1</button>
-    <button onclick="send('dim/0')">DIM 0</button>
+    <button onclick="send('dim')">DIM 1</button>
+    <button onclick="send('undim')">DIM 0</button>
+    <button onclick="send('toggledim')">DIM Toggle</button>
+    <button onclick="send('/aux/3/togglemute/4')">AUX3 CH4 Toggle mute</button>
+    <button onclick="send('/aux/3/pre/4')">AUX3 CH4 PRE</button>
+    <button onclick="send('/aux/3/post/4')">AUX3 CH4 POST</button>
 
     <script src="./script.js"></script>
   </body>

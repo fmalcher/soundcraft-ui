@@ -1,4 +1,5 @@
 /**
+ * Type for the full possible state of the mixer.
  * generated from JSON with https://app.quicktype.io/?l=ts
  */
 
