@@ -26,8 +26,12 @@ export const select = <T>(
  * @param state The full mixer state
  * @param path The path to select from the nested object, segment by segment
  */
-function getStatePath<T>(state: MixerState, path: (string | number)[]) {
-  return objectPath.get<T>(state, path, undefined);
+function getStatePath<T>(
+  state: MixerState,
+  path: (string | number)[],
+  defaultValue = undefined
+) {
+  return objectPath.get<T>(state, path, defaultValue);
 }
 
 /**************************** */
@@ -43,6 +47,7 @@ function getStatePath<T>(state: MixerState, path: (string | number)[]) {
  */
 const selectGenericChannelProperty: Selector<number> = (
   property: string,
+  defaultValue = undefined,
   channelType: ChannelType,
   channel: number,
   busType: BusType,
@@ -51,20 +56,18 @@ const selectGenericChannelProperty: Selector<number> = (
   return state => {
     switch (busType) {
       case 'master':
-        return getStatePath<number>(state, [
-          channelType,
-          channel - 1,
-          property,
-        ]);
+        return getStatePath<number>(
+          state,
+          [channelType, channel - 1, property],
+          defaultValue
+        );
       case 'aux':
       case 'fx':
-        return getStatePath<number>(state, [
-          channelType,
-          channel - 1,
-          busType,
-          bus - 1,
-          property,
-        ]);
+        return getStatePath<number>(
+          state,
+          [channelType, channel - 1, busType, bus - 1, property],
+          defaultValue
+        );
     }
   };
 };
@@ -99,7 +102,7 @@ export const selectPan: Selector<number> = (
   channel: number,
   busType: BusType,
   bus?: number
-) => selectGenericChannelProperty('pan', channelType, channel, busType, bus);
+) => selectGenericChannelProperty('pan', 0, channelType, channel, busType, bus);
 
 /**
  * Select mute value of a channel
@@ -113,7 +116,8 @@ export const selectMute: Selector<number> = (
   channel: number,
   busType: BusType,
   bus?: number
-) => selectGenericChannelProperty('mute', channelType, channel, busType, bus);
+) =>
+  selectGenericChannelProperty('mute', 0, channelType, channel, busType, bus);
 
 /**
  * Select solo value of a channel

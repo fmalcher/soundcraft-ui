@@ -24,7 +24,7 @@ export class Fx {
     return new FxChannel(this.conn, this.store, 'p', channel, this.bus);
   }
 
-  subGroup(channel: number) {
+  sub(channel: number) {
     return new FxChannel(this.conn, this.store, 's', channel, this.bus);
   }
 }

@@ -9,12 +9,12 @@ import { SendChannel } from './send-channel';
 export class AuxChannel extends SendChannel {
   constructor(
     conn: MixerConnection,
-    state: MixerStore,
+    store: MixerStore,
     channelType: ChannelType,
     channel: number,
     bus: number
   ) {
-    super(conn, state, channelType, channel, 'aux', bus);
+    super(conn, store, channelType, channel, 'aux', bus);
   }
 
   setPostproc(value: number) {

@@ -14,6 +14,7 @@ import { BusType, ChannelType } from '../types';
  */
 export class Channel {
   protected fullChannelId = `${this.channelType}.${this.channel - 1}`;
+  protected faderLevelCommand = 'mix';
 
   faderLevel$ = this.store.state$.pipe(
     select(
@@ -37,6 +38,11 @@ export class Channel {
     protected busType: BusType = 'master',
     protected bus: number = 0
   ) {}
+
+  setFaderLevel(value: number) {
+    const command = `SETD^${this.fullChannelId}.${this.faderLevelCommand}^${value}`;
+    this.conn.sendMessage(command);
+  }
 
   setMute(value: number) {
     const command = `SETD^${this.fullChannelId}.mute^${value}`;

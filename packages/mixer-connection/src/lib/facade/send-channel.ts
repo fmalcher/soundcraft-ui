@@ -9,6 +9,8 @@ import { Channel } from './channel';
  * Used as super class for Aux and Fx
  */
 export class SendChannel extends Channel {
+  faderLevelCommand = 'value';
+
   post$ = this.store.state$.pipe(
     select(selectPost(this.channelType, this.channel, this.busType, this.bus))
   );
