@@ -2,7 +2,7 @@ import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 import * as objectPath from 'object-path';
 import { OperatorFunction, pipe } from 'rxjs';
 
-import { ChannelType, BusType } from './types';
+import { ChannelType, BusType } from '../types';
 import { MixerState } from './mixer-state.models';
 
 type Projector<T> = (state: MixerState) => T;
@@ -156,4 +156,45 @@ export const selectFaderValue: Selector<number> = (
         ]);
     }
   };
+};
+
+/**
+ * Select "post" value of a send channel
+ * @param channelType
+ * @param channel
+ */
+export const selectPost: Selector<number> = (
+  channelType: ChannelType,
+  channel: number,
+  busType: BusType,
+  bus: number
+) => {
+  return state =>
+    getStatePath<number>(state, [
+      channelType,
+      channel - 1,
+      busType,
+      bus,
+      'post',
+    ]);
+};
+
+/**
+ * Select "p" value of a send channel
+ * @param channelType
+ * @param channel
+ */
+export const selectAuxPostProc: Selector<number> = (
+  channelType: ChannelType,
+  channel: number,
+  aux: number
+) => {
+  return state =>
+    getStatePath<number>(state, [
+      channelType,
+      channel - 1,
+      'aux',
+      aux,
+      'postproc',
+    ]);
 };

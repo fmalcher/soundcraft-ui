@@ -1,18 +1,27 @@
-import { Channel } from './channel';
+import { Aux } from './facade/aux';
+import { Channel } from './facade/channel';
+import { Fx } from './facade/fx';
+import { Master } from './facade/master';
+import { MasterChannel } from './facade/master-channel';
+import { Player } from './facade/player';
 import { MixerConnection } from './mixer-connection';
-import { MixerStore } from './mixer-store';
+import { MixerStore } from './state/mixer-store';
 
 export class SoundcraftUI {
-  private conn: MixerConnection;
-  readonly state: MixerStore;
+  private conn = new MixerConnection(this.targetIP);
+  readonly store = new MixerStore(this.conn.allMessages$);
 
-  constructor(targetIP: string) {
-    this.conn = new MixerConnection(targetIP);
-    this.state = new MixerStore(this.conn.allMessages$);
+  master = new Master(this.conn, this.store);
+  player = new Player(this.conn, this.store);
+
+  constructor(private targetIP: string) {}
+
+  aux(bus: number) {
+    return new Aux(this.conn, this.store, bus);
   }
 
-  input(input: number) {
-    return new Channel(this.conn, this.state, 'i', input);
+  fx(bus: number) {
+    return new Fx(this.conn, this.store, bus);
   }
 
   connect() {
@@ -21,10 +30,5 @@ export class SoundcraftUI {
 
   disconnect() {
     this.conn.disconnect();
-  }
-
-  dim(value) {
-    const cmd = `SETD^m.dim^${value}`;
-    this.conn.sendMessage(cmd);
   }
 }

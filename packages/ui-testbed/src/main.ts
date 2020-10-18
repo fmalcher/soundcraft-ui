@@ -40,8 +40,18 @@ api.post('/disconnect', (req, res, next) => {
   res.send();
 });
 
-api.post('/dim/:value', (req, res, next) => {
-  sui.dim(req.params.value);
+api.post('/dim', (req, res, next) => {
+  sui.master.dim();
+  res.send();
+});
+
+api.post('/undim', (req, res, next) => {
+  sui.master.undim();
+  res.send();
+});
+
+api.post('/toggledim', (req, res, next) => {
+  sui.master.toggleDim();
   res.send();
 });
 
@@ -60,6 +70,33 @@ api.post('/unmute/:channel', (req, res, next) => {
 api.post('/togglemute/:channel', (req, res, next) => {
   const channelId = parseInt(req.params.channel);
   sui.input(channelId).toggleMute();
+  res.send();
+});
+
+api.post('/master/level/:value', (req, res, next) => {
+  const value = parseFloat(req.params.value);
+  sui.master.setFaderLevel(value);
+  res.send();
+});
+
+api.post('/aux/:aux/togglemute/:input', (req, res, next) => {
+  const aux = parseInt(req.params.aux, 10);
+  const input = parseInt(req.params.input, 10);
+  sui.aux(aux).input(input).toggleMute();
+  res.send();
+});
+
+api.post('/aux/:aux/post/:input', (req, res, next) => {
+  const aux = parseInt(req.params.aux, 10);
+  const input = parseInt(req.params.input, 10);
+  sui.aux(aux).input(input).post();
+  res.send();
+});
+
+api.post('/aux/:aux/pre/:input', (req, res, next) => {
+  const aux = parseInt(req.params.aux, 10);
+  const input = parseInt(req.params.input, 10);
+  sui.aux(aux).input(input).pre();
   res.send();
 });
 
