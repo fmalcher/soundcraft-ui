@@ -5,7 +5,7 @@ import { AuxChannel } from './aux-channel';
 /**
  * Represents an AUX bus
  */
-export class Aux {
+export class AuxBus {
   constructor(
     private conn: MixerConnection,
     private store: MixerStore,

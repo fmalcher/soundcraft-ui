@@ -5,7 +5,7 @@ import { FxChannel } from './fx-channel';
 /**
  * Represents an FX bus
  */
-export class Fx {
+export class FxBus {
   constructor(
     private conn: MixerConnection,
     private store: MixerStore,

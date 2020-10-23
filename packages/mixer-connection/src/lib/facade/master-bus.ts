@@ -12,7 +12,7 @@ import { MasterChannel } from './master-channel';
 /**
  * Represents the master bus
  */
-export class Master {
+export class MasterBus {
   faderLevel$ = this.state.state$.pipe(select(selectMasterValue()));
   pan$ = this.state.state$.pipe(select(selectMasterPan()));
   dim$ = this.state.state$.pipe(select(selectMasterDim()));
