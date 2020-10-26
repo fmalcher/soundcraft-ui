@@ -1,4 +1,4 @@
-import { fromEvent, interval, merge, Observable, Subject } from 'rxjs';
+import { interval, merge, Subject } from 'rxjs';
 import { webSocket, WebSocketSubject } from 'rxjs/websocket';
 import {
   mergeMap,
@@ -10,81 +10,169 @@ import {
   map,
   retryWhen,
   delay,
-  retry,
   share,
 } from 'rxjs/operators';
 import * as WebSocket from 'ws';
+import { ConnectionEvent, ConnectionStatus } from './types';
 
 export class MixerConnection {
-  private outboundSubject$: Subject<string>;
+  private reconnectTime = 2000;
+  private keepaliveTime = 1000;
+
   private socket$: WebSocketSubject<string>;
 
-  outbound$: Observable<string>;
-  inbound$: Observable<string>;
-  allMessages$: Observable<string>;
+  /**
+   * closing the socket is not enough to finally end the connection.
+   * socket$.complete() only works if the socket is open.
+   * However, if there's a timed reconnect running, it will try to reconnect.
+   * socket$.complete() will have no effect.
+   * We have a separate notifier here to destroy the timed reconnect when the suer actually wants to close everything
+   */
+  private forceClose$ = new Subject();
+
+  /**
+   * internal message streams.
+   * can be fed from anywhere inside this class
+   * but must not be exposed
+   */
+  private statusSubject$ = new Subject<ConnectionEvent>();
+  private outboundSubject$ = new Subject<string>();
+  private inboundSubject$ = new Subject<string>();
+
+  /** public message streams */
+
+  /**
+   * Connection status
+   */
+  status$ = this.statusSubject$.asObservable();
+
+  /**
+   * All outbound messages (from client to mixer)
+   */
+  outbound$ = this.outboundSubject$.asObservable();
+
+  /**
+   * All inbound messages (from mixer to client)
+   */
+  inbound$ = this.inboundSubject$.asObservable();
+
+  /**
+   * combined stream of inbound and outbound messages
+   */
+  allMessages$ = merge(this.outbound$, this.inbound$).pipe(share());
 
   constructor(private targetIP: string) {
-    const connect$ = new Subject();
-    const disconnect$ = new Subject();
-
-    this.socket$ = webSocket<string>({
-      url: `ws://${this.targetIP}/socket.io/1/websocket/${
-        Math.random() * 10000
-      }`,
-      WebSocketCtor: WebSocket,
-      serializer: data => data,
-      deserializer: ({ data }) => data,
-      openObserver: connect$,
-      closeObserver: disconnect$,
-    });
-
-    this.outboundSubject$ = new Subject<string>();
-    this.outbound$ = this.outboundSubject$.asObservable();
-
-    this.inbound$ = this.socket$.pipe(mergeMap(message => message.split('\n')));
-
-    this.allMessages$ = merge(this.outbound$, this.inbound$).pipe(share());
+    this.createSocket();
 
     /**
      * Keepalive interval
-     * every 2 seconds
      * start on connect, stop on disconnect
      */
-    connect$
+    const open$ = this.status$.pipe(
+      filter(e => e.type === ConnectionStatus.Open)
+    );
+    const close$ = this.status$.pipe(
+      filter(e => e.type === ConnectionStatus.Close)
+    );
+
+    open$
       .pipe(
-        switchMap(() => interval(2000).pipe(takeUntil(disconnect$))),
+        switchMap(() => interval(this.keepaliveTime).pipe(takeUntil(close$))),
         mapTo('ALIVE')
       )
-      .subscribe(this.outboundSubject$);
-
-    connect$.subscribe(e => console.log('Connected'));
-    disconnect$.subscribe(e => console.log('Disconnected'));
+      .subscribe(msg => this.outboundSubject$.next(msg));
 
     /**
-     * Send outbound messages
+     * Send outbound messages to mixer
      */
     this.outbound$
       .pipe(
-        tap(msg => console.log(new Date(), 'SENDING:', msg)), // log message
-        map(msg => `3:::${msg}`)
+        map(msg => `3:::${msg}`),
+        tap(msg => console.log(new Date(), 'SENDING:', msg)) // log message
       )
       .subscribe(this.socket$);
   }
 
   /**
-   * Connect to socket and retry every 5 seconds if connection lost
+   * Wire up the websocket connection object.
+   * The connection will be established on first subscribe
+   */
+  private createSocket() {
+    this.socket$ = webSocket<string>({
+      url: `ws://${this.targetIP}`,
+      WebSocketCtor: WebSocket,
+      serializer: data => data,
+      deserializer: ({ data }) => data,
+      openObserver: {
+        next: () => this.statusSubject$.next({ type: ConnectionStatus.Open }),
+      },
+      closingObserver: {
+        next: () =>
+          this.statusSubject$.next({ type: ConnectionStatus.Closing }),
+      },
+      closeObserver: {
+        next: () => this.statusSubject$.next({ type: ConnectionStatus.Close }),
+      },
+    });
+  }
+
+  /**
+   * Connect to socket and retry if connection lost
    */
   connect() {
-    this.socket$
-      .pipe(
-        retryWhen(n$ =>
-          n$.pipe(
-            delay(5000),
-            tap(() => console.log('Reconnect'))
+    this.statusSubject$.next({ type: ConnectionStatus.Opening });
+    const messages$ = this.socket$.pipe(
+      tap({
+        // report errors
+        error: payload =>
+          this.statusSubject$.next({
+            type: ConnectionStatus.Error,
+            payload,
+          }),
+      }),
+      // reconnect on error
+      retryWhen(n$ =>
+        n$.pipe(
+          delay(this.reconnectTime),
+          takeUntil(this.forceClose$),
+          tap(() =>
+            this.statusSubject$.next({ type: ConnectionStatus.Reconnecting })
           )
         )
+      ),
+      // parse messages (only use those with `3:::` prefix)
+      map(message => {
+        const match = message.match(/^(3:::)(.*)/s);
+        return match && match[2];
+      }),
+      filter(e => !!e),
+      mergeMap(message => message.split('\n')) // one message can contain multiple lines with commands. split them into single emissions
+    );
+
+    // send all messages to our global stream that survives reconnects
+    messages$.subscribe(msg => this.inboundSubject$.next(msg));
+
+    /*
+    // Keep for later: echo
+    this.socket$
+      .pipe(
+        filter(msg => msg === '2::')
+        // tap(msg => console.log('ECHO', msg))
       )
-      .subscribe();
+      .subscribe(msg => this.socket$.next(msg)); */
+
+    /*
+    // Keep for later: initialization messages
+    this.socket$
+      .pipe(
+        filter(msg => msg === '1::'),
+        mergeMapTo([
+          'SERIAL',
+          `USERTIME^${Date.now()}^-60`,
+          'MEDIA_GET_PLISTS',
+        ])
+      )
+      .subscribe(msg => this.socket$.next(msg));*/
   }
 
   /**
@@ -92,6 +180,7 @@ export class MixerConnection {
    */
   disconnect() {
     this.socket$.complete();
+    this.forceClose$.next();
   }
 
   /**
