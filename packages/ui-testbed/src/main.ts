@@ -1,4 +1,4 @@
-import { SoundcraftUI } from 'fmalcher/soundcraft-ui-connection';
+import { SoundcraftUI } from 'soundcraft-ui-connection';
 
 import * as express from 'express';
 
@@ -30,10 +30,17 @@ sui.store.getPan('i', 3, 'aux', 4).subscribe(logObserver('AUX4 CH3 Pan'));*/
 /*******************************/
 
 api.post('/disconnect', (req, res) => res.send(sui.disconnect()));
+api.post('/connect', (req, res) => {
+  sui && sui.connect();
+  res.send();
+});
 api.post('/connect/:ip', (req, res) => {
   const ip = req.params.ip;
   sui = new SoundcraftUI(ip);
-  res.send(sui.connect());
+  sui.status$.subscribe(logObserver('STATUS'));
+  sui.connect();
+
+  res.send();
 });
 
 // Master

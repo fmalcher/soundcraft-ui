@@ -19,7 +19,7 @@
       "@soundcraft-ui/mixer-connection": [
         "packages/mixer-connection/src/index.ts"
       ],
-      "fmalcher/soundcraft-ui-connection": [
+      "soundcraft-ui-connection": [
         "packages/mixer-connection/src/index.ts"
       ]
     }
