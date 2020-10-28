@@ -8,7 +8,7 @@ app.use('/api', api);
 
 app.use('/', express.static(__dirname + '/assets/public'));
 
-const sui = new SoundcraftUI('10.75.23.95');
+let sui = new SoundcraftUI('10.75.23.95');
 sui.connect();
 
 /*******************************/
@@ -32,6 +32,13 @@ sui.store.getPan('i', 3, 'aux', 4).subscribe(logObserver('AUX4 CH3 Pan'));*/
 
 api.post('/connect', (req, res) => res.send(sui.connect()));
 api.post('/disconnect', (req, res) => res.send(sui.disconnect()));
+
+api.post('/connect/:ip', (req, res) => {
+  const ip = req.params.ip;
+  sui = new SoundcraftUI(ip);
+  res.send(sui.connect());
+});
+
 
 // Master
 api.post('/master/dim', (req, res) => res.send(sui.master.dim()));

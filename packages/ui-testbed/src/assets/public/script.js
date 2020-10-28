@@ -166,6 +166,17 @@ const testSections = [
 
 const container = document.querySelector('#container');
 
+const div = document.createElement('div');
+div.innerHTML = `
+<h2>Network IP</h2>
+<table>
+  <tr>
+    <td class="label"><input type="text" id="soundcraftip" value="10.75.23.95" /></td>
+    <td><button onclick="send('connect/' + document.getElementById('soundcraftip').value)">Send</button></td>
+  </tr>
+</table>`;
+container.appendChild(div);
+
 testSections.forEach(section => {
   const div = document.createElement('div');
 
