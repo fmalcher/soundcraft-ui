@@ -4,14 +4,12 @@ function send(path) {
   });
 }
 
+function connect() {
+  const ip = document.querySelector('#soundcraftip').value;
+  send('connect/' + ip);
+}
+
 const testSections = [
-  {
-    name: 'Generic',
-    buttons: [
-      { label: 'Connect', path: 'connect' },
-      { label: 'Disconnect', path: 'disconnect' },
-    ],
-  },
   {
     name: 'Master',
     buttons: [
