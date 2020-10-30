@@ -8,7 +8,7 @@ import { MixerStore } from './state/mixer-store';
 import { ConnectionStatus } from './types';
 
 export class SoundcraftUI {
-  private conn = new MixerConnection(this.targetIP);
+  readonly conn = new MixerConnection(this.targetIP);
   readonly store = new MixerStore(this.conn.allMessages$);
 
   status$ = this.conn.status$;
