@@ -12,8 +12,8 @@ import {
   delay,
   share,
 } from 'rxjs/operators';
-import * as WebSocket from 'ws';
 import { ConnectionEvent, ConnectionStatus } from './types';
+import { websocketCtor } from './websocket';
 
 export class MixerConnection {
   private reconnectTime = 2000;
@@ -100,7 +100,7 @@ export class MixerConnection {
   private createSocket() {
     this.socket$ = webSocket<string>({
       url: `ws://${this.targetIP}`,
-      WebSocketCtor: WebSocket,
+      WebSocketCtor: websocketCtor,
       serializer: data => data,
       deserializer: ({ data }) => data,
       openObserver: {
