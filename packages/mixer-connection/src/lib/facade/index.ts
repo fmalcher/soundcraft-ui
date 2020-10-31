@@ -1,5 +1,6 @@
 export * from './aux-bus';
 export * from './aux-channel';
+export * from './channel';
 export * from './fx-bus';
 export * from './fx-channel';
 export * from './master-bus';
