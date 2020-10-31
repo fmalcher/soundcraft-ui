@@ -1,4 +1,22 @@
 {
   "name": "soundcraft-ui-connection",
-  "version": "0.1.0"
+  "description": "Library for controlling the Soundcraft Ui series audio mixers",
+  "version": "0.1.0",
+  "license": "MIT",
+  "author": "Ferdinand Malcher <ferdinand@malcher.media>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fmalcher/soundcraft-ui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/fmalcher/soundcraft-ui/issues"
+  },
+  "homepage": "https://github.com/fmalcher/soundcraft-ui/tree/main/packages/mixer-connection",
+  "keywords": [
+    "Soundcraft UI",
+    "Mixer control",
+    "Audio",
+    "Audio mixer",
+    "Sound"
+  ]
 }
