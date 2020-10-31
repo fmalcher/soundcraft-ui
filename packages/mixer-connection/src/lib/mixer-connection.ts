@@ -142,7 +142,7 @@ export class MixerConnection {
       ),
       // parse messages (only use those with `3:::` prefix)
       map(message => {
-        const match = message.match(/^(3:::)(.*)/s);
+        const match = message.match(/^(3:::)([\s\S]*)/);
         return match && match[2];
       }),
       filter(e => !!e),
