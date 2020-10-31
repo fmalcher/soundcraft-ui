@@ -2,6 +2,14 @@
   "name": "soundcraft-ui",
   "version": "0.1.0",
   "license": "MIT",
+  "author": "Ferdinand Malcher <ferdinand@malcher.media>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fmalcher/soundcraft-ui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/fmalcher/soundcraft-ui/issues"
+  },
   "scripts": {
     "nx": "nx",
     "start": "nx serve",
