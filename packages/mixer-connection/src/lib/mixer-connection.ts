@@ -59,7 +59,7 @@ export class MixerConnection {
   /**
    * combined stream of inbound and outbound messages
    */
-  allMessages$ = merge(this.outbound$, this.inbound$).pipe(share());
+  allMessages$ = merge(this.outbound$, this.inbound$);
 
   constructor(private targetIP: string) {
     this.createSocket();

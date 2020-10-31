@@ -1,5 +1,5 @@
-import { Observable } from 'rxjs';
-import { filter, map, scan, shareReplay } from 'rxjs/operators';
+import { ConnectableObservable, Observable } from 'rxjs';
+import { filter, map, publishReplay, scan } from 'rxjs/operators';
 import { setObjectPath } from '../utils/object-path';
 
 import { transformStringValue } from '../util';
@@ -13,8 +13,11 @@ export class MixerStore {
       value: transformStringValue(value),
     })),
     scan((acc, { path, value }) => setObjectPath(acc, path, value), {}),
-    shareReplay(1)
+    publishReplay(1)
   );
 
-  constructor(private rawMessages$: Observable<string>) {}
+  constructor(private rawMessages$: Observable<string>) {
+    // start producing state values
+    (this.state$ as ConnectableObservable<any>).connect();
+  }
 }
