@@ -1,9 +1,9 @@
 import { distinctUntilChanged, filter, map } from 'rxjs/operators';
-import * as objectPath from 'object-path';
 import { OperatorFunction, pipe } from 'rxjs';
 
 import { ChannelType, BusType } from '../types';
 import { MixerState } from './mixer-state.models';
+import { getObjectPath } from '../utils/object-path';
 
 type Projector<T> = (state: MixerState) => T;
 type Selector<T> = (...args: any[]) => Projector<T>;
@@ -31,7 +31,7 @@ function getStatePath<T>(
   path: (string | number)[],
   defaultValue = undefined
 ) {
-  return objectPath.get<T>(state, path, defaultValue);
+  return getObjectPath<T>(state, path, defaultValue);
 }
 
 /**************************** */
