@@ -1,0 +1,49 @@
+<div class="mb-3">
+  <soundcraft-ui-mixer-button (press)="player.prev()"
+    >|&lt; Prev</soundcraft-ui-mixer-button
+  >
+  <soundcraft-ui-mixer-button (press)="player.play()"
+    >PLAY</soundcraft-ui-mixer-button
+  >
+  <soundcraft-ui-mixer-button (press)="player.pause()"
+    >PAUSE</soundcraft-ui-mixer-button
+  >
+  <soundcraft-ui-mixer-button (press)="player.stop()"
+    >STOP</soundcraft-ui-mixer-button
+  >
+  <soundcraft-ui-mixer-button (press)="player.next()"
+    >Next &gt;|</soundcraft-ui-mixer-button
+  >
+</div>
+
+<soundcraft-ui-input
+  label="Load playlist"
+  buttonLabel="Load"
+  [value]="playlistFromInput"
+  (valueChange)="player.loadPlaylist($event); this.playlistFromInput = $event"
+></soundcraft-ui-input>
+
+<soundcraft-ui-input
+  label="Load track from playlist {{ playlistFromInput }}"
+  buttonLabel="Load"
+  value="/Power_Shutoff.mp3"
+  (valueChange)="loadTrack($event)"
+></soundcraft-ui-input>
+<div class="text-muted" *ngIf="!playlistFromInput">
+  Set playlist first with input above!
+</div>
+
+<div class="mb-3">
+  <soundcraft-ui-mixer-button (press)="player.manual()"
+    >Manual</soundcraft-ui-mixer-button
+  >
+  <soundcraft-ui-mixer-button (press)="player.auto()"
+    >Auto</soundcraft-ui-mixer-button
+  >
+  <soundcraft-ui-mixer-button (press)="player.setShuffle(0)"
+    >Shuffle Off</soundcraft-ui-mixer-button
+  >
+  <soundcraft-ui-mixer-button (press)="player.setShuffle(1)"
+    >Shuffle On</soundcraft-ui-mixer-button
+  >
+</div>
