@@ -1,12 +1,7 @@
 import { take } from 'rxjs/operators';
 import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
-import {
-  select,
-  selectFaderValue,
-  selectMute,
-  selectPan,
-} from '../state/state-selectors';
+import { select, selectFaderValue, selectMute } from '../state/state-selectors';
 import { BusType, ChannelType } from '../types';
 
 /**
@@ -20,10 +15,6 @@ export class Channel {
     select(
       selectFaderValue(this.channelType, this.channel, this.busType, this.bus)
     )
-  );
-
-  pan$ = this.store.state$.pipe(
-    select(selectPan(this.channelType, this.channel, this.busType, this.bus))
   );
 
   mute$ = this.store.state$.pipe(

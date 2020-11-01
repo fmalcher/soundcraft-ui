@@ -1,7 +1,7 @@
 import { take } from 'rxjs/operators';
 import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
-import { select, selectSolo } from '../state/state-selectors';
+import { select, selectPan, selectSolo } from '../state/state-selectors';
 import { ChannelType } from '../types';
 import { Channel } from './channel';
 
@@ -13,6 +13,10 @@ export class MasterChannel extends Channel {
     select(selectSolo(this.channelType, this.channel))
   );
 
+  pan$ = this.store.state$.pipe(
+    select(selectPan(this.channelType, this.channel, this.busType, this.bus))
+  );
+
   constructor(
     conn: MixerConnection,
     store: MixerStore,
@@ -20,6 +24,11 @@ export class MasterChannel extends Channel {
     channel: number
   ) {
     super(conn, store, channelType, channel);
+  }
+
+  setPan(value: number) {
+    const command = `SETD^${this.fullChannelId}.pan^${value}`;
+    this.conn.sendMessage(command);
   }
 
   setSolo(value: number) {

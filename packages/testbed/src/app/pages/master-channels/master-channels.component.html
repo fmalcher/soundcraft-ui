@@ -6,5 +6,5 @@
   <soundcraft-ui-solo-button [channel]="c.channel"></soundcraft-ui-solo-button>
 
   <soundcraft-ui-fader-level [channel]="c.channel"></soundcraft-ui-fader-level>
-  <soundcraft-ui-pan [channel]="c.channel"></soundcraft-ui-pan>
+  <soundcraft-ui-pan *ngIf="!c.noPan" [channel]="c.channel"></soundcraft-ui-pan>
 </ng-container>

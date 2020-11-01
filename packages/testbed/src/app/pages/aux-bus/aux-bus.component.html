@@ -1,3 +1,8 @@
+<div class="text-muted">
+  Note: Pan is only possible for stereo-linked AUX buses. Pan does not work on a
+  single mono AUX bus.
+</div>
+
 <ng-container *ngFor="let c of channels$ | async">
   <h2 class="mt-4">{{ c.label }}</h2>
 
@@ -16,4 +21,5 @@
   </div>
 
   <soundcraft-ui-fader-level [channel]="c.channel"></soundcraft-ui-fader-level>
+  <soundcraft-ui-pan [channel]="c.channel"></soundcraft-ui-pan>
 </ng-container>
