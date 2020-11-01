@@ -1,5 +1,6 @@
 import { interval, merge, Subject } from 'rxjs';
 import { webSocket, WebSocketSubject } from 'rxjs/websocket';
+import * as ws from 'ws';
 import {
   mergeMap,
   filter,
@@ -13,7 +14,6 @@ import {
   share,
 } from 'rxjs/operators';
 import { ConnectionEvent, ConnectionStatus } from './types';
-import { websocketCtor } from './websocket';
 
 export class MixerConnection {
   private reconnectTime = 2000;
@@ -100,7 +100,7 @@ export class MixerConnection {
   private createSocket() {
     this.socket$ = webSocket<string>({
       url: `ws://${this.targetIP}`,
-      WebSocketCtor: websocketCtor,
+      WebSocketCtor: window ? window.WebSocket : ws,
       serializer: data => data,
       deserializer: ({ data }) => data,
       openObserver: {
