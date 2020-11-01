@@ -30,4 +30,13 @@ button {
       background: lighten(red, 20%);
     }
   }
+
+  &.dim {
+    color: white;
+    background: #2782f2;
+
+    &:hover {
+      background: lighten(#2782f2, 15%);
+    }
+  }
 }

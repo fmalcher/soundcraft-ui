@@ -110,7 +110,7 @@ The `MasterChannel` exposes the following operations:
 | Call on master channel           | Description                               |
 | -------------------------------- | ----------------------------------------- |
 | _all generic channel operations_ |                                           |
-| `setPan(value)`                  | Set pan for channel (between `0` and `1`) |
+| `pan(value)`                     | Set pan for channel (between `0` and `1`) |
 | `setSolo(value)`                 | Set solo for channel (`0` or `1`)         |
 | `solo()`                         | Enable solo                               |
 | `unsolo()`                       | Disable solo                              |
@@ -135,7 +135,7 @@ An `AuxChannel` supports the following operations:
 | Call on AUX channel              | Description                                                           |
 | -------------------------------- | --------------------------------------------------------------------- |
 | _all generic channel operations_ |                                                                       |
-| `setPan(value)`                  | Set pan for channel (between `0` and `1`). Not possible for mono AUX! |
+| `pan(value)`                     | Set pan for channel (between `0` and `1`). Not possible for mono AUX! |
 | `pre()`                          | Set channel to PRE                                                    |
 | `post()`                         | Set channel to POST                                                   |
 | `setPost(value)`                 | Set POST (`1`) or PRE (`0`)                                           |

@@ -26,7 +26,7 @@ export class MasterChannel extends Channel {
     super(conn, store, channelType, channel);
   }
 
-  setPan(value: number) {
+  pan(value: number) {
     const command = `SETD^${this.fullChannelId}.pan^${value}`;
     this.conn.sendMessage(command);
   }

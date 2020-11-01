@@ -22,7 +22,7 @@ export class AuxChannel extends SendChannel {
     super(conn, store, channelType, channel, 'aux', bus);
   }
 
-  setPan(value: number) {
+  pan(value: number) {
     const command = `SETD^${this.fullChannelId}.pan^${value}`;
     this.conn.sendMessage(command);
   }
