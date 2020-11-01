@@ -81,16 +81,15 @@ conn.master.faderLevel$.subscribe(value => {
 
 These operations apply for any sort of channel like `MasterChannel`, `FxChannel` or `AuxChannel`.
 
-| Call                 | Description                           |
-| -------------------- | ------------------------------------- |
-| `setFaderLevel(0.5)` | Set fader level (between `0` and `1`) |
-| `setMute(value)`     | Set mute for channel (`0` or `1`)     |
-| `mute()`             | Mute channel                          |
-| `unmute()`           | Unmute channel                        |
-| `toggleMute()`       | Toggle mute status                    |
-| `faderLevel$`        | Get fader level (between `0` and `1`) |
-| `pan$`               | Get pan value (between `0` and `1`)   |
-| `mute$`              | Get mute status (`0` or `1`)          |
+| Call                   | Description                           |
+| ---------------------- | ------------------------------------- |
+| `setFaderLevel(value)` | Set fader level (between `0` and `1`) |
+| `setMute(value)`       | Set mute for channel (`0` or `1`)     |
+| `mute()`               | Mute channel                          |
+| `unmute()`             | Unmute channel                        |
+| `toggleMute()`         | Toggle mute status                    |
+| `faderLevel$`          | Get fader level (between `0` and `1`) |
+| `mute$`                | Get mute status (`0` or `1`)          |
 
 ### Master bus
 
@@ -108,14 +107,16 @@ Get access to a `MasterChannel` object first:
 
 The `MasterChannel` exposes the following operations:
 
-| Call on master channel           | Description                       |
-| -------------------------------- | --------------------------------- |
-| _all generic channel operations_ |                                   |
-| `setSolo(value)`                 | Set solo for channel (`0` or `1`) |
-| `solo()`                         | Enable solo                       |
-| `unsolo()`                       | Disable solo                      |
-| `toggleSolo()`                   | Toggle solo status                |
-| `solo$`                          | Get solo status (`0` or `1`)      |
+| Call on master channel           | Description                               |
+| -------------------------------- | ----------------------------------------- |
+| _all generic channel operations_ |                                           |
+| `setPan(value)`                  | Set pan for channel (between `0` and `1`) |
+| `setSolo(value)`                 | Set solo for channel (`0` or `1`)         |
+| `solo()`                         | Enable solo                               |
+| `unsolo()`                       | Disable solo                              |
+| `toggleSolo()`                   | Toggle solo status                        |
+| `solo$`                          | Get solo status (`0` or `1`)              |
+| `pan$`                           | Get pan value (between `0` and `1`)       |
 
 ### AUX buses
 
@@ -131,16 +132,18 @@ Then pick one of the available `AuxChannel`s:
 
 An `AuxChannel` supports the following operations:
 
-| Call on AUX channel              | Description                                 |
-| -------------------------------- | ------------------------------------------- |
-| _all generic channel operations_ |                                             |
-| `pre()`                          | Set channel to PRE                          |
-| `post()`                         | Set channel to POST                         |
-| `setPost(value)`                 | Set POST (`1`) or PRE (`0`)                 |
-| `preProc()`                      | Set channel to PRE PROC                     |
-| `postProc()`                     | Set channel to POST PROC                    |
-| `setPostProc(value)`             | Set POST PROC (`1`) or PRE PROC (`0`)       |
-| `post$`                          | Get POST status (`0` for PRE, `1` for POST) |
+| Call on AUX channel              | Description                                                           |
+| -------------------------------- | --------------------------------------------------------------------- |
+| _all generic channel operations_ |                                                                       |
+| `setPan(value)`                  | Set pan for channel (between `0` and `1`). Not possible for mono AUX! |
+| `pre()`                          | Set channel to PRE                                                    |
+| `post()`                         | Set channel to POST                                                   |
+| `setPost(value)`                 | Set POST (`1`) or PRE (`0`)                                           |
+| `preProc()`                      | Set channel to PRE PROC                                               |
+| `postProc()`                     | Set channel to POST PROC                                              |
+| `setPostProc(value)`             | Set POST PROC (`1`) or PRE PROC (`0`)                                 |
+| `post$`                          | Get POST status (`0` for PRE, `1` for POST)                           |
+| `pan$`                           | Get pan value (between `0` and `1`)                                   |
 
 ### FX buses
 
