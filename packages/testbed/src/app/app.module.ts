@@ -15,6 +15,8 @@ import { PrepostComponent } from './ui/prepost/prepost.component';
 import { FullStateComponent } from './pages/full-state/full-state.component';
 import { FxBusComponent } from './pages/fx-bus/fx-bus.component';
 import { MasterComponent } from './pages/master/master.component';
+import { PlayerComponent } from './pages/player/player.component';
+import { InputComponent } from './ui/input/input.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'connection', pathMatch: 'full' },
@@ -23,6 +25,7 @@ const routes: Routes = [
   { path: 'masterbus', component: MasterBusComponent },
   { path: 'auxbus/:bus', component: AuxBusComponent },
   { path: 'fxbus/:bus', component: FxBusComponent },
+  { path: 'player', component: PlayerComponent },
   { path: 'fullstate', component: FullStateComponent },
 ];
 
@@ -41,6 +44,8 @@ const routes: Routes = [
     FullStateComponent,
     FxBusComponent,
     MasterComponent,
+    PlayerComponent,
+    InputComponent,
   ],
   imports: [
     BrowserModule,
