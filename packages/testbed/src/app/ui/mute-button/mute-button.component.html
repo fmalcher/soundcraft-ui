@@ -1,0 +1,16 @@
+<ng-container *ngIf="channel">
+  <soundcraft-ui-mixer-button
+    activeClass="mute"
+    [active]="channel.mute$ | async"
+    (press)="channel.toggleMute()"
+  >
+    Mute toggle {{ label }}
+  </soundcraft-ui-mixer-button>
+
+  <soundcraft-ui-mixer-button (press)="channel.mute()">
+    Mute {{ label }}</soundcraft-ui-mixer-button
+  >
+  <soundcraft-ui-mixer-button (press)="channel.unmute()"
+    >Unmute {{ label }}</soundcraft-ui-mixer-button
+  >
+</ng-container>

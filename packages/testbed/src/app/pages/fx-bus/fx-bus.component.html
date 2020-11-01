@@ -1,0 +1,9 @@
+<ng-container *ngFor="let c of channels$ | async">
+  <h2 class="mt-4">{{ c.label }}</h2>
+
+  <soundcraft-ui-mute-button [channel]="c.channel"></soundcraft-ui-mute-button>
+
+  <soundcraft-ui-prepost [channel]="c.channel"></soundcraft-ui-prepost>
+
+  <soundcraft-ui-fader-level [channel]="c.channel"></soundcraft-ui-fader-level>
+</ng-container>

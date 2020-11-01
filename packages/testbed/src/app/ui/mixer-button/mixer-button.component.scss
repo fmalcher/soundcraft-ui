@@ -1,0 +1,33 @@
+button {
+  height: 45px;
+  min-width: 120px;
+  background: black;
+  color: white;
+  border: 1px solid black;
+  outline: none;
+  margin-right: 10px;
+  margin-top: 10px;
+  padding: 10px;
+
+  &:hover {
+    background: lighten(black, 20%);
+  }
+
+  &.solo {
+    color: black;
+    background: yellow;
+
+    &:hover {
+      background: lighten(yellow, 20%);
+    }
+  }
+
+  &.mute {
+    color: white;
+    background: red;
+
+    &:hover {
+      background: lighten(red, 20%);
+    }
+  }
+}
