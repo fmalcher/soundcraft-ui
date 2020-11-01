@@ -1,3 +1,8 @@
+# [0.2.1](https://github.com/fmalcher/soundcraft-ui/compare/0.2.0...0.2.1) (2020-11-01)
+
+- use [isomorphic-ws](https://github.com/heineiuo/isomorphic-ws) for WebSocket abstraction across platforms
+- remove debug output
+
 # [0.2.0](https://github.com/fmalcher/soundcraft-ui/compare/0.1.0...0.2.0) (2020-11-01)
 
 - documentation
