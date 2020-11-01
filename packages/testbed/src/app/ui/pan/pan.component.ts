@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { AuxChannel, MasterChannel } from 'soundcraft-ui-connection';
+import { AuxChannel, MasterBus, MasterChannel } from 'soundcraft-ui-connection';
 
 @Component({
   selector: 'soundcraft-ui-pan',
@@ -7,7 +7,7 @@ import { AuxChannel, MasterChannel } from 'soundcraft-ui-connection';
   styleUrls: ['./pan.component.css'],
 })
 export class PanComponent implements OnInit {
-  @Input() channel: MasterChannel | AuxChannel;
+  @Input() channel: MasterChannel | AuxChannel | MasterBus;
 
   constructor() {}
 

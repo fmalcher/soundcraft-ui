@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MasterChannelsComponent } from './master-channels.component';
+import { MasterComponent } from './master.component';
 
-describe('MasterChannelsComponent', () => {
-  let component: MasterChannelsComponent;
-  let fixture: ComponentFixture<MasterChannelsComponent>;
+describe('MasterComponent', () => {
+  let component: MasterComponent;
+  let fixture: ComponentFixture<MasterComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MasterChannelsComponent ]
+      declarations: [ MasterComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MasterChannelsComponent);
+    fixture = TestBed.createComponent(MasterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

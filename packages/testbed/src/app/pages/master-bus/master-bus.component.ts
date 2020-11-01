@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ConnectionService } from '../../connection.service';
 
 @Component({
-  selector: 'soundcraft-ui-master-channels',
-  templateUrl: './master-channels.component.html',
-  styleUrls: ['./master-channels.component.css'],
+  selector: 'soundcraft-ui-master-bus',
+  templateUrl: './master-bus.component.html',
+  styleUrls: ['./master-bus.component.css'],
 })
-export class MasterChannelsComponent implements OnInit {
+export class MasterBusComponent implements OnInit {
   master = this.cs.conn.master;
 
   channels = [
