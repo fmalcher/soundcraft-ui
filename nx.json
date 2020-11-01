@@ -1,7 +1,7 @@
 {
   "npmScope": "soundcraft-ui",
   "affected": {
-    "defaultBase": "master"
+    "defaultBase": "main"
   },
   "implicitDependencies": {
     "workspace.json": "*",
@@ -26,8 +26,12 @@
     "mixer-connection": {
       "tags": []
     },
-    "ui-testbed": {
+    "testbed": {
       "tags": []
+    },
+    "testbed-e2e": {
+      "tags": [],
+      "implicitDependencies": ["testbed"]
     }
   },
   "workspaceLayout": {

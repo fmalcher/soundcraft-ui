@@ -1,0 +1,16 @@
+<ng-container *ngIf="channel">
+  <soundcraft-ui-mixer-button
+    activeClass="solo"
+    [active]="channel.solo$ | async"
+    (press)="channel.toggleSolo()"
+  >
+    Solo toggle {{ label }}
+  </soundcraft-ui-mixer-button>
+
+  <soundcraft-ui-mixer-button (press)="channel.solo()">
+    Solo {{ label }}</soundcraft-ui-mixer-button
+  >
+  <soundcraft-ui-mixer-button (press)="channel.unsolo()"
+    >Unsolo {{ label }}</soundcraft-ui-mixer-button
+  >
+</ng-container>
