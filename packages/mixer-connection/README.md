@@ -65,31 +65,35 @@ conn.master.faderLevel$.subscribe(value => {
 
 ### Master
 
-| Call                             | Description                                      |
-| -------------------------------- | ------------------------------------------------ |
-| `conn.master.setFaderLevel(0.5)` | Set the master fader level (between `0` and `1`) |
-| `conn.master.pan(0.5)`           | Set the master pan (between `0` and `1`)         |
-| `conn.master.dim()`              | Dim master                                       |
-| `conn.master.undim()`            | Undim master                                     |
-| `conn.master.toggleDim()`        | Toggle master dim                                |
-| `conn.master.setDim(value)`      | Set master dim (`0` or `1`)                      |
-| `conn.master.faderLevel$`        | Get master fader level (between `0` and `1`)     |
-| `conn.master.pan$`               | Get master pan value (between `0` and `1`)       |
-| `conn.master.dim$`               | Get master dim status (`0` or `1`)               |
+| Call                                   | Description                                                |
+| -------------------------------------- | ---------------------------------------------------------- |
+| `conn.master.setFaderLevel(value)`     | Set the master fader level (between `0` and `1`)           |
+| `conn.master.setFaderLevelDB(dbValue)` | Set the master fader level in dB (between `-100` and `10`) |
+| `conn.master.pan(value)`               | Set the master pan (between `0` and `1`)                   |
+| `conn.master.dim()`                    | Dim master                                                 |
+| `conn.master.undim()`                  | Undim master                                               |
+| `conn.master.toggleDim()`              | Toggle master dim                                          |
+| `conn.master.setDim(value)`            | Set master dim (`0` or `1`)                                |
+| `conn.master.faderLevel$`              | Get master fader level (between `0` and `1`)               |
+| `conn.master.faderLevelDB$`            | Get master fader level in dB (between `-100` and `10`)     |
+| `conn.master.pan$`                     | Get master pan value (between `0` and `1`)                 |
+| `conn.master.dim$`                     | Get master dim status (`0` or `1`)                         |
 
 ### Generic channel operations
 
 These operations apply for any sort of channel like `MasterChannel`, `FxChannel` or `AuxChannel`.
 
-| Call                   | Description                           |
-| ---------------------- | ------------------------------------- |
-| `setFaderLevel(value)` | Set fader level (between `0` and `1`) |
-| `setMute(value)`       | Set mute for channel (`0` or `1`)     |
-| `mute()`               | Mute channel                          |
-| `unmute()`             | Unmute channel                        |
-| `toggleMute()`         | Toggle mute status                    |
-| `faderLevel$`          | Get fader level (between `0` and `1`) |
-| `mute$`                | Get mute status (`0` or `1`)          |
+| Call                       | Description                                     |
+| -------------------------- | ----------------------------------------------- |
+| `setFaderLevel(value)`     | Set fader level (between `0` and `1`)           |
+| `setFaderLevelDB(dbValue)` | Set fader level in dB (between `-100` and `10`) |
+| `setMute(value)`           | Set mute for channel (`0` or `1`)               |
+| `mute()`                   | Mute channel                                    |
+| `unmute()`                 | Unmute channel                                  |
+| `toggleMute()`             | Toggle mute status                              |
+| `faderLevel$`              | Get fader level (between `0` and `1`)           |
+| `faderLevelDB$`            | Get fader level in dB (between `-100` and `10`) |
+| `mute$`                    | Get mute status (`0` or `1`)                    |
 
 ### Master bus
 

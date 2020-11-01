@@ -3,11 +3,15 @@
   type="range"
   min="0"
   max="1"
-  step="0.00001"
-  value="0.5"
+  step="0.00000000001"
   (change)="channel.setFaderLevel(faderLevelInput.value)"
   [value]="channel.faderLevel$ | async"
   #faderLevelInput
 />
 
-<span class="badge badge-success ml-3">{{ channel.faderLevel$ | async }}</span>
+<span class="badge badge-danger ml-3"
+  >{{ channel.faderLevelDB$ | async }} dB</span
+>
+<span class="badge badge-secondary ml-3">{{
+  channel.faderLevel$ | async
+}}</span>
