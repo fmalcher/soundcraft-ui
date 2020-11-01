@@ -87,8 +87,8 @@ export class MixerConnection {
      */
     this.outbound$
       .pipe(
-        map(msg => `3:::${msg}`),
-        tap(msg => console.log(new Date(), 'SENDING:', msg)) // log message
+        map(msg => `3:::${msg}`)
+        // tap(msg => console.log(new Date(), 'SENDING:', msg)) // log message
       )
       .subscribe(this.socket$);
   }
