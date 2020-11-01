@@ -174,17 +174,15 @@ export const selectPost: Selector<number> = (
   bus: number
 ) => {
   return state =>
-    getStatePath<number>(state, [
-      channelType,
-      channel - 1,
-      busType,
-      bus,
-      'post',
-    ]);
+    getStatePath<number>(
+      state,
+      [channelType, channel - 1, busType, bus - 1, 'post'],
+      0
+    );
 };
 
 /**
- * Select "p" value of a send channel
+ * Select "postproc" value of a send channel
  * @param channelType
  * @param channel
  */
@@ -194,11 +192,9 @@ export const selectAuxPostProc: Selector<number> = (
   aux: number
 ) => {
   return state =>
-    getStatePath<number>(state, [
-      channelType,
-      channel - 1,
-      'aux',
-      aux,
-      'postproc',
-    ]);
+    getStatePath<number>(
+      state,
+      [channelType, channel - 1, 'aux', aux - 1, 'postproc'],
+      0
+    );
 };
