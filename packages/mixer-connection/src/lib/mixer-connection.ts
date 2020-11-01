@@ -1,6 +1,6 @@
 import { interval, merge, Subject } from 'rxjs';
 import { webSocket, WebSocketSubject } from 'rxjs/websocket';
-import * as ws from 'ws';
+import ws from 'isomorphic-ws';
 import {
   mergeMap,
   filter,
@@ -100,7 +100,7 @@ export class MixerConnection {
   private createSocket() {
     this.socket$ = webSocket<string>({
       url: `ws://${this.targetIP}`,
-      WebSocketCtor: window ? window.WebSocket : ws,
+      WebSocketCtor: ws,
       serializer: data => data,
       deserializer: ({ data }) => data,
       openObserver: {
