@@ -16,9 +16,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@soundcraft-ui/mixer-connection": [
-        "packages/mixer-connection/src/index.ts"
-      ],
       "soundcraft-ui-connection": ["packages/mixer-connection/src/index.ts"]
     }
   },
