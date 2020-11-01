@@ -21,7 +21,10 @@ You must also build the library so that the application can use it:
 
 ```bash
 nx build mixer-connection --watch
-nx serve ui-testbed
+
+nx serve testbed
+# OR
+npm run testbed
 ```
 
 ## License

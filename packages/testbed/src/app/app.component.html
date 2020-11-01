@@ -1,0 +1,35 @@
+<div class="container">
+  <h1>Soundcraft Ui Testbed</h1>
+
+  <div class="card mt-3">
+    <div class="card-header text-muted">
+      <strong>Connection status: </strong>
+      <ng-container *ngIf="status$ | async as status">{{
+        status.type
+      }}</ng-container>
+
+      <span class="float-right">
+        <button class="btn btn-success btn-sm mr-2" (click)="cs.conn.connect()">
+          Connect
+        </button>
+        <button class="btn btn-danger btn-sm" (click)="cs.conn.disconnect()">
+          Disconnect
+        </button>
+      </span>
+    </div>
+    <div class="card-body">
+      <ul class="nav nav-tabs nav-fill mb-3">
+        <li class="nav-item" *ngFor="let link of navLinks">
+          <a
+            class="nav-link"
+            [routerLink]="link.target"
+            routerLinkActive="active"
+            >{{ link.label }}</a
+          >
+        </li>
+      </ul>
+
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
