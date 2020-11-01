@@ -1,4 +1,4 @@
-import { take } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
 import {
@@ -7,6 +7,7 @@ import {
   selectMasterPan,
   selectMasterValue,
 } from '../state/state-selectors';
+import { DBToFaderValue, faderValueToDB } from '../utils/value-converters';
 import { MasterChannel } from './master-channel';
 
 /**
@@ -14,6 +15,8 @@ import { MasterChannel } from './master-channel';
  */
 export class MasterBus {
   faderLevel$ = this.state.state$.pipe(select(selectMasterValue()));
+  faderLevelDB$ = this.faderLevel$.pipe(map(v => faderValueToDB(v)));
+
   pan$ = this.state.state$.pipe(select(selectMasterPan()));
   dim$ = this.state.state$.pipe(select(selectMasterDim()));
 
@@ -54,6 +57,10 @@ export class MasterBus {
   setFaderLevel(value: number) {
     const command = `SETD^m.mix^${value}`;
     this.conn.sendMessage(command);
+  }
+
+  setFaderLevelDB(dbValue: number) {
+    this.setFaderLevel(DBToFaderValue(dbValue));
   }
 
   pan(value: number) {
