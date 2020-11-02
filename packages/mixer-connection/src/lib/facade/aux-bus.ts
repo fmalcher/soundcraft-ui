@@ -25,6 +25,6 @@ export class AuxBus {
   }
 
   fx(channel: number) {
-    return new AuxChannel(this.conn, this.store, 'a', channel, this.bus);
+    return new AuxChannel(this.conn, this.store, 'f', channel, this.bus);
   }
 }
