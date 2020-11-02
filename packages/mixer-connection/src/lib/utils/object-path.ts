@@ -1,3 +1,10 @@
+/**
+ * Read from a nested object, based on the given path
+ *
+ * @param obj Object to read from
+ * @param path Path in the nested object where the value can be found
+ * @param defaultValue Default value will be returned, when the given path is not available
+ */
 export function getObjectPath<T>(
   obj: any,
   path: (string | number)[] = [],
@@ -16,7 +23,11 @@ export function getObjectPath<T>(
   return subObj as T;
 }
 
-export function getAddressableValue<S, K extends keyof S>(
+/**
+ * Helper function to safely extract a value from an object using getObjectPath.
+ * Only used internally for setObjectPath
+ */
+function getAddressableValue<S, K extends keyof S>(
   source: S,
   key: K,
   nextKey?: string | number
@@ -28,6 +39,14 @@ export function getAddressableValue<S, K extends keyof S>(
   if (Number.isInteger(Number(nextKey))) return [];
 }
 
+/**
+ * Immutably set a value in a nested object, based on the given path.
+ * Works without modifying the source object, but returns a new object instead.
+ *
+ * @param source Object to modify
+ * @param path Path in the nested object where the change should happen
+ * @param value Value to set
+ */
 export function setObjectPath(
   source: any,
   path: (string | number)[],

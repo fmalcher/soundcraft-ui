@@ -12,18 +12,34 @@ export class FxBus {
     private bus: number
   ) {}
 
+  /**
+   * Get input channel on the FX bus
+   * @param channel Channel number
+   */
   input(channel: number) {
     return new FxChannel(this.conn, this.store, 'i', channel, this.bus);
   }
 
+  /**
+   * Get line channel on the FX bus
+   * @param channel Channel number
+   */
   line(channel: number) {
     return new FxChannel(this.conn, this.store, 'l', channel, this.bus);
   }
 
+  /**
+   * Get player channel on the FX bus
+   * @param channel Channel number
+   */
   player(channel: number) {
     return new FxChannel(this.conn, this.store, 'p', channel, this.bus);
   }
 
+  /**
+   * Get sub group channel on the FX bus
+   * @param channel Channel number
+   */
   sub(channel: number) {
     return new FxChannel(this.conn, this.store, 's', channel, this.bus);
   }

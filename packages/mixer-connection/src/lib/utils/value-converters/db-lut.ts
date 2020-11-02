@@ -1,5 +1,5 @@
 /**
- * Lookup table (LUT) for conversion between dB and linear fader values
+ * Lookup table (LUT) for conversion between dB <=> linear fader values
  */
 export const dBLinearLUT: [number, number][] = [
   [-Infinity, 0],
