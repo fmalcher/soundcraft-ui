@@ -4,6 +4,11 @@ import { dBLinearLUT } from './db-lut';
  * Helper function for lookup in the LUT.
  * First, find the position which is closest to the requested source value.
  * Then do linear interpolation to find a closer value.
+ *
+ * @param lut Lookup table as nested array
+ * @param sourceVal source value to convert
+ * @param sourceIndex column index of the source values
+ * @param resultIndex column index of the result values
  */
 function findInLUT(
   lut: [number, number][],

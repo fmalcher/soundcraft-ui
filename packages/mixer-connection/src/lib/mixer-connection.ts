@@ -16,7 +16,10 @@ import {
 import { ConnectionEvent, ConnectionStatus } from './types';
 
 export class MixerConnection {
+  /** time to wait before reconnecting after an error */
   private reconnectTime = 2000;
+
+  /** period time for the keepalive interval messages */
   private keepaliveTime = 1000;
 
   private socket$: WebSocketSubject<string>;
@@ -41,24 +44,16 @@ export class MixerConnection {
 
   /** public message streams */
 
-  /**
-   * Connection status
-   */
+  /** Connection status */
   status$ = this.statusSubject$.asObservable();
 
-  /**
-   * All outbound messages (from client to mixer)
-   */
+  /** All outbound messages (from client to mixer) */
   outbound$ = this.outboundSubject$.asObservable();
 
-  /**
-   * All inbound messages (from mixer to client)
-   */
+  /** All inbound messages (from mixer to client) */
   inbound$ = this.inboundSubject$.asObservable();
 
-  /**
-   * combined stream of inbound and outbound messages
-   */
+  /** combined stream of inbound and outbound messages */
   allMessages$ = merge(this.outbound$, this.inbound$);
 
   constructor(private targetIP: string) {
@@ -82,9 +77,7 @@ export class MixerConnection {
       )
       .subscribe(msg => this.outboundSubject$.next(msg));
 
-    /**
-     * Send outbound messages to mixer
-     */
+    /** Send outbound messages to mixer */
     this.outbound$
       .pipe(
         map(msg => `3:::${msg}`)
@@ -116,9 +109,7 @@ export class MixerConnection {
     });
   }
 
-  /**
-   * Connect to socket and retry if connection lost
-   */
+  /** Connect to socket and retry if connection lost */
   connect() {
     this.statusSubject$.next({ type: ConnectionStatus.Opening });
     const messages$ = this.socket$.pipe(
@@ -175,9 +166,7 @@ export class MixerConnection {
       .subscribe(msg => this.socket$.next(msg));*/
   }
 
-  /**
-   * Disconnect from socket
-   */
+  /** Disconnect from socket */
   disconnect() {
     this.socket$.complete();
     this.forceClose$.next();
@@ -185,7 +174,7 @@ export class MixerConnection {
 
   /**
    * Send command to the mixer
-   * @param msg
+   * @param msg Message to send
    */
   sendMessage(msg: string) {
     this.outboundSubject$.next(msg);
