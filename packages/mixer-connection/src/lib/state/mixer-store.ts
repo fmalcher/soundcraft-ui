@@ -5,6 +5,10 @@ import { setObjectPath } from '../utils/object-path';
 import { transformStringValue } from '../util';
 
 export class MixerStore {
+  /**
+   * The full mixer state.
+   * Updates whenever the state changes
+   */
   readonly state$ = this.rawMessages$.pipe(
     map(msg => msg.match(/(SETD|SETS)\^([a-zA-Z0-9.]+)\^(.*)/)),
     filter(e => !!e),
