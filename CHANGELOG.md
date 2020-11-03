@@ -1,3 +1,12 @@
+# [0.4.0](https://github.com/fmalcher/soundcraft-ui/compare/0.3.0...0.4.0) (2020-11-03)
+
+- add PRE/POST toggle for send channels
+- rename facade methods and align with README
+- add inline documentation for all public facade properties and methods
+- add tests for all possible outbound messages
+
+In theory, this is a breaking change. Since this library is not stable yet, we don't bump a major version now.
+
 # [0.3.0](https://github.com/fmalcher/soundcraft-ui/compare/0.2.1...0.3.0) (2020-11-01)
 
 - add dB value converter functions
