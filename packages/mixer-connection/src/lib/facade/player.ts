@@ -67,12 +67,12 @@ export class Player {
   }
 
   /** Enable manual mode */
-  manual() {
+  setManual() {
     this.setPlayMode(0);
   }
 
   /** Enable automatic mode */
-  auto() {
+  setAuto() {
     this.setPlayMode(3);
   }
 }
