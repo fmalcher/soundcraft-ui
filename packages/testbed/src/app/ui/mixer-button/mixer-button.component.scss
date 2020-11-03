@@ -39,4 +39,13 @@ button {
       background: lighten(#2782f2, 15%);
     }
   }
+
+  &.post {
+    color: white;
+    background: #069840;
+
+    &:hover {
+      background: lighten(#069840, 5%);
+    }
+  }
 }
