@@ -37,18 +37,18 @@ export class AuxChannel extends SendChannel {
    * Set PRE/POST PROC value for the AUX channel
    * @param value `1` (POST PROC) or `0` (PRE PROC)
    */
-  setPostproc(value: number) {
+  setPostProc(value: number) {
     const command = `SETD^${this.fullChannelId}.postproc^${value}`;
     this.conn.sendMessage(command);
   }
 
   /** Set AUX channel to POST PROC */
-  postproc() {
-    this.setPostproc(1);
+  postProc() {
+    this.setPostProc(1);
   }
 
   /** Set AUX channel to PRE PROC */
-  preproc() {
-    this.setPostproc(0);
+  preProc() {
+    this.setPostProc(0);
   }
 }
