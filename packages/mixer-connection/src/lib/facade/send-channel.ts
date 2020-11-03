@@ -39,4 +39,7 @@ export class SendChannel extends Channel {
   pre() {
     this.setPost(0);
   }
+  togglePost() {
+    this.post$.pipe(take(1)).subscribe(post => this.setPost(post ^ 1));
+  }
 }

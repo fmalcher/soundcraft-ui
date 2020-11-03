@@ -142,6 +142,7 @@ An `AuxChannel` supports the following operations:
 | `pan(value)`                     | Set pan for channel (between `0` and `1`). Not possible for mono AUX! |
 | `pre()`                          | Set channel to PRE                                                    |
 | `post()`                         | Set channel to POST                                                   |
+| `togglePost()`                   | Toggle PRE/POST status                                                |
 | `setPost(value)`                 | Set POST (`1`) or PRE (`0`)                                           |
 | `preProc()`                      | Set channel to PRE PROC                                               |
 | `postProc()`                     | Set channel to POST PROC                                              |
