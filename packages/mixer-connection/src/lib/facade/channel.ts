@@ -2,7 +2,9 @@ import { map, take } from 'rxjs/operators';
 import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
 import { select, selectFaderValue, selectMute } from '../state/state-selectors';
+import { TransitionRegistry } from '../transitions';
 import { BusType, ChannelType } from '../types';
+import { Easings } from '../utils/transitions/easings';
 import { DBToFaderValue, faderValueToDB } from '../utils/value-converters';
 
 /**
@@ -30,11 +32,55 @@ export class Channel {
   constructor(
     protected conn: MixerConnection,
     protected store: MixerStore,
+    protected transitions: TransitionRegistry,
     protected channelType: ChannelType,
     protected channel: number,
     protected busType: BusType = 'master',
     protected bus: number = 0
   ) {}
+
+  /**
+   * Perform fader transition to linear value
+   * @param targetValue Target value as linear value (between 0 and 1)
+   * @param fadeTime Fade time in ms
+   * @param easing Easing characteristic, as an entry of the `Easings` enum. Defaults to `Linear`
+   * @param fps Frames per second, defaults to 25
+   */
+  fadeTo(
+    targetValue: number,
+    fadeTime: number,
+    easing: Easings = Easings.Linear,
+    fps: number = 25
+  ) {
+    this.faderLevel$.pipe(take(1)).subscribe(sourceValue => {
+      this.transitions.addTransition({
+        sourceValue,
+        targetValue,
+        fadeTime,
+        easing,
+        fps,
+        fullChannelId: this.fullChannelId,
+        faderLevelCommand: this.faderLevelCommand,
+      });
+    });
+  }
+
+  /**
+   * Perform fader transition to dB value
+   * @param targetValueDB Target value as dB value (between -Infinity and 10)
+   * @param fadeTime Fade time in ms
+   * @param easing Easing characteristic, as an entry of the `Easings` enum. Defaults to `Linear`
+   * @param fps Frames per second, defaults to 25
+   */
+  fadeToDB(
+    targetValueDB: number,
+    fadeTime: number,
+    easing: Easings = Easings.Linear,
+    fps: number = 25
+  ) {
+    const targetValue = DBToFaderValue(targetValueDB);
+    return this.fadeTo(targetValue, fadeTime, easing, fps);
+  }
 
   /**
    * Set linear level of the channel fader

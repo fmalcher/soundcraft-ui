@@ -1,5 +1,6 @@
 import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
+import { TransitionRegistry } from '../transitions';
 import { AuxChannel } from './aux-channel';
 
 /**
@@ -9,6 +10,7 @@ export class AuxBus {
   constructor(
     private conn: MixerConnection,
     private store: MixerStore,
+    private transitions: TransitionRegistry,
     private bus: number
   ) {}
 
@@ -17,7 +19,14 @@ export class AuxBus {
    * @param channel Channel number
    */
   input(channel: number) {
-    return new AuxChannel(this.conn, this.store, 'i', channel, this.bus);
+    return new AuxChannel(
+      this.conn,
+      this.store,
+      this.transitions,
+      'i',
+      channel,
+      this.bus
+    );
   }
 
   /**
@@ -25,7 +34,14 @@ export class AuxBus {
    * @param channel Channel number
    */
   line(channel: number) {
-    return new AuxChannel(this.conn, this.store, 'l', channel, this.bus);
+    return new AuxChannel(
+      this.conn,
+      this.store,
+      this.transitions,
+      'l',
+      channel,
+      this.bus
+    );
   }
 
   /**
@@ -33,7 +49,14 @@ export class AuxBus {
    * @param channel Channel number
    */
   player(channel: number) {
-    return new AuxChannel(this.conn, this.store, 'p', channel, this.bus);
+    return new AuxChannel(
+      this.conn,
+      this.store,
+      this.transitions,
+      'p',
+      channel,
+      this.bus
+    );
   }
 
   /**
@@ -41,6 +64,13 @@ export class AuxBus {
    * @param channel Channel number
    */
   fx(channel: number) {
-    return new AuxChannel(this.conn, this.store, 'f', channel, this.bus);
+    return new AuxChannel(
+      this.conn,
+      this.store,
+      this.transitions,
+      'f',
+      channel,
+      this.bus
+    );
   }
 }

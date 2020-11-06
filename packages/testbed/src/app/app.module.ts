@@ -17,6 +17,8 @@ import { FxBusComponent } from './pages/fx-bus/fx-bus.component';
 import { MasterComponent } from './pages/master/master.component';
 import { PlayerComponent } from './pages/player/player.component';
 import { InputComponent } from './ui/input/input.component';
+import { TransitionComponent } from './ui/transition/transition.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   { path: '', redirectTo: 'connection', pathMatch: 'full' },
@@ -46,10 +48,12 @@ const routes: Routes = [
     MasterComponent,
     PlayerComponent,
     InputComponent,
+    TransitionComponent,
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes, { initialNavigation: 'enabled' }),
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

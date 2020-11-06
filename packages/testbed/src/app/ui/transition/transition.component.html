@@ -1,0 +1,42 @@
+<form [formGroup]="form" (ngSubmit)="fade()" class="row">
+  <div class="col">
+    <label>Fade to</label>
+  </div>
+
+  <div class="col">
+    <input
+      type="range"
+      min="0"
+      max="1"
+      step="0.00000000001"
+      formControlName="targetValue"
+      title="Target value"
+    />
+  </div>
+  <div class="col">
+    <span class="badge badge-danger ml-3">{{ targetValueDB }} dB</span>
+  </div>
+
+  <div class="col">
+    <input
+      type="number"
+      min="100"
+      max="30000"
+      class="form-control"
+      formControlName="fadeTime"
+      title="Fade time"
+    />
+  </div>
+
+  <div class="col">
+    <select formControlName="easing" class="form-control" title="Easing">
+      <option *ngFor="let o of easingOptions" [value]="o.value">{{
+        o.label
+      }}</option>
+    </select>
+  </div>
+
+  <div class="col">
+    <button type="submit" class="btn btn-danger">Fade</button>
+  </div>
+</form>

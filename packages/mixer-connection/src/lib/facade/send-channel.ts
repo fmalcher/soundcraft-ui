@@ -2,6 +2,7 @@ import { take } from 'rxjs/operators';
 import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
 import { select, selectPost } from '../state/state-selectors';
+import { TransitionRegistry } from '../transitions';
 import { BusType, ChannelType } from '../types';
 import { Channel } from './channel';
 
@@ -19,13 +20,14 @@ export class SendChannel extends Channel {
 
   constructor(
     conn: MixerConnection,
-    state: MixerStore,
+    store: MixerStore,
+    transitions: TransitionRegistry,
     channelType: ChannelType,
     channel: number,
     busType: BusType,
     bus: number
   ) {
-    super(conn, state, channelType, channel, busType, bus);
+    super(conn, store, transitions, channelType, channel, busType, bus);
     this.fullChannelId = `${this.fullChannelId}.${busType}.${bus - 1}`;
   }
 
