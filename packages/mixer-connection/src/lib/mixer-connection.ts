@@ -11,7 +11,6 @@ import {
   map,
   retryWhen,
   delay,
-  share,
 } from 'rxjs/operators';
 import { ConnectionEvent, ConnectionStatus } from './types';
 
@@ -29,7 +28,7 @@ export class MixerConnection {
    * socket$.complete() only works if the socket is open.
    * However, if there's a timed reconnect running, it will try to reconnect.
    * socket$.complete() will have no effect.
-   * We have a separate notifier here to destroy the timed reconnect when the suer actually wants to close everything
+   * We have a separate notifier here to destroy the timed reconnect when the user actually wants to close everything
    */
   private forceClose$ = new Subject();
 

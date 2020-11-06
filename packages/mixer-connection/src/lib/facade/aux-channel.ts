@@ -1,6 +1,7 @@
 import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
 import { select, selectPan } from '../state/state-selectors';
+import { TransitionRegistry } from '../transitions';
 import { ChannelType } from '../types';
 import { SendChannel } from './send-channel';
 
@@ -16,11 +17,12 @@ export class AuxChannel extends SendChannel {
   constructor(
     conn: MixerConnection,
     store: MixerStore,
+    transitions: TransitionRegistry,
     channelType: ChannelType,
     channel: number,
     bus: number
   ) {
-    super(conn, store, channelType, channel, 'aux', bus);
+    super(conn, store, transitions, channelType, channel, 'aux', bus);
   }
 
   /**

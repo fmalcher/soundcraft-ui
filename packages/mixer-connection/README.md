@@ -65,35 +65,39 @@ conn.master.faderLevel$.subscribe(value => {
 
 ### Master
 
-| Call                                   | Description                                                     |
-| -------------------------------------- | --------------------------------------------------------------- |
-| `conn.master.setFaderLevel(value)`     | Set the master fader level (between `0` and `1`)                |
-| `conn.master.setFaderLevelDB(dbValue)` | Set the master fader level in dB (between `-Infinity` and `10`) |
-| `conn.master.pan(value)`               | Set the master pan (between `0` and `1`)                        |
-| `conn.master.dim()`                    | Dim master                                                      |
-| `conn.master.undim()`                  | Undim master                                                    |
-| `conn.master.toggleDim()`              | Toggle master dim                                               |
-| `conn.master.setDim(value)`            | Set master dim (`0` or `1`)                                     |
-| `conn.master.faderLevel$`              | Get master fader level (between `0` and `1`)                    |
-| `conn.master.faderLevelDB$`            | Get master fader level in dB (between `-Infinity` and `10`)     |
-| `conn.master.pan$`                     | Get master pan value (between `0` and `1`)                      |
-| `conn.master.dim$`                     | Get master dim status (`0` or `1`)                              |
+| Call                                    | Description                                                     |
+| --------------------------------------- | --------------------------------------------------------------- |
+| `conn.master.setFaderLevel(value)`      | Set the master fader level (between `0` and `1`)                |
+| `conn.master.setFaderLevelDB(dbValue)`  | Set the master fader level in dB (between `-Infinity` and `10`) |
+| `conn.master.fadeTo(value, fadeTime)`   | Fade master to value (between `0` and `1`)                      |
+| `conn.master.fadeToDB(value, fadeTime)` | Fade master to dB value (between `-Infinity` and `10`)          |
+| `conn.master.pan(value)`                | Set the master pan (between `0` and `1`)                        |
+| `conn.master.dim()`                     | Dim master                                                      |
+| `conn.master.undim()`                   | Undim master                                                    |
+| `conn.master.toggleDim()`               | Toggle master dim                                               |
+| `conn.master.setDim(value)`             | Set master dim (`0` or `1`)                                     |
+| `conn.master.faderLevel$`               | Get master fader level (between `0` and `1`)                    |
+| `conn.master.faderLevelDB$`             | Get master fader level in dB (between `-Infinity` and `10`)     |
+| `conn.master.pan$`                      | Get master pan value (between `0` and `1`)                      |
+| `conn.master.dim$`                      | Get master dim status (`0` or `1`)                              |
 
 ### Generic channel operations
 
 These operations apply for any sort of channel like `MasterChannel`, `FxChannel` or `AuxChannel`.
 
-| Call                       | Description                                          |
-| -------------------------- | ---------------------------------------------------- |
-| `setFaderLevel(value)`     | Set fader level (between `0` and `1`)                |
-| `setFaderLevelDB(dbValue)` | Set fader level in dB (between `-Infinity` and `10`) |
-| `setMute(value)`           | Set mute for channel (`0` or `1`)                    |
-| `mute()`                   | Mute channel                                         |
-| `unmute()`                 | Unmute channel                                       |
-| `toggleMute()`             | Toggle mute status                                   |
-| `faderLevel$`              | Get fader level (between `0` and `1`)                |
-| `faderLevelDB$`            | Get fader level in dB (between `-Infinity` and `10`) |
-| `mute$`                    | Get mute status (`0` or `1`)                         |
+| Call                        | Description                                             |
+| --------------------------- | ------------------------------------------------------- |
+| `setFaderLevel(value)`      | Set fader level (between `0` and `1`)                   |
+| `setFaderLevelDB(dbValue)`  | Set fader level in dB (between `-Infinity` and `10`)    |
+| `fadeTo(value, fadeTime)`   | Fade channel to value (between `0` and `1`)             |
+| `fadeToDB(value, fadeTime)` | Fade channel to dB value (between `-Infinity` and `10`) |
+| `setMute(value)`            | Set mute for channel (`0` or `1`)                       |
+| `mute()`                    | Mute channel                                            |
+| `unmute()`                  | Unmute channel                                          |
+| `toggleMute()`              | Toggle mute status                                      |
+| `faderLevel$`               | Get fader level (between `0` and `1`)                   |
+| `faderLevelDB$`             | Get fader level in dB (between `-Infinity` and `10`)    |
+| `mute$`                     | Get mute status (`0` or `1`)                            |
 
 ### Master bus
 
@@ -187,6 +191,39 @@ An `FxChannel` supports the following operations:
 | `setPlayMode(value)`         | Set player mode like `manual` or `auto`. Values are rather internal, please use convenience functions below. |
 | `setManual()`                | Enable manual mode                                                                                           |
 | `setAuto()`                  | Enable automatic mode                                                                                        |
+
+## Transitions
+
+All channels can perform timed transitions to a given value.
+`Channel` and `MasterBus` contain two methods `fadeTo` and `fadeToDB` with the following parameters:
+
+| Parameter     | Description                                                                                                                                               |
+| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `targetValue` | Value to fade to. The method `fadeTo` takes a linear value between `0` and `1`, the `fadeToDB` method takes the value in dB between `-Infinity` and `10`. |
+| `fadeTime`    | Fade time in milliseconds (ms)                                                                                                                            |
+| `easing`      | optional: easing characteristic. This needs to be an entry of the `Easings` enum, see below. Defaults to linear (= no easing).                            |
+| `fps`         | optional: frames/ticks per second, defaults to `25`. Usually, you don't need to change this.                                                              |
+
+```ts
+// Example:
+// Fade input 1 on master bus to 0 dB within 2 seconds
+// using the "ease out" characteristic
+conn.master.input(1).fadeToDB(0, 2000, Easings.EaseOut);
+```
+
+A transition stops when a new transition is started on the same channel.
+When the connection is closed, all running transitions will be stopped.
+
+The library supports the following built-in easing characteristics:
+
+```ts
+import { Easings } from 'soundcraft-ui-connection';
+
+Easings.Linear; // no easing
+Easings.EaseIn; // acceleration from zero velocity (slow start)
+Easings.EaseOut; // deceleration from zero velocity (slow end)
+Easing.EaseInOut; // acceleration until halfway, the deceleration (slow start and end)
+```
 
 ## License
 
