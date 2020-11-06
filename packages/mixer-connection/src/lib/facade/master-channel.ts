@@ -2,6 +2,7 @@ import { take } from 'rxjs/operators';
 import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
 import { select, selectPan, selectSolo } from '../state/state-selectors';
+import { TransitionRegistry } from '../transitions';
 import { ChannelType } from '../types';
 import { Channel } from './channel';
 
@@ -22,10 +23,11 @@ export class MasterChannel extends Channel {
   constructor(
     conn: MixerConnection,
     store: MixerStore,
+    transitions: TransitionRegistry,
     channelType: ChannelType,
     channel: number
   ) {
-    super(conn, store, channelType, channel);
+    super(conn, store, transitions, channelType, channel);
   }
 
   /**

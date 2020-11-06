@@ -5,17 +5,19 @@ import { MasterBus } from './facade/master-bus';
 import { Player } from './facade/player';
 import { MixerConnection } from './mixer-connection';
 import { MixerStore } from './state/mixer-store';
+import { TransitionRegistry } from './transitions';
 import { ConnectionStatus } from './types';
 
 export class SoundcraftUI {
   readonly conn = new MixerConnection(this.targetIP);
   readonly store = new MixerStore(this.conn.allMessages$);
+  readonly transitions = new TransitionRegistry(this.conn);
 
   /** Connection status */
   status$ = this.conn.status$;
 
   /** Get master bus */
-  master = new MasterBus(this.conn, this.store);
+  master = new MasterBus(this.conn, this.store, this.transitions);
 
   /** Get media player */
   player = new Player(this.conn, this.store);
@@ -27,7 +29,7 @@ export class SoundcraftUI {
    * @param bus Bus number
    */
   aux(bus: number) {
-    return new AuxBus(this.conn, this.store, bus);
+    return new AuxBus(this.conn, this.store, this.transitions, bus);
   }
 
   /**
@@ -35,7 +37,7 @@ export class SoundcraftUI {
    * @param bus Bus number
    */
   fx(bus: number) {
-    return new FxBus(this.conn, this.store, bus);
+    return new FxBus(this.conn, this.store, this.transitions, bus);
   }
 
   /** Connect to the mixer */

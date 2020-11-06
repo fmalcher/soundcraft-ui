@@ -7,6 +7,8 @@ import {
   selectMasterPan,
   selectMasterValue,
 } from '../state/state-selectors';
+import { TransitionRegistry } from '../transitions';
+import { Easings } from '../utils/transitions/easings';
 import { DBToFaderValue, faderValueToDB } from '../utils/value-converters';
 import { MasterChannel } from './master-channel';
 
@@ -15,18 +17,22 @@ import { MasterChannel } from './master-channel';
  */
 export class MasterBus {
   /** Linear level of the master fader (between `0` and `1`) */
-  faderLevel$ = this.state.state$.pipe(select(selectMasterValue()));
+  faderLevel$ = this.store.state$.pipe(select(selectMasterValue()));
 
   /** dB level of the master fader (between `-Infinity` and `10`) */
   faderLevelDB$ = this.faderLevel$.pipe(map(v => faderValueToDB(v)));
 
   /** PAN value of the master (between `0` and `1`) */
-  pan$ = this.state.state$.pipe(select(selectMasterPan()));
+  pan$ = this.store.state$.pipe(select(selectMasterPan()));
 
   /** DIM value of the master (`0` or `1`) */
-  dim$ = this.state.state$.pipe(select(selectMasterDim()));
+  dim$ = this.store.state$.pipe(select(selectMasterDim()));
 
-  constructor(private conn: MixerConnection, private state: MixerStore) {}
+  constructor(
+    private conn: MixerConnection,
+    private store: MixerStore,
+    private transitions: TransitionRegistry
+  ) {}
 
   /** Fader getters */
 
@@ -35,7 +41,13 @@ export class MasterBus {
    * @param channel Channel number
    */
   input(channel: number) {
-    return new MasterChannel(this.conn, this.state, 'i', channel);
+    return new MasterChannel(
+      this.conn,
+      this.store,
+      this.transitions,
+      'i',
+      channel
+    );
   }
 
   /**
@@ -43,7 +55,13 @@ export class MasterBus {
    * @param channel Channel number
    */
   line(channel: number) {
-    return new MasterChannel(this.conn, this.state, 'l', channel);
+    return new MasterChannel(
+      this.conn,
+      this.store,
+      this.transitions,
+      'l',
+      channel
+    );
   }
 
   /**
@@ -51,7 +69,13 @@ export class MasterBus {
    * @param channel Channel number
    */
   player(channel: number) {
-    return new MasterChannel(this.conn, this.state, 'p', channel);
+    return new MasterChannel(
+      this.conn,
+      this.store,
+      this.transitions,
+      'p',
+      channel
+    );
   }
 
   /**
@@ -59,7 +83,13 @@ export class MasterBus {
    * @param channel Channel number
    */
   aux(channel: number) {
-    return new MasterChannel(this.conn, this.state, 'a', channel);
+    return new MasterChannel(
+      this.conn,
+      this.store,
+      this.transitions,
+      'a',
+      channel
+    );
   }
 
   /**
@@ -67,7 +97,13 @@ export class MasterBus {
    * @param channel Channel number
    */
   fx(channel: number) {
-    return new MasterChannel(this.conn, this.state, 'f', channel);
+    return new MasterChannel(
+      this.conn,
+      this.store,
+      this.transitions,
+      'f',
+      channel
+    );
   }
 
   /**
@@ -75,7 +111,13 @@ export class MasterBus {
    * @param channel Channel number
    */
   sub(channel: number) {
-    return new MasterChannel(this.conn, this.state, 's', channel);
+    return new MasterChannel(
+      this.conn,
+      this.store,
+      this.transitions,
+      's',
+      channel
+    );
   }
 
   /**
@@ -83,10 +125,59 @@ export class MasterBus {
    * @param channel Channel number
    */
   vca(channel: number) {
-    return new MasterChannel(this.conn, this.state, 'v', channel);
+    return new MasterChannel(
+      this.conn,
+      this.store,
+      this.transitions,
+      'v',
+      channel
+    );
   }
 
   /** Master actions */
+
+  /**
+   * Perform fader transition to linear value
+   * @param targetValue Target value as linear value (between 0 and 1)
+   * @param fadeTime Fade time in ms
+   * @param easing Easing characteristic, as an entry of the `Easings` enum. Defaults to `Linear`
+   * @param fps Frames per second, defaults to 25
+   */
+  fadeTo(
+    targetValue: number,
+    fadeTime: number,
+    easing: Easings = Easings.Linear,
+    fps: number = 25
+  ) {
+    this.faderLevel$.pipe(take(1)).subscribe(sourceValue => {
+      this.transitions.addTransition({
+        sourceValue,
+        targetValue,
+        fadeTime,
+        easing,
+        fps,
+        fullChannelId: 'm',
+        faderLevelCommand: 'mix',
+      });
+    });
+  }
+
+  /**
+   * Perform fader transition to dB value
+   * @param targetValueDB Target value as dB value (between -Infinity and 10)
+   * @param fadeTime Fade time in ms
+   * @param easing Easing characteristic, as an entry of the `Easings` enum. Defaults to `Linear`
+   * @param fps Frames per second, defaults to 25
+   */
+  fadeToDB(
+    targetValueDB: number,
+    fadeTime: number,
+    easing: Easings = Easings.Linear,
+    fps: number = 25
+  ) {
+    const targetValue = DBToFaderValue(targetValueDB);
+    return this.fadeTo(targetValue, fadeTime, easing, fps);
+  }
 
   /**
    * Set linear level of the master fader
