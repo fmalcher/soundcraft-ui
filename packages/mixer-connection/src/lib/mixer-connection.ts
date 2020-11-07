@@ -1,5 +1,5 @@
 import { interval, merge, Subject } from 'rxjs';
-import { webSocket, WebSocketSubject } from 'rxjs/websocket';
+import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 import ws from 'isomorphic-ws';
 import {
   mergeMap,
