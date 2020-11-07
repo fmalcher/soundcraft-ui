@@ -3,12 +3,13 @@ import { MixerStore } from '../state/mixer-store';
 import { select, selectPan } from '../state/state-selectors';
 import { TransitionRegistry } from '../transitions';
 import { ChannelType } from '../types';
+import { PannableChannel } from './interfaces';
 import { SendChannel } from './send-channel';
 
 /**
  * Represents a channel on an AUX bus
  */
-export class AuxChannel extends SendChannel {
+export class AuxChannel extends SendChannel implements PannableChannel {
   /** PAN value of the AUX channel (between `0` and `1`) */
   pan$ = this.store.state$.pipe(
     select(selectPan(this.channelType, this.channel, this.busType, this.bus))

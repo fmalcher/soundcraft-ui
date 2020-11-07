@@ -6,11 +6,12 @@ import { TransitionRegistry } from '../transitions';
 import { BusType, ChannelType } from '../types';
 import { Easings } from '../utils/transitions/easings';
 import { DBToFaderValue, faderValueToDB } from '../utils/value-converters';
+import { FadeableChannel } from './interfaces';
 
 /**
  * Represents a single channel with a fader
  */
-export class Channel {
+export class Channel implements FadeableChannel {
   protected fullChannelId = `${this.channelType}.${this.channel - 1}`;
   protected faderLevelCommand = 'mix';
 
