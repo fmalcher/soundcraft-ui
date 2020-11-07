@@ -9,6 +9,19 @@
   #faderLevelInput
 />
 
+<button
+  class="btn btn-success btn-sm ml-3"
+  (click)="channel.changeFaderLevelDB(3)"
+>
+  + 3 dB
+</button>
+<button
+  class="btn btn-success btn-sm ml-3"
+  (click)="channel.changeFaderLevelDB(-3)"
+>
+  – 3 dB
+</button>
+
 <span class="badge badge-danger ml-3"
   >{{ channel.faderLevelDB$ | async }} dB</span
 >
