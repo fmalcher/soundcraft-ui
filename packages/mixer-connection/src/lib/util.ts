@@ -11,3 +11,17 @@ export function transformStringValue(value: string) {
     return value;
   }
 }
+
+/**
+ * Transform player time in seconds to human-readable format M:SS
+ * @param value player time in seconds
+ */
+export function playerTimeToString(value: number) {
+  if (value < 0) {
+    return '';
+  }
+  const cleanValue = Math.floor(value);
+  const minutes = Math.floor(cleanValue / 60);
+  const seconds = cleanValue % 60;
+  return `${minutes}:${seconds.toString().length === 1 ? '0' : ''}${seconds}`;
+}

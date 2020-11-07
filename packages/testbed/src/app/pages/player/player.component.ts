@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { map } from 'rxjs/operators';
+import { PlayerState } from 'soundcraft-ui-connection';
 import { ConnectionService } from '../../connection.service';
 
 @Component({
@@ -8,6 +10,18 @@ import { ConnectionService } from '../../connection.service';
 })
 export class PlayerComponent implements OnInit {
   player = this.cs.conn.player;
+  playerState$ = this.player.state$.pipe(
+    map(s => {
+      switch (s) {
+        case PlayerState.Playing:
+          return 'PLAYING';
+        case PlayerState.Stopped:
+          return 'STOPPED';
+        case PlayerState.Paused:
+          return 'PAUSED';
+      }
+    })
+  );
 
   playlistFromInput = '~all~';
 

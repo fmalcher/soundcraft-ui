@@ -1,4 +1,17 @@
 <div class="mb-3">
+  <p><label>State</label> {{ playerState$ | async }}</p>
+  <p><label>Playlist</label> {{ player.playlist$ | async }}</p>
+  <p><label>Track</label> {{ player.track$ | async }}</p>
+  <p><label>Track length (s)</label> {{ player.length$ | async | time }}</p>
+  <p>
+    <label>Elapsed time (s)</label> {{ player.elapsedTime$ | async | time }}
+  </p>
+  <p>
+    <label>Remaining time (s)</label> {{ player.remainingTime$ | async | time }}
+  </p>
+</div>
+
+<div class="mb-3">
   <soundcraft-ui-mixer-button (press)="player.prev()"
     >|&lt; Prev</soundcraft-ui-mixer-button
   >
