@@ -1,11 +1,38 @@
 import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
+import {
+  select,
+  selectPlayerElapsedTime,
+  selectPlayerLength,
+  selectPlayerPlaylist,
+  selectPlayerRemainingTime,
+  selectPlayerState,
+  selectPlayerTrack,
+} from '../state/state-selectors';
 
 /**
  * Represents the media player
  */
 export class Player {
-  constructor(private conn: MixerConnection, private state: MixerStore) {}
+  /** Current state (playing, stopped, paused) */
+  state$ = this.store.state$.pipe(select(selectPlayerState()));
+
+  /** Current playlist name */
+  playlist$ = this.store.state$.pipe(select(selectPlayerPlaylist()));
+
+  /** Current track name */
+  track$ = this.store.state$.pipe(select(selectPlayerTrack()));
+
+  /** Current track length in seconds */
+  length$ = this.store.state$.pipe(select(selectPlayerLength()));
+
+  /** Elapsed time of current track in seconds */
+  elapsedTime$ = this.store.state$.pipe(select(selectPlayerElapsedTime()));
+
+  /** Remaining time of current track in seconds */
+  remainingTime$ = this.store.state$.pipe(select(selectPlayerRemainingTime()));
+
+  constructor(private conn: MixerConnection, private store: MixerStore) {}
 
   /** Start the media player */
   play() {

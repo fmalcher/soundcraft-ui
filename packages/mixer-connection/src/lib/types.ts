@@ -20,3 +20,9 @@ export interface ConnectionErrorEvent extends ConnectionStatusEvent {
 }
 
 export type ConnectionEvent = ConnectionStatusEvent | ConnectionErrorEvent;
+
+export enum PlayerState {
+  Stopped = 0,
+  Playing = 2,
+  Paused = 3,
+}

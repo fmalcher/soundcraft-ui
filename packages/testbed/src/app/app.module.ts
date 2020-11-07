@@ -19,6 +19,7 @@ import { PlayerComponent } from './pages/player/player.component';
 import { InputComponent } from './ui/input/input.component';
 import { TransitionComponent } from './ui/transition/transition.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TimePipe } from './ui/time.pipe';
 
 const routes: Routes = [
   { path: '', redirectTo: 'connection', pathMatch: 'full' },
@@ -49,6 +50,7 @@ const routes: Routes = [
     PlayerComponent,
     InputComponent,
     TransitionComponent,
+    TimePipe,
   ],
   imports: [
     BrowserModule,

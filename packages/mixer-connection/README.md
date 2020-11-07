@@ -182,6 +182,12 @@ An `FxChannel` supports the following operations:
 
 | Call                         | Description                                                                                                  |
 | ---------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| `state$`                     | Current state (playing, stopped, paused) as a value of the `PlayerState` enum                                |
+| `playlist$`                  | Current playlist name                                                                                        |
+| `track$`                     | Current track name                                                                                           |
+| `length$`                    | Current track length in seconds                                                                              |
+| `elapsedTime$`               | Elapsed time of current track in seconds                                                                     |
+| `remainingTime$`             | Remaining time of current track in seconds                                                                   |
 | `play()`                     | Play                                                                                                         |
 | `pause()`                    | Pause                                                                                                        |
 | `stop()`                     | Stop                                                                                                         |
