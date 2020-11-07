@@ -5,11 +5,12 @@ import { select, selectPan, selectSolo } from '../state/state-selectors';
 import { TransitionRegistry } from '../transitions';
 import { ChannelType } from '../types';
 import { Channel } from './channel';
+import { PannableChannel } from './interfaces';
 
 /**
  * Represents a channel on the master bus
  */
-export class MasterChannel extends Channel {
+export class MasterChannel extends Channel implements PannableChannel {
   /** SOLO value of the channel (`0` or `1`) */
   solo$ = this.store.state$.pipe(
     select(selectSolo(this.channelType, this.channel))

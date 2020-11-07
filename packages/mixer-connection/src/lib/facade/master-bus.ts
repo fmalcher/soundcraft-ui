@@ -10,12 +10,13 @@ import {
 import { TransitionRegistry } from '../transitions';
 import { Easings } from '../utils/transitions/easings';
 import { DBToFaderValue, faderValueToDB } from '../utils/value-converters';
+import { FadeableChannel, PannableChannel } from './interfaces';
 import { MasterChannel } from './master-channel';
 
 /**
  * Represents the master bus
  */
-export class MasterBus {
+export class MasterBus implements FadeableChannel, PannableChannel {
   /** Linear level of the master fader (between `0` and `1`) */
   faderLevel$ = this.store.state$.pipe(select(selectMasterValue()));
 
