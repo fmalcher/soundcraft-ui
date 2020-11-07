@@ -198,6 +198,20 @@ export class MasterBus implements FadeableChannel, PannableChannel {
   }
 
   /**
+   * Change the fader value relatively by adding a given value
+   * @param dbValueToAdd Value (dB) to add to the current value
+   */
+  changeFaderLevelDB(dbValueToAdd: number) {
+    this.faderLevelDB$
+      .pipe(
+        take(1),
+        map(value => (value < -100 ? -100 : value)),
+        map(value => value + dbValueToAdd)
+      )
+      .subscribe(v => this.setFaderLevelDB(v));
+  }
+
+  /**
    * Set PAN value for the master
    * @param value value between `0` and `1`
    */
