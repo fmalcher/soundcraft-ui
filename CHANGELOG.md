@@ -1,3 +1,7 @@
+# [0.5.1](https://github.com/fmalcher/soundcraft-ui/compare/0.5.0...0.5.1) (2020-11-07)
+
+- fix: use correct import path for rxjs/webSocket
+
 # [0.5.0](https://github.com/fmalcher/soundcraft-ui/compare/0.4.0...0.5.0) (2020-11-07)
 
 - add timed transitions with different easings
