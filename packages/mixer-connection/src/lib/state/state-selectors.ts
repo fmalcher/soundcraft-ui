@@ -1,7 +1,7 @@
 import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { OperatorFunction, pipe } from 'rxjs';
 
-import { ChannelType, BusType } from '../types';
+import { ChannelType, BusType, PlayerState } from '../types';
 import { MixerState } from './mixer-state.models';
 import { getObjectPath } from '../utils/object-path';
 
@@ -197,4 +197,52 @@ export const selectAuxPostProc: Selector<number> = (
       [channelType, channel - 1, 'aux', aux - 1, 'postproc'],
       0
     );
+};
+
+/** Select player state */
+export const selectPlayerState: Selector<PlayerState> = () => {
+  return state =>
+    getStatePath<PlayerState>(
+      state,
+      ['var', 'currentState'],
+      PlayerState.Stopped
+    );
+};
+
+/** Select player current length */
+export const selectPlayerLength: Selector<number> = () => {
+  return state => getStatePath<number>(state, ['var', 'currentLength'], -1);
+};
+
+/** Select player current position */
+export const selectPlayerCurrentTrackPos: Selector<number> = () => {
+  return state => getStatePath<number>(state, ['var', 'currentTrackPos'], 0);
+};
+
+/** Select player elapsed time */
+export const selectPlayerElapsedTime: Selector<number> = () => {
+  return state => {
+    const pos = selectPlayerCurrentTrackPos()(state);
+    const length = selectPlayerLength()(state);
+    return Math.max(0, Math.floor(pos * length));
+  };
+};
+
+/** Select player remaining time */
+export const selectPlayerRemainingTime: Selector<number> = () => {
+  return state => {
+    const elapsed = selectPlayerElapsedTime()(state);
+    const length = selectPlayerLength()(state);
+    return Math.max(0, Math.floor(length - elapsed));
+  };
+};
+
+/** Select player current playlist */
+export const selectPlayerPlaylist: Selector<string> = () => {
+  return state => getStatePath<string>(state, ['var', 'currentPlaylist']);
+};
+
+/** Select player current track */
+export const selectPlayerTrack: Selector<string> = () => {
+  return state => getStatePath<string>(state, ['var', 'currentTrack']);
 };
