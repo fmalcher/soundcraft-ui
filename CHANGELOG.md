@@ -1,3 +1,9 @@
+# [0.5.0](https://github.com/fmalcher/soundcraft-ui/compare/0.4.0...0.5.0) (2020-11-07)
+
+- add timed transitions with different easings
+- add relative fader value changes
+- add subscribable player infos
+
 # [0.4.0](https://github.com/fmalcher/soundcraft-ui/compare/0.3.0...0.4.0) (2020-11-03)
 
 - add PRE/POST toggle for send channels
