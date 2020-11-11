@@ -1,8 +1,7 @@
-import { take } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
 import { select, selectPost } from '../state/state-selectors';
-import { TransitionRegistry } from '../transitions';
 import { BusType, ChannelType } from '../types';
 import { Channel } from './channel';
 
@@ -11,22 +10,32 @@ import { Channel } from './channel';
  * Used as super class for Aux and Fx
  */
 export class SendChannel extends Channel {
-  fullChannelId = `${this.channelType}.${this.channel - 1}.${this.busType}.${this.bus - 1}`;
-  faderLevelCommand = 'value';
-
-  /** PRE/POST value of the channel (`1` (POST) or `0` (PRE)) */
-  post$ = this.store.state$.pipe(select(selectPost(this.channelType, this.channel, this.busType, this.bus)));
-
-  constructor(
-    conn: MixerConnection,
-    store: MixerStore,
-    transitions: TransitionRegistry,
+  protected constructChannelId(
     channelType: ChannelType,
     channel: number,
     busType: BusType,
     bus: number
   ) {
-    super(conn, store, transitions, channelType, channel, busType, bus);
+    return `${channelType}.${channel - 1}.${busType}.${bus - 1}`;
+  }
+
+  fullChannelId = this.constructChannelId(this.channelType, this.channel, this.busType, this.bus);
+  faderLevelCommand = 'value';
+
+  /** PRE/POST value of the channel (`1` (POST) or `0` (PRE)) */
+  post$ = this.store.state$.pipe(
+    select(selectPost(this.channelType, this.channel, this.busType, this.bus))
+  );
+
+  constructor(
+    conn: MixerConnection,
+    store: MixerStore,
+    channelType: ChannelType,
+    channel: number,
+    busType: BusType,
+    bus: number
+  ) {
+    super(conn, store, channelType, channel, busType, bus);
   }
 
   /**
@@ -34,8 +43,10 @@ export class SendChannel extends Channel {
    * @param value `1` (POST) or `0` (PRE)
    */
   setPost(value: number) {
-    const command = `SETD^${this.fullChannelId}.post^${value}`;
-    this.conn.sendMessage(command);
+    [...this.linkedChannelIds, this.fullChannelId].forEach(cid => {
+      const command = `SETD^${cid}.post^${value}`;
+      this.conn.sendMessage(command);
+    });
   }
 
   /** Set AUX channel to POST */

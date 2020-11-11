@@ -1,3 +1,4 @@
+import { Subject } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
@@ -7,7 +8,7 @@ import {
   selectMasterPan,
   selectMasterValue,
 } from '../state/state-selectors';
-import { TransitionRegistry } from '../transitions';
+import { sourcesToTransition, TransitionSource } from '../transitions';
 import { Easings } from '../utils/transitions/easings';
 import { DBToFaderValue, faderValueToDB } from '../utils/value-converters';
 import { FadeableChannel, PannableChannel } from './interfaces';
@@ -29,11 +30,14 @@ export class MasterBus implements FadeableChannel, PannableChannel {
   /** DIM value of the master (`0` or `1`) */
   dim$ = this.store.state$.pipe(select(selectMasterDim()));
 
-  constructor(
-    private conn: MixerConnection,
-    private store: MixerStore,
-    private transitions: TransitionRegistry
-  ) {}
+  private transitionSources$ = new Subject<TransitionSource>();
+
+  constructor(private conn: MixerConnection, private store: MixerStore) {
+    // create transition steps and set master fader level accordingly
+    sourcesToTransition(this.transitionSources$, this.faderLevel$, conn).subscribe(v =>
+      this.setFaderLevel(v)
+    );
+  }
 
   /** Fader getters */
 
@@ -42,13 +46,7 @@ export class MasterBus implements FadeableChannel, PannableChannel {
    * @param channel Channel number
    */
   input(channel: number) {
-    return new MasterChannel(
-      this.conn,
-      this.store,
-      this.transitions,
-      'i',
-      channel
-    );
+    return new MasterChannel(this.conn, this.store, 'i', channel);
   }
 
   /**
@@ -56,13 +54,7 @@ export class MasterBus implements FadeableChannel, PannableChannel {
    * @param channel Channel number
    */
   line(channel: number) {
-    return new MasterChannel(
-      this.conn,
-      this.store,
-      this.transitions,
-      'l',
-      channel
-    );
+    return new MasterChannel(this.conn, this.store, 'l', channel);
   }
 
   /**
@@ -70,13 +62,7 @@ export class MasterBus implements FadeableChannel, PannableChannel {
    * @param channel Channel number
    */
   player(channel: number) {
-    return new MasterChannel(
-      this.conn,
-      this.store,
-      this.transitions,
-      'p',
-      channel
-    );
+    return new MasterChannel(this.conn, this.store, 'p', channel);
   }
 
   /**
@@ -84,13 +70,7 @@ export class MasterBus implements FadeableChannel, PannableChannel {
    * @param channel Channel number
    */
   aux(channel: number) {
-    return new MasterChannel(
-      this.conn,
-      this.store,
-      this.transitions,
-      'a',
-      channel
-    );
+    return new MasterChannel(this.conn, this.store, 'a', channel);
   }
 
   /**
@@ -98,13 +78,7 @@ export class MasterBus implements FadeableChannel, PannableChannel {
    * @param channel Channel number
    */
   fx(channel: number) {
-    return new MasterChannel(
-      this.conn,
-      this.store,
-      this.transitions,
-      'f',
-      channel
-    );
+    return new MasterChannel(this.conn, this.store, 'f', channel);
   }
 
   /**
@@ -112,13 +86,7 @@ export class MasterBus implements FadeableChannel, PannableChannel {
    * @param channel Channel number
    */
   sub(channel: number) {
-    return new MasterChannel(
-      this.conn,
-      this.store,
-      this.transitions,
-      's',
-      channel
-    );
+    return new MasterChannel(this.conn, this.store, 's', channel);
   }
 
   /**
@@ -126,13 +94,7 @@ export class MasterBus implements FadeableChannel, PannableChannel {
    * @param channel Channel number
    */
   vca(channel: number) {
-    return new MasterChannel(
-      this.conn,
-      this.store,
-      this.transitions,
-      'v',
-      channel
-    );
+    return new MasterChannel(this.conn, this.store, 'v', channel);
   }
 
   /** Master actions */
@@ -150,16 +112,11 @@ export class MasterBus implements FadeableChannel, PannableChannel {
     easing: Easings = Easings.Linear,
     fps: number = 25
   ) {
-    this.faderLevel$.pipe(take(1)).subscribe(sourceValue => {
-      this.transitions.addTransition({
-        sourceValue,
-        targetValue,
-        fadeTime,
-        easing,
-        fps,
-        fullChannelId: 'm',
-        faderLevelCommand: 'mix',
-      });
+    this.transitionSources$.next({
+      targetValue,
+      fadeTime,
+      easing,
+      fps,
     });
   }
 
