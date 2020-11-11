@@ -11,12 +11,11 @@ import { Channel } from './channel';
  * Used as super class for Aux and Fx
  */
 export class SendChannel extends Channel {
+  fullChannelId = `${this.channelType}.${this.channel - 1}.${this.busType}.${this.bus - 1}`;
   faderLevelCommand = 'value';
 
   /** PRE/POST value of the channel (`1` (POST) or `0` (PRE)) */
-  post$ = this.store.state$.pipe(
-    select(selectPost(this.channelType, this.channel, this.busType, this.bus))
-  );
+  post$ = this.store.state$.pipe(select(selectPost(this.channelType, this.channel, this.busType, this.bus)));
 
   constructor(
     conn: MixerConnection,
@@ -28,7 +27,6 @@ export class SendChannel extends Channel {
     bus: number
   ) {
     super(conn, store, transitions, channelType, channel, busType, bus);
-    this.fullChannelId = `${this.fullChannelId}.${busType}.${bus - 1}`;
   }
 
   /**

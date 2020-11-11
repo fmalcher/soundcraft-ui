@@ -12,23 +12,19 @@ import { FadeableChannel } from './interfaces';
  * Represents a single channel with a fader
  */
 export class Channel implements FadeableChannel {
-  protected fullChannelId = `${this.channelType}.${this.channel - 1}`;
+  fullChannelId = `${this.channelType}.${this.channel - 1}`;
   protected faderLevelCommand = 'mix';
 
   /** Linear level of the channel (between `0` and `1`) */
   faderLevel$ = this.store.state$.pipe(
-    select(
-      selectFaderValue(this.channelType, this.channel, this.busType, this.bus)
-    )
+    select(selectFaderValue(this.channelType, this.channel, this.busType, this.bus))
   );
 
   /** dB level of the channel (between `-Infinity` and `10`) */
   faderLevelDB$ = this.faderLevel$.pipe(map(v => faderValueToDB(v)));
 
   /** MUTE value of the channel (`0` or `1`) */
-  mute$ = this.store.state$.pipe(
-    select(selectMute(this.channelType, this.channel, this.busType, this.bus))
-  );
+  mute$ = this.store.state$.pipe(select(selectMute(this.channelType, this.channel, this.busType, this.bus)));
 
   constructor(
     protected conn: MixerConnection,
@@ -38,7 +34,16 @@ export class Channel implements FadeableChannel {
     protected channel: number,
     protected busType: BusType = 'master',
     protected bus: number = 0
-  ) {}
+  ) {
+    // lookup channel in the store and use existing object if possible
+    const storeId = busType + bus + channelType + channel;
+    const storedChannel = this.store.channelStore.get(storeId);
+    if (storedChannel) {
+      return storedChannel;
+    } else {
+      this.store.channelStore.set(storeId, this);
+    }
+  }
 
   /**
    * Perform fader transition to linear value
@@ -47,12 +52,7 @@ export class Channel implements FadeableChannel {
    * @param easing Easing characteristic, as an entry of the `Easings` enum. Defaults to `Linear`
    * @param fps Frames per second, defaults to 25
    */
-  fadeTo(
-    targetValue: number,
-    fadeTime: number,
-    easing: Easings = Easings.Linear,
-    fps: number = 25
-  ) {
+  fadeTo(targetValue: number, fadeTime: number, easing: Easings = Easings.Linear, fps: number = 25) {
     this.faderLevel$.pipe(take(1)).subscribe(sourceValue => {
       this.transitions.addTransition({
         sourceValue,
@@ -73,12 +73,7 @@ export class Channel implements FadeableChannel {
    * @param easing Easing characteristic, as an entry of the `Easings` enum. Defaults to `Linear`
    * @param fps Frames per second, defaults to 25
    */
-  fadeToDB(
-    targetValueDB: number,
-    fadeTime: number,
-    easing: Easings = Easings.Linear,
-    fps: number = 25
-  ) {
+  fadeToDB(targetValueDB: number, fadeTime: number, easing: Easings = Easings.Linear, fps: number = 25) {
     const targetValue = DBToFaderValue(targetValueDB);
     return this.fadeTo(targetValue, fadeTime, easing, fps);
   }

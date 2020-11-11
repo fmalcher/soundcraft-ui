@@ -10,7 +10,7 @@ import { ConnectionStatus } from './types';
 
 export class SoundcraftUI {
   readonly conn = new MixerConnection(this.targetIP);
-  readonly store = new MixerStore(this.conn.allMessages$);
+  readonly store = new MixerStore(this.conn);
   readonly transitions = new TransitionRegistry(this.conn);
 
   /** Connection status */
