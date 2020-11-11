@@ -1,32 +1,19 @@
 import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
-import { TransitionRegistry } from '../transitions';
 import { FxChannel } from './fx-channel';
 
 /**
  * Represents an FX bus
  */
 export class FxBus {
-  constructor(
-    private conn: MixerConnection,
-    private store: MixerStore,
-    private transitions: TransitionRegistry,
-    private bus: number
-  ) {}
+  constructor(private conn: MixerConnection, private store: MixerStore, private bus: number) {}
 
   /**
    * Get input channel on the FX bus
    * @param channel Channel number
    */
   input(channel: number) {
-    return new FxChannel(
-      this.conn,
-      this.store,
-      this.transitions,
-      'i',
-      channel,
-      this.bus
-    );
+    return new FxChannel(this.conn, this.store, 'i', channel, this.bus);
   }
 
   /**
@@ -34,14 +21,7 @@ export class FxBus {
    * @param channel Channel number
    */
   line(channel: number) {
-    return new FxChannel(
-      this.conn,
-      this.store,
-      this.transitions,
-      'l',
-      channel,
-      this.bus
-    );
+    return new FxChannel(this.conn, this.store, 'l', channel, this.bus);
   }
 
   /**
@@ -49,14 +29,7 @@ export class FxBus {
    * @param channel Channel number
    */
   player(channel: number) {
-    return new FxChannel(
-      this.conn,
-      this.store,
-      this.transitions,
-      'p',
-      channel,
-      this.bus
-    );
+    return new FxChannel(this.conn, this.store, 'p', channel, this.bus);
   }
 
   /**
@@ -64,13 +37,6 @@ export class FxBus {
    * @param channel Channel number
    */
   sub(channel: number) {
-    return new FxChannel(
-      this.conn,
-      this.store,
-      this.transitions,
-      's',
-      channel,
-      this.bus
-    );
+    return new FxChannel(this.conn, this.store, 's', channel, this.bus);
   }
 }

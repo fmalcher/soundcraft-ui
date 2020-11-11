@@ -1,7 +1,8 @@
+import { map } from 'rxjs/operators';
 import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
-import { TransitionRegistry } from '../transitions';
 import { ChannelType } from '../types';
+import { getLinkedChannelNumber } from '../util';
 import { SendChannel } from './send-channel';
 
 /**
@@ -11,11 +12,31 @@ export class FxChannel extends SendChannel {
   constructor(
     conn: MixerConnection,
     store: MixerStore,
-    transitions: TransitionRegistry,
     channelType: ChannelType,
     channel: number,
     bus: number
   ) {
-    super(conn, store, transitions, channelType, channel, 'fx', bus);
+    super(conn, store, channelType, channel, 'fx', bus);
+
+    // create list of channel IDs that are linked with this channel
+    this.stereoIndex$
+      .pipe(
+        map(index => {
+          const linkedChannelNumber = getLinkedChannelNumber(channel, index);
+          if (linkedChannelNumber !== undefined) {
+            return [
+              this.constructChannelId(
+                this.channelType,
+                linkedChannelNumber,
+                this.busType,
+                this.bus
+              ),
+            ];
+          } else {
+            return [];
+          }
+        })
+      )
+      .subscribe(c => (this.linkedChannelIds = c));
   }
 }

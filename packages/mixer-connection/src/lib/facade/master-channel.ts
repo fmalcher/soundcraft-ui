@@ -1,9 +1,9 @@
-import { take } from 'rxjs/operators';
+import { filter, map, take } from 'rxjs/operators';
 import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
 import { select, selectPan, selectSolo } from '../state/state-selectors';
-import { TransitionRegistry } from '../transitions';
 import { ChannelType } from '../types';
+import { getLinkedChannelNumber } from '../util';
 import { Channel } from './channel';
 import { PannableChannel } from './interfaces';
 
@@ -11,24 +11,37 @@ import { PannableChannel } from './interfaces';
  * Represents a channel on the master bus
  */
 export class MasterChannel extends Channel implements PannableChannel {
+  private constructChannelId(channelType: ChannelType, channel: number) {
+    return `${channelType}.${channel - 1}`;
+  }
+
+  fullChannelId = this.constructChannelId(this.channelType, this.channel);
+  faderLevelCommand = 'mix';
+
   /** SOLO value of the channel (`0` or `1`) */
-  solo$ = this.store.state$.pipe(
-    select(selectSolo(this.channelType, this.channel))
-  );
+  solo$ = this.store.state$.pipe(select(selectSolo(this.channelType, this.channel)));
 
   /** PAN value of the channel (between `0` and `1`) */
   pan$ = this.store.state$.pipe(
     select(selectPan(this.channelType, this.channel, this.busType, this.bus))
   );
 
-  constructor(
-    conn: MixerConnection,
-    store: MixerStore,
-    transitions: TransitionRegistry,
-    channelType: ChannelType,
-    channel: number
-  ) {
-    super(conn, store, transitions, channelType, channel);
+  constructor(conn: MixerConnection, store: MixerStore, channelType: ChannelType, channel: number) {
+    super(conn, store, channelType, channel);
+
+    // create list of channel IDs that are linked with this channel
+    this.stereoIndex$
+      .pipe(
+        map(index => {
+          const linkedChannelNumber = getLinkedChannelNumber(channel, index);
+          if (linkedChannelNumber !== undefined) {
+            return [this.constructChannelId(this.channelType, linkedChannelNumber)];
+          } else {
+            return [];
+          }
+        })
+      )
+      .subscribe(c => (this.linkedChannelIds = c));
   }
 
   /**
@@ -45,8 +58,10 @@ export class MasterChannel extends Channel implements PannableChannel {
    * @param value SOLO value `0` or `1`
    */
   setSolo(value: number) {
-    const command = `SETD^${this.fullChannelId}.solo^${value}`;
-    this.conn.sendMessage(command);
+    [...this.linkedChannelIds, this.fullChannelId].forEach(cid => {
+      const command = `SETD^${cid}.solo^${value}`;
+      this.conn.sendMessage(command);
+    });
   }
 
   /** Enable SOLO for the channel */
