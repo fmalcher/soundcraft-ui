@@ -25,3 +25,12 @@ export function playerTimeToString(value: number) {
   const seconds = cleanValue % 60;
   return `${minutes}:${seconds.toString().length === 1 ? '0' : ''}${seconds}`;
 }
+
+export function getLinkedChannelNumber(channel: number, stereoIndex: number): number {
+  switch (stereoIndex) {
+    case 1:
+      return channel - 1;
+    case 0:
+      return channel + 1;
+  }
+}

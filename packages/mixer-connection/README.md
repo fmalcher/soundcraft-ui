@@ -180,25 +180,25 @@ An `FxChannel` supports the following operations:
 
 ### Media Player
 
-| Call                         | Description                                                                                                  |
-| ---------------------------- | ------------------------------------------------------------------------------------------------------------ |
-| `state$`                     | Current state (playing, stopped, paused) as a value of the `PlayerState` enum                                |
-| `playlist$`                  | Current playlist name                                                                                        |
-| `track$`                     | Current track name                                                                                           |
-| `length$`                    | Current track length in seconds                                                                              |
-| `elapsedTime$`               | Elapsed time of current track in seconds                                                                     |
-| `remainingTime$`             | Remaining time of current track in seconds                                                                   |
-| `play()`                     | Play                                                                                                         |
-| `pause()`                    | Pause                                                                                                        |
-| `stop()`                     | Stop                                                                                                         |
-| `next()`                     | Next track                                                                                                   |
-| `prev()`                     | Previous track                                                                                               |
-| `loadPlaylist(playlist)`     | Load a playlist by name                                                                                      |
-| `loadTrack(track, playlist)` | Load a track from a given playlist                                                                           |
-| `setShuffle(value)`          | Set player shuffle setting (`0` or `1`)                                                                      |
-| `setPlayMode(value)`         | Set player mode like `manual` or `auto`. Values are rather internal, please use convenience functions below. |
-| `setManual()`                | Enable manual mode                                                                                           |
-| `setAuto()`                  | Enable automatic mode                                                                                        |
+| Call                                     | Description                                                                                                  |
+| ---------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| `conn.player.state$`                     | Current state (playing, stopped, paused) as a value of the `PlayerState` enum                                |
+| `conn.player.playlist$`                  | Current playlist name                                                                                        |
+| `conn.player.track$`                     | Current track name                                                                                           |
+| `conn.player.length$`                    | Current track length in seconds                                                                              |
+| `conn.player.elapsedTime$`               | Elapsed time of current track in seconds                                                                     |
+| `conn.player.remainingTime$`             | Remaining time of current track in seconds                                                                   |
+| `conn.player.play()`                     | Play                                                                                                         |
+| `conn.player.pause()`                    | Pause                                                                                                        |
+| `conn.player.stop()`                     | Stop                                                                                                         |
+| `conn.player.next()`                     | Next track                                                                                                   |
+| `conn.player.prev()`                     | Previous track                                                                                               |
+| `conn.player.loadPlaylist(playlist)`     | Load a playlist by name                                                                                      |
+| `conn.player.loadTrack(track, playlist)` | Load a track from a given playlist                                                                           |
+| `conn.player.setShuffle(value)`          | Set player shuffle setting (`0` or `1`)                                                                      |
+| `conn.player.setPlayMode(value)`         | Set player mode like `manual` or `auto`. Values are rather internal, please use convenience functions below. |
+| `conn.player.setManual()`                | Enable manual mode                                                                                           |
+| `conn.player.setAuto()`                  | Enable automatic mode                                                                                        |
 
 ## Transitions
 
@@ -232,6 +232,26 @@ Easings.EaseIn; // acceleration from zero velocity (slow start)
 Easings.EaseOut; // deceleration from zero velocity (slow end)
 Easing.EaseInOut; // acceleration until halfway, the deceleration (slow start and end)
 ```
+
+## Stereo Link
+
+All commands respect the stereo link settings: If a channel is linked, all actions like fader level, mute, solo, etc. will be mirrored to the linked channel.
+This also applies to stereo-linked AUX buses so that the corresponding channel on a linked AUX bus mirrors the actions.
+
+**Examples:**
+
+| Links              | Action                           | Result                             |
+| ------------------ | -------------------------------- | ---------------------------------- |
+| CH 3/4             | MUTE CH 3                        | MUTE CH 3/4                        |
+| AUX 1/2            | Fader level change CH 5 on AUX 1 | Fader level change CH 5 on AUX 1/2 |
+| CH 3/4 and AUX 1/2 | MUTE CH 3 on AUX 1               | MUTE CH 3/4 on AUX 1/2             |
+
+This behavior matches the way the original web app handles stereo-linking.
+
+## Additional useful information
+
+- All channel objects are cached and treated as singletons. If you call `conn.master.input(3)` multiple times, each call returns the exact same object.
+- Input values are not checked or sanitized in any way! Be sure to call the functions with valid values only.
 
 ## License
 

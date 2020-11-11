@@ -1,8 +1,9 @@
+import { Subject } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
-import { select, selectFaderValue, selectMute } from '../state/state-selectors';
-import { TransitionRegistry } from '../transitions';
+import { select, selectFaderValue, selectMute, selectStereoIndex } from '../state/state-selectors';
+import { sourcesToTransition, TransitionSource } from '../transitions';
 import { BusType, ChannelType } from '../types';
 import { Easings } from '../utils/transitions/easings';
 import { DBToFaderValue, faderValueToDB } from '../utils/value-converters';
@@ -14,6 +15,14 @@ import { FadeableChannel } from './interfaces';
 export class Channel implements FadeableChannel {
   fullChannelId = `${this.channelType}.${this.channel - 1}`;
   protected faderLevelCommand = 'mix';
+  protected linkedChannelIds: string[] = [];
+
+  private transitionSources$ = new Subject<TransitionSource>();
+
+  /** Index of this channel in the stereolink compound (0 = I'm first, 1 = I'm second, -1 = not linked) */
+  protected stereoIndex$ = this.store.state$.pipe(
+    select(selectStereoIndex(this.channelType, this.channel))
+  );
 
   /** Linear level of the channel (between `0` and `1`) */
   faderLevel$ = this.store.state$.pipe(
@@ -24,12 +33,13 @@ export class Channel implements FadeableChannel {
   faderLevelDB$ = this.faderLevel$.pipe(map(v => faderValueToDB(v)));
 
   /** MUTE value of the channel (`0` or `1`) */
-  mute$ = this.store.state$.pipe(select(selectMute(this.channelType, this.channel, this.busType, this.bus)));
+  mute$ = this.store.state$.pipe(
+    select(selectMute(this.channelType, this.channel, this.busType, this.bus))
+  );
 
   constructor(
     protected conn: MixerConnection,
     protected store: MixerStore,
-    protected transitions: TransitionRegistry,
     protected channelType: ChannelType,
     protected channel: number,
     protected busType: BusType = 'master',
@@ -43,6 +53,11 @@ export class Channel implements FadeableChannel {
     } else {
       this.store.channelStore.set(storeId, this);
     }
+
+    // create transition steps and set fader level accordingly
+    sourcesToTransition(this.transitionSources$, this.faderLevel$, conn).subscribe(v =>
+      this.setFaderLevel(v)
+    );
   }
 
   /**
@@ -52,17 +67,17 @@ export class Channel implements FadeableChannel {
    * @param easing Easing characteristic, as an entry of the `Easings` enum. Defaults to `Linear`
    * @param fps Frames per second, defaults to 25
    */
-  fadeTo(targetValue: number, fadeTime: number, easing: Easings = Easings.Linear, fps: number = 25) {
-    this.faderLevel$.pipe(take(1)).subscribe(sourceValue => {
-      this.transitions.addTransition({
-        sourceValue,
-        targetValue,
-        fadeTime,
-        easing,
-        fps,
-        fullChannelId: this.fullChannelId,
-        faderLevelCommand: this.faderLevelCommand,
-      });
+  fadeTo(
+    targetValue: number,
+    fadeTime: number,
+    easing: Easings = Easings.Linear,
+    fps: number = 25
+  ) {
+    this.transitionSources$.next({
+      targetValue,
+      fadeTime,
+      easing,
+      fps,
     });
   }
 
@@ -73,7 +88,12 @@ export class Channel implements FadeableChannel {
    * @param easing Easing characteristic, as an entry of the `Easings` enum. Defaults to `Linear`
    * @param fps Frames per second, defaults to 25
    */
-  fadeToDB(targetValueDB: number, fadeTime: number, easing: Easings = Easings.Linear, fps: number = 25) {
+  fadeToDB(
+    targetValueDB: number,
+    fadeTime: number,
+    easing: Easings = Easings.Linear,
+    fps: number = 25
+  ) {
     const targetValue = DBToFaderValue(targetValueDB);
     return this.fadeTo(targetValue, fadeTime, easing, fps);
   }
@@ -83,8 +103,10 @@ export class Channel implements FadeableChannel {
    * @param value value between `0` and `1`
    */
   setFaderLevel(value: number) {
-    const command = `SETD^${this.fullChannelId}.${this.faderLevelCommand}^${value}`;
-    this.conn.sendMessage(command);
+    [...this.linkedChannelIds, this.fullChannelId].forEach(cid => {
+      const command = `SETD^${cid}.${this.faderLevelCommand}^${value}`;
+      this.conn.sendMessage(command);
+    });
   }
 
   /**
@@ -114,8 +136,10 @@ export class Channel implements FadeableChannel {
    * @param value MUTE value `0` or `1`
    */
   setMute(value: number) {
-    const command = `SETD^${this.fullChannelId}.mute^${value}`;
-    this.conn.sendMessage(command);
+    [...this.linkedChannelIds, this.fullChannelId].forEach(cid => {
+      const command = `SETD^${cid}.mute^${value}`;
+      this.conn.sendMessage(command);
+    });
   }
 
   /** Enable MUTE for the channel */
