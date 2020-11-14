@@ -125,8 +125,7 @@ export class Channel implements FadeableChannel {
     this.faderLevelDB$
       .pipe(
         take(1),
-        map(value => (value < -100 ? -100 : value)),
-        map(value => value + dbValueToAdd)
+        map(value => Math.max(value + dbValueToAdd, -100))
       )
       .subscribe(v => this.setFaderLevelDB(v));
   }
