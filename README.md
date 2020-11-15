@@ -5,6 +5,8 @@ The device can be controlled via web interface through a Websocket connection, t
 
 This project is under heavy development! Feel free to contribute! 🙂
 
+**Find README and docs for the connection library here: [https://github.com/fmalcher/soundcraft-ui/tree/main/packages/mixer-connection](https://github.com/fmalcher/soundcraft-ui/tree/main/packages/mixer-connection)**
+
 ## Development
 
 The project is based on [Nx](https://nx.dev).
@@ -21,3 +23,7 @@ You must also build the library so that the application can use it:
 nx build mixer-connection --watch
 nx serve ui-testbed
 ```
+
+## License
+
+MIT
