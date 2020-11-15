@@ -230,7 +230,7 @@ import { Easings } from 'soundcraft-ui-connection';
 Easings.Linear; // no easing
 Easings.EaseIn; // acceleration from zero velocity (slow start)
 Easings.EaseOut; // deceleration from zero velocity (slow end)
-Easing.EaseInOut; // acceleration until halfway, the deceleration (slow start and end)
+Easings.EaseInOut; // acceleration until halfway, the deceleration (slow start and end)
 ```
 
 ## Stereo Link
