@@ -22,13 +22,10 @@ function findInLUT(
     }
     return i === 0 || sourceVal === lut[i][sourceIndex]
       ? lut[i][resultIndex]
-      : Math.round(
-          (lut[i - 1][resultIndex] +
-            ((lut[i][resultIndex] - lut[i - 1][resultIndex]) *
-              (sourceVal - lut[i - 1][sourceIndex])) /
-              (lut[i][sourceIndex] - lut[i - 1][sourceIndex])) *
-            10
-        ) / 10;
+      : lut[i - 1][resultIndex] +
+          ((lut[i][resultIndex] - lut[i - 1][resultIndex]) *
+            (sourceVal - lut[i - 1][sourceIndex])) /
+            (lut[i][sourceIndex] - lut[i - 1][sourceIndex]);
   }
 }
 
@@ -45,7 +42,8 @@ export function DBToFaderValue(dbValue: number) {
  * @param value fader value in dB
  */
 export function faderValueToDB(value: number) {
-  return findInLUT(dBLinearLUT, value, 1, 0);
+  const dbValue = findInLUT(dBLinearLUT, value, 1, 0);
+  return Math.round(dbValue * 10) / 10;
 }
 
 /******************************************************/
@@ -60,9 +58,7 @@ function valueToLIN(value: number) {
     (value < 0.055 ? Math.sin(28.559933214452666 * value) : 1) *
     Math.exp(
       (23.90844819639692 +
-        (-26.23877598214595 +
-          (12.195249692570245 - 0.4878099877028098 * value) * value) *
-          value) *
+        (-26.23877598214595 + (12.195249692570245 - 0.4878099877028098 * value) * value) * value) *
         value
     ) *
     2.676529517952372e-4
