@@ -1,0 +1,38 @@
+{
+  "packageFiles": [
+    {
+      "filename": "package.json",
+      "type": "json"
+    },
+    {
+      "filename": "package-lock.json",
+      "type": "json"
+    }
+  ],
+  "bumpFiles": [
+    {
+      "filename": "package.json",
+      "type": "json"
+    },
+    {
+      "filename": "package-lock.json",
+      "type": "json"
+    },
+    {
+      "filename": "packages/mixer-connection/package.json",
+      "type": "json"
+    },
+    {
+      "filename": "packages/mixer-connection/package-lock.json",
+      "type": "json"
+    },
+    {
+      "filename": "packages/testbed/package.json",
+      "type": "json"
+    },
+    {
+      "filename": "packages/testbed/package-lock.json",
+      "type": "json"
+    }
+  ]
+}
