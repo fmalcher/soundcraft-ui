@@ -1,3 +1,4 @@
+import { take } from 'rxjs/operators';
 import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
 import {
@@ -6,6 +7,7 @@ import {
   selectPlayerLength,
   selectPlayerPlaylist,
   selectPlayerRemainingTime,
+  selectPlayerShuffle,
   selectPlayerState,
   selectPlayerTrack,
 } from '../state/state-selectors';
@@ -31,6 +33,9 @@ export class Player {
 
   /** Remaining time of current track in seconds */
   remainingTime$ = this.store.state$.pipe(select(selectPlayerRemainingTime()));
+
+  /** Shuffle setting (`0` or `1`) */
+  shuffle$ = this.store.state$.pipe(select(selectPlayerShuffle()));
 
   constructor(private conn: MixerConnection, private store: MixerStore) {}
 
@@ -82,6 +87,13 @@ export class Player {
    */
   setShuffle(value: number) {
     this.conn.sendMessage(`SETD^settings.shuffle^${value}`);
+  }
+
+  /**
+   * Toggle player shuffle setting
+   */
+  toggleShuffle() {
+    this.shuffle$.pipe(take(1)).subscribe(value => this.setShuffle(value ^ 1));
   }
 
   /**
