@@ -638,4 +638,9 @@ describe('Outbound messages', () => {
     conn.player.setAuto();
     expect(message).toMatchInlineSnapshot(`"SETD^settings.playMode^3"`);
   });
+
+  it('2-track recorder', () => {
+    conn.recorderDualTrack.recordToggle();
+    expect(message).toMatchInlineSnapshot(`"RECTOGGLE"`);
+  });
 });

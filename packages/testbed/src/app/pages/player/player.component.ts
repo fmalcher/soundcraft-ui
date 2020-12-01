@@ -9,6 +9,7 @@ import { ConnectionService } from '../../connection.service';
   styleUrls: ['./player.component.css'],
 })
 export class PlayerComponent implements OnInit {
+  rec = this.cs.conn.recorderDualTrack;
   player = this.cs.conn.player;
   playerState$ = this.player.state$.pipe(
     map(s => {

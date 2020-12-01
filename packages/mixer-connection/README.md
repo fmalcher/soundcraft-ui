@@ -178,30 +178,6 @@ An `FxChannel` supports the following operations:
 | `setPost(value)`                 | Set POST (`1`) or PRE (`0`)                 |
 | `post$`                          | Get POST status (`0` for PRE, `1` for POST) |
 
-### Media Player
-
-| Call                                     | Description                                                                                                  |
-| ---------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
-| `conn.player.state$`                     | Current state (playing, stopped, paused) as a value of the `PlayerState` enum                                |
-| `conn.player.playlist$`                  | Current playlist name                                                                                        |
-| `conn.player.track$`                     | Current track name                                                                                           |
-| `conn.player.length$`                    | Current track length in seconds                                                                              |
-| `conn.player.elapsedTime$`               | Elapsed time of current track in seconds                                                                     |
-| `conn.player.remainingTime$`             | Remaining time of current track in seconds                                                                   |
-| `conn.player.shuffle$`                   | Shuffle setting (`0` or `1`)                                                                                 |
-| `conn.player.play()`                     | Play                                                                                                         |
-| `conn.player.pause()`                    | Pause                                                                                                        |
-| `conn.player.stop()`                     | Stop                                                                                                         |
-| `conn.player.next()`                     | Next track                                                                                                   |
-| `conn.player.prev()`                     | Previous track                                                                                               |
-| `conn.player.loadPlaylist(playlist)`     | Load a playlist by name                                                                                      |
-| `conn.player.loadTrack(track, playlist)` | Load a track from a given playlist                                                                           |
-| `conn.player.setShuffle(value)`          | Set player shuffle setting (`0` or `1`)                                                                      |
-| `conn.player.toggleShuffle()`            | Toggle player shuffle setting                                                                                |
-| `conn.player.setPlayMode(value)`         | Set player mode like `manual` or `auto`. Values are rather internal, please use convenience functions below. |
-| `conn.player.setManual()`                | Enable manual mode                                                                                           |
-| `conn.player.setAuto()`                  | Enable automatic mode                                                                                        |
-
 ### MUTE Groups
 
 The mixer supports up to 6 MUTE groups.
@@ -227,6 +203,40 @@ First, get access to a `MuteGroup` object:
 
 Call `conn.clearMuteGroups()` to disable all MUTE groups.
 This behaves differently from the "CLEAR MUTE" button in the Soundcraft Web App which also clears channel mutes.
+
+### Media Player
+
+| Call                                     | Description                                                                                                  |
+| ---------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| `conn.player.state$`                     | Current state (playing, stopped, paused) as a value of the `PlayerState` enum                                |
+| `conn.player.playlist$`                  | Current playlist name                                                                                        |
+| `conn.player.track$`                     | Current track name                                                                                           |
+| `conn.player.length$`                    | Current track length in seconds                                                                              |
+| `conn.player.elapsedTime$`               | Elapsed time of current track in seconds                                                                     |
+| `conn.player.remainingTime$`             | Remaining time of current track in seconds                                                                   |
+| `conn.player.shuffle$`                   | Shuffle setting (`0` or `1`)                                                                                 |
+| `conn.player.play()`                     | Play                                                                                                         |
+| `conn.player.pause()`                    | Pause                                                                                                        |
+| `conn.player.stop()`                     | Stop                                                                                                         |
+| `conn.player.next()`                     | Next track                                                                                                   |
+| `conn.player.prev()`                     | Previous track                                                                                               |
+| `conn.player.loadPlaylist(playlist)`     | Load a playlist by name                                                                                      |
+| `conn.player.loadTrack(track, playlist)` | Load a track from a given playlist                                                                           |
+| `conn.player.setShuffle(value)`          | Set player shuffle setting (`0` or `1`)                                                                      |
+| `conn.player.toggleShuffle()`            | Toggle player shuffle setting                                                                                |
+| `conn.player.setPlayMode(value)`         | Set player mode like `manual` or `auto`. Values are rather internal, please use convenience functions below. |
+| `conn.player.setManual()`                | Enable manual mode                                                                                           |
+| `conn.player.setAuto()`                  | Enable automatic mode                                                                                        |
+
+### 2-Track USB Recorder
+
+The following commands control the dual-track USB recorder in the media player section of the Soundcraft Web App:
+
+| Call                                    | Description                       |
+| --------------------------------------- | --------------------------------- |
+| `conn.recorderDualTrack.recording$`     | Recording state (`0` or `1`)      |
+| `conn.recorderDualTrack.busy$`          | Recording busy state (`0` or `1`) |
+| `conn.recorderDualTrack.recordToggle()` | Toggle recording                  |
 
 ## Transitions
 

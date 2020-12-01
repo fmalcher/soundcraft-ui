@@ -1,5 +1,6 @@
 import { delay, filter, take } from 'rxjs/operators';
 import { AuxBus } from './facade/aux-bus';
+import { DualTrackRecorder } from './facade/dual-track-recorder';
 import { FxBus } from './facade/fx-bus';
 import { MasterBus } from './facade/master-bus';
 import { MuteGroup, MuteGroupID } from './facade/mute-group';
@@ -20,6 +21,9 @@ export class SoundcraftUI {
 
   /** Get media player */
   player = new Player(this.conn, this.store);
+
+  /** Get 2-track recorder */
+  recorderDualTrack = new DualTrackRecorder(this.conn, this.store);
 
   constructor(private targetIP: string) {}
 
