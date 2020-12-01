@@ -7,3 +7,4 @@ export * from './master-bus';
 export * from './master-channel';
 export * from './player';
 export * from './send-channel';
+export * from './mute-group';
