@@ -45,3 +45,14 @@
     >Shuffle Off</soundcraft-ui-mixer-button
   >
 </div>
+
+<h2 class="mt-5">2-Track USB Recorder</h2>
+
+<div>
+  <p><label>Recording</label> {{ rec.recording$ | async }}</p>
+  <p><label>Busy</label> {{ rec.busy$ | async }}</p>
+</div>
+
+<soundcraft-ui-mixer-button (press)="rec.recordToggle()" [active]="rec.recording$ | async"
+  >REC</soundcraft-ui-mixer-button
+>

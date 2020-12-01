@@ -234,6 +234,16 @@ export const selectPlayerShuffle: Selector<number> = () => {
   return state => getStatePath<number>(state, ['settings', 'shuffle'], 0);
 };
 
+/** Select recording state (2-track) */
+export const selectRecordingState: Selector<number> = () => {
+  return state => getStatePath<number>(state, ['var', 'isRecording'], 0);
+};
+
+/** Select recording busy state (2-track) */
+export const selectRecordingBusyState: Selector<number> = () => {
+  return state => getStatePath<number>(state, ['var', 'recBusy'], 0);
+};
+
 /** Select mute group bit mask */
 export const selectMuteGroupMask: Selector<number> = () => {
   return state => getStatePath<number>(state, ['mgmask']);
