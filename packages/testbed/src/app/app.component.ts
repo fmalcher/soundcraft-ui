@@ -15,6 +15,7 @@ export class AppComponent {
     { label: 'AUX bus 2', target: '/auxbus/2' },
     { label: 'FX bus 1', target: '/fxbus/1' },
     { label: 'Player', target: '/player' },
+    { label: 'MUTE Groups', target: '/mutegroups' },
     { label: 'Full state', target: '/fullstate' },
   ];
 

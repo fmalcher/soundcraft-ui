@@ -20,6 +20,7 @@ import { InputComponent } from './ui/input/input.component';
 import { TransitionComponent } from './ui/transition/transition.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TimePipe } from './ui/time.pipe';
+import { MuteGroupsComponent } from './pages/mute-groups/mute-groups.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'connection', pathMatch: 'full' },
@@ -29,6 +30,7 @@ const routes: Routes = [
   { path: 'auxbus/:bus', component: AuxBusComponent },
   { path: 'fxbus/:bus', component: FxBusComponent },
   { path: 'player', component: PlayerComponent },
+  { path: 'mutegroups', component: MuteGroupsComponent },
   { path: 'fullstate', component: FullStateComponent },
 ];
 
@@ -51,6 +53,7 @@ const routes: Routes = [
     InputComponent,
     TransitionComponent,
     TimePipe,
+    MuteGroupsComponent,
   ],
   imports: [
     BrowserModule,

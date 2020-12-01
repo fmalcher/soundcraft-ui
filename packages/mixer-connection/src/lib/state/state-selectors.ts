@@ -228,3 +228,8 @@ export const selectPlayerPlaylist: Selector<string> = () => {
 export const selectPlayerTrack: Selector<string> = () => {
   return state => getStatePath<string>(state, ['var', 'currentTrack']);
 };
+
+/** Select mute group bit mask */
+export const selectMuteGroupMask: Selector<number> = () => {
+  return state => getStatePath<number>(state, ['mgmask']);
+};
