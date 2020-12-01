@@ -188,6 +188,7 @@ An `FxChannel` supports the following operations:
 | `conn.player.length$`                    | Current track length in seconds                                                                              |
 | `conn.player.elapsedTime$`               | Elapsed time of current track in seconds                                                                     |
 | `conn.player.remainingTime$`             | Remaining time of current track in seconds                                                                   |
+| `conn.player.shuffle$`                   | Shuffle setting (`0` or `1`)                                                                                 |
 | `conn.player.play()`                     | Play                                                                                                         |
 | `conn.player.pause()`                    | Pause                                                                                                        |
 | `conn.player.stop()`                     | Stop                                                                                                         |
@@ -196,6 +197,7 @@ An `FxChannel` supports the following operations:
 | `conn.player.loadPlaylist(playlist)`     | Load a playlist by name                                                                                      |
 | `conn.player.loadTrack(track, playlist)` | Load a track from a given playlist                                                                           |
 | `conn.player.setShuffle(value)`          | Set player shuffle setting (`0` or `1`)                                                                      |
+| `conn.player.toggleShuffle()`            | Toggle player shuffle setting                                                                                |
 | `conn.player.setPlayMode(value)`         | Set player mode like `manual` or `auto`. Values are rather internal, please use convenience functions below. |
 | `conn.player.setManual()`                | Enable manual mode                                                                                           |
 | `conn.player.setAuto()`                  | Enable automatic mode                                                                                        |

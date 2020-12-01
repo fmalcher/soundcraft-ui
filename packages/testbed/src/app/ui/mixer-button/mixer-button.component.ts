@@ -6,7 +6,7 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./mixer-button.component.scss'],
 })
 export class MixerButtonComponent implements OnInit {
-  @Input() activeClass: string;
+  @Input() activeClass = 'default-active';
   @Input() active: boolean;
   @Output() press = new EventEmitter();
 

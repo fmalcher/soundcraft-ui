@@ -3,30 +3,16 @@
   <p><label>Playlist</label> {{ player.playlist$ | async }}</p>
   <p><label>Track</label> {{ player.track$ | async }}</p>
   <p><label>Track length (s)</label> {{ player.length$ | async | time }}</p>
-  <p>
-    <label>Elapsed time (s)</label> {{ player.elapsedTime$ | async | time }}
-  </p>
-  <p>
-    <label>Remaining time (s)</label> {{ player.remainingTime$ | async | time }}
-  </p>
+  <p><label>Elapsed time (s)</label> {{ player.elapsedTime$ | async | time }}</p>
+  <p><label>Remaining time (s)</label> {{ player.remainingTime$ | async | time }}</p>
 </div>
 
 <div class="mb-3">
-  <soundcraft-ui-mixer-button (press)="player.prev()"
-    >|&lt; Prev</soundcraft-ui-mixer-button
-  >
-  <soundcraft-ui-mixer-button (press)="player.play()"
-    >PLAY</soundcraft-ui-mixer-button
-  >
-  <soundcraft-ui-mixer-button (press)="player.pause()"
-    >PAUSE</soundcraft-ui-mixer-button
-  >
-  <soundcraft-ui-mixer-button (press)="player.stop()"
-    >STOP</soundcraft-ui-mixer-button
-  >
-  <soundcraft-ui-mixer-button (press)="player.next()"
-    >Next &gt;|</soundcraft-ui-mixer-button
-  >
+  <soundcraft-ui-mixer-button (press)="player.prev()">|&lt; Prev</soundcraft-ui-mixer-button>
+  <soundcraft-ui-mixer-button (press)="player.play()">PLAY</soundcraft-ui-mixer-button>
+  <soundcraft-ui-mixer-button (press)="player.pause()">PAUSE</soundcraft-ui-mixer-button>
+  <soundcraft-ui-mixer-button (press)="player.stop()">STOP</soundcraft-ui-mixer-button>
+  <soundcraft-ui-mixer-button (press)="player.next()">Next &gt;|</soundcraft-ui-mixer-button>
 </div>
 
 <soundcraft-ui-input
@@ -47,16 +33,15 @@
 </div>
 
 <div class="mb-3">
-  <soundcraft-ui-mixer-button (press)="player.setManual()"
-    >Manual</soundcraft-ui-mixer-button
+  <soundcraft-ui-mixer-button (press)="player.setManual()">Manual</soundcraft-ui-mixer-button>
+  <soundcraft-ui-mixer-button (press)="player.setAuto()">Auto</soundcraft-ui-mixer-button>
+</div>
+<div>
+  <soundcraft-ui-mixer-button (press)="player.toggleShuffle()" [active]="player.shuffle$ | async"
+    >Shuffle Toggle</soundcraft-ui-mixer-button
   >
-  <soundcraft-ui-mixer-button (press)="player.setAuto()"
-    >Auto</soundcraft-ui-mixer-button
-  >
+  <soundcraft-ui-mixer-button (press)="player.setShuffle(1)">Shuffle On</soundcraft-ui-mixer-button>
   <soundcraft-ui-mixer-button (press)="player.setShuffle(0)"
     >Shuffle Off</soundcraft-ui-mixer-button
-  >
-  <soundcraft-ui-mixer-button (press)="player.setShuffle(1)"
-    >Shuffle On</soundcraft-ui-mixer-button
   >
 </div>
