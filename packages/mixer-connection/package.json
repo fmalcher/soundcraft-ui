@@ -18,5 +18,8 @@
     "Audio",
     "Audio mixer",
     "Sound"
-  ]
+  ],
+  "dependencies": {
+    "ws": "^7.4.1"
+  }
 }
