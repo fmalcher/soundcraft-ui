@@ -10,7 +10,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["packages/mixer-connection/**/*.ts"]
+            "lintFilePatterns": [
+              "packages/mixer-connection/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -18,7 +20,10 @@
           "options": {
             "jestConfig": "packages/mixer-connection/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/packages/mixer-connection"
+          ]
         },
         "build": {
           "builder": "@nrwl/node:package",
@@ -27,8 +32,13 @@
             "tsConfig": "packages/mixer-connection/tsconfig.lib.json",
             "packageJson": "packages/mixer-connection/package.json",
             "main": "packages/mixer-connection/src/index.ts",
-            "assets": ["packages/mixer-connection/*.md"]
-          }
+            "assets": [
+              "packages/mixer-connection/*.md"
+            ]
+          },
+          "outputs": [
+            "{options.outputPath}"
+          ]
         }
       }
     },
@@ -56,7 +66,9 @@
               "packages/testbed/src/favicon.ico",
               "packages/testbed/src/assets"
             ],
-            "styles": ["packages/testbed/src/styles.scss"],
+            "styles": [
+              "packages/testbed/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -70,7 +82,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -88,7 +99,10 @@
                 }
               ]
             }
-          }
+          },
+          "outputs": [
+            "{options.outputPath}"
+          ]
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -115,7 +129,10 @@
               "packages/testbed/tsconfig.spec.json",
               "packages/testbed/tsconfig.editor.json"
             ],
-            "exclude": ["**/node_modules/**", "!packages/testbed/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!packages/testbed/**/*"
+            ]
           }
         },
         "test": {
@@ -123,7 +140,10 @@
           "options": {
             "jestConfig": "packages/testbed/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/packages/testbed"
+          ]
         }
       }
     },
@@ -148,8 +168,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["packages/testbed-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!packages/testbed-e2e/**/*"]
+            "tsConfig": [
+              "packages/testbed-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!packages/testbed-e2e/**/*"
+            ]
           }
         }
       }
