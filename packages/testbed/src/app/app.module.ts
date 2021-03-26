@@ -21,6 +21,7 @@ import { TransitionComponent } from './ui/transition/transition.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TimePipe } from './ui/time.pipe';
 import { MuteGroupsComponent } from './pages/mute-groups/mute-groups.component';
+import { VolumebusComponent } from './pages/volumebus/volumebus.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'connection', pathMatch: 'full' },
@@ -31,6 +32,7 @@ const routes: Routes = [
   { path: 'fxbus/:bus', component: FxBusComponent },
   { path: 'player', component: PlayerComponent },
   { path: 'mutegroups', component: MuteGroupsComponent },
+  { path: 'volumebus', component: VolumebusComponent },
   { path: 'fullstate', component: FullStateComponent },
 ];
 
@@ -54,6 +56,7 @@ const routes: Routes = [
     TransitionComponent,
     TimePipe,
     MuteGroupsComponent,
+    VolumebusComponent,
   ],
   imports: [
     BrowserModule,

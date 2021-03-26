@@ -106,12 +106,7 @@ export class MasterBus implements FadeableChannel, PannableChannel {
    * @param easing Easing characteristic, as an entry of the `Easings` enum. Defaults to `Linear`
    * @param fps Frames per second, defaults to 25
    */
-  fadeTo(
-    targetValue: number,
-    fadeTime: number,
-    easing: Easings = Easings.Linear,
-    fps: number = 25
-  ) {
+  fadeTo(targetValue: number, fadeTime: number, easing: Easings = Easings.Linear, fps = 25) {
     this.transitionSources$.next({
       targetValue,
       fadeTime,
@@ -127,12 +122,7 @@ export class MasterBus implements FadeableChannel, PannableChannel {
    * @param easing Easing characteristic, as an entry of the `Easings` enum. Defaults to `Linear`
    * @param fps Frames per second, defaults to 25
    */
-  fadeToDB(
-    targetValueDB: number,
-    fadeTime: number,
-    easing: Easings = Easings.Linear,
-    fps: number = 25
-  ) {
+  fadeToDB(targetValueDB: number, fadeTime: number, easing: Easings = Easings.Linear, fps = 25) {
     const targetValue = DBToFaderValue(targetValueDB);
     return this.fadeTo(targetValue, fadeTime, easing, fps);
   }

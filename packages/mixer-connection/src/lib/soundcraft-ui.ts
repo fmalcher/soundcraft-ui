@@ -5,6 +5,7 @@ import { FxBus } from './facade/fx-bus';
 import { MasterBus } from './facade/master-bus';
 import { MuteGroup, MuteGroupID } from './facade/mute-group';
 import { Player } from './facade/player';
+import { VolumeBus } from './facade/volume-bus';
 import { MixerConnection } from './mixer-connection';
 import { MixerStore } from './state/mixer-store';
 import { ConnectionStatus } from './types';
@@ -55,6 +56,11 @@ export class SoundcraftUI {
   clearMuteGroups() {
     this.conn.sendMessage('SETD^mgmask^0');
   }
+
+  volume = {
+    solo: new VolumeBus(this.conn, this.store, 'solovol'),
+    headphone: (id: number) => new VolumeBus(this.conn, this.store, 'hpvol', id),
+  };
 
   /** Connect to the mixer */
   connect() {

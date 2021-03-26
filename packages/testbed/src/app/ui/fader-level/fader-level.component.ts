@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Channel, MasterBus } from 'soundcraft-ui-connection';
+import { FadeableChannel } from 'soundcraft-ui-connection';
 
 @Component({
   selector: 'soundcraft-ui-fader-level',
@@ -7,7 +7,7 @@ import { Channel, MasterBus } from 'soundcraft-ui-connection';
   styleUrls: ['./fader-level.component.css'],
 })
 export class FaderLevelComponent implements OnInit {
-  @Input() channel: Channel | MasterBus;
+  @Input() channel: FadeableChannel;
 
   constructor() {}
 

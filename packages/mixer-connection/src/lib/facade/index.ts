@@ -8,3 +8,5 @@ export * from './master-channel';
 export * from './player';
 export * from './send-channel';
 export * from './mute-group';
+export * from './volume-bus';
+export * from './interfaces';

@@ -2,52 +2,33 @@ import { Subject } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
-import { select, selectFaderValue, selectMute, selectStereoIndex } from '../state/state-selectors';
+import { select, selectVolumeBusValue } from '../state/state-selectors';
 import { sourcesToTransition, TransitionSource } from '../transitions';
-import { BusType, ChannelType } from '../types';
 import { Easings } from '../utils/transitions/easings';
 import { DBToFaderValue, faderValueToDB } from '../utils/value-converters';
 import { FadeableChannel } from './interfaces';
 
 /**
- * Represents a single channel with a fader
+ * Represents a volume bus like headphones or solo
  */
-export class Channel implements FadeableChannel {
-  fullChannelId = `${this.channelType}.${this.channel - 1}`;
-  protected faderLevelCommand = 'mix';
-  protected linkedChannelIds: string[] = [];
-
+export class VolumeBus implements FadeableChannel {
   private transitionSources$ = new Subject<TransitionSource>();
 
-  /** Index of this channel in the stereolink compound (0 = I'm first, 1 = I'm second, -1 = not linked) */
-  protected stereoIndex$ = this.store.state$.pipe(
-    select(selectStereoIndex(this.channelType, this.channel))
-  );
+  /** Linear level of the volume bus (between `0` and `1`) */
+  faderLevel$ = this.store.state$.pipe(select(selectVolumeBusValue(this.busName, this.busId - 1)));
 
-  /** Linear level of the channel (between `0` and `1`) */
-  faderLevel$ = this.store.state$.pipe(
-    select(selectFaderValue(this.channelType, this.channel, this.busType, this.bus))
-  );
-
-  /** dB level of the channel (between `-Infinity` and `10`) */
+  /** dB level of the volume bus (between `-Infinity` and `10`) */
   faderLevelDB$ = this.faderLevel$.pipe(map(v => faderValueToDB(v)));
-
-  /** MUTE value of the channel (`0` or `1`) */
-  mute$ = this.store.state$.pipe(
-    select(selectMute(this.channelType, this.channel, this.busType, this.bus))
-  );
 
   constructor(
     protected conn: MixerConnection,
     protected store: MixerStore,
-    protected channelType: ChannelType,
-    protected channel: number,
-    protected busType: BusType = 'master',
-    protected bus: number = 0
+    protected busName: string,
+    protected busId?: number
   ) {
     // lookup channel in the store and use existing object if possible
-    const storeId = busType + bus + channelType + channel;
-    const storedChannel = this.store.channelStore.get<Channel>(storeId);
+    const storeId = 'volume-' + this.busName + this.busId;
+    const storedChannel = this.store.channelStore.get<VolumeBus>(storeId);
     if (storedChannel) {
       return storedChannel;
     } else {
@@ -89,18 +70,17 @@ export class Channel implements FadeableChannel {
   }
 
   /**
-   * Set linear level of the channel fader
+   * Set linear level of the bus volume
    * @param value value between `0` and `1`
    */
   setFaderLevel(value: number) {
-    [...this.linkedChannelIds, this.fullChannelId].forEach(cid => {
-      const command = `SETD^${cid}.${this.faderLevelCommand}^${value}`;
-      this.conn.sendMessage(command);
-    });
+    const bus = `${this.busName}${this.busId ? '.' + (this.busId - 1) : ''}`;
+    const command = `SETD^settings.${bus}^${value}`;
+    this.conn.sendMessage(command);
   }
 
   /**
-   * Set dB level of the channel fader
+   * Set dB level of the bus volume
    * @param value value between `-Infinity` and `10`
    */
   setFaderLevelDB(dbValue: number) {
@@ -108,7 +88,7 @@ export class Channel implements FadeableChannel {
   }
 
   /**
-   * Change the fader value relatively by adding a given value
+   * Change the volume fader value relatively by adding a given value
    * @param dbValueToAdd Value (dB) to add to the current value
    */
   changeFaderLevelDB(dbValueToAdd: number) {
@@ -118,31 +98,5 @@ export class Channel implements FadeableChannel {
         map(value => Math.max(value + dbValueToAdd, -100))
       )
       .subscribe(v => this.setFaderLevelDB(v));
-  }
-
-  /**
-   * Set MUTE value for the channel
-   * @param value MUTE value `0` or `1`
-   */
-  setMute(value: number) {
-    [...this.linkedChannelIds, this.fullChannelId].forEach(cid => {
-      const command = `SETD^${cid}.mute^${value}`;
-      this.conn.sendMessage(command);
-    });
-  }
-
-  /** Enable MUTE for the channel */
-  mute() {
-    this.setMute(1);
-  }
-
-  /** Disable MUTE for the channel */
-  unmute() {
-    this.setMute(0);
-  }
-
-  /** Toggle MUTE status for the channel */
-  toggleMute() {
-    this.mute$.pipe(take(1)).subscribe(mute => this.setMute(mute ^ 1));
   }
 }
