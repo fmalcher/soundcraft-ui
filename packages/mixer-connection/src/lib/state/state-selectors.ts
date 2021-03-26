@@ -248,3 +248,11 @@ export const selectRecordingBusyState: Selector<number> = () => {
 export const selectMuteGroupMask: Selector<number> = () => {
   return state => getStatePath<number>(state, ['mgmask']);
 };
+
+/**
+ * Select fader value of a volume bus (headphones or solo)
+ * @param busName Name of the bus in the "settings" part of the state
+ * @param busId Optional ID of the bus
+ */
+export const selectVolumeBusValue: Selector<number> = (busName: string, busId?: number) => state =>
+  getStatePath<number>(state, ['settings', busName, ...(busId >= 0 ? [busId] : [])]);

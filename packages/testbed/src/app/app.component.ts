@@ -16,6 +16,7 @@ export class AppComponent {
     { label: 'FX bus 1', target: '/fxbus/1' },
     { label: 'Player/Rec', target: '/player' },
     { label: 'MUTE Groups', target: '/mutegroups' },
+    { label: 'Volume Buses', target: '/volumebus' },
     { label: 'Full state', target: '/fullstate' },
   ];
 

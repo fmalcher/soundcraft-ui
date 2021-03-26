@@ -643,4 +643,24 @@ describe('Outbound messages', () => {
     conn.recorderDualTrack.recordToggle();
     expect(message).toMatchInlineSnapshot(`"RECTOGGLE"`);
   });
+
+  it('Volume Buses', () => {
+    conn.volume.solo.setFaderLevel(0.47679);
+    expect(message).toMatchInlineSnapshot(`"SETD^settings.solovol^0.47679"`);
+
+    conn.volume.solo.setFaderLevelDB(10);
+    expect(message).toMatchInlineSnapshot(`"SETD^settings.solovol^1"`);
+
+    conn.volume.headphone(1).setFaderLevel(0.47679);
+    expect(message).toMatchInlineSnapshot(`"SETD^settings.hpvol.0^0.47679"`);
+
+    conn.volume.headphone(1).setFaderLevelDB(10);
+    expect(message).toMatchInlineSnapshot(`"SETD^settings.hpvol.0^1"`);
+
+    conn.volume.headphone(2).setFaderLevel(0.47679);
+    expect(message).toMatchInlineSnapshot(`"SETD^settings.hpvol.1^0.47679"`);
+
+    conn.volume.headphone(3).setFaderLevelDB(10);
+    expect(message).toMatchInlineSnapshot(`"SETD^settings.hpvol.2^1"`);
+  });
 });

@@ -1,4 +1,4 @@
-import { Channel } from '../facade/channel';
+import { FadeableChannel } from '../facade/interfaces';
 
 /**
  * Store for channel objects.
@@ -6,13 +6,13 @@ import { Channel } from '../facade/channel';
  * This is just a wrapper around a "Map" object, but we like to keep it abstract.
  */
 export class ChannelStore {
-  private store = new Map<string, Channel>();
+  private store = new Map<string, FadeableChannel>();
 
-  get(id: string) {
-    return this.store.get(id);
+  get<T extends FadeableChannel>(id: string) {
+    return this.store.get(id) as T;
   }
 
-  set(id: string, value: Channel) {
+  set(id: string, value: FadeableChannel) {
     this.store.set(id, value);
   }
 }

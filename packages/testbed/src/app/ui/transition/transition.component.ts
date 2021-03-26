@@ -3,8 +3,10 @@ import { FormControl, FormGroup } from '@angular/forms';
 import {
   Channel,
   Easings,
+  FadeableChannel,
   faderValueToDB,
   MasterBus,
+  VolumeBus,
 } from 'soundcraft-ui-connection';
 
 @Component({
@@ -13,7 +15,7 @@ import {
   styleUrls: ['./transition.component.css'],
 })
 export class TransitionComponent implements OnInit {
-  @Input() channel: Channel | MasterBus;
+  @Input() channel: FadeableChannel;
 
   form: FormGroup;
   easingOptions = [
