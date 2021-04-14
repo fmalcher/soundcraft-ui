@@ -1,41 +1,19 @@
 {
   "npmScope": "soundcraft-ui",
-  "affected": {
-    "defaultBase": "main"
-  },
+  "affected": { "defaultBase": "main" },
   "implicitDependencies": {
     "workspace.json": "*",
-    "package.json": {
-      "dependencies": "*",
-      "devDependencies": "*"
-    },
+    "package.json": { "dependencies": "*", "devDependencies": "*" },
     "tsconfig.base.json": "*",
-    "tslint.json": "*",
     ".eslintrc.json": "*",
     "nx.json": "*"
   },
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/workspace/tasks-runners/default",
-      "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"]
-      }
+      "options": { "cacheableOperations": ["build", "lint", "test", "e2e"] }
     }
   },
-  "projects": {
-    "mixer-connection": {
-      "tags": []
-    },
-    "testbed": {
-      "tags": []
-    },
-    "testbed-e2e": {
-      "tags": [],
-      "implicitDependencies": ["testbed"]
-    }
-  },
-  "workspaceLayout": {
-    "appsDir": "packages",
-    "libsDir": "packages"
-  }
+  "projects": { "mixer-connection": { "tags": [] }, "testbed": { "tags": [] } },
+  "workspaceLayout": { "appsDir": "packages", "libsDir": "packages" }
 }
