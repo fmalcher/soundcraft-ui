@@ -309,6 +309,15 @@ This also applies to stereo-linked AUX buses so that the corresponding channel o
 
 This behavior matches the way the original web app handles stereo-linking.
 
+## Retrieving raw messages or state
+
+The `MixerStore` object exposes raw streams with messages and state data. You can use them for debugging purposes or for integration in other services:
+
+- `conn.store.messages$`: Stream of all raw `SETD` and `SETS` messages (inbound and outbound)
+- `conn.store.state$`: Stream of state objects, derived from the messages
+
+> **Please prefer the human-readable interface over reading the raw state!** If you're missing any features, please file an issue or PR.
+
 ## Additional useful information
 
 - All channel objects are cached and treated as singletons. If you call `conn.master.input(3)` multiple times, each call returns the exact same object.
