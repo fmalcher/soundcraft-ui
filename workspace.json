@@ -10,9 +10,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "packages/mixer-connection/**/*.ts"
-            ]
+            "lintFilePatterns": ["packages/mixer-connection/**/*.ts"]
           }
         },
         "test": {
@@ -21,9 +19,7 @@
             "jestConfig": "packages/mixer-connection/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/packages/mixer-connection"
-          ]
+          "outputs": ["coverage/packages/mixer-connection"]
         },
         "build": {
           "builder": "@nrwl/node:package",
@@ -32,13 +28,9 @@
             "tsConfig": "packages/mixer-connection/tsconfig.lib.json",
             "packageJson": "packages/mixer-connection/package.json",
             "main": "packages/mixer-connection/src/index.ts",
-            "assets": [
-              "packages/mixer-connection/*.md"
-            ]
+            "assets": ["packages/mixer-connection/*.md"]
           },
-          "outputs": [
-            "{options.outputPath}"
-          ]
+          "outputs": ["{options.outputPath}"]
         }
       }
     },
@@ -62,13 +54,8 @@
             "polyfills": "packages/testbed/src/polyfills.ts",
             "tsConfig": "packages/testbed/tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "packages/testbed/src/favicon.ico",
-              "packages/testbed/src/assets"
-            ],
-            "styles": [
-              "packages/testbed/src/styles.scss"
-            ],
+            "assets": ["packages/testbed/src/favicon.ico", "packages/testbed/src/assets"],
+            "styles": ["packages/testbed/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -100,9 +87,7 @@
               ]
             }
           },
-          "outputs": [
-            "{options.outputPath}"
-          ]
+          "outputs": ["{options.outputPath}"]
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -124,10 +109,7 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "packages/testbed/**/*.ts",
-              "packages/testbed/**/*.html"
-            ]
+            "lintFilePatterns": ["packages/testbed/**/*.ts", "packages/testbed/**/*.html"]
           }
         },
         "test": {
@@ -136,9 +118,7 @@
             "jestConfig": "packages/testbed/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/packages/testbed"
-          ]
+          "outputs": ["coverage/packages/testbed"]
         }
       }
     }

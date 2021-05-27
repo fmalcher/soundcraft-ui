@@ -1,24 +1,14 @@
 {
   "extends": "../../.eslintrc.json",
-  "ignorePatterns": [
-    "!**/*"
-  ],
+  "ignorePatterns": ["!**/*"],
   "overrides": [
     {
-      "files": [
-        "*.ts"
-      ],
+      "files": ["*.ts"],
       "parserOptions": {
-        "project": [
-          "packages/testbed/tsconfig.app.json",
-          "packages/testbed/tsconfig.spec.json",
-        ],
+        "project": ["packages/testbed/tsconfig.app.json", "packages/testbed/tsconfig.spec.json"],
         "createDefaultProgram": true
       },
-      "extends": [
-        "prettier",
-        "prettier/@typescript-eslint"
-      ],
+      "extends": ["prettier", "prettier/@typescript-eslint"],
       "rules": {
         "@angular-eslint/component-selector": [
           "error",
@@ -50,9 +40,7 @@
       }
     },
     {
-      "files": [
-        "*.html"
-      ],
+      "files": ["*.html"],
       "rules": {}
     }
   ]
