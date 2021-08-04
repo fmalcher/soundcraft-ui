@@ -17,6 +17,7 @@ export class AppComponent {
     { label: 'Player/Rec', target: '/player' },
     { label: 'MUTE Groups', target: '/mutegroups' },
     { label: 'Volume Buses', target: '/volumebus' },
+    { label: 'Shows', target: '/shows' },
     { label: 'Full state', target: '/fullstate' },
   ];
 

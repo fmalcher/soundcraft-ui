@@ -5,6 +5,7 @@ import { FxBus } from './facade/fx-bus';
 import { MasterBus } from './facade/master-bus';
 import { MuteGroup, MuteGroupID } from './facade/mute-group';
 import { Player } from './facade/player';
+import { ShowController } from './facade/show-controller';
 import { VolumeBus } from './facade/volume-bus';
 import { MixerConnection } from './mixer-connection';
 import { MixerStore } from './state/mixer-store';
@@ -17,14 +18,23 @@ export class SoundcraftUI {
   /** Connection status */
   status$ = this.conn.status$;
 
-  /** Get master bus */
+  /** Master bus */
   master = new MasterBus(this.conn, this.store);
 
-  /** Get media player */
+  /** Media player */
   player = new Player(this.conn, this.store);
 
-  /** Get 2-track recorder */
+  /** 2-track recorder */
   recorderDualTrack = new DualTrackRecorder(this.conn, this.store);
+
+  /** SOLO and Headphone buses */
+  volume = {
+    solo: new VolumeBus(this.conn, this.store, 'solovol'),
+    headphone: (id: number) => new VolumeBus(this.conn, this.store, 'hpvol', id),
+  };
+
+  /** Show controller (Shows, Snapshots, Cues) */
+  shows = new ShowController(this.conn);
 
   constructor(private targetIP: string) {}
 
@@ -56,11 +66,6 @@ export class SoundcraftUI {
   clearMuteGroups() {
     this.conn.sendMessage('SETD^mgmask^0');
   }
-
-  volume = {
-    solo: new VolumeBus(this.conn, this.store, 'solovol'),
-    headphone: (id: number) => new VolumeBus(this.conn, this.store, 'hpvol', id),
-  };
 
   /** Connect to the mixer */
   connect() {

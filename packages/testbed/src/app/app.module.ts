@@ -22,6 +22,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TimePipe } from './ui/time.pipe';
 import { MuteGroupsComponent } from './pages/mute-groups/mute-groups.component';
 import { VolumebusComponent } from './pages/volumebus/volumebus.component';
+import { ShowsComponent } from './pages/shows/shows.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'connection', pathMatch: 'full' },
@@ -33,6 +34,7 @@ const routes: Routes = [
   { path: 'player', component: PlayerComponent },
   { path: 'mutegroups', component: MuteGroupsComponent },
   { path: 'volumebus', component: VolumebusComponent },
+  { path: 'shows', component: ShowsComponent },
   { path: 'fullstate', component: FullStateComponent },
 ];
 
@@ -57,6 +59,7 @@ const routes: Routes = [
     TimePipe,
     MuteGroupsComponent,
     VolumebusComponent,
+    ShowsComponent,
   ],
   imports: [
     BrowserModule,
