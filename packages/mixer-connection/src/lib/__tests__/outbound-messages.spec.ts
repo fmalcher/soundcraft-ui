@@ -663,4 +663,15 @@ describe('Outbound messages', () => {
     conn.volume.headphone(3).setFaderLevelDB(10);
     expect(message).toMatchInlineSnapshot(`"SETD^settings.hpvol.2^1"`);
   });
+
+  it('show controller', () => {
+    conn.shows.loadShow('testshow');
+    expect(message).toMatchInlineSnapshot(`"LOADSHOW^testshow"`);
+
+    conn.shows.loadSnapshot('testshow', 'testsnapshot');
+    expect(message).toMatchInlineSnapshot(`"LOADSNAPSHOT^testshow^testsnapshot"`);
+
+    conn.shows.loadCue('testshow', 'testcue');
+    expect(message).toMatchInlineSnapshot(`"LOADCUE^testshow^testcue"`);
+  });
 });
