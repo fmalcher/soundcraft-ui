@@ -1,6 +1,3 @@
-module.exports = {
-  projects: [
-    '<rootDir>/packages/mixer-connection',
-    '<rootDir>/packages/testbed',
-  ],
-};
+const { getJestProjects } = require('@nrwl/jest');
+
+module.exports = { projects: getJestProjects() };
