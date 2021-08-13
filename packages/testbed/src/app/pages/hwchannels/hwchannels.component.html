@@ -1,0 +1,14 @@
+<ng-container *ngFor="let cid of [1, 2, 3]">
+  <h2 class="mt-5">HW Channel {{ cid }}</h2>
+
+  <h3>Phantom Power</h3>
+  <soundcraft-ui-mixer-button (press)="cs.conn.hw(cid).phantomOn()">ON</soundcraft-ui-mixer-button>
+  <soundcraft-ui-mixer-button (press)="cs.conn.hw(cid).phantomOff()"
+    >OFF</soundcraft-ui-mixer-button
+  >
+  <soundcraft-ui-mixer-button
+    (press)="cs.conn.hw(cid).togglePhantom()"
+    [active]="!!(cs.conn.hw(cid).phantom$ | async)"
+    >Toggle</soundcraft-ui-mixer-button
+  >
+</ng-container>

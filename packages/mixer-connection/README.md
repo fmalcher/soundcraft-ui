@@ -178,6 +178,24 @@ An `FxChannel` supports the following operations:
 | `setPost(value)`                 | Set POST (`1`) or PRE (`0`)                 |
 | `post$`                          | Get POST status (`0` for PRE, `1` for POST) |
 
+### Hardware Channels (Phantom Power)
+
+A `HwChannel` represents a hardware input on the mixer.
+At the moment, hardware channels can only be used to switch the phantom power for an input.
+
+> Since hardware inputs can be patched to different channels, a hardware channel is not always the same as an input.
+> This distinction is also visible in the original protocol of the mixer as well as in the UI (Phantom Power/Gain are on another page than the input faders).
+
+First, get a `HwChannel` by calling `conn.hw(inputNumber)`, e.g. `conn.hw(1)` for the first input.
+
+| Call on `HwChannel` | Description                           |
+| ------------------- | ------------------------------------- |
+| `phantomOn()`       | Switch ON phantom power               |
+| `phantomOff()`      | Switch OFF phantom power              |
+| `togglePhantom()`   | Toggle phantom power status           |
+| `setPhantom(value)` | Set phantom power status (`0` or `1`) |
+| `phantom$`          | Get phantom power status (`0` or `1`) |
+
 ### SOLO and Headphone Buses
 
 SOLO and Headphone Outputs live on separate internal buses that have individual volume faders in the settings section of the web app.

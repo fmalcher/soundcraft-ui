@@ -674,4 +674,18 @@ describe('Outbound messages', () => {
     conn.shows.loadCue('testshow', 'testcue');
     expect(message).toMatchInlineSnapshot(`"LOADCUE^testshow^testcue"`);
   });
+
+  it('hw channels', () => {
+    conn.hw(1).setPhantom(1);
+    expect(message).toMatchInlineSnapshot(`"SETD^hw.0.phantom^1"`);
+
+    conn.hw(2).setPhantom(0);
+    expect(message).toMatchInlineSnapshot(`"SETD^hw.1.phantom^0"`);
+
+    conn.hw(3).phantomOn();
+    expect(message).toMatchInlineSnapshot(`"SETD^hw.2.phantom^1"`);
+
+    conn.hw(4).phantomOff();
+    expect(message).toMatchInlineSnapshot(`"SETD^hw.3.phantom^0"`);
+  });
 });

@@ -1,4 +1,7 @@
+import { HwChannel } from '../facade/hw-channel';
 import { FadeableChannel } from '../facade/interfaces';
+
+type StorableChannel = FadeableChannel | HwChannel;
 
 /**
  * Store for channel objects.
@@ -6,13 +9,13 @@ import { FadeableChannel } from '../facade/interfaces';
  * This is just a wrapper around a "Map" object, but we like to keep it abstract.
  */
 export class ChannelStore {
-  private store = new Map<string, FadeableChannel>();
+  private store = new Map<string, StorableChannel>();
 
-  get<T extends FadeableChannel>(id: string) {
+  get<T extends StorableChannel>(id: string) {
     return this.store.get(id) as T;
   }
 
-  set(id: string, value: FadeableChannel) {
+  set(id: string, value: StorableChannel) {
     this.store.set(id, value);
   }
 }
