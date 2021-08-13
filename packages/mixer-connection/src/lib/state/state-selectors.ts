@@ -186,6 +186,14 @@ export const selectStereoIndex: Selector<number> = (channelType: ChannelType, ch
   };
 };
 
+/**
+ * Select phantom power state of a hardware channel
+ * @param channel
+ */
+export const selectPhantom: Selector<number> = (channel: number) => {
+  return state => getStatePath<number>(state, ['hw', channel - 1, 'phantom']);
+};
+
 /** Select player state */
 export const selectPlayerState: Selector<PlayerState> = () => {
   return state => getStatePath<PlayerState>(state, ['var', 'currentState'], PlayerState.Stopped);

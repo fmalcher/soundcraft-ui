@@ -23,6 +23,7 @@ import { TimePipe } from './ui/time.pipe';
 import { MuteGroupsComponent } from './pages/mute-groups/mute-groups.component';
 import { VolumebusComponent } from './pages/volumebus/volumebus.component';
 import { ShowsComponent } from './pages/shows/shows.component';
+import { HwchannelsComponent } from './pages/hwchannels/hwchannels.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'connection', pathMatch: 'full' },
@@ -35,6 +36,7 @@ const routes: Routes = [
   { path: 'mutegroups', component: MuteGroupsComponent },
   { path: 'volumebus', component: VolumebusComponent },
   { path: 'shows', component: ShowsComponent },
+  { path: 'hwchannels', component: HwchannelsComponent },
   { path: 'fullstate', component: FullStateComponent },
 ];
 
@@ -60,6 +62,7 @@ const routes: Routes = [
     MuteGroupsComponent,
     VolumebusComponent,
     ShowsComponent,
+    HwchannelsComponent,
   ],
   imports: [
     BrowserModule,

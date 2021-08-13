@@ -18,6 +18,7 @@ export class AppComponent {
     { label: 'MUTE Groups', target: '/mutegroups' },
     { label: 'Volume Buses', target: '/volumebus' },
     { label: 'Shows', target: '/shows' },
+    { label: 'HW Channels', target: '/hwchannels' },
     { label: 'Full state', target: '/fullstate' },
   ];
 
