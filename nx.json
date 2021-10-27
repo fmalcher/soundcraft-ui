@@ -21,14 +21,6 @@
       }
     }
   },
-  "projects": {
-    "mixer-connection": {
-      "tags": []
-    },
-    "testbed": {
-      "tags": []
-    }
-  },
   "workspaceLayout": {
     "appsDir": "packages",
     "libsDir": "packages"
@@ -40,5 +32,18 @@
         "projects": "dependencies"
       }
     ]
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular",
+    "packageManager": "npm"
+  },
+  "defaultProject": "testbed",
+  "generators": {
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
+    }
   }
 }

@@ -1,0 +1,89 @@
+{
+  "projectType": "application",
+  "generators": {
+    "@schematics/angular:component": {
+      "style": "scss"
+    }
+  },
+  "root": "packages/testbed",
+  "sourceRoot": "packages/testbed/src",
+  "prefix": "soundcraft-ui",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "options": {
+        "outputPath": "dist/packages/testbed",
+        "index": "packages/testbed/src/index.html",
+        "main": "packages/testbed/src/main.ts",
+        "polyfills": "packages/testbed/src/polyfills.ts",
+        "tsConfig": "packages/testbed/tsconfig.app.json",
+        "aot": true,
+        "assets": ["packages/testbed/src/favicon.ico", "packages/testbed/src/assets"],
+        "styles": ["packages/testbed/src/styles.scss"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "packages/testbed/src/environments/environment.ts",
+              "with": "packages/testbed/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "buildOptimizer": true,
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "2mb",
+              "maximumError": "5mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "6kb",
+              "maximumError": "10kb"
+            }
+          ]
+        }
+      },
+      "outputs": ["{options.outputPath}"]
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "browserTarget": "testbed:build"
+      },
+      "configurations": {
+        "production": {
+          "browserTarget": "testbed:build:production"
+        }
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "testbed:build"
+      }
+    },
+    "lint": {
+      "executor": "@angular-eslint/builder:lint",
+      "options": {
+        "lintFilePatterns": ["packages/testbed/**/*.ts", "packages/testbed/**/*.html"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "packages/testbed/jest.config.js",
+        "passWithNoTests": true
+      },
+      "outputs": ["coverage/packages/testbed"]
+    }
+  },
+  "tags": []
+}
