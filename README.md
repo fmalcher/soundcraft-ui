@@ -1,11 +1,11 @@
 # SoundcraftUi
 
-This project aims to provide a generic connection library for the Soundcraft Ui series audio mixers (Ui12 / Ui16 Ui24).
-The device can be controlled via web interface through a Websocket connection, thus it's absolutely suitable to get controlled by other software.
+This project provides a generic connection library for the Soundcraft Ui series audio mixers (Ui12 / Ui16 Ui24).
+The device is being controlled through the WebSocket connection for the web interface.
 
-This project is under heavy development! Feel free to contribute! 🙂
+## [Documentation and README](https://github.com/fmalcher/soundcraft-ui/tree/main/packages/mixer-connection)
 
-**Find README and docs for the connection library here: [https://github.com/fmalcher/soundcraft-ui/tree/main/packages/mixer-connection](https://github.com/fmalcher/soundcraft-ui/tree/main/packages/mixer-connection)**
+**👉 [https://github.com/fmalcher/soundcraft-ui/tree/main/packages/mixer-connection](https://github.com/fmalcher/soundcraft-ui/tree/main/packages/mixer-connection)**
 
 ## Development
 
@@ -20,12 +20,14 @@ You can then start the testbed project that provides simple usage of the connect
 You must also build the library so that the application can use it:
 
 ```bash
-nx build mixer-connection --watch
+nx build mixer-connection
 
 nx serve testbed
 # OR
 npm run testbed
 ```
+
+If you are missing any features, please get in touch or open a PR or feature request.
 
 ## License
 
