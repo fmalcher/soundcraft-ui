@@ -4,7 +4,7 @@
   min="0"
   max="1"
   step="0.00000000001"
-  (change)="channel.setFaderLevel(faderLevelInput.value)"
+  (input)="channel.setFaderLevel(faderLevelInput.value)"
   [value]="channel.faderLevel$ | async"
   #faderLevelInput
 />
