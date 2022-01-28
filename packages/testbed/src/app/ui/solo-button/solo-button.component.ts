@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Channel, MasterChannel } from 'soundcraft-ui-connection';
 
 @Component({
@@ -6,11 +6,7 @@ import { Channel, MasterChannel } from 'soundcraft-ui-connection';
   templateUrl: './solo-button.component.html',
   styleUrls: ['./solo-button.component.css'],
 })
-export class SoloButtonComponent implements OnInit {
-  @Input() channel: MasterChannel;
-  @Input() label: string;
-
-  constructor() {}
-
-  ngOnInit(): void {}
+export class SoloButtonComponent {
+  @Input() channel?: MasterChannel;
+  @Input() label: string = '';
 }

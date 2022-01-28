@@ -5,7 +5,11 @@
 </div>
 
 <div *ngFor="let g of groups">
-  <soundcraft-ui-mixer-button activeClass="mute" [active]="g.state$ | async" (press)="g.toggle()">
+  <soundcraft-ui-mixer-button
+    activeClass="mute"
+    [active]="!!(g.state$ | async)"
+    (press)="g.toggle()"
+  >
     Toggle {{ g.id }}
   </soundcraft-ui-mixer-button>
 

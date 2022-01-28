@@ -28,16 +28,16 @@
   value="/Power_Shutoff.mp3"
   (valueChange)="loadTrack($event)"
 ></soundcraft-ui-input>
-<div class="text-muted" *ngIf="!playlistFromInput">
-  Set playlist first with input above!
-</div>
+<div class="text-muted" *ngIf="!playlistFromInput">Set playlist first with input above!</div>
 
 <div class="mb-3">
   <soundcraft-ui-mixer-button (press)="player.setManual()">Manual</soundcraft-ui-mixer-button>
   <soundcraft-ui-mixer-button (press)="player.setAuto()">Auto</soundcraft-ui-mixer-button>
 </div>
 <div>
-  <soundcraft-ui-mixer-button (press)="player.toggleShuffle()" [active]="player.shuffle$ | async"
+  <soundcraft-ui-mixer-button
+    (press)="player.toggleShuffle()"
+    [active]="!!(player.shuffle$ | async)"
     >Shuffle Toggle</soundcraft-ui-mixer-button
   >
   <soundcraft-ui-mixer-button (press)="player.setShuffle(1)">Shuffle On</soundcraft-ui-mixer-button>
@@ -53,6 +53,6 @@
   <p><label>Busy</label> {{ rec.busy$ | async }}</p>
 </div>
 
-<soundcraft-ui-mixer-button (press)="rec.recordToggle()" [active]="rec.recording$ | async"
+<soundcraft-ui-mixer-button (press)="rec.recordToggle()" [active]="!!(rec.recording$ | async)"
   >REC</soundcraft-ui-mixer-button
 >

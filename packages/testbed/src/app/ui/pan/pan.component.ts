@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AuxChannel, MasterBus, MasterChannel } from 'soundcraft-ui-connection';
 
 @Component({
@@ -6,10 +6,10 @@ import { AuxChannel, MasterBus, MasterChannel } from 'soundcraft-ui-connection';
   templateUrl: './pan.component.html',
   styleUrls: ['./pan.component.css'],
 })
-export class PanComponent implements OnInit {
-  @Input() channel: MasterChannel | AuxChannel | MasterBus;
+export class PanComponent {
+  @Input() channel?: MasterChannel | AuxChannel | MasterBus;
 
-  constructor() {}
-
-  ngOnInit(): void {}
+  pan(value: string) {
+    this.channel && this.channel.pan(Number(value));
+  }
 }

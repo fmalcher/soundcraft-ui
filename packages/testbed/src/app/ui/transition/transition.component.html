@@ -14,7 +14,7 @@
     />
   </div>
   <div class="col">
-    <span class="badge badge-danger ml-3">{{ targetValueDB }} dB</span>
+    <span class="badge badge-danger ms-3">{{ targetValueDB }} dB</span>
   </div>
 
   <div class="col">
@@ -22,6 +22,7 @@
       type="number"
       min="100"
       max="30000"
+      step="100"
       class="form-control"
       formControlName="fadeTime"
       title="Fade time"
@@ -29,10 +30,8 @@
   </div>
 
   <div class="col">
-    <select formControlName="easing" class="form-control" title="Easing">
-      <option *ngFor="let o of easingOptions" [value]="o.value">{{
-        o.label
-      }}</option>
+    <select formControlName="easing" class="form-select" title="Easing">
+      <option *ngFor="let o of easingOptions" [value]="o.value">{{ o.label }}</option>
     </select>
   </div>
 

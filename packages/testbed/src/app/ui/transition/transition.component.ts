@@ -1,21 +1,14 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import {
-  Channel,
-  Easings,
-  FadeableChannel,
-  faderValueToDB,
-  MasterBus,
-  VolumeBus,
-} from 'soundcraft-ui-connection';
+import { Easings, FadeableChannel, faderValueToDB } from 'soundcraft-ui-connection';
 
 @Component({
   selector: 'soundcraft-ui-transition',
   templateUrl: './transition.component.html',
   styleUrls: ['./transition.component.css'],
 })
-export class TransitionComponent implements OnInit {
-  @Input() channel: FadeableChannel;
+export class TransitionComponent {
+  @Input() channel?: FadeableChannel;
 
   form: FormGroup;
   easingOptions = [
@@ -25,9 +18,7 @@ export class TransitionComponent implements OnInit {
     { label: 'EaseInOut', value: Easings.EaseInOut },
   ];
 
-  constructor() {}
-
-  ngOnInit(): void {
+  constructor() {
     this.form = new FormGroup({
       targetValue: new FormControl(0.7634),
       fadeTime: new FormControl(2000),
@@ -36,6 +27,9 @@ export class TransitionComponent implements OnInit {
   }
 
   fade() {
+    if (!this.channel) {
+      return;
+    }
     const { targetValue, fadeTime, easing } = this.form.value;
     this.channel.fadeTo(targetValue, fadeTime, Number(easing));
   }

@@ -1,7 +1,7 @@
 <ng-container *ngIf="channel">
   <soundcraft-ui-mixer-button
     activeClass="mute"
-    [active]="channel.mute$ | async"
+    [active]="!!(channel.mute$ | async)"
     (press)="channel.toggleMute()"
   >
     Mute toggle {{ label }}

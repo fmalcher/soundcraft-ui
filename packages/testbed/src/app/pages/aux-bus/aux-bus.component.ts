@@ -10,12 +10,10 @@ import { ConnectionService } from '../../connection.service';
   templateUrl: './aux-bus.component.html',
   styleUrls: ['./aux-bus.component.css'],
 })
-export class AuxBusComponent implements OnInit {
+export class AuxBusComponent {
   channels$: Observable<{ channel: AuxChannel; label: string }[]>;
 
-  constructor(private cs: ConnectionService, private route: ActivatedRoute) {}
-
-  ngOnInit(): void {
+  constructor(private cs: ConnectionService, private route: ActivatedRoute) {
     this.channels$ = this.route.paramMap.pipe(
       map(params => +params.get('bus')),
       map(bus => [

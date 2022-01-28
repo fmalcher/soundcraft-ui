@@ -1,13 +1,7 @@
 <label>{{ label }}</label>
 <div class="input-group mb-3 w-50">
   <input type="text" class="form-control" [value]="value" #input />
-  <div class="input-group-append">
-    <button
-      class="btn btn-secondary"
-      type="button"
-      (click)="valueChange.emit(input.value)"
-    >
-      {{ buttonLabel }}
-    </button>
-  </div>
+  <button class="btn btn-secondary" type="button" (click)="valueChange.emit(input.value)">
+    {{ buttonLabel }}
+  </button>
 </div>

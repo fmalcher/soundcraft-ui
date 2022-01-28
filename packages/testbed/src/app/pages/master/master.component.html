@@ -6,16 +6,12 @@
 <div>
   <soundcraft-ui-mixer-button
     activeClass="dim"
-    [active]="master.dim$ | async"
+    [active]="!!(master.dim$ | async)"
     (press)="master.toggleDim()"
   >
     DIM toggle
   </soundcraft-ui-mixer-button>
 
-  <soundcraft-ui-mixer-button (press)="master.dim()">
-    DIM on</soundcraft-ui-mixer-button
-  >
-  <soundcraft-ui-mixer-button (press)="master.undim()"
-    >DIM off</soundcraft-ui-mixer-button
-  >
+  <soundcraft-ui-mixer-button (press)="master.dim()"> DIM on</soundcraft-ui-mixer-button>
+  <soundcraft-ui-mixer-button (press)="master.undim()">DIM off</soundcraft-ui-mixer-button>
 </div>

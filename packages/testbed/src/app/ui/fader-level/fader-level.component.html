@@ -1,30 +1,22 @@
-<label>Fader Level</label>
-<input
-  type="range"
-  min="0"
-  max="1"
-  step="0.00000000001"
-  (input)="channel.setFaderLevel(faderLevelInput.value)"
-  [value]="channel.faderLevel$ | async"
-  #faderLevelInput
-/>
+<ng-container *ngIf="channel">
+  <label>Fader Level</label>
+  <input
+    type="range"
+    min="0"
+    max="1"
+    step="0.00000000001"
+    (input)="setFaderLevel(faderLevelInput.value)"
+    [value]="channel.faderLevel$ | async"
+    #faderLevelInput
+  />
 
-<button
-  class="btn btn-success btn-sm ml-3"
-  (click)="channel.changeFaderLevelDB(3)"
->
-  + 3 dB
-</button>
-<button
-  class="btn btn-success btn-sm ml-3"
-  (click)="channel.changeFaderLevelDB(-3)"
->
-  – 3 dB
-</button>
+  <button class="btn btn-success btn-sm ms-3" (click)="channel.changeFaderLevelDB(3)">
+    + 3 dB
+  </button>
+  <button class="btn btn-success btn-sm ms-3" (click)="channel.changeFaderLevelDB(-3)">
+    – 3 dB
+  </button>
 
-<span class="badge badge-danger ml-3"
-  >{{ channel.faderLevelDB$ | async }} dB</span
->
-<span class="badge badge-secondary ml-3">{{
-  channel.faderLevel$ | async
-}}</span>
+  <span class="badge badge-danger ms-3">{{ channel.faderLevelDB$ | async }} dB</span>
+  <span class="badge badge-secondary ms-3">{{ channel.faderLevel$ | async }}</span>
+</ng-container>

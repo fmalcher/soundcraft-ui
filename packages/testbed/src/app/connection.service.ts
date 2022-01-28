@@ -8,8 +8,6 @@ export class ConnectionService {
   mixerIP = '10.75.23.95';
   conn: SoundcraftUI = new SoundcraftUI(this.mixerIP);
 
-  constructor() {}
-
   setMixerIP(ip: string) {
     if (ip !== this.mixerIP) {
       this.mixerIP = ip;

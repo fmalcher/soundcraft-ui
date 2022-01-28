@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Channel } from 'soundcraft-ui-connection';
 
 @Component({
@@ -6,11 +6,7 @@ import { Channel } from 'soundcraft-ui-connection';
   templateUrl: './mute-button.component.html',
   styleUrls: ['./mute-button.component.css'],
 })
-export class MuteButtonComponent implements OnInit {
-  @Input() channel: Channel;
-  @Input() label: string;
-
-  constructor() {}
-
-  ngOnInit(): void {}
+export class MuteButtonComponent {
+  @Input() channel?: Channel;
+  @Input() label: string = '';
 }
