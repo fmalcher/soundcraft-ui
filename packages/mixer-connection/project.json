@@ -19,7 +19,7 @@
       "outputs": ["coverage/packages/mixer-connection"]
     },
     "build": {
-      "executor": "@nrwl/node:package",
+      "executor": "@nrwl/js:tsc",
       "options": {
         "outputPath": "dist/packages/mixer-connection",
         "tsConfig": "packages/mixer-connection/tsconfig.lib.json",

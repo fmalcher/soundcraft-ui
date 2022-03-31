@@ -62,12 +62,8 @@ export class MixerConnection {
      * Keepalive interval
      * start on connect, stop on disconnect
      */
-    const open$ = this.status$.pipe(
-      filter(e => e.type === ConnectionStatus.Open)
-    );
-    const close$ = this.status$.pipe(
-      filter(e => e.type === ConnectionStatus.Close)
-    );
+    const open$ = this.status$.pipe(filter(e => e.type === ConnectionStatus.Open));
+    const close$ = this.status$.pipe(filter(e => e.type === ConnectionStatus.Close));
 
     open$
       .pipe(
@@ -92,15 +88,14 @@ export class MixerConnection {
   private createSocket() {
     this.socket$ = webSocket<string>({
       url: `ws://${this.targetIP}`,
-      WebSocketCtor: ws,
+      WebSocketCtor: ws as any, // cast necessary since ws object is not fully compatible to WebSocket
       serializer: data => data,
       deserializer: ({ data }) => data,
       openObserver: {
         next: () => this.statusSubject$.next({ type: ConnectionStatus.Open }),
       },
       closingObserver: {
-        next: () =>
-          this.statusSubject$.next({ type: ConnectionStatus.Closing }),
+        next: () => this.statusSubject$.next({ type: ConnectionStatus.Closing }),
       },
       closeObserver: {
         next: () => this.statusSubject$.next({ type: ConnectionStatus.Close }),
@@ -125,9 +120,7 @@ export class MixerConnection {
         n$.pipe(
           delay(this.reconnectTime),
           takeUntil(this.forceClose$),
-          tap(() =>
-            this.statusSubject$.next({ type: ConnectionStatus.Reconnecting })
-          )
+          tap(() => this.statusSubject$.next({ type: ConnectionStatus.Reconnecting }))
         )
       ),
       // parse messages (only use those with `3:::` prefix)
