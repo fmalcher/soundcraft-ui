@@ -10,6 +10,9 @@ import {
   map,
   retry,
   timer,
+  firstValueFrom,
+  take,
+  delay,
 } from 'rxjs';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 import ws from 'isomorphic-ws';
@@ -138,6 +141,16 @@ export class MixerConnection {
     // send all messages to our global stream that survives reconnects
     messages$.subscribe(msg => this.inboundSubject$.next(msg));
 
+    // return promise that resolves when the connection is open
+    return firstValueFrom(
+      this.status$.pipe(
+        filter(status => status.type === ConnectionStatus.Open),
+        map(() => {
+          return;
+        })
+      )
+    );
+
     /*
     // Keep for later: echo
     this.socket$
@@ -165,6 +178,42 @@ export class MixerConnection {
   disconnect() {
     this.socket$.complete();
     this.forceClose$.next();
+
+    // return promise that resolves when the connection is closed
+    return firstValueFrom(
+      this.status$.pipe(
+        filter(status => status.type === ConnectionStatus.Close),
+        map(() => {
+          return;
+        })
+      )
+    );
+  }
+
+  /**
+   * Reconnect to the mixer:
+   * disconnect, then wait 1 second before connecting again
+   */
+  reconnect() {
+    this.status$
+      .pipe(
+        filter(e => e.type === ConnectionStatus.Close),
+        take(1),
+        delay(1000)
+      )
+      .subscribe(() => this.connect());
+
+    this.disconnect();
+
+    // return promise that resolves when the connection is open again
+    return firstValueFrom(
+      this.status$.pipe(
+        filter(status => status.type === ConnectionStatus.Open),
+        map(() => {
+          return;
+        })
+      )
+    );
   }
 
   /**

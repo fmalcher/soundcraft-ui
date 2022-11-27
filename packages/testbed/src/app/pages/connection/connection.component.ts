@@ -11,6 +11,24 @@ export class ConnectionComponent {
 
   setIP(ip: string) {
     this.cs.setMixerIP(ip);
-    this.cs.conn.connect();
+    this.connect();
+  }
+
+  connect() {
+    this.cs.conn.connect().then(() => {
+      console.log('CONNECTED');
+    });
+  }
+
+  disconnect() {
+    this.cs.conn.disconnect().then(() => {
+      console.log('DISCONNECTED');
+    });
+  }
+
+  reconnect() {
+    this.cs.conn.reconnect().then(() => {
+      console.log('RECONNECTED');
+    });
   }
 }

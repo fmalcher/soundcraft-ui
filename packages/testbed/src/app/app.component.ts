@@ -25,4 +25,16 @@ export class AppComponent {
   status$ = this.cs.conn.status$;
 
   constructor(public cs: ConnectionService) {}
+
+  connect() {
+    this.cs.conn.connect().then(() => {
+      console.log('CONNECTED');
+    });
+  }
+
+  disconnect() {
+    this.cs.conn.disconnect().then(() => {
+      console.log('DISCONNECTED');
+    });
+  }
 }
