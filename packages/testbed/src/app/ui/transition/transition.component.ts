@@ -28,7 +28,9 @@ export class TransitionComponent {
       return;
     }
     const { targetValue, fadeTime, easing } = this.form.value;
-    this.channel.fadeTo(targetValue, fadeTime, Number(easing));
+    this.channel.fadeTo(targetValue, fadeTime, Number(easing)).then(() => {
+      console.log('FADE finished', { targetValue, fadeTime, easing, channel: this.channel });
+    });
   }
 
   get targetValueDB() {

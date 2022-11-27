@@ -5,9 +5,9 @@ export interface FadeableChannel {
   faderLevel$: Observable<number>;
   faderLevelDB$: Observable<number>;
 
-  fadeTo(targetValue: number, fadeTime: number, easing: Easings, fps?: number): void;
+  fadeTo(targetValue: number, fadeTime: number, easing: Easings, fps?: number): Promise<void>;
 
-  fadeToDB(targetValueDB: number, fadeTime: number, easing: Easings, fps?: number): void;
+  fadeToDB(targetValueDB: number, fadeTime: number, easing: Easings, fps?: number): Promise<void>;
 
   setFaderLevel(value: number): void;
   setFaderLevelDB(dbValue: number): void;

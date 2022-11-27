@@ -302,6 +302,10 @@ All channels can perform timed transitions to a given value.
 | `easing`      | optional: easing characteristic. This needs to be an entry of the `Easings` enum, see below. Defaults to linear (= no easing).                            |
 | `fps`         | optional: frames/ticks per second, defaults to `25`. Usually, you don't need to change this.                                                              |
 
+Both methods return a `Promise` object that resolves when the transition time is finished.
+You can use this signal to wait for the transition before starting another operation.
+Please note that this signal is just implemented as a simple timer. If the transition stops for other reasons (interrupt by another transition or terminated connection), the timer will still run.
+
 ```ts
 // Example:
 // Fade input 1 on master bus to 0 dB within 2 seconds
