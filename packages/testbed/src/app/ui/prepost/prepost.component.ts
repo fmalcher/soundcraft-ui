@@ -1,6 +1,5 @@
-import { Input, Component, OnDestroy } from '@angular/core';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Input, Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 import { SendChannel } from 'soundcraft-ui-connection';
 
 @Component({
@@ -8,7 +7,7 @@ import { SendChannel } from 'soundcraft-ui-connection';
   templateUrl: './prepost.component.html',
   styleUrls: ['./prepost.component.css'],
 })
-export class PrepostComponent implements OnDestroy {
+export class PrepostComponent implements OnInit, OnDestroy {
   @Input() channel?: SendChannel;
 
   post: boolean = false;

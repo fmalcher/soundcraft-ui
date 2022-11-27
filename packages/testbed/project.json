@@ -1,11 +1,12 @@
 {
+  "name": "testbed",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "generators": {
     "@schematics/angular:component": {
       "style": "scss"
     }
   },
-  "root": "packages/testbed",
   "sourceRoot": "packages/testbed/src",
   "prefix": "soundcraft-ui",
   "targets": {
@@ -20,7 +21,8 @@
         "aot": true,
         "assets": ["packages/testbed/src/favicon.ico", "packages/testbed/src/assets"],
         "styles": ["packages/testbed/src/styles.scss"],
-        "scripts": []
+        "scripts": [],
+        "allowedCommonJsDependencies": ["isomorphic-ws"]
       },
       "configurations": {
         "production": {
@@ -89,10 +91,10 @@
     "test": {
       "executor": "@nrwl/jest:jest",
       "options": {
-        "jestConfig": "packages/testbed/jest.config.js",
+        "jestConfig": "packages/testbed/jest.config.ts",
         "passWithNoTests": true
       },
-      "outputs": ["coverage/packages/testbed"]
+      "outputs": ["{workspaceRoot}/coverage/packages/testbed"]
     }
   },
   "tags": []

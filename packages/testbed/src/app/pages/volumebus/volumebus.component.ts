@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ConnectionService } from '../../connection.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { ConnectionService } from '../../connection.service';
   templateUrl: './volumebus.component.html',
   styleUrls: ['./volumebus.component.scss'],
 })
-export class VolumebusComponent implements OnInit {
+export class VolumebusComponent {
   channels = [
     { label: 'Solo Level', channel: this.cs.conn.volume.solo },
     { label: 'Headphone 1 Volume', channel: this.cs.conn.volume.headphone(1) },
@@ -14,6 +14,4 @@ export class VolumebusComponent implements OnInit {
   ];
 
   constructor(private cs: ConnectionService) {}
-
-  ngOnInit(): void {}
 }

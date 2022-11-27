@@ -88,6 +88,7 @@ export class MixerConnection {
   private createSocket() {
     this.socket$ = webSocket<string>({
       url: `ws://${this.targetIP}`,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       WebSocketCtor: ws as any, // cast necessary since ws object is not fully compatible to WebSocket
       serializer: data => data,
       deserializer: ({ data }) => data,

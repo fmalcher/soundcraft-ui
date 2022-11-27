@@ -1,4 +1,4 @@
-import { ConnectableObservable, Observable } from 'rxjs';
+import { ConnectableObservable } from 'rxjs';
 import { filter, map, publishReplay, scan, share } from 'rxjs/operators';
 import { setObjectPath } from '../utils/object-path';
 

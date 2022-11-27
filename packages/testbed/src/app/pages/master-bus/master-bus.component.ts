@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ConnectionService } from '../../connection.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { ConnectionService } from '../../connection.service';
   templateUrl: './master-bus.component.html',
   styleUrls: ['./master-bus.component.css'],
 })
-export class MasterBusComponent implements OnInit {
+export class MasterBusComponent {
   master = this.cs.conn.master;
 
   channels = [
@@ -20,6 +20,4 @@ export class MasterBusComponent implements OnInit {
   ];
 
   constructor(private cs: ConnectionService) {}
-
-  ngOnInit(): void {}
 }

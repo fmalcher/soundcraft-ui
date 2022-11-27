@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ConnectionService } from '../../connection.service';
 
 @Component({
@@ -6,10 +6,8 @@ import { ConnectionService } from '../../connection.service';
   templateUrl: './full-state.component.html',
   styleUrls: ['./full-state.component.css'],
 })
-export class FullStateComponent implements OnInit {
+export class FullStateComponent {
   state$ = this.cs.conn.store.state$;
 
   constructor(private cs: ConnectionService) {}
-
-  ngOnInit(): void {}
 }
