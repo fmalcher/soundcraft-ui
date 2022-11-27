@@ -8,6 +8,7 @@ import {
   selectMasterValue,
 } from '../state/state-selectors';
 import { sourcesToTransition, TransitionSource } from '../transitions';
+import { resolveDelayed } from '../utils/async-helpers';
 import { Easings } from '../utils/transitions/easings';
 import { DBToFaderValue, faderValueToDB } from '../utils/value-converters';
 import { FadeableChannel, PannableChannel } from './interfaces';
@@ -112,6 +113,7 @@ export class MasterBus implements FadeableChannel, PannableChannel {
       easing,
       fps,
     });
+    return resolveDelayed(fadeTime);
   }
 
   /**

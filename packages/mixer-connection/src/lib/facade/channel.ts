@@ -4,6 +4,7 @@ import { MixerStore } from '../state/mixer-store';
 import { select, selectFaderValue, selectMute, selectStereoIndex } from '../state/state-selectors';
 import { sourcesToTransition, TransitionSource } from '../transitions';
 import { BusType, ChannelType } from '../types';
+import { resolveDelayed } from '../utils/async-helpers';
 import { Easings } from '../utils/transitions/easings';
 import { DBToFaderValue, faderValueToDB } from '../utils/value-converters';
 import { FadeableChannel } from './interfaces';
@@ -73,6 +74,7 @@ export class Channel implements FadeableChannel {
       easing,
       fps,
     });
+    return resolveDelayed(fadeTime);
   }
 
   /**

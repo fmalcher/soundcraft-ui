@@ -3,6 +3,7 @@ import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
 import { select, selectVolumeBusValue } from '../state/state-selectors';
 import { sourcesToTransition, TransitionSource } from '../transitions';
+import { resolveDelayed } from '../utils/async-helpers';
 import { Easings } from '../utils/transitions/easings';
 import { DBToFaderValue, faderValueToDB } from '../utils/value-converters';
 import { FadeableChannel } from './interfaces';
@@ -54,6 +55,7 @@ export class VolumeBus implements FadeableChannel {
       easing,
       fps,
     });
+    return resolveDelayed(fadeTime);
   }
 
   /**
