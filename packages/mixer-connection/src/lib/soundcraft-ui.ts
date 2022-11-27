@@ -79,29 +79,21 @@ export class SoundcraftUI {
     return new HwChannel(this.conn, this.store, channel);
   }
 
-  /** Connect to the mixer */
-  connect() {
-    this.conn.connect();
+  /** Connect to the mixer. Returns a Promise that resolves when the connection is open. */
+  connect(): Promise<void> {
+    return this.conn.connect();
   }
 
-  /** Disconnect from the mixer */
-  disconnect() {
-    this.conn.disconnect();
+  /** Disconnect from the mixer. Returns a Promise that resolves when the connection is closed. */
+  disconnect(): Promise<void> {
+    return this.conn.disconnect();
   }
 
   /**
-   * Reconnect to the mixer:
-   * disconnect, then wait 1 second before connecting again
+   * Reconnect to the mixer after 1 second.
+   * Returns a Promise that resolves when the connection is open again.
    */
-  reconnect() {
-    this.conn.status$
-      .pipe(
-        filter(e => e.type === ConnectionStatus.Close),
-        take(1),
-        delay(1000)
-      )
-      .subscribe(() => this.conn.connect());
-
-    this.conn.disconnect();
+  reconnect(): Promise<void> {
+    return this.conn.reconnect();
   }
 }

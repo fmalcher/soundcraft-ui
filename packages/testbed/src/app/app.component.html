@@ -7,8 +7,8 @@
       <ng-container *ngIf="status$ | async as status">{{ status.type }}</ng-container>
 
       <span class="float-end">
-        <button class="btn btn-success btn-sm me-2" (click)="cs.conn.connect()">Connect</button>
-        <button class="btn btn-danger btn-sm" (click)="cs.conn.disconnect()">Disconnect</button>
+        <button class="btn btn-success btn-sm me-2" (click)="connect()">Connect</button>
+        <button class="btn btn-danger btn-sm" (click)="disconnect()">Disconnect</button>
       </span>
     </div>
     <div class="card-body">
