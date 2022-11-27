@@ -10,21 +10,18 @@ import { Easings, FadeableChannel, faderValueToDB } from 'soundcraft-ui-connecti
 export class TransitionComponent {
   @Input() channel?: FadeableChannel;
 
-  form: FormGroup;
+  form = new FormGroup({
+    targetValue: new FormControl(0.7634, { nonNullable: true }),
+    fadeTime: new FormControl(2000, { nonNullable: true }),
+    easing: new FormControl(Easings.EaseOut, { nonNullable: true }),
+  });
+
   easingOptions = [
     { label: 'Linear', value: Easings.Linear },
     { label: 'EaseIn', value: Easings.EaseIn },
     { label: 'EaseOut', value: Easings.EaseOut },
     { label: 'EaseInOut', value: Easings.EaseInOut },
   ];
-
-  constructor() {
-    this.form = new FormGroup({
-      targetValue: new FormControl(0.7634),
-      fadeTime: new FormControl(2000),
-      easing: new FormControl(Easings.EaseOut),
-    });
-  }
 
   fade() {
     if (!this.channel) {
@@ -35,6 +32,6 @@ export class TransitionComponent {
   }
 
   get targetValueDB() {
-    return faderValueToDB(this.form.get('targetValue').value);
+    return faderValueToDB(this.form.controls.targetValue.value);
   }
 }

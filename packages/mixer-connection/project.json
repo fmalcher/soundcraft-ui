@@ -1,5 +1,6 @@
 {
-  "root": "packages/mixer-connection",
+  "name": "mixer-connection",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/mixer-connection/src",
   "projectType": "library",
   "generators": {},
@@ -13,10 +14,10 @@
     "test": {
       "executor": "@nrwl/jest:jest",
       "options": {
-        "jestConfig": "packages/mixer-connection/jest.config.js",
+        "jestConfig": "packages/mixer-connection/jest.config.ts",
         "passWithNoTests": true
       },
-      "outputs": ["coverage/packages/mixer-connection"]
+      "outputs": ["{workspaceRoot}/coverage/packages/mixer-connection"]
     },
     "build": {
       "executor": "@nrwl/js:tsc",

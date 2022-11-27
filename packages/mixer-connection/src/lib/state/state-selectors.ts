@@ -6,7 +6,7 @@ import { MixerState } from './mixer-state.models';
 import { getObjectPath } from '../utils/object-path';
 
 type Projector<T> = (state: MixerState) => T;
-type Selector<T> = (...args: any[]) => Projector<T>;
+type Selector<T> = (...args: unknown[]) => Projector<T>;
 
 /**
  * RxJS operator to apply a custom projecton to the full mixer state.

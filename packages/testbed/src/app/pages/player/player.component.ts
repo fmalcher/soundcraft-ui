@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { PlayerState } from 'soundcraft-ui-connection';
+
 import { ConnectionService } from '../../connection.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { ConnectionService } from '../../connection.service';
   templateUrl: './player.component.html',
   styleUrls: ['./player.component.css'],
 })
-export class PlayerComponent implements OnInit {
+export class PlayerComponent {
   rec = this.cs.conn.recorderDualTrack;
   player = this.cs.conn.player;
   playerState$ = this.player.state$.pipe(
@@ -27,8 +28,6 @@ export class PlayerComponent implements OnInit {
   playlistFromInput = '~all~';
 
   constructor(private cs: ConnectionService) {}
-
-  ngOnInit(): void {}
 
   loadTrack(track: string) {
     if (!this.playlistFromInput) {

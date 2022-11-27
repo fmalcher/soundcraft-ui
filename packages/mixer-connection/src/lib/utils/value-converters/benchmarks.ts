@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * Those are helper functions and utilities that have been used to generate and test the dB / linear LUT.
  * They are not needed in production, but just if you want to re-generate and evaluate the LUT.

@@ -6,7 +6,7 @@
  * @param defaultValue Default value will be returned, when the given path is not available
  */
 export function getObjectPath<T>(
-  obj: any,
+  obj: unknown,
   path: (string | number)[] = [],
   defaultValue?: T
 ): T {
@@ -31,8 +31,8 @@ function getAddressableValue<S, K extends keyof S>(
   source: S,
   key: K,
   nextKey?: string | number
-): any {
-  if (source !== undefined && source.hasOwnProperty(key)) {
+): unknown {
+  if (source !== undefined && Object.prototype.hasOwnProperty.call(source, key)) {
     return getObjectPath(source, [key as string | number]);
   }
   if (!nextKey) return undefined;
@@ -47,22 +47,17 @@ function getAddressableValue<S, K extends keyof S>(
  * @param path Path in the nested object where the change should happen
  * @param value Value to set
  */
-export function setObjectPath(
-  source: any,
-  path: (string | number)[],
-  value: any
-): any {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function setObjectPath(source: any, path: (string | number)[], value: unknown): unknown {
   const [key, ...remainingPath] = path;
   const oldValueOfKey = getAddressableValue(source, key, remainingPath[0]);
   const newValueOfKey =
-    remainingPath.length > 0
-      ? setObjectPath(oldValueOfKey, remainingPath, value)
-      : value;
+    remainingPath.length > 0 ? setObjectPath(oldValueOfKey, remainingPath, value) : value;
 
   const currentValue = getObjectPath(source, [key as string | number]);
   if (
     source !== undefined &&
-    source.hasOwnProperty(key) &&
+    Object.prototype.hasOwnProperty.call(source, key) &&
     currentValue === newValueOfKey
   )
     return source;

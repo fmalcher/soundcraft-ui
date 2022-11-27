@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ConnectionService } from '../../connection.service';
 
 @Component({
@@ -6,10 +6,8 @@ import { ConnectionService } from '../../connection.service';
   templateUrl: './master.component.html',
   styleUrls: ['./master.component.css'],
 })
-export class MasterComponent implements OnInit {
+export class MasterComponent {
   master = this.cs.conn.master;
 
   constructor(private cs: ConnectionService) {}
-
-  ngOnInit(): void {}
 }

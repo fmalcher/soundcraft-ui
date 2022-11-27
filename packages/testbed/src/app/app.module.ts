@@ -66,7 +66,7 @@ const routes: Routes = [
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(routes, { initialNavigation: 'enabled' }),
+    RouterModule.forRoot(routes, { initialNavigation: 'enabledBlocking' }),
     ReactiveFormsModule,
   ],
   providers: [],
