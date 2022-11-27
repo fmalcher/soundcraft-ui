@@ -1,17 +1,19 @@
-import { interval, merge, Subject } from 'rxjs';
-import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
-import ws from 'isomorphic-ws';
 import {
+  interval,
+  merge,
+  Subject,
   mergeMap,
   filter,
   switchMap,
   takeUntil,
-  mapTo,
   tap,
   map,
-  retryWhen,
-  delay,
-} from 'rxjs/operators';
+  retry,
+  timer,
+} from 'rxjs';
+import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
+import ws from 'isomorphic-ws';
+
 import { ConnectionEvent, ConnectionStatus } from './types';
 
 export class MixerConnection {
@@ -30,7 +32,7 @@ export class MixerConnection {
    * socket$.complete() will have no effect.
    * We have a separate notifier here to destroy the timed reconnect when the user actually wants to close everything
    */
-  private forceClose$ = new Subject();
+  private forceClose$ = new Subject<void>();
 
   /**
    * internal message streams.
@@ -68,7 +70,7 @@ export class MixerConnection {
     open$
       .pipe(
         switchMap(() => interval(this.keepaliveTime).pipe(takeUntil(close$))),
-        mapTo('ALIVE')
+        map(() => 'ALIVE')
       )
       .subscribe(msg => this.outboundSubject$.next(msg));
 
@@ -117,13 +119,13 @@ export class MixerConnection {
           }),
       }),
       // reconnect on error
-      retryWhen(n$ =>
-        n$.pipe(
-          delay(this.reconnectTime),
-          takeUntil(this.forceClose$),
-          tap(() => this.statusSubject$.next({ type: ConnectionStatus.Reconnecting }))
-        )
-      ),
+      retry({
+        delay: () =>
+          timer(this.reconnectTime).pipe(
+            takeUntil(this.forceClose$),
+            tap(() => this.statusSubject$.next({ type: ConnectionStatus.Reconnecting }))
+          ),
+      }),
       // parse messages (only use those with `3:::` prefix)
       map(message => {
         const match = message.match(/^(3:::)([\s\S]*)/);

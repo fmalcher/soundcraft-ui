@@ -16,7 +16,7 @@ export interface ConnectionStatusEvent {
 
 export interface ConnectionErrorEvent extends ConnectionStatusEvent {
   type: ConnectionStatus.Error;
-  payload: any;
+  payload: unknown;
 }
 
 export type ConnectionEvent = ConnectionStatusEvent | ConnectionErrorEvent;

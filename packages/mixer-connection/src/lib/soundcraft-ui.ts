@@ -1,4 +1,5 @@
-import { delay, filter, take } from 'rxjs/operators';
+import { delay, filter, take } from 'rxjs';
+
 import { AuxBus } from './facade/aux-bus';
 import { DualTrackRecorder } from './facade/dual-track-recorder';
 import { FxBus } from './facade/fx-bus';

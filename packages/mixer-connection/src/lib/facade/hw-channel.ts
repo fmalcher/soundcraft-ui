@@ -1,4 +1,4 @@
-import { take } from 'rxjs/operators';
+import { take } from 'rxjs';
 import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
 import { select, selectPhantom } from '../state/state-selectors';

@@ -1,5 +1,4 @@
-import { ConnectableObservable } from 'rxjs';
-import { filter, map, publishReplay, scan, share } from 'rxjs/operators';
+import { connectable, filter, map, ReplaySubject, scan, share } from 'rxjs';
 import { setObjectPath } from '../utils/object-path';
 
 import { transformStringValue } from '../util';
@@ -24,19 +23,21 @@ export class MixerStore {
   /**
    * The full mixer state. Updates whenever the state changes.
    */
-  readonly state$ = this.setdSetsMessageMatches$.pipe(
-    map(([, , path, value]) => ({
-      path: path.split('.').map(transformStringValue),
-      value: transformStringValue(value),
-    })),
-    scan((acc, { path, value }) => setObjectPath(acc, path, value), {}),
-    publishReplay(1)
+  readonly state$ = connectable(
+    this.setdSetsMessageMatches$.pipe(
+      map(([, , path, value]) => ({
+        path: path.split('.').map(transformStringValue),
+        value: transformStringValue(value),
+      })),
+      scan((acc, { path, value }) => setObjectPath(acc, path, value), {})
+    ),
+    { connector: () => new ReplaySubject(1) }
   );
 
   channelStore = new ChannelStore();
 
   constructor(private conn: MixerConnection) {
     // start producing state values
-    (this.state$ as ConnectableObservable<unknown>).connect();
+    this.state$.connect();
   }
 }
