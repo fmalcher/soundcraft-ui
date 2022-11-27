@@ -1,4 +1,5 @@
-import { map } from 'rxjs/operators';
+import { map } from 'rxjs';
+
 import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
 import { ChannelType } from '../types';

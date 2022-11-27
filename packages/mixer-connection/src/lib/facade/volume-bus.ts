@@ -1,5 +1,4 @@
-import { Subject } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { Subject, map, take } from 'rxjs';
 import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
 import { select, selectVolumeBusValue } from '../state/state-selectors';

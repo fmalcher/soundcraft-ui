@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { map } from 'rxjs';
 import { PlayerState } from 'soundcraft-ui-connection';
 
 import { ConnectionService } from '../../connection.service';

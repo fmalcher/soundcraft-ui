@@ -1,5 +1,5 @@
+import { firstValueFrom } from 'rxjs';
 import { SoundcraftUI } from '../soundcraft-ui';
-import { readFirst } from '../utils/testing-utils';
 import { HwChannel } from './hw-channel';
 
 describe('AUX Channel', () => {
@@ -14,22 +14,22 @@ describe('AUX Channel', () => {
   describe('Phantom Power', () => {
     it('phantom$', async () => {
       channel.phantomOn();
-      expect(await readFirst(channel.phantom$)).toBe(1);
+      expect(await firstValueFrom(channel.phantom$)).toBe(1);
 
       channel.phantomOff();
-      expect(await readFirst(channel.phantom$)).toBe(0);
+      expect(await firstValueFrom(channel.phantom$)).toBe(0);
 
       channel.setPhantom(1);
-      expect(await readFirst(channel.phantom$)).toBe(1);
+      expect(await firstValueFrom(channel.phantom$)).toBe(1);
     });
 
     it('togglePhantom', async () => {
       channel.setPhantom(0);
       channel.togglePhantom();
-      expect(await readFirst(channel.phantom$)).toBe(1);
+      expect(await firstValueFrom(channel.phantom$)).toBe(1);
 
       channel.togglePhantom();
-      expect(await readFirst(channel.phantom$)).toBe(0);
+      expect(await firstValueFrom(channel.phantom$)).toBe(0);
     });
   });
 });

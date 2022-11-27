@@ -1,5 +1,5 @@
+import { firstValueFrom } from 'rxjs';
 import { SoundcraftUI } from '../soundcraft-ui';
-import { readFirst } from '../utils/testing-utils';
 import { MuteGroup } from './mute-group';
 
 describe('Mute Group', () => {
@@ -16,18 +16,18 @@ describe('Mute Group', () => {
 
     it('state$', async () => {
       group.mute();
-      expect(await readFirst(group.state$)).toBe(1);
+      expect(await firstValueFrom(group.state$)).toBe(1);
 
       group.unmute();
-      expect(await readFirst(group.state$)).toBe(0);
+      expect(await firstValueFrom(group.state$)).toBe(0);
     });
 
     it('toggle', async () => {
       group.toggle();
-      expect(await readFirst(group.state$)).toBe(1);
+      expect(await firstValueFrom(group.state$)).toBe(1);
 
       group.toggle();
-      expect(await readFirst(group.state$)).toBe(0);
+      expect(await firstValueFrom(group.state$)).toBe(0);
     });
   });
 
@@ -36,18 +36,18 @@ describe('Mute Group', () => {
 
     it('state$', async () => {
       group.mute();
-      expect(await readFirst(group.state$)).toBe(1);
+      expect(await firstValueFrom(group.state$)).toBe(1);
 
       group.unmute();
-      expect(await readFirst(group.state$)).toBe(0);
+      expect(await firstValueFrom(group.state$)).toBe(0);
     });
 
     it('toggle', async () => {
       group.toggle();
-      expect(await readFirst(group.state$)).toBe(1);
+      expect(await firstValueFrom(group.state$)).toBe(1);
 
       group.toggle();
-      expect(await readFirst(group.state$)).toBe(0);
+      expect(await firstValueFrom(group.state$)).toBe(0);
     });
   });
 
@@ -56,18 +56,18 @@ describe('Mute Group', () => {
 
     it('state$', async () => {
       group.mute();
-      expect(await readFirst(group.state$)).toBe(1);
+      expect(await firstValueFrom(group.state$)).toBe(1);
 
       group.unmute();
-      expect(await readFirst(group.state$)).toBe(0);
+      expect(await firstValueFrom(group.state$)).toBe(0);
     });
 
     it('toggle', async () => {
       group.toggle();
-      expect(await readFirst(group.state$)).toBe(1);
+      expect(await firstValueFrom(group.state$)).toBe(1);
 
       group.toggle();
-      expect(await readFirst(group.state$)).toBe(0);
+      expect(await firstValueFrom(group.state$)).toBe(0);
     });
   });
 });

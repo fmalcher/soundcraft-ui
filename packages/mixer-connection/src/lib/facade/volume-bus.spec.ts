@@ -1,5 +1,5 @@
+import { firstValueFrom } from 'rxjs';
 import { SoundcraftUI } from '../soundcraft-ui';
-import { readFirst } from '../utils/testing-utils';
 import { VolumeBus } from './volume-bus';
 
 describe('Volume Bus', () => {
@@ -14,33 +14,33 @@ describe('Volume Bus', () => {
   describe('Fader Level', () => {
     it('faderLevel$', async () => {
       bus.setFaderLevel(0.5);
-      expect(await readFirst(bus.faderLevel$)).toBe(0.5);
+      expect(await firstValueFrom(bus.faderLevel$)).toBe(0.5);
 
       bus.setFaderLevel(0.8889);
-      expect(await readFirst(bus.faderLevel$)).toBe(0.8889);
+      expect(await firstValueFrom(bus.faderLevel$)).toBe(0.8889);
 
       bus.setFaderLevelDB(0);
-      expect(await readFirst(bus.faderLevel$)).toBe(0.76470588235);
+      expect(await firstValueFrom(bus.faderLevel$)).toBe(0.76470588235);
     });
 
     it('faderLevelDB$', async () => {
       bus.setFaderLevelDB(-6);
-      expect(await readFirst(bus.faderLevelDB$)).toBe(-6);
+      expect(await firstValueFrom(bus.faderLevelDB$)).toBe(-6);
 
       bus.setFaderLevelDB(-12);
-      expect(await readFirst(bus.faderLevelDB$)).toBe(-12);
+      expect(await firstValueFrom(bus.faderLevelDB$)).toBe(-12);
 
       bus.setFaderLevel(0.76470588235);
-      expect(await readFirst(bus.faderLevelDB$)).toBe(0);
+      expect(await firstValueFrom(bus.faderLevelDB$)).toBe(0);
     });
 
     it('changeFaderLevelDB', async () => {
       bus.setFaderLevelDB(-12);
       bus.changeFaderLevelDB(3);
-      expect(await readFirst(bus.faderLevelDB$)).toBe(-9);
+      expect(await firstValueFrom(bus.faderLevelDB$)).toBe(-9);
 
       bus.changeFaderLevelDB(-6);
-      expect(await readFirst(bus.faderLevelDB$)).toBe(-15);
+      expect(await firstValueFrom(bus.faderLevelDB$)).toBe(-15);
     });
   });
 

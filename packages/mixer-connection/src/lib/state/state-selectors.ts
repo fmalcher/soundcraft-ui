@@ -1,5 +1,4 @@
-import { distinctUntilChanged, filter, map } from 'rxjs/operators';
-import { OperatorFunction, pipe } from 'rxjs';
+import { distinctUntilChanged, filter, map, OperatorFunction, pipe } from 'rxjs';
 
 import { ChannelType, BusType, PlayerState } from '../types';
 import { MixerState } from './mixer-state.models';

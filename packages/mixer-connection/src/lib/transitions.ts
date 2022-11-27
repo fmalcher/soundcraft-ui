@@ -1,5 +1,6 @@
-import { interval, Observable } from 'rxjs';
 import {
+  interval,
+  Observable,
   distinctUntilChanged,
   filter,
   map,
@@ -7,7 +8,8 @@ import {
   take,
   takeUntil,
   withLatestFrom,
-} from 'rxjs/operators';
+} from 'rxjs';
+
 import { MixerConnection } from './mixer-connection';
 import { ConnectionStatus } from './types';
 import { easingFunctions, Easings } from './utils/transitions/easings';

@@ -1,4 +1,5 @@
-import { map, take } from 'rxjs/operators';
+import { map, take } from 'rxjs';
+
 import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
 import { select, selectMuteGroupMask } from '../state/state-selectors';

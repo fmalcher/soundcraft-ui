@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuxChannel } from 'soundcraft-ui-connection';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, map } from 'rxjs';
 import { ConnectionService } from '../../connection.service';
 
 @Component({
