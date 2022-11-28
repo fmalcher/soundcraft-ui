@@ -15,3 +15,34 @@
   <soundcraft-ui-mixer-button (press)="master.dim()"> DIM on</soundcraft-ui-mixer-button>
   <soundcraft-ui-mixer-button (press)="master.undim()">DIM off</soundcraft-ui-mixer-button>
 </div>
+
+<div class="mt-4">
+  <h2>Delay</h2>
+  <div class="mb-2">
+    <strong>L</strong>
+    <input
+      class="form-control w-25 d-inline ms-4 me-4"
+      type="number"
+      min="0"
+      max="500"
+      step="10"
+      [value]="master.delayL$ | async"
+      (change)="master.setDelayL($any($event.target).value)"
+    />
+    {{ master.delayL$ | async }} ms
+  </div>
+
+  <div class="mb-2">
+    <strong>R</strong>
+    <input
+      class="form-control w-25 d-inline ms-4 me-4"
+      type="number"
+      min="0"
+      max="500"
+      step="10"
+      [value]="master.delayR$ | async"
+      (change)="master.setDelayR($any($event.target).value)"
+    />
+    {{ master.delayR$ | async }} ms
+  </div>
+</div>

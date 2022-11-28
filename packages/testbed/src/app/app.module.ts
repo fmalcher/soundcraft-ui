@@ -24,6 +24,7 @@ import { MuteGroupsComponent } from './pages/mute-groups/mute-groups.component';
 import { VolumebusComponent } from './pages/volumebus/volumebus.component';
 import { ShowsComponent } from './pages/shows/shows.component';
 import { HwchannelsComponent } from './pages/hwchannels/hwchannels.component';
+import { DelayComponent } from './ui/delay/delay.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'connection', pathMatch: 'full' },
@@ -63,6 +64,7 @@ const routes: Routes = [
     VolumebusComponent,
     ShowsComponent,
     HwchannelsComponent,
+    DelayComponent,
   ],
   imports: [
     BrowserModule,

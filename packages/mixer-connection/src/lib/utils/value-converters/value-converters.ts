@@ -1,6 +1,21 @@
 import { dBLinearLUT } from './db-lut';
 
 /**
+ * Sanitize and convert a channel delay value from milliseconds to raw seconds
+ * @param valueMs value in milliseconds
+ * @param maximumMs maximum allowed value
+ * @returns value in seconds
+ */
+export function sanitizeDelayValue(valueMs: number, maximumMs: number): number {
+  // fit into range
+  let result = Math.max(0, valueMs);
+  result = Math.min(maximumMs, result);
+
+  // raw data is in seconds
+  return result / 1000;
+}
+
+/**
  * Helper function for lookup in the LUT.
  * First, find the position which is closest to the requested source value.
  * Then do linear interpolation to find a closer value.

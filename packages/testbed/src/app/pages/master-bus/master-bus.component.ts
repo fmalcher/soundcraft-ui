@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { DelayableMasterChannel } from 'packages/mixer-connection/src/lib/facade/delayable-master-channel';
+import { MasterChannel } from 'soundcraft-ui-connection';
 import { ConnectionService } from '../../connection.service';
 
 @Component({
@@ -15,9 +17,13 @@ export class MasterBusComponent {
     { channel: this.master.player(1), label: 'Player 1' },
     { channel: this.master.fx(2), label: 'FX 2' },
     { channel: this.master.sub(3), label: 'Sub group 3' },
-    { channel: this.master.aux(2), label: 'AUX 2', noPan: true },
+    { channel: this.master.aux(2), label: 'AUX 2', noPan: true, delayMax: 500 },
     { channel: this.master.vca(4), label: 'VCA 4', noPan: true },
   ];
 
   constructor(private cs: ConnectionService) {}
+
+  isDelayable(c: MasterChannel): c is DelayableMasterChannel {
+    return c instanceof DelayableMasterChannel;
+  }
 }
