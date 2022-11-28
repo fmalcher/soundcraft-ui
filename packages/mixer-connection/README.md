@@ -360,14 +360,21 @@ This also applies to stereo-linked AUX buses so that the corresponding channel o
 
 This behavior matches the way the original web app handles stereo-linking.
 
-## Retrieving raw messages or state
+## Working with raw messages and state
 
 The `MixerStore` object exposes raw streams with messages and state data. You can use them for debugging purposes or for integration in other services:
 
 - `conn.store.messages$`: Stream of all raw `SETD` and `SETS` messages (inbound and outbound)
 - `conn.store.state$`: Stream of state objects, derived from the messages
 
-> **Please prefer the human-readable interface over reading the raw state!** If you're missing any features, please file an issue or PR.
+In much the same way you can send raw messages to the mixer:
+
+```ts
+conn.conn.sendMessage('SETD^m.mix^0.4');
+conn.conn.sendMessage('SETD^i.2.mute^0');
+```
+
+> **Please prefer the human-readable interface over using the raw format!** If you're missing any features, please file an issue or PR.
 
 ## Additional useful information
 
