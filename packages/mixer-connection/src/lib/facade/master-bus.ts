@@ -3,6 +3,7 @@ import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
 import {
   select,
+  selectMasterDelay,
   selectMasterDim,
   selectMasterPan,
   selectMasterValue,
@@ -11,6 +12,8 @@ import { sourcesToTransition, TransitionSource } from '../transitions';
 import { resolveDelayed } from '../utils/async-helpers';
 import { Easings } from '../utils/transitions/easings';
 import { DBToFaderValue, faderValueToDB } from '../utils/value-converters';
+import { sanitizeDelayValue } from '../utils/value-converters/value-converters';
+import { DelayableMasterChannel } from './delayable-master-channel';
 import { FadeableChannel, PannableChannel } from './interfaces';
 import { MasterChannel } from './master-channel';
 
@@ -30,6 +33,11 @@ export class MasterBus implements FadeableChannel, PannableChannel {
   /** DIM value of the master (`0` or `1`) */
   dim$ = this.store.state$.pipe(select(selectMasterDim()));
 
+  /** LEFT DELAY (ms) of the master */
+  delayL$ = this.store.state$.pipe(select(selectMasterDelay('L')));
+  /** RIGHT DELAY (ms) of the master */
+  delayR$ = this.store.state$.pipe(select(selectMasterDelay('R')));
+
   private transitionSources$ = new Subject<TransitionSource>();
 
   constructor(private conn: MixerConnection, private store: MixerStore) {
@@ -46,7 +54,7 @@ export class MasterBus implements FadeableChannel, PannableChannel {
    * @param channel Channel number
    */
   input(channel: number) {
-    return new MasterChannel(this.conn, this.store, 'i', channel);
+    return new DelayableMasterChannel(this.conn, this.store, 'i', channel);
   }
 
   /**
@@ -54,7 +62,7 @@ export class MasterBus implements FadeableChannel, PannableChannel {
    * @param channel Channel number
    */
   line(channel: number) {
-    return new MasterChannel(this.conn, this.store, 'l', channel);
+    return new DelayableMasterChannel(this.conn, this.store, 'l', channel);
   }
 
   /**
@@ -70,7 +78,7 @@ export class MasterBus implements FadeableChannel, PannableChannel {
    * @param channel Channel number
    */
   aux(channel: number) {
-    return new MasterChannel(this.conn, this.store, 'a', channel);
+    return new DelayableMasterChannel(this.conn, this.store, 'a', channel);
   }
 
   /**
@@ -189,5 +197,20 @@ export class MasterBus implements FadeableChannel, PannableChannel {
   /** Toggle DIM on the master */
   toggleDim() {
     this.dim$.pipe(take(1)).subscribe(dim => this.setDim(dim ^ 1));
+  }
+
+  /** Set LEFT DELAY (ms) for master output. Maximum 500 ms */
+  setDelayL(ms: number) {
+    this.setDelay(ms, 'L');
+  }
+
+  /** Set RIGHT DELAY (ms) for master output. Maximum 500 ms */
+  setDelayR(ms: number) {
+    this.setDelay(ms, 'R');
+  }
+
+  private setDelay(ms: number, side: 'L' | 'R') {
+    const value = sanitizeDelayValue(ms, 500);
+    this.conn.sendMessage(`SETD^m.delay${side}^${value}`);
   }
 }

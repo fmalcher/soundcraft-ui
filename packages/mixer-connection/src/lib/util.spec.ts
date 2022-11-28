@@ -1,7 +1,7 @@
 import { playerTimeToString, transformStringValue } from './util';
 
 describe('util', () => {
-  describe('transFormStringValue', () => {
+  describe('transformStringValue', () => {
     it('should convert number string to int', () => {
       expect(transformStringValue('123')).toBe(123);
       expect(transformStringValue('3')).toBe(3);

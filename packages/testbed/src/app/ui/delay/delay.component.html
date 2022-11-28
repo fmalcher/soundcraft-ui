@@ -1,0 +1,14 @@
+<ng-container *ngIf="channel">
+  <label>Delay (ms)</label>
+  <input
+    type="range"
+    min="0"
+    [max]="maxValue"
+    step="1"
+    (change)="setDelay(delayInput.value)"
+    [value]="channel.delay$ | async"
+    #delayInput
+  />
+
+  <span class="ms-3">{{ channel.delay$ | async }} ms</span>
+</ng-container>

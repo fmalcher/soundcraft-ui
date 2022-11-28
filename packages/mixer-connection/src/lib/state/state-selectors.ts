@@ -80,6 +80,12 @@ export const selectMasterDim: Selector<number> = () => state =>
   getStatePath<number>(state, ['m', 'dim']);
 
 /**
+ * Select delay value of the master output (L or R)
+ */
+export const selectMasterDelay: Selector<number> = (side: 'L' | 'R') => state =>
+  getStatePath<number>(state, ['m', `delay${side}`], 0) * 1000;
+
+/**
  * Select pan value of a channel
  * @param channelType Type of the channel
  * @param channel Channel number
@@ -138,6 +144,15 @@ export const selectFaderValue: Selector<number> = (
         return getStatePath<number>(state, [channelType, channel - 1, busType, bus - 1, 'value']);
     }
   };
+};
+
+/**
+ * Select delay value of a master channel in ms
+ * @param channelType
+ * @param channel
+ */
+export const selectDelayValue: Selector<number> = (channelType: ChannelType, channel: number) => {
+  return state => getStatePath<number>(state, [channelType, channel - 1, 'delay'], 0) * 1000;
 };
 
 /**

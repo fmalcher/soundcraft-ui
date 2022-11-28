@@ -43,4 +43,12 @@ describe('Master Bus', () => {
     master.pan(0.5);
     expect(await firstValueFrom(master.pan$)).toBe(0.5);
   });
+
+  it('delayL$ and delayR$', async () => {
+    master.setDelayL(0.35);
+    expect(await firstValueFrom(master.delayL$)).toBe(0.35);
+
+    master.setDelayR(0.22);
+    expect(await firstValueFrom(master.delayR$)).toBe(0.22);
+  });
 });

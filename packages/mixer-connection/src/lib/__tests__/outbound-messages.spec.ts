@@ -32,6 +32,12 @@ describe('Outbound messages', () => {
 
     conn.master.setDim(0);
     expect(message).toMatchInlineSnapshot(`"SETD^m.dim^0"`);
+
+    conn.master.setDelayL(500);
+    expect(message).toMatchInlineSnapshot(`"SETD^m.delayL^0.5"`);
+
+    conn.master.setDelayR(350);
+    expect(message).toMatchInlineSnapshot(`"SETD^m.delayR^0.35"`);
   });
 
   it('master channels INPUT', () => {
@@ -67,6 +73,9 @@ describe('Outbound messages', () => {
 
     conn.master.input(3).unsolo();
     expect(message).toMatchInlineSnapshot(`"SETD^i.2.solo^0"`);
+
+    conn.master.input(3).setDelay(210);
+    expect(message).toMatchInlineSnapshot(`"SETD^i.2.delay^0.21"`);
   });
 
   it('master channels LINE', () => {
@@ -102,6 +111,9 @@ describe('Outbound messages', () => {
 
     conn.master.line(1).unsolo();
     expect(message).toMatchInlineSnapshot(`"SETD^l.0.solo^0"`);
+
+    conn.master.line(1).setDelay(130);
+    expect(message).toMatchInlineSnapshot(`"SETD^l.0.delay^0.13"`);
   });
 
   it('master channels PLAYER', () => {
@@ -172,6 +184,9 @@ describe('Outbound messages', () => {
 
     conn.master.aux(1).unsolo();
     expect(message).toMatchInlineSnapshot(`"SETD^a.0.solo^0"`);
+
+    conn.master.aux(1).setDelay(400);
+    expect(message).toMatchInlineSnapshot(`"SETD^a.0.delay^0.4"`);
   });
 
   it('master channels FX', () => {
