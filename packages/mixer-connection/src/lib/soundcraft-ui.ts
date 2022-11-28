@@ -1,5 +1,3 @@
-import { delay, filter, take } from 'rxjs';
-
 import { AuxBus } from './facade/aux-bus';
 import { DualTrackRecorder } from './facade/dual-track-recorder';
 import { FxBus } from './facade/fx-bus';
@@ -11,7 +9,6 @@ import { ShowController } from './facade/show-controller';
 import { VolumeBus } from './facade/volume-bus';
 import { MixerConnection } from './mixer-connection';
 import { MixerStore } from './state/mixer-store';
-import { ConnectionStatus } from './types';
 
 export class SoundcraftUI {
   readonly conn = new MixerConnection(this.targetIP);
