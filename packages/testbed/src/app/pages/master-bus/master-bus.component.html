@@ -1,5 +1,5 @@
 <ng-container *ngFor="let c of channels">
-  <h2 class="mt-4">{{ c.label }}</h2>
+  <h2 class="mt-4">{{ c.label }} ({{ c.channel.name$ | async }})</h2>
 
   <soundcraft-ui-mute-button [channel]="c.channel"></soundcraft-ui-mute-button>
 

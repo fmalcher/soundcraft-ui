@@ -2,10 +2,16 @@ import { Subject, map, take } from 'rxjs';
 
 import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
-import { select, selectFaderValue, selectMute, selectStereoIndex } from '../state/state-selectors';
+import {
+  select,
+  selectChannelName,
+  selectFaderValue,
+  selectMute,
+  selectStereoIndex,
+} from '../state/state-selectors';
 import { sourcesToTransition, TransitionSource } from '../transitions';
 import { BusType, ChannelType } from '../types';
-import { clamp } from '../util';
+import { clamp, constructReadableChannelName } from '../util';
 import { resolveDelayed } from '../utils/async-helpers';
 import { Easings } from '../utils/transitions/easings';
 import { DBToFaderValue, faderValueToDB } from '../utils/value-converters';
@@ -37,6 +43,12 @@ export class Channel implements FadeableChannel {
   /** MUTE value of the channel (`0` or `1`) */
   mute$ = this.store.state$.pipe(
     select(selectMute(this.channelType, this.channel, this.busType, this.bus))
+  );
+
+  /** Name of the channel */
+  name$ = this.store.state$.pipe(
+    select(selectChannelName(this.channelType, this.channel, this.busType, this.bus)),
+    map(name => name || constructReadableChannelName(this.channelType, this.channel))
   );
 
   constructor(
