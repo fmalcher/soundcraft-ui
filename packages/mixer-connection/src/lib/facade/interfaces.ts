@@ -12,7 +12,7 @@ export interface FadeableChannel {
   setFaderLevel(value: number): void;
   setFaderLevelDB(dbValue: number): void;
 
-  changeFaderLevelDB(dbValueToAdd: number): void;
+  changeFaderLevelDB(offsetDB: number): void;
 }
 
 export interface PannableChannel {
