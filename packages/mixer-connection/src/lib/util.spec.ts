@@ -1,6 +1,18 @@
-import { playerTimeToString, transformStringValue } from './util';
+import { clamp, playerTimeToString, transformStringValue } from './util';
 
 describe('util', () => {
+  describe('clamp', () => {
+    it('should leave in-range values unchanged', () => {
+      expect(clamp(400, 0, 500)).toBe(400);
+      expect(clamp(-5, -100, 1000)).toBe(-5);
+    });
+
+    it('should clamp out-of-range value', () => {
+      expect(clamp(600, 0, 500)).toBe(500);
+      expect(clamp(-110, -100, 1000)).toBe(-100);
+    });
+  });
+
   describe('transformStringValue', () => {
     it('should convert number string to int', () => {
       expect(transformStringValue('123')).toBe(123);

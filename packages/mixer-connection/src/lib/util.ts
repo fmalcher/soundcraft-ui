@@ -1,3 +1,8 @@
+/** Clamp numeric value to min and max */
+export function clamp(value: number, min: number, max: number): number {
+  return Math.min(max, Math.max(min, value));
+}
+
 /**
  * Transform a given value to int, float or string
  * @param value

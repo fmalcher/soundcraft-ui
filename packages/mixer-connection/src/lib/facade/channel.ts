@@ -1,9 +1,11 @@
 import { Subject, map, take } from 'rxjs';
+
 import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
 import { select, selectFaderValue, selectMute, selectStereoIndex } from '../state/state-selectors';
 import { sourcesToTransition, TransitionSource } from '../transitions';
 import { BusType, ChannelType } from '../types';
+import { clamp } from '../util';
 import { resolveDelayed } from '../utils/async-helpers';
 import { Easings } from '../utils/transitions/easings';
 import { DBToFaderValue, faderValueToDB } from '../utils/value-converters';
@@ -56,7 +58,7 @@ export class Channel implements FadeableChannel {
 
     // create transition steps and set fader level accordingly
     sourcesToTransition(this.transitionSources$, this.faderLevel$, conn).subscribe(v =>
-      this.setFaderLevel(v)
+      this.setFaderLevelRaw(v)
     );
   }
 
@@ -68,6 +70,7 @@ export class Channel implements FadeableChannel {
    * @param fps Frames per second, defaults to 25
    */
   fadeTo(targetValue: number, fadeTime: number, easing: Easings = Easings.Linear, fps = 25) {
+    targetValue = clamp(targetValue, 0, 1);
     this.transitionSources$.next({
       targetValue,
       fadeTime,
@@ -94,6 +97,11 @@ export class Channel implements FadeableChannel {
    * @param value value between `0` and `1`
    */
   setFaderLevel(value: number) {
+    value = clamp(value, 0, 1);
+    this.setFaderLevelRaw(value);
+  }
+
+  private setFaderLevelRaw(value: number) {
     [...this.linkedChannelIds, this.fullChannelId].forEach(cid => {
       const command = `SETD^${cid}.${this.faderLevelCommand}^${value}`;
       this.conn.sendMessage(command);
@@ -113,12 +121,7 @@ export class Channel implements FadeableChannel {
    * @param offsetDB value (dB) to add to the current value
    */
   changeFaderLevelDB(offsetDB: number) {
-    this.faderLevelDB$
-      .pipe(
-        take(1),
-        map(value => Math.max(value + offsetDB, -100))
-      )
-      .subscribe(v => this.setFaderLevelDB(v));
+    this.faderLevelDB$.pipe(take(1)).subscribe(v => this.setFaderLevelDB(v + offsetDB));
   }
 
   /**
