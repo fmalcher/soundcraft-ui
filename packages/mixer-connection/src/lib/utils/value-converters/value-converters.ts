@@ -1,3 +1,4 @@
+import { clamp } from '../../util';
 import { dBLinearLUT } from './db-lut';
 
 /**
@@ -8,11 +9,10 @@ import { dBLinearLUT } from './db-lut';
  */
 export function sanitizeDelayValue(valueMs: number, maximumMs: number): number {
   // fit into range
-  let result = Math.max(0, valueMs);
-  result = Math.min(maximumMs, result);
+  const value = clamp(valueMs, 0, maximumMs);
 
   // raw data is in seconds
-  return result / 1000;
+  return value / 1000;
 }
 
 /**
@@ -35,12 +35,15 @@ function findInLUT(
     if (lut[i][sourceIndex] < sourceVal) {
       continue;
     }
-    return i === 0 || sourceVal === lut[i][sourceIndex]
-      ? lut[i][resultIndex]
-      : lut[i - 1][resultIndex] +
-          ((lut[i][resultIndex] - lut[i - 1][resultIndex]) *
-            (sourceVal - lut[i - 1][sourceIndex])) /
-            (lut[i][sourceIndex] - lut[i - 1][sourceIndex]);
+    if (i === 0 || i === 1 || sourceVal === lut[i][sourceIndex]) {
+      return lut[i][resultIndex];
+    } else {
+      return (
+        lut[i - 1][resultIndex] +
+        ((lut[i][resultIndex] - lut[i - 1][resultIndex]) * (sourceVal - lut[i - 1][sourceIndex])) /
+          (lut[i][sourceIndex] - lut[i - 1][sourceIndex])
+      );
+    }
   }
 }
 

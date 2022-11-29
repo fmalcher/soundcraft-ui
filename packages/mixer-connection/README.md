@@ -382,7 +382,7 @@ conn.conn.sendMessage('SETD^i.2.mute^0');
 ## Additional useful information
 
 - All channel objects are cached and treated as singletons. If you call `conn.master.input(3)` multiple times, each call returns the exact same object.
-- Input values are not checked or sanitized in any way! Be sure to call the functions with valid values only.
+- Input values for fader levels are restricted to the range of `0..1`. All other are not checked or sanitized in any way! Be sure to call the functions with valid values only.
 
 ## License
 
