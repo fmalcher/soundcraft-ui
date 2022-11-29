@@ -147,7 +147,7 @@ export class MasterBus implements FadeableChannel, PannableChannel {
 
   /**
    * Set dB level of the master fader
-   * @param value value between `-Infinity` and `10`
+   * @param dbValue value between `-Infinity` and `10`
    */
   setFaderLevelDB(dbValue: number) {
     this.setFaderLevel(DBToFaderValue(dbValue));
@@ -155,13 +155,13 @@ export class MasterBus implements FadeableChannel, PannableChannel {
 
   /**
    * Change the fader value relatively by adding a given value
-   * @param dbValueToAdd Value (dB) to add to the current value
+   * @param offsetDB value (dB) to add to the current value
    */
-  changeFaderLevelDB(dbValueToAdd: number) {
+  changeFaderLevelDB(offsetDB: number) {
     this.faderLevelDB$
       .pipe(
         take(1),
-        map(value => Math.max(value + dbValueToAdd, -100))
+        map(value => Math.max(value + offsetDB, -100))
       )
       .subscribe(v => this.setFaderLevelDB(v));
   }

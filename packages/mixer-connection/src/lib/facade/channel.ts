@@ -110,13 +110,13 @@ export class Channel implements FadeableChannel {
 
   /**
    * Change the fader value relatively by adding a given value
-   * @param dbValueToAdd Value (dB) to add to the current value
+   * @param offsetDB value (dB) to add to the current value
    */
-  changeFaderLevelDB(dbValueToAdd: number) {
+  changeFaderLevelDB(offsetDB: number) {
     this.faderLevelDB$
       .pipe(
         take(1),
-        map(value => Math.max(value + dbValueToAdd, -100))
+        map(value => Math.max(value + offsetDB, -100))
       )
       .subscribe(v => this.setFaderLevelDB(v));
   }
