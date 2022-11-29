@@ -108,6 +108,7 @@ These operations apply for any sort of channel like `MasterChannel`, `FxChannel`
 | `mute()`                      | Mute channel                                                  |
 | `unmute()`                    | Unmute channel                                                |
 | `toggleMute()`                | Toggle mute status                                            |
+| `name$`                       | Get readable name of the channel                              |
 | `faderLevel$`                 | Get fader level (between `0` and `1`)                         |
 | `faderLevelDB$`               | Get fader level in dB (between `-Infinity` and `10`)          |
 | `mute$`                       | Get mute status (`0` or `1`)                                  |

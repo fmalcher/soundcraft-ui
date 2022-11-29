@@ -1,3 +1,5 @@
+import { ChannelType } from './types';
+
 /** Clamp numeric value to min and max */
 export function clamp(value: number, min: number, max: number): number {
   return Math.min(max, Math.max(min, value));
@@ -37,5 +39,43 @@ export function getLinkedChannelNumber(channel: number, stereoIndex: number): nu
       return channel - 1;
     case 0:
       return channel + 1;
+  }
+}
+
+/** Helper function to convert channel number to readable L/R value */
+function numberToLR(channel: number): string {
+  switch (channel) {
+    case 1:
+      return 'L';
+    case 2:
+      return 'R';
+    default:
+      return '';
+  }
+}
+
+/**
+ * Construct a human-readable name for a channel
+ * based on the default labels from the web interface
+ * @param type
+ * @param channel
+ * @returns
+ */
+export function constructReadableChannelName(type: ChannelType, channel: number): string {
+  switch (type) {
+    case 'i':
+      return 'CH ' + channel;
+    case 'a':
+      return 'AUX ' + channel;
+    case 'f':
+      return 'FX ' + channel;
+    case 's':
+      return 'SUB ' + channel;
+    case 'v':
+      return 'VCA ' + channel;
+    case 'l':
+      return 'LINE IN ' + numberToLR(channel);
+    case 'p':
+      return 'PLAYER ' + numberToLR(channel);
   }
 }
