@@ -13,4 +13,8 @@ export class DelayComponent {
   setDelay(level: string) {
     this.channel && this.channel.setDelay(Number(level));
   }
+
+  changeDelay(offset: number) {
+    this.channel && this.channel.changeDelay(offset);
+  }
 }
