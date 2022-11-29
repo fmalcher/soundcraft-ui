@@ -209,6 +209,22 @@ export class MasterBus implements FadeableChannel, PannableChannel {
     this.setDelay(ms, 'R');
   }
 
+  /**
+   * Relatively change LEFT DELAY (ms) for master output. Maximum 500 ms
+   * @param offsetMs value (ms) to add to the current value
+   */
+  changeDelayL(offsetMs: number) {
+    this.delayL$.pipe(take(1)).subscribe(value => this.setDelayL(value + offsetMs));
+  }
+
+  /**
+   * Relatively change RIGHT DELAY (ms) for master output. Maximum 500 ms
+   * @param offsetMs value (ms) to add to the current value
+   */
+  changeDelayR(offsetMs: number) {
+    this.delayR$.pipe(take(1)).subscribe(value => this.setDelayR(value + offsetMs));
+  }
+
   private setDelay(ms: number, side: 'L' | 'R') {
     const value = sanitizeDelayValue(ms, 500);
     this.conn.sendMessage(`SETD^m.delay${side}^${value}`);

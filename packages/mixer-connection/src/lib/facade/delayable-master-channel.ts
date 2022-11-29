@@ -1,3 +1,5 @@
+import { take } from 'rxjs';
+
 import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
 import { select, selectDelayValue } from '../state/state-selectors';
@@ -34,5 +36,14 @@ export class DelayableMasterChannel extends MasterChannel {
 
     const command = `SETD^${this.fullChannelId}.delay^${value}`;
     this.conn.sendMessage(command);
+  }
+
+  /**
+   * Change the delay relatively by adding a value.
+   * Input channels allow a maximum of 250 ms, AUX master channels can be delayed by 500 ms.
+   * @param offsetMs value (ms) to add to the current value
+   */
+  changeDelay(offsetMs: number) {
+    this.delay$.pipe(take(1)).subscribe(value => this.setDelay(value + offsetMs));
   }
 }
