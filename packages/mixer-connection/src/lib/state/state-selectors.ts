@@ -2,7 +2,7 @@ import { distinctUntilChanged, filter, map, OperatorFunction, pipe } from 'rxjs'
 
 import { ChannelType, BusType, PlayerState } from '../types';
 import { MixerState } from './mixer-state.models';
-import { getObjectPath } from '../utils/object-path';
+import { getValueFromObject, joinStatePath } from '../utils/state-utils';
 
 type Projector<T> = (state: MixerState) => T;
 type Selector<T> = (...args: unknown[]) => Projector<T>;
@@ -19,12 +19,12 @@ export const select = <T>(projector: Projector<T>): OperatorFunction<MixerState,
   );
 
 /**
- * Internal helper function to select parts of the nested state object
+ * Internal helper to select parts of the state object
  * @param state The full mixer state
- * @param path The path to select from the nested object, segment by segment
+ * @param path The state path to select from object
  */
-function getStatePath<T>(state: MixerState, path: (string | number)[], defaultValue = undefined) {
-  return getObjectPath<T>(state, path, defaultValue);
+function getStateValue<T>(state: MixerState, path: string, defaultValue = undefined) {
+  return getValueFromObject<T>(state, path, defaultValue);
 }
 
 /**************************** */
@@ -46,44 +46,43 @@ const selectGenericChannelProperty: Selector<number> = (
   busType: BusType,
   bus?: number
 ) => {
-  return state => {
-    switch (busType) {
-      case 'master':
-        return getStatePath<number>(state, [channelType, channel - 1, property], defaultValue);
-      case 'aux':
-      case 'fx':
-        return getStatePath<number>(
-          state,
-          [channelType, channel - 1, busType, bus - 1, property],
-          defaultValue
-        );
+  switch (busType) {
+    case 'master': {
+      const path = joinStatePath(channelType, channel - 1, property);
+      return state => getStateValue<number>(state, path, defaultValue);
     }
-  };
+    case 'aux':
+    case 'fx':
+      return state => {
+        const path = joinStatePath(channelType, channel - 1, busType, bus - 1, property);
+        return getStateValue<number>(state, path, defaultValue);
+      };
+  }
 };
 
 /**
  * Select level value of the master fader
  */
 export const selectMasterValue: Selector<number> = () => state =>
-  getStatePath<number>(state, ['m', 'mix']);
+  getStateValue<number>(state, 'm.mix');
 
 /**
  * Select pan value of the master fader
  */
 export const selectMasterPan: Selector<number> = () => state =>
-  getStatePath<number>(state, ['m', 'pan']);
+  getStateValue<number>(state, 'm.pan');
 
 /**
  * Select dim value of the master fader
  */
 export const selectMasterDim: Selector<number> = () => state =>
-  getStatePath<number>(state, ['m', 'dim']);
+  getStateValue<number>(state, 'm.dim');
 
 /**
  * Select delay value of the master output (L or R)
  */
 export const selectMasterDelay: Selector<number> = (side: 'L' | 'R') => state =>
-  getStatePath<number>(state, ['m', `delay${side}`], 0) * 1000;
+  getStateValue<number>(state, `m.delay${side}`, 0) * 1000;
 
 /**
  * Select name of a channel
@@ -133,7 +132,8 @@ export const selectMute: Selector<number> = (
  * @param channel
  */
 export const selectSolo: Selector<number> = (channelType: ChannelType, channel: number) => {
-  return state => getStatePath<number>(state, [channelType, channel - 1, 'solo']);
+  const path = joinStatePath(channelType, channel - 1, 'solo');
+  return state => getStateValue<number>(state, path);
 };
 
 /**
@@ -149,15 +149,19 @@ export const selectFaderValue: Selector<number> = (
   busType: BusType,
   bus?: number
 ) => {
-  return state => {
+  {
     switch (busType) {
-      case 'master':
-        return getStatePath<number>(state, [channelType, channel - 1, 'mix']);
+      case 'master': {
+        const path = joinStatePath(channelType, channel - 1, 'mix');
+        return state => getStateValue<number>(state, path);
+      }
       case 'aux':
-      case 'fx':
-        return getStatePath<number>(state, [channelType, channel - 1, busType, bus - 1, 'value']);
+      case 'fx': {
+        const path = joinStatePath(channelType, channel - 1, busType, bus - 1, 'value');
+        return state => getStateValue<number>(state, path);
+      }
     }
-  };
+  }
 };
 
 /**
@@ -166,7 +170,8 @@ export const selectFaderValue: Selector<number> = (
  * @param channel
  */
 export const selectDelayValue: Selector<number> = (channelType: ChannelType, channel: number) => {
-  return state => getStatePath<number>(state, [channelType, channel - 1, 'delay'], 0) * 1000;
+  const path = joinStatePath(channelType, channel - 1, 'delay');
+  return state => getStateValue<number>(state, path, 0) * 1000;
 };
 
 /**
@@ -180,8 +185,8 @@ export const selectPost: Selector<number> = (
   busType: BusType,
   bus: number
 ) => {
-  return state =>
-    getStatePath<number>(state, [channelType, channel - 1, busType, bus - 1, 'post'], 0);
+  const path = joinStatePath(channelType, channel - 1, busType, bus - 1, 'post');
+  return state => getStateValue<number>(state, path, 0);
 };
 
 /**
@@ -194,8 +199,8 @@ export const selectAuxPostProc: Selector<number> = (
   channel: number,
   aux: number
 ) => {
-  return state =>
-    getStatePath<number>(state, [channelType, channel - 1, 'aux', aux - 1, 'postproc'], 0);
+  const path = joinStatePath(channelType, channel - 1, 'aux', aux - 1, 'postproc');
+  return state => getStateValue<number>(state, path, 0);
 };
 
 /**
@@ -205,10 +210,11 @@ export const selectAuxPostProc: Selector<number> = (
  * @param channel
  */
 export const selectStereoIndex: Selector<number> = (channelType: ChannelType, channel: number) => {
+  const path = joinStatePath(channelType, channel - 1, 'stereoIndex');
   return state => {
     // only input, line, player and aux can be linked
     if (['i', 'l', 'p', 'a'].includes(channelType)) {
-      return getStatePath<number>(state, [channelType, channel - 1, 'stereoIndex'], -1);
+      return getStateValue<number>(state, path, -1);
     }
     return -1;
   };
@@ -219,22 +225,23 @@ export const selectStereoIndex: Selector<number> = (channelType: ChannelType, ch
  * @param channel
  */
 export const selectPhantom: Selector<number> = (channel: number) => {
-  return state => getStatePath<number>(state, ['hw', channel - 1, 'phantom']);
+  const path = joinStatePath('hw', channel - 1, 'phantom');
+  return state => getStateValue<number>(state, path);
 };
 
 /** Select player state */
 export const selectPlayerState: Selector<PlayerState> = () => {
-  return state => getStatePath<PlayerState>(state, ['var', 'currentState'], PlayerState.Stopped);
+  return state => getStateValue<PlayerState>(state, 'var.currentState', PlayerState.Stopped);
 };
 
 /** Select player current length */
 export const selectPlayerLength: Selector<number> = () => {
-  return state => getStatePath<number>(state, ['var', 'currentLength'], -1);
+  return state => getStateValue<number>(state, 'var.currentLength', -1);
 };
 
 /** Select player current position */
 export const selectPlayerCurrentTrackPos: Selector<number> = () => {
-  return state => getStatePath<number>(state, ['var', 'currentTrackPos'], 0);
+  return state => getStateValue<number>(state, 'var.currentTrackPos', 0);
 };
 
 /** Select player elapsed time */
@@ -257,32 +264,32 @@ export const selectPlayerRemainingTime: Selector<number> = () => {
 
 /** Select player current playlist */
 export const selectPlayerPlaylist: Selector<string> = () => {
-  return state => getStatePath<string>(state, ['var', 'currentPlaylist']);
+  return state => getStateValue<string>(state, 'var.currentPlaylist');
 };
 
 /** Select player current track */
 export const selectPlayerTrack: Selector<string> = () => {
-  return state => getStatePath<string>(state, ['var', 'currentTrack']);
+  return state => getStateValue<string>(state, 'var.currentTrack');
 };
 
 /** Select player shuffle setting */
 export const selectPlayerShuffle: Selector<number> = () => {
-  return state => getStatePath<number>(state, ['settings', 'shuffle'], 0);
+  return state => getStateValue<number>(state, 'settings.shuffle', 0);
 };
 
 /** Select recording state (2-track) */
 export const selectRecordingState: Selector<number> = () => {
-  return state => getStatePath<number>(state, ['var', 'isRecording'], 0);
+  return state => getStateValue<number>(state, 'var.isRecording', 0);
 };
 
 /** Select recording busy state (2-track) */
 export const selectRecordingBusyState: Selector<number> = () => {
-  return state => getStatePath<number>(state, ['var', 'recBusy'], 0);
+  return state => getStateValue<number>(state, 'var.recBusy', 0);
 };
 
 /** Select mute group bit mask */
 export const selectMuteGroupMask: Selector<number> = () => {
-  return state => getStatePath<number>(state, ['mgmask']);
+  return state => getStateValue<number>(state, 'mgmask');
 };
 
 /**
@@ -290,5 +297,7 @@ export const selectMuteGroupMask: Selector<number> = () => {
  * @param busName Name of the bus in the "settings" part of the state
  * @param busId Optional ID of the bus
  */
-export const selectVolumeBusValue: Selector<number> = (busName: string, busId?: number) => state =>
-  getStatePath<number>(state, ['settings', busName, ...(busId >= 0 ? [busId] : [])]);
+export const selectVolumeBusValue: Selector<number> = (busName: string, busId?: number) => {
+  const path = joinStatePath('settings', busName, ...(busId >= 0 ? [busId] : []));
+  return state => getStateValue<number>(state, path);
+};
