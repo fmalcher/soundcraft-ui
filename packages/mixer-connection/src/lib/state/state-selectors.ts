@@ -1,6 +1,6 @@
 import { distinctUntilChanged, filter, map, OperatorFunction, pipe } from 'rxjs';
 
-import { ChannelType, BusType, PlayerState } from '../types';
+import { ChannelType, BusType } from '../types';
 import { getValueFromObject, joinStatePath } from '../utils/state-utils';
 
 type Projector<T> = (state: unknown) => T;
@@ -16,6 +16,13 @@ export const select = <T>(projector: Projector<T>): OperatorFunction<unknown, T>
     distinctUntilChanged(),
     filter(e => e !== undefined)
   );
+
+/**
+ * RxJS operator to select a raw value from the mixer state.
+ * @param path State key to select
+ */
+export const selectRawValue = <T>(path: string, defaultValue?: T) =>
+  select(state => getValueFromObject<T>(state, path, defaultValue));
 
 /**************************** */
 
@@ -39,13 +46,13 @@ const selectGenericChannelProperty: Selector<number> = (
   switch (busType) {
     case 'master': {
       const path = joinStatePath(channelType, channel - 1, property);
-      return state => getValueFromObject<number>(state, path, defaultValue);
+      return state => getValueFromObject(state, path, defaultValue);
     }
     case 'aux':
     case 'fx':
       return state => {
         const path = joinStatePath(channelType, channel - 1, busType, bus - 1, property);
-        return getValueFromObject<number>(state, path, defaultValue);
+        return getValueFromObject(state, path, defaultValue);
       };
   }
 };
@@ -72,7 +79,7 @@ export const selectMasterDim: Selector<number> = () => state =>
  * Select delay value of the master output (L or R)
  */
 export const selectMasterDelay: Selector<number> = (side: 'L' | 'R') => state =>
-  getValueFromObject<number>(state, `m.delay${side}`, 0) * 1000;
+  getValueFromObject(state, `m.delay${side}`, 0) * 1000;
 
 /**
  * Select name of a channel
@@ -161,7 +168,7 @@ export const selectFaderValue: Selector<number> = (
  */
 export const selectDelayValue: Selector<number> = (channelType: ChannelType, channel: number) => {
   const path = joinStatePath(channelType, channel - 1, 'delay');
-  return state => getValueFromObject<number>(state, path, 0) * 1000;
+  return state => getValueFromObject(state, path, 0) * 1000;
 };
 
 /**
@@ -176,7 +183,7 @@ export const selectPost: Selector<number> = (
   bus: number
 ) => {
   const path = joinStatePath(channelType, channel - 1, busType, bus - 1, 'post');
-  return state => getValueFromObject<number>(state, path, 0);
+  return state => getValueFromObject(state, path, 0);
 };
 
 /**
@@ -190,7 +197,7 @@ export const selectAuxPostProc: Selector<number> = (
   aux: number
 ) => {
   const path = joinStatePath(channelType, channel - 1, 'aux', aux - 1, 'postproc');
-  return state => getValueFromObject<number>(state, path, 0);
+  return state => getValueFromObject(state, path, 0);
 };
 
 /**
@@ -204,7 +211,7 @@ export const selectStereoIndex: Selector<number> = (channelType: ChannelType, ch
   return state => {
     // only input, line, player and aux can be linked
     if (['i', 'l', 'p', 'a'].includes(channelType)) {
-      return getValueFromObject<number>(state, path, -1);
+      return getValueFromObject(state, path, -1);
     }
     return -1;
   };
@@ -219,19 +226,14 @@ export const selectPhantom: Selector<number> = (channel: number) => {
   return state => getValueFromObject<number>(state, path);
 };
 
-/** Select player state */
-export const selectPlayerState: Selector<PlayerState> = () => {
-  return state => getValueFromObject<PlayerState>(state, 'var.currentState', PlayerState.Stopped);
-};
-
 /** Select player current length */
 export const selectPlayerLength: Selector<number> = () => {
-  return state => getValueFromObject<number>(state, 'var.currentLength', -1);
+  return state => getValueFromObject(state, 'var.currentLength', -1);
 };
 
 /** Select player current position */
 export const selectPlayerCurrentTrackPos: Selector<number> = () => {
-  return state => getValueFromObject<number>(state, 'var.currentTrackPos', 0);
+  return state => getValueFromObject(state, 'var.currentTrackPos', 0);
 };
 
 /** Select player elapsed time */
@@ -250,36 +252,6 @@ export const selectPlayerRemainingTime: Selector<number> = () => {
     const length = selectPlayerLength()(state);
     return Math.max(0, Math.floor(length - elapsed));
   };
-};
-
-/** Select player current playlist */
-export const selectPlayerPlaylist: Selector<string> = () => {
-  return state => getValueFromObject<string>(state, 'var.currentPlaylist');
-};
-
-/** Select player current track */
-export const selectPlayerTrack: Selector<string> = () => {
-  return state => getValueFromObject<string>(state, 'var.currentTrack');
-};
-
-/** Select player shuffle setting */
-export const selectPlayerShuffle: Selector<number> = () => {
-  return state => getValueFromObject<number>(state, 'settings.shuffle', 0);
-};
-
-/** Select recording state (2-track) */
-export const selectRecordingState: Selector<number> = () => {
-  return state => getValueFromObject<number>(state, 'var.isRecording', 0);
-};
-
-/** Select recording busy state (2-track) */
-export const selectRecordingBusyState: Selector<number> = () => {
-  return state => getValueFromObject<number>(state, 'var.recBusy', 0);
-};
-
-/** Select mute group bit mask */
-export const selectMuteGroupMask: Selector<number> = () => {
-  return state => getValueFromObject<number>(state, 'mgmask');
 };
 
 /**

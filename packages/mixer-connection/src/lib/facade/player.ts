@@ -6,25 +6,25 @@ import {
   select,
   selectPlayerElapsedTime,
   selectPlayerLength,
-  selectPlayerPlaylist,
   selectPlayerRemainingTime,
-  selectPlayerShuffle,
-  selectPlayerState,
-  selectPlayerTrack,
+  selectRawValue,
 } from '../state/state-selectors';
+import { PlayerState } from '../types';
 
 /**
  * Represents the media player
  */
 export class Player {
   /** Current state (playing, stopped, paused) */
-  state$ = this.store.state$.pipe(select(selectPlayerState()));
+  state$ = this.store.state$.pipe(
+    selectRawValue<PlayerState>('var.currentState', PlayerState.Stopped)
+  );
 
   /** Current playlist name */
-  playlist$ = this.store.state$.pipe(select(selectPlayerPlaylist()));
+  playlist$ = this.store.state$.pipe(selectRawValue<string>('var.currentPlaylist'));
 
   /** Current track name */
-  track$ = this.store.state$.pipe(select(selectPlayerTrack()));
+  track$ = this.store.state$.pipe(selectRawValue<string>('var.currentTrack'));
 
   /** Current track length in seconds */
   length$ = this.store.state$.pipe(select(selectPlayerLength()));
@@ -36,7 +36,7 @@ export class Player {
   remainingTime$ = this.store.state$.pipe(select(selectPlayerRemainingTime()));
 
   /** Shuffle setting (`0` or `1`) */
-  shuffle$ = this.store.state$.pipe(select(selectPlayerShuffle()));
+  shuffle$ = this.store.state$.pipe(selectRawValue('settings.shuffle', 0));
 
   constructor(private conn: MixerConnection, private store: MixerStore) {}
 
