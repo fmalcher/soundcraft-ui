@@ -2,7 +2,7 @@ import { map, take } from 'rxjs';
 
 import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
-import { select, selectMuteGroupMask } from '../state/state-selectors';
+import { selectRawValue } from '../state/state-selectors';
 import { clearBit, getValueOfBit, setBit, toggleBit } from '../utils/bitmask';
 
 export type MuteGroupID = number | 'all' | 'fx';
@@ -28,7 +28,7 @@ export class MuteGroup {
     this.groupIndex = groupIDToIndex(id);
   }
 
-  private mgMask$ = this.store.state$.pipe(select(selectMuteGroupMask()));
+  private mgMask$ = this.store.state$.pipe(selectRawValue<number>('mgmask'));
 
   /** MUTE state of the group (`0` or `1`) */
   state$ = this.mgMask$.pipe(map(value => getValueOfBit(value, this.groupIndex)));
