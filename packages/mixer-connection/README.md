@@ -305,12 +305,16 @@ The following commands control the dual-track USB recorder in the media player s
 
 Shows and their snapshots/cues can be loaded by providing their names to the following method calls.
 Please be aware that there will be no check whether a show with the given name actually exists.
+Information about the currently loaded show, snapshot or cue is also available.
 
 | Call                                              | Description                           |
 | ------------------------------------------------- | ------------------------------------- |
 | `conn.shows.loadShow(showName)`                   | Load a show by its name               |
 | `conn.shows.loadSnapshot(showName, snapshotName)` | Load a snapshot in a show by its name |
 | `conn.shows.loadCue(showName, cueName)`           | Load a cue in a show by its name      |
+| `conn.shows.currentShow$`                         | Currently loaded show                 |
+| `conn.shows.currentSnapshot$`                     | Currently loaded snapshot             |
+| `conn.shows.currentCue$`                          | Currently loaded cue                  |
 
 ## Transitions
 

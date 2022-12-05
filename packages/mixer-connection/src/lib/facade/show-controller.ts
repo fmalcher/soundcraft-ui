@@ -1,10 +1,21 @@
 import { MixerConnection } from '../mixer-connection';
+import { MixerStore } from '../state/mixer-store';
+import { selectRawValue } from '../state/state-selectors';
 
 /**
  * Controller for Shows, Snapshots and Cues
  */
 export class ShowController {
-  constructor(private conn: MixerConnection) {}
+  /** Currently loaded show */
+  currentShow$ = this.store.state$.pipe(selectRawValue<string>('var.currentShow'));
+
+  /** Currently loaded snapshot */
+  currentSnapshot$ = this.store.state$.pipe(selectRawValue<string>('var.currentSnapshot'));
+
+  /** Currently loaded cue */
+  currentCue$ = this.store.state$.pipe(selectRawValue<string>('var.currentCue'));
+
+  constructor(private conn: MixerConnection, private store: MixerStore) {}
 
   /**
    * Load a show by name

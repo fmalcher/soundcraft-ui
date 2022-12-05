@@ -33,7 +33,7 @@ export class SoundcraftUI {
   };
 
   /** Show controller (Shows, Snapshots, Cues) */
-  shows = new ShowController(this.conn);
+  shows = new ShowController(this.conn, this.store);
 
   constructor(private targetIP: string) {}
 
