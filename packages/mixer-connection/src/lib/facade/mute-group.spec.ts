@@ -11,6 +11,12 @@ describe('Mute Group', () => {
     conn.conn.sendMessage('SETD^mgmask^0'); // reset
   });
 
+  it('should return the exact same object', () => {
+    const group1 = conn.muteGroup(2);
+    const group2 = conn.muteGroup(2);
+    expect(group1).toBe(group2);
+  });
+
   describe('numeric', () => {
     beforeEach(() => (group = conn.muteGroup(2)));
 
