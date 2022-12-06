@@ -11,6 +11,12 @@ describe('Volume Bus', () => {
     bus = conn.volume.headphone(1);
   });
 
+  it('should return the exact same channel object', () => {
+    const channel1 = conn.volume.headphone(2);
+    const channel2 = conn.volume.headphone(2);
+    expect(channel1).toBe(channel2);
+  });
+
   describe('Fader Level', () => {
     it('faderLevel$', async () => {
       bus.setFaderLevel(0.5);
