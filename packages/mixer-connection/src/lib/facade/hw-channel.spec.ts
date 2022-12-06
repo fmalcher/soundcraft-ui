@@ -11,6 +11,12 @@ describe('AUX Channel', () => {
     channel = conn.hw(3);
   });
 
+  it('should return the exact same channel object', () => {
+    const channel1 = conn.hw(2);
+    const channel2 = conn.hw(2);
+    expect(channel1).toBe(channel2);
+  });
+
   describe('Phantom Power', () => {
     it('phantom$', async () => {
       channel.phantomOn();

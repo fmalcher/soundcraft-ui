@@ -12,6 +12,12 @@ describe('Channel', () => {
     channel = conn.master.input(2);
   });
 
+  it('should return the exact same channel object', () => {
+    const channel1 = conn.master.input(2);
+    const channel2 = conn.master.input(2);
+    expect(channel1).toBe(channel2);
+  });
+
   describe('Fader Level', () => {
     it('faderLevel$', async () => {
       channel.setFaderLevel(0.5);

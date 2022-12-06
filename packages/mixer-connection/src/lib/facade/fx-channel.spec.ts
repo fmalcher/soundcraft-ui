@@ -11,6 +11,12 @@ describe('AUX Channel', () => {
     channel = conn.fx(3).player(1);
   });
 
+  it('should return the exact same channel object', () => {
+    const channel1 = conn.fx(2).input(5);
+    const channel2 = conn.fx(2).input(5);
+    expect(channel1).toBe(channel2);
+  });
+
   describe('Fader Level', () => {
     it('faderLevel$', async () => {
       channel.setFaderLevel(0.5);
