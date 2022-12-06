@@ -26,6 +26,15 @@ export class MuteGroup {
 
   constructor(private conn: MixerConnection, private store: MixerStore, readonly id: MuteGroupID) {
     this.groupIndex = groupIDToIndex(id);
+
+    // lookup channel in the store and use existing object if possible
+    const storeId = 'mutegroup' + id;
+    const storedChannel = this.store.channelStore.get<MuteGroup>(storeId);
+    if (storedChannel) {
+      return storedChannel;
+    } else {
+      this.store.channelStore.set(storeId, this);
+    }
   }
 
   private mgMask$ = this.store.state$.pipe(selectRawValue<number>('mgmask'));
