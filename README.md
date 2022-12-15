@@ -1,7 +1,9 @@
 # SoundcraftUi
 
-This project provides a generic connection library for the Soundcraft Ui series audio mixers (Ui12 / Ui16 Ui24).
-The device is being controlled through the WebSocket connection for the web interface.
+[![npm](https://img.shields.io/npm/v/soundcraft-ui-connection.svg)](https://www.npmjs.com/package/soundcraft-ui-connection)
+
+This project provides a generic connection library for the Soundcraft Ui series audio mixers (Ui12 / Ui16 / Ui24R).
+Go to the documentation README for all information about this library.
 
 ## [Documentation and README](https://github.com/fmalcher/soundcraft-ui/tree/main/packages/mixer-connection)
 
