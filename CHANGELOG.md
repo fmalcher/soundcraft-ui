@@ -2,79 +2,108 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-## [0.11.0](https://github.com/fmalcher/soundcraft-ui/compare/v0.10.1...v0.11.0) (2021-08-13)
+## [1.0.0](https://github.com/fmalcher/soundcraft-ui/compare/v0.11.0...v1.0.0) (2022-12-15)
 
+This is the greatest release ever – and also the first published major version! 🎉
+This library is considered as _stable_ after a long period of testing in production.
+A few things have been refactored, compared to the last version 0.11.0.
+Please be aware of possible breaking changes. **Enjoy the lib and keep on producing!** 🎚️🎶
+
+### Breaking Changes
+
+- The `state$` property on `MixerStore` now contains a flat object, see [203cda0](https://github.com/fmalcher/soundcraft-ui/commit/203cda0fef38b70befcf0445df701acc900b492c).
+- Connection and `fadeTo` methods now return a promise. You can simply ignore this but it's a change in the public API. See [83e84bb](https://github.com/fmalcher/soundcraft-ui/commit/83e84bb664f17b15d0d1f1a9c7861a82f4bfa7c1) and [d48902a](https://github.com/fmalcher/soundcraft-ui/commit/d48902ade088ac4f66fccded262872d8d33fb309).
 
 ### Features
 
-* add support for phantom power ([08c8fd5](https://github.com/fmalcher/soundcraft-ui/commit/08c8fd564bf1f0508af07fac177448f3d908219a))
+- add mutegroups to channel store ([9c58b66](https://github.com/fmalcher/soundcraft-ui/commit/9c58b66d3164ba0f7de885be225cc33098d82928))
+- add support for channel delay ([465cbfb](https://github.com/fmalcher/soundcraft-ui/commit/465cbfbf391d1790f3cd65eb4fd25c9cc82e8d01))
+- add support for channel name ([51062a3](https://github.com/fmalcher/soundcraft-ui/commit/51062a344cf7a25d1b3b429968374a78fdefb0f6))
+- add support for relative delay changes ([db99c01](https://github.com/fmalcher/soundcraft-ui/commit/db99c01a97ae04e3e39268a0223ef9fda68ee0ee))
+- publish current show/snapshot/cue ([0561108](https://github.com/fmalcher/soundcraft-ui/commit/056110869a6e9895245bb1c3ad90e990d61412f3))
+- restrict fader level values to allowed range ([cda38ce](https://github.com/fmalcher/soundcraft-ui/commit/cda38ceb669305112161502c0b43b66552b5b6f4))
+- return Promise for connection methods ([83e84bb](https://github.com/fmalcher/soundcraft-ui/commit/83e84bb664f17b15d0d1f1a9c7861a82f4bfa7c1))
+- return promise for fadeTo and fadeToDB ([d48902a](https://github.com/fmalcher/soundcraft-ui/commit/d48902ade088ac4f66fccded262872d8d33fb309))
+- **testbed:** use input event instead of change ([32b184a](https://github.com/fmalcher/soundcraft-ui/commit/32b184aa7beb37e7a9f20e791827c31e665a3501))
+
+### Refactoring
+
+- refactor: store state as flat object instead of nested structure ([203cda0](https://github.com/fmalcher/soundcraft-ui/commit/203cda0fef38b70befcf0445df701acc900b492c))
+- refactor: channel store can hold any kind of object ([445776d](https://github.com/fmalcher/soundcraft-ui/commit/445776dc66a45e13acd3e1340a192ae45c246806))
+- refactor: remove simple raw value selectors ([f585575](https://github.com/fmalcher/soundcraft-ui/commit/f585575c76c581d07933d946b532a0be345b01c4))
+- refactor: remove redundant helper and MixerState refs ([883bb8d](https://github.com/fmalcher/soundcraft-ui/commit/883bb8d95c1ffb2f3ca98ed0acc1f9891966ed3f))
+- refactor: rename offset arguments ([f34e310](https://github.com/fmalcher/soundcraft-ui/commit/f34e310cd78a62ba8fc23b64824f55d9e5093fa5))
+
+### Bug Fixes
+
+- **docs:** fix missing word in README ([4a2565d](https://github.com/fmalcher/soundcraft-ui/commit/4a2565d753c3b9f6b7f5b89d91aac390939b04eb))
+- **testbed:** style fixes ([58d67e6](https://github.com/fmalcher/soundcraft-ui/commit/58d67e676bc5dd3e71794cbe8248099c0411f8e9))
+
+---
+
+## [0.11.0](https://github.com/fmalcher/soundcraft-ui/compare/v0.10.1...v0.11.0) (2021-08-13)
+
+### Features
+
+- add support for phantom power ([08c8fd5](https://github.com/fmalcher/soundcraft-ui/commit/08c8fd564bf1f0508af07fac177448f3d908219a))
 
 ### [0.10.1](https://github.com/fmalcher/soundcraft-ui/compare/v0.9.0...v0.10.1) (2021-08-05)
 
-
 ### Features
 
-* add support for loading shows, snapshots and cues ([f2791fc](https://github.com/fmalcher/soundcraft-ui/commit/f2791fce0e03480bc461c575371abdfc80543c76))
+- add support for loading shows, snapshots and cues ([f2791fc](https://github.com/fmalcher/soundcraft-ui/commit/f2791fce0e03480bc461c575371abdfc80543c76))
 
 ## [0.10.0](https://github.com/fmalcher/soundcraft-ui/compare/v0.9.0...v0.10.0) (2021-08-05)
 
-
 ### Features
 
-* add support for loading shows, snapshots and cues ([f2791fc](https://github.com/fmalcher/soundcraft-ui/commit/f2791fce0e03480bc461c575371abdfc80543c76))
+- add support for loading shows, snapshots and cues ([f2791fc](https://github.com/fmalcher/soundcraft-ui/commit/f2791fce0e03480bc461c575371abdfc80543c76))
 
 ## [0.9.0](https://github.com/fmalcher/soundcraft-ui/compare/v0.8.0...v0.9.0) (2021-05-27)
 
-
 ### Features
 
-* expose stream with raw SETD/SETS messages ([824b1d7](https://github.com/fmalcher/soundcraft-ui/commit/824b1d758b20168c02cba564f34264189826b594))
+- expose stream with raw SETD/SETS messages ([824b1d7](https://github.com/fmalcher/soundcraft-ui/commit/824b1d758b20168c02cba564f34264189826b594))
 
 ## [0.8.0](https://github.com/fmalcher/soundcraft-ui/compare/v0.7.1...v0.8.0) (2021-03-26)
 
-
 ### Features
 
-* add volume control for SOLO and headphone bus ([b22de2b](https://github.com/fmalcher/soundcraft-ui/commit/b22de2bb980f2fc48246bf123096f10873e35a4a)), closes [#51](https://github.com/fmalcher/soundcraft-ui/issues/51)
+- add volume control for SOLO and headphone bus ([b22de2b](https://github.com/fmalcher/soundcraft-ui/commit/b22de2bb980f2fc48246bf123096f10873e35a4a)), closes [#51](https://github.com/fmalcher/soundcraft-ui/issues/51)
 
 ### [0.7.1](https://github.com/fmalcher/soundcraft-ui/compare/v0.7.0...v0.7.1) (2020-12-23)
 
-
 ### Bug Fixes
 
-* add "ws" as dependency in mixer-connection package.json ([ea2a860](https://github.com/fmalcher/soundcraft-ui/commit/ea2a86060cd1bece11895284b524eb1f6aee5e73)), closes [#48](https://github.com/fmalcher/soundcraft-ui/issues/48)
-* **docs:** fix typo in README ([2a30c9b](https://github.com/fmalcher/soundcraft-ui/commit/2a30c9b55b9b2432196c4e744b61257383f1b3e7))
+- add "ws" as dependency in mixer-connection package.json ([ea2a860](https://github.com/fmalcher/soundcraft-ui/commit/ea2a86060cd1bece11895284b524eb1f6aee5e73)), closes [#48](https://github.com/fmalcher/soundcraft-ui/issues/48)
+- **docs:** fix typo in README ([2a30c9b](https://github.com/fmalcher/soundcraft-ui/commit/2a30c9b55b9b2432196c4e744b61257383f1b3e7))
 
 ## [0.7.0](https://github.com/fmalcher/soundcraft-ui/compare/v0.6.0...v0.7.0) (2020-12-01)
 
-
 ### Features
 
-* add bitmask util functions ([f4e44c2](https://github.com/fmalcher/soundcraft-ui/commit/f4e44c22be3929f37efc29cde6fb5bf46b513309))
-* add player shuffle state and toggle ([c817a13](https://github.com/fmalcher/soundcraft-ui/commit/c817a1374d367aace6c0429c273deab41b83b756)), closes [#43](https://github.com/fmalcher/soundcraft-ui/issues/43)
-* add support for 2-track USB recording ([e834f76](https://github.com/fmalcher/soundcraft-ui/commit/e834f76fef69c75b164f89c141b692d2bdacdd86))
-* add support for MUTE groups ([61b74f5](https://github.com/fmalcher/soundcraft-ui/commit/61b74f5abd18e468a9c432a0c822c0d9b9461260)), closes [#42](https://github.com/fmalcher/soundcraft-ui/issues/42)
-
+- add bitmask util functions ([f4e44c2](https://github.com/fmalcher/soundcraft-ui/commit/f4e44c22be3929f37efc29cde6fb5bf46b513309))
+- add player shuffle state and toggle ([c817a13](https://github.com/fmalcher/soundcraft-ui/commit/c817a1374d367aace6c0429c273deab41b83b756)), closes [#43](https://github.com/fmalcher/soundcraft-ui/issues/43)
+- add support for 2-track USB recording ([e834f76](https://github.com/fmalcher/soundcraft-ui/commit/e834f76fef69c75b164f89c141b692d2bdacdd86))
+- add support for MUTE groups ([61b74f5](https://github.com/fmalcher/soundcraft-ui/commit/61b74f5abd18e468a9c432a0c822c0d9b9461260)), closes [#42](https://github.com/fmalcher/soundcraft-ui/issues/42)
 
 ### Bug Fixes
 
-* misused expect in outbound messages test ([4f76913](https://github.com/fmalcher/soundcraft-ui/commit/4f76913c0553ccb46a890a1393fbee7f545a59c0))
-* **docs:** spelling mistake: Easing => Easings ([67bdae1](https://github.com/fmalcher/soundcraft-ui/commit/67bdae1cb59209321f87e7fd2e96376bec5d8c46))
+- misused expect in outbound messages test ([4f76913](https://github.com/fmalcher/soundcraft-ui/commit/4f76913c0553ccb46a890a1393fbee7f545a59c0))
+- **docs:** spelling mistake: Easing => Easings ([67bdae1](https://github.com/fmalcher/soundcraft-ui/commit/67bdae1cb59209321f87e7fd2e96376bec5d8c46))
 
 ## [0.6.0](https://github.com/fmalcher/soundcraft-ui/compare/v0.5.1...v0.6.0) (2020-11-15)
 
-
 ### Features
 
-* add ChannelStore for object caching ([2cab536](https://github.com/fmalcher/soundcraft-ui/commit/2cab5360364abb82882ec3208678eaa658b40709)), closes [#33](https://github.com/fmalcher/soundcraft-ui/issues/33)
-* add standard-version for changelog management ([ea28a1d](https://github.com/fmalcher/soundcraft-ui/commit/ea28a1d0f0f7b4fd84dbe2152d407c234b850f36))
-* Stereo Link and rework of transitions ([85c2277](https://github.com/fmalcher/soundcraft-ui/commit/85c2277bd274024b0fffc3fe9c958f10e6b6a30e)), closes [#31](https://github.com/fmalcher/soundcraft-ui/issues/31) [#32](https://github.com/fmalcher/soundcraft-ui/issues/32)
-
+- add ChannelStore for object caching ([2cab536](https://github.com/fmalcher/soundcraft-ui/commit/2cab5360364abb82882ec3208678eaa658b40709)), closes [#33](https://github.com/fmalcher/soundcraft-ui/issues/33)
+- add standard-version for changelog management ([ea28a1d](https://github.com/fmalcher/soundcraft-ui/commit/ea28a1d0f0f7b4fd84dbe2152d407c234b850f36))
+- Stereo Link and rework of transitions ([85c2277](https://github.com/fmalcher/soundcraft-ui/commit/85c2277bd274024b0fffc3fe9c958f10e6b6a30e)), closes [#31](https://github.com/fmalcher/soundcraft-ui/issues/31) [#32](https://github.com/fmalcher/soundcraft-ui/issues/32)
 
 ### Bug Fixes
 
-* move rounding out of LUT lookup ([a91097c](https://github.com/fmalcher/soundcraft-ui/commit/a91097cea8384456ed56e26fc8a109fc85605321)), closes [#39](https://github.com/fmalcher/soundcraft-ui/issues/39)
-* use correct capping value for relative changes ([d57a030](https://github.com/fmalcher/soundcraft-ui/commit/d57a030bafc104b2dde062694f60f227d788053d))
+- move rounding out of LUT lookup ([a91097c](https://github.com/fmalcher/soundcraft-ui/commit/a91097cea8384456ed56e26fc8a109fc85605321)), closes [#39](https://github.com/fmalcher/soundcraft-ui/issues/39)
+- use correct capping value for relative changes ([d57a030](https://github.com/fmalcher/soundcraft-ui/commit/d57a030bafc104b2dde062694f60f227d788053d))
 
 ### [0.5.1](https://github.com/fmalcher/soundcraft-ui/compare/v0.5.0...v0.5.1) (2020-11-07)
 
