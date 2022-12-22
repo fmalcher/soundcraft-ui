@@ -13,13 +13,14 @@
   },
   "homepage": "https://github.com/fmalcher/soundcraft-ui/tree/main/packages/mixer-connection",
   "keywords": [
-    "Soundcraft UI",
+    "Soundcraft Ui",
     "Mixer control",
     "Audio",
     "Audio mixer",
     "Sound"
   ],
   "dependencies": {
+    "isomorphic-ws": "^4.0.1",
     "ws": "^7.4.1"
   }
 }
