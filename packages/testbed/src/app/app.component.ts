@@ -1,12 +1,19 @@
-import { Component } from '@angular/core';
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+
 import { ConnectionService } from './connection.service';
 
 @Component({
   selector: 'soundcraft-ui-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  standalone: true,
+  imports: [RouterOutlet, AsyncPipe, NgIf, NgFor, RouterLink, RouterLinkActive],
 })
 export class AppComponent {
+  cs = inject(ConnectionService);
+  status$ = this.cs.conn.status$;
+
   navLinks = [
     { label: 'Connection', target: '/connection' },
     { label: 'Master', target: '/master' },
@@ -22,10 +29,6 @@ export class AppComponent {
     { label: 'HW Channels', target: '/hwchannels' },
     { label: 'Full state', target: '/fullstate' },
   ];
-
-  status$ = this.cs.conn.status$;
-
-  constructor(public cs: ConnectionService) {}
 
   connect() {
     this.cs.conn.connect().then(() => {

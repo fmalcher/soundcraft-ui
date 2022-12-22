@@ -1,15 +1,33 @@
-import { Component } from '@angular/core';
-import { DelayableMasterChannel } from 'packages/mixer-connection/src/lib/facade/delayable-master-channel';
-import { MasterChannel } from 'soundcraft-ui-connection';
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import { MasterChannel, DelayableMasterChannel } from 'soundcraft-ui-connection';
+
 import { ConnectionService } from '../../connection.service';
+import { DelayComponent } from '../../ui/delay/delay.component';
+import { FaderLevelComponent } from '../../ui/fader-level/fader-level.component';
+import { MuteButtonComponent } from '../../ui/mute-button/mute-button.component';
+import { PanComponent } from '../../ui/pan/pan.component';
+import { SoloButtonComponent } from '../../ui/solo-button/solo-button.component';
+import { TransitionComponent } from '../../ui/transition/transition.component';
 
 @Component({
   selector: 'soundcraft-ui-master-bus',
   templateUrl: './master-bus.component.html',
-  styleUrls: ['./master-bus.component.css'],
+  standalone: true,
+  imports: [
+    NgFor,
+    AsyncPipe,
+    NgIf,
+    FaderLevelComponent,
+    SoloButtonComponent,
+    MuteButtonComponent,
+    TransitionComponent,
+    DelayComponent,
+    PanComponent,
+  ],
 })
 export class MasterBusComponent {
-  master = this.cs.conn.master;
+  master = inject(ConnectionService).conn.master;
 
   channels = [
     { channel: this.master.input(2), label: 'Input 2' },
@@ -20,8 +38,6 @@ export class MasterBusComponent {
     { channel: this.master.aux(2), label: 'AUX 2', noPan: true, delayMax: 500 },
     { channel: this.master.vca(4), label: 'VCA 4', noPan: true },
   ];
-
-  constructor(private cs: ConnectionService) {}
 
   isDelayable(c: MasterChannel): c is DelayableMasterChannel {
     return c instanceof DelayableMasterChannel;

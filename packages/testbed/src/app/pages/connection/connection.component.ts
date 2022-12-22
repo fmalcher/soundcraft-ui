@@ -1,13 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ConnectionService } from '../../connection.service';
 
 @Component({
   selector: 'soundcraft-ui-connection',
   templateUrl: './connection.component.html',
-  styleUrls: ['./connection.component.css'],
+  standalone: true,
 })
 export class ConnectionComponent {
-  constructor(public cs: ConnectionService) {}
+  cs = inject(ConnectionService);
 
   setIP(ip: string) {
     this.cs.setMixerIP(ip);

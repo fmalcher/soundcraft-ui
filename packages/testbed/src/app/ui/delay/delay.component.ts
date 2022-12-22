@@ -1,3 +1,4 @@
+import { AsyncPipe, NgIf } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { DelayableMasterChannel } from 'soundcraft-ui-connection';
 
@@ -5,6 +6,8 @@ import { DelayableMasterChannel } from 'soundcraft-ui-connection';
   selector: 'soundcraft-ui-delay',
   templateUrl: './delay.component.html',
   styleUrls: ['./delay.component.css'],
+  standalone: true,
+  imports: [AsyncPipe, NgIf],
 })
 export class DelayComponent {
   @Input() channel?: DelayableMasterChannel;
