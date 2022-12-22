@@ -1,0 +1,18 @@
+<div class="mb-3">
+  <p><label>State</label> {{ state$ | async }}</p>
+  <p><label>Session</label> {{ mtk.session$ | async }}</p>
+  <p><label>Length (s)</label> {{ mtk.length$ | async | time }}</p>
+  <p><label>Elapsed time (s)</label> {{ mtk.elapsedTime$ | async | time }}</p>
+  <p><label>Remaining time (s)</label> {{ mtk.remainingTime$ | async | time }}</p>
+  <p><label>Recording time (s)</label> {{ mtk.recordingTime$ | async | time }}</p>
+  <p><label>Recording</label> {{ mtk.recording$ | async }}</p>
+</div>
+
+<div class="mb-3">
+  <soundcraft-ui-mixer-button (press)="mtk.play()">PLAY</soundcraft-ui-mixer-button>
+  <soundcraft-ui-mixer-button (press)="mtk.pause()">PAUSE</soundcraft-ui-mixer-button>
+  <soundcraft-ui-mixer-button (press)="mtk.stop()">STOP</soundcraft-ui-mixer-button>
+  <soundcraft-ui-mixer-button (press)="mtk.recordToggle()" [active]="!!(mtk.recording$ | async)"
+    >REC</soundcraft-ui-mixer-button
+  >
+</div>

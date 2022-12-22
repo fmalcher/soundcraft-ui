@@ -226,6 +226,20 @@ export const selectPhantom: Selector<number> = (channel: number) => {
   return state => getValueFromObject<number>(state, path);
 };
 
+/**
+ * Select fader value of a volume bus (headphones or solo)
+ * @param busName Name of the bus in the "settings" part of the state
+ * @param busId Optional ID of the bus
+ */
+export const selectVolumeBusValue: Selector<number> = (busName: string, busId?: number) => {
+  const path = joinStatePath('settings', busName, ...(busId >= 0 ? [busId] : []));
+  return state => getValueFromObject<number>(state, path);
+};
+
+/**************
+ * PLAYER
+ *************/
+
 /** Select player current length */
 export const selectPlayerLength: Selector<number> = () => {
   return state => getValueFromObject(state, 'var.currentLength', -1);
@@ -236,30 +250,58 @@ export const selectPlayerCurrentTrackPos: Selector<number> = () => {
   return state => getValueFromObject(state, 'var.currentTrackPos', 0);
 };
 
+const calculateElapsedTime = (pos: number, length: number): number =>
+  Math.max(0, Math.floor(pos * length));
+
+const calculateRemainingTime = (pos: number, length: number): number =>
+  Math.max(0, Math.floor(length - calculateElapsedTime(pos, length)));
+
 /** Select player elapsed time */
 export const selectPlayerElapsedTime: Selector<number> = () => {
   return state => {
     const pos = selectPlayerCurrentTrackPos()(state);
     const length = selectPlayerLength()(state);
-    return Math.max(0, Math.floor(pos * length));
+    return calculateElapsedTime(pos, length);
   };
 };
 
 /** Select player remaining time */
 export const selectPlayerRemainingTime: Selector<number> = () => {
   return state => {
-    const elapsed = selectPlayerElapsedTime()(state);
+    const pos = selectPlayerCurrentTrackPos()(state);
     const length = selectPlayerLength()(state);
-    return Math.max(0, Math.floor(length - elapsed));
+    return calculateRemainingTime(pos, length);
   };
 };
 
-/**
- * Select fader value of a volume bus (headphones or solo)
- * @param busName Name of the bus in the "settings" part of the state
- * @param busId Optional ID of the bus
- */
-export const selectVolumeBusValue: Selector<number> = (busName: string, busId?: number) => {
-  const path = joinStatePath('settings', busName, ...(busId >= 0 ? [busId] : []));
-  return state => getValueFromObject<number>(state, path);
+/**************
+ * MULTITRACK
+ *************/
+
+/** Select player current length */
+export const selectMtkLength: Selector<number> = () => {
+  return state => getValueFromObject(state, 'var.mtk.currentLength', -1);
+};
+
+/** Select player current position */
+export const selectMtkCurrentTrackPos: Selector<number> = () => {
+  return state => getValueFromObject(state, 'var.mtk.currentTrackPos', 0);
+};
+
+/** Select player elapsed time */
+export const selectMtkElapsedTime: Selector<number> = () => {
+  return state => {
+    const pos = selectMtkCurrentTrackPos()(state);
+    const length = selectMtkLength()(state);
+    return calculateElapsedTime(pos, length);
+  };
+};
+
+/** Select player remaining time */
+export const selectMtkRemainingTime: Selector<number> = () => {
+  return state => {
+    const pos = selectMtkCurrentTrackPos()(state);
+    const length = selectMtkLength()(state);
+    return calculateRemainingTime(pos, length);
+  };
 };
