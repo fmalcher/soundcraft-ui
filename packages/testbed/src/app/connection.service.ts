@@ -6,7 +6,7 @@ import { SoundcraftUI } from 'soundcraft-ui-connection';
 })
 export class ConnectionService {
   mixerIP = '10.75.23.95';
-  conn: SoundcraftUI = new SoundcraftUI(this.mixerIP);
+  conn = new SoundcraftUI(this.mixerIP);
 
   setMixerIP(ip: string) {
     if (ip !== this.mixerIP) {

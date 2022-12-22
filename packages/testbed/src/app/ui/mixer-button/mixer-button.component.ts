@@ -1,9 +1,12 @@
+import { NgClass } from '@angular/common';
 import { Component, Input, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'soundcraft-ui-mixer-button',
   templateUrl: './mixer-button.component.html',
   styleUrls: ['./mixer-button.component.scss'],
+  standalone: true,
+  imports: [NgClass],
 })
 export class MixerButtonComponent {
   @Input() activeClass = 'default-active';

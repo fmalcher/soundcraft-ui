@@ -1,16 +1,18 @@
-import { Component } from '@angular/core';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { Component, inject } from '@angular/core';
 import { ConnectionService } from '../../connection.service';
+import { InputComponent } from '../../ui/input/input.component';
 
 @Component({
   selector: 'soundcraft-ui-shows',
   templateUrl: './shows.component.html',
-  styleUrls: ['./shows.component.css'],
+  standalone: true,
+  imports: [AsyncPipe, NgIf, InputComponent],
 })
 export class ShowsComponent {
+  cs = inject(ConnectionService);
   showCtrl = this.cs.conn.shows;
   showFromInput = 'testshow';
-
-  constructor(private cs: ConnectionService) {}
 
   loadShow(show: string) {
     if (!show) {

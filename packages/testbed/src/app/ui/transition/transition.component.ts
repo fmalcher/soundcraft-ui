@@ -1,11 +1,14 @@
+import { NgFor } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Easings, FadeableChannel, faderValueToDB } from 'soundcraft-ui-connection';
 
 @Component({
   selector: 'soundcraft-ui-transition',
   templateUrl: './transition.component.html',
   styleUrls: ['./transition.component.css'],
+  standalone: true,
+  imports: [ReactiveFormsModule, NgFor],
 })
 export class TransitionComponent {
   @Input() channel?: FadeableChannel;

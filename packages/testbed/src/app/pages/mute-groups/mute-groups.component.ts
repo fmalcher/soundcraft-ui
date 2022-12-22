@@ -1,18 +1,21 @@
-import { Component } from '@angular/core';
+import { AsyncPipe, NgFor } from '@angular/common';
+import { Component, inject } from '@angular/core';
 import { MuteGroup, MuteGroupID } from 'soundcraft-ui-connection';
 import { ConnectionService } from '../../connection.service';
+import { MixerButtonComponent } from '../../ui/mixer-button/mixer-button.component';
 
 @Component({
   selector: 'soundcraft-ui-mute-groups',
   templateUrl: './mute-groups.component.html',
-  styleUrls: ['./mute-groups.component.css'],
+  standalone: true,
+  imports: [NgFor, AsyncPipe, MixerButtonComponent],
 })
 export class MuteGroupsComponent {
+  cs = inject(ConnectionService);
+
   groups: MuteGroup[] = [1, 2, 3, 4, 5, 6, 'fx', 'all'].map((id: MuteGroupID) =>
     this.cs.conn.muteGroup(id)
   );
-
-  constructor(private cs: ConnectionService) {}
 
   clearMuteGroups() {
     this.cs.conn.clearMuteGroups();

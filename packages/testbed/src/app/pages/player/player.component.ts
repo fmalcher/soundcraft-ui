@@ -1,15 +1,22 @@
-import { Component } from '@angular/core';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { Component, inject } from '@angular/core';
 import { map } from 'rxjs';
 import { PlayerState } from 'soundcraft-ui-connection';
 
 import { ConnectionService } from '../../connection.service';
+import { InputComponent } from '../../ui/input/input.component';
+import { MixerButtonComponent } from '../../ui/mixer-button/mixer-button.component';
+import { TimePipe } from '../../ui/time.pipe';
 
 @Component({
   selector: 'soundcraft-ui-player',
   templateUrl: './player.component.html',
-  styleUrls: ['./player.component.css'],
+  standalone: true,
+  imports: [AsyncPipe, MixerButtonComponent, InputComponent, NgIf, TimePipe],
 })
 export class PlayerComponent {
+  cs = inject(ConnectionService);
+
   rec = this.cs.conn.recorderDualTrack;
   player = this.cs.conn.player;
   playerState$ = this.player.state$.pipe(
@@ -26,8 +33,6 @@ export class PlayerComponent {
   );
 
   playlistFromInput = '~all~';
-
-  constructor(private cs: ConnectionService) {}
 
   loadTrack(track: string) {
     if (!this.playlistFromInput) {

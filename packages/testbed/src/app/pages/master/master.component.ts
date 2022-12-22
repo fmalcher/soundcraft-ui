@@ -1,13 +1,26 @@
-import { Component } from '@angular/core';
+import { AsyncPipe, NgFor } from '@angular/common';
+import { Component, inject } from '@angular/core';
 import { ConnectionService } from '../../connection.service';
+import { FaderLevelComponent } from '../../ui/fader-level/fader-level.component';
+import { MixerButtonComponent } from '../../ui/mixer-button/mixer-button.component';
+import { PanComponent } from '../../ui/pan/pan.component';
+import { TransitionComponent } from '../../ui/transition/transition.component';
 
 @Component({
   selector: 'soundcraft-ui-master',
   templateUrl: './master.component.html',
-  styleUrls: ['./master.component.css'],
+  standalone: true,
+  imports: [
+    AsyncPipe,
+    NgFor,
+    MixerButtonComponent,
+    FaderLevelComponent,
+    PanComponent,
+    TransitionComponent,
+  ],
 })
 export class MasterComponent {
-  master = this.cs.conn.master;
+  master = inject(ConnectionService).conn.master;
 
   delays = [
     {
@@ -23,6 +36,4 @@ export class MasterComponent {
       changeDelay: (v: number) => this.master.changeDelayR(v),
     },
   ];
-
-  constructor(private cs: ConnectionService) {}
 }
