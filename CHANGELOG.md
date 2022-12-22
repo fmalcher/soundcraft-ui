@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.1](https://github.com/fmalcher/soundcraft-ui/compare/v1.1.0...v1.1.1) (2022-12-22)
+
+
+### Bug Fixes
+
+* add isomorphic-ws as dependency in lib pjson ([9b91341](https://github.com/fmalcher/soundcraft-ui/commit/9b9134162848df6ec9624d85eccb840f4e69e678))
+
 ## [1.1.0](https://github.com/fmalcher/soundcraft-ui/compare/v1.0.0...v1.1.0) (2022-12-22)
 
 
