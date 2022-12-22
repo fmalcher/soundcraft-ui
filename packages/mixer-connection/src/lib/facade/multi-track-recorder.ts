@@ -44,6 +44,9 @@ export class MultiTrackRecorder {
   /** Recording state (`0` or `1`) */
   recording$ = this.store.state$.pipe(selectRawValue('var.mtk.rec.currentState', 0));
 
+  /** Recording busy state (`0` or `1`) */
+  busy$ = this.store.state$.pipe(selectRawValue('var.mtk.busy', 0));
+
   /** Recording time in seconds */
   recordingTime$ = this.store.state$.pipe(
     selectRawValue('var.mtk.rec.time', 0),

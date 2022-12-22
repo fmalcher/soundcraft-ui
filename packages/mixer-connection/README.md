@@ -334,6 +334,7 @@ It supports the following operations:
 | `elapsedTime$`   | Elapsed time of current session in seconds                                                                                                    |
 | `remainingTime$` | Remaining time of current session in seconds                                                                                                  |
 | `recording$`     | Recording state (`0` or `1`)                                                                                                                  |
+| `busy$`          | Recording busy state (`0` or `1`)                                                                                                             |
 | `recordingTime$` | Recording time in seconds                                                                                                                     |
 | `play()`         | Play                                                                                                                                          |
 | `pause()`        | Pause                                                                                                                                         |
