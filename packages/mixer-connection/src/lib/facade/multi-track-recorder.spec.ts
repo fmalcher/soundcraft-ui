@@ -59,6 +59,14 @@ describe('Multi-track recorder', () => {
     expect(await firstValueFrom(mtk.recording$)).toBe(1);
   });
 
+  it('busy$', async () => {
+    conn.conn.sendMessage('SETD^var.mtk.rec.busy^1');
+    expect(await firstValueFrom(mtk.busy$)).toBe(1);
+
+    conn.conn.sendMessage('SETD^var.mtk.rec.busy^0');
+    expect(await firstValueFrom(mtk.busy$)).toBe(0);
+  });
+
   describe('recordingTime$', () => {
     it('should emit 0 when not recording', async () => {
       conn.conn.sendMessage('SETD^var.mtk.rec.currentState^0');

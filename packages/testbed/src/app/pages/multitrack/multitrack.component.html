@@ -6,6 +6,7 @@
   <p><label>Remaining time (s)</label> {{ mtk.remainingTime$ | async | time }}</p>
   <p><label>Recording time (s)</label> {{ mtk.recordingTime$ | async | time }}</p>
   <p><label>Recording</label> {{ mtk.recording$ | async }}</p>
+  <p><label>Busy</label> {{ mtk.busy$ | async }}</p>
 </div>
 
 <div class="mb-3">
