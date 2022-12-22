@@ -22,7 +22,14 @@ export class MultiTrackRecorder {
   /** Current session name (e.g. `0001` or individual name) */
   session$ = this.store.state$.pipe(
     selectRawValue<number | string>('var.mtk.session'),
-    map(value => value.toString().padStart(4, '0')) // convert to 4-digit string
+    map(value => {
+      if (typeof value === 'number') {
+        // convert to 4-digit string
+        return value.toString().padStart(4, '0');
+      } else {
+        return value;
+      }
+    })
   );
 
   /** Current session length in seconds */

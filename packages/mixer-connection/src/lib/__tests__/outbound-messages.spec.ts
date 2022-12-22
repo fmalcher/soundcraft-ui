@@ -764,6 +764,22 @@ describe('Outbound messages', () => {
     expect(message).toBe('RECTOGGLE');
   });
 
+  it('multi-track recorder', () => {
+    const mtk = conn.recorderMultiTrack;
+
+    mtk.play();
+    expect(message).toBe('MTK_PLAY');
+
+    mtk.pause();
+    expect(message).toBe('MTK_PAUSE');
+
+    mtk.stop();
+    expect(message).toBe('MTK_STOP');
+
+    mtk.recordToggle();
+    expect(message).toBe('MTK_REC_TOGGLE');
+  });
+
   it('Volume Buses', () => {
     conn.volume.solo.setFaderLevel(0.47679);
     expect(message).toBe('SETD^settings.solovol^0.47679');
