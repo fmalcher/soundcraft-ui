@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/fmalcher/soundcraft-ui/compare/v1.0.0...v1.1.0) (2022-12-22)
+
+
+### Features
+
+* add support for multitrack recording on Ui24R ([889ad2b](https://github.com/fmalcher/soundcraft-ui/commit/889ad2becb9211045e8392dd36f96a98748a0720))
+
+
+### Other
+
+* add NPM badge to main README ([6f6e468](https://github.com/fmalcher/soundcraft-ui/commit/6f6e468dd86488a95bf7c4dcd5ae9fa4226b3b60))
+* emit all commit types to changelog ([a82c6a6](https://github.com/fmalcher/soundcraft-ui/commit/a82c6a6d6083cb73807ec9d0a1657ede280580d4))
+* explicitly set useDefineForClassfields to false ([a7f66a7](https://github.com/fmalcher/soundcraft-ui/commit/a7f66a77fda0ee31dfe31133a75ce35727864dd9))
+* **testbed:** migrate Angular app to full standalone app ([ce7d58e](https://github.com/fmalcher/soundcraft-ui/commit/ce7d58ed026bc452ad59a6de778cdbf64e774880))
+
 ## [1.0.0](https://github.com/fmalcher/soundcraft-ui/compare/v0.11.0...v1.0.0) (2022-12-15)
 
 This is the greatest release ever – and also the first published major version! 🎉
