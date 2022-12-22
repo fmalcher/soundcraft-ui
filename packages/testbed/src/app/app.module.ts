@@ -25,6 +25,7 @@ import { VolumebusComponent } from './pages/volumebus/volumebus.component';
 import { ShowsComponent } from './pages/shows/shows.component';
 import { HwchannelsComponent } from './pages/hwchannels/hwchannels.component';
 import { DelayComponent } from './ui/delay/delay.component';
+import { MultitrackComponent } from './pages/multitrack/multitrack.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'connection', pathMatch: 'full' },
@@ -34,6 +35,7 @@ const routes: Routes = [
   { path: 'auxbus/:bus', component: AuxBusComponent },
   { path: 'fxbus/:bus', component: FxBusComponent },
   { path: 'player', component: PlayerComponent },
+  { path: 'multitrack', component: MultitrackComponent },
   { path: 'mutegroups', component: MuteGroupsComponent },
   { path: 'volumebus', component: VolumebusComponent },
   { path: 'shows', component: ShowsComponent },
@@ -65,6 +67,7 @@ const routes: Routes = [
     ShowsComponent,
     HwchannelsComponent,
     DelayComponent,
+    MultitrackComponent,
   ],
   imports: [
     BrowserModule,

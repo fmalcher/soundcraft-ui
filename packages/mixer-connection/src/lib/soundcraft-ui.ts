@@ -3,6 +3,7 @@ import { DualTrackRecorder } from './facade/dual-track-recorder';
 import { FxBus } from './facade/fx-bus';
 import { HwChannel } from './facade/hw-channel';
 import { MasterBus } from './facade/master-bus';
+import { MultiTrackRecorder } from './facade/multi-track-recorder';
 import { MuteGroup, MuteGroupID } from './facade/mute-group';
 import { Player } from './facade/player';
 import { ShowController } from './facade/show-controller';
@@ -25,6 +26,9 @@ export class SoundcraftUI {
 
   /** 2-track recorder */
   recorderDualTrack = new DualTrackRecorder(this.conn, this.store);
+
+  /** multitrack recorder */
+  recorderMultiTrack = new MultiTrackRecorder(this.conn, this.store);
 
   /** SOLO and Headphone buses */
   volume = {

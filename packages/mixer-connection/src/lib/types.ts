@@ -26,3 +26,9 @@ export enum PlayerState {
   Playing = 2,
   Paused = 3,
 }
+
+export enum MtkState {
+  Stopped = 0,
+  Paused = 1,
+  Playing = 2,
+}

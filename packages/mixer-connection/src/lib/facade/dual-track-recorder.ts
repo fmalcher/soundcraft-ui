@@ -3,7 +3,7 @@ import { MixerStore } from '../state/mixer-store';
 import { selectRawValue } from '../state/state-selectors';
 
 /**
- * Represents the media player
+ * Represents the 2-track recorder in the media player
  */
 export class DualTrackRecorder {
   /** Recording state (`0` or `1`) */

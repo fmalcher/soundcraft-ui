@@ -70,6 +70,8 @@ conn.master.faderLevel$.subscribe(value => {
 
 ### Master
 
+The following operations can be used to interact with the global master fader.
+
 | Call                                      | Description                                                                |
 | ----------------------------------------- | -------------------------------------------------------------------------- |
 | `conn.master.setFaderLevel(value)`        | Set the master fader level (between `0` and `1`)                           |
@@ -95,7 +97,8 @@ conn.master.faderLevel$.subscribe(value => {
 
 ### Generic channel operations
 
-These operations apply for any sort of channel like `MasterChannel`, `FxChannel` or `AuxChannel`.
+All channels on all buses have similar behavior.
+Therefore, these operations are available for any channel like `MasterChannel`, `FxChannel` or `AuxChannel`:
 
 | Call                          | Description                                                   |
 | ----------------------------- | ------------------------------------------------------------- |
@@ -140,7 +143,7 @@ The `MasterChannel` exposes the following operations:
 | `solo$`                          | Get solo status (`0` or `1`)              |
 | `pan$`                           | Get pan value (between `0` and `1`)       |
 
-For `input`, `line` and `aux` master channels, the bus returns a `DelayableMasterChannel` object.
+For `input`, `line` and `aux` master channels, the bus returns a `DelayableMasterChannel` object which is a subtype of `MasterChannel`.
 It contains the following members:
 
 | Call on channel           | Description                                                                                                                  |
@@ -153,7 +156,7 @@ It contains the following members:
 ### AUX buses
 
 Get access to a `AuxBus` object with `conn.aux(busNumber)`.
-Then pick one of the available `AuxChannel`s:
+Then pick one of the available `AuxChannel` objects:
 
 | Call                    | Description                   |
 | ----------------------- | ----------------------------- |
@@ -229,7 +232,7 @@ Get access to a `VolumeBus` object through `conn.volume`:
 | `conn.volume.headphone(1)` | Headphone 1 Volume |
 | `conn.volume.headphone(2)` | Headphone 2 Volume |
 
-A `VolumeBus` supports the following operations (which are quite the same as for all other fadeable channels):
+A `VolumeBus` supports the following operations (which are quite similar to all other fadeable channels):
 
 | Call                          | Description                                                   |
 | ----------------------------- | ------------------------------------------------------------- |
@@ -267,7 +270,24 @@ First, get access to a `MuteGroup` object:
 Call `conn.clearMuteGroups()` to disable all MUTE groups.
 This behaves differently from the "CLEAR MUTE" button in the Soundcraft Web App which also clears channel mutes.
 
-### Media Player
+### Shows, Snapshots and Cues
+
+Shows and their snapshots/cues can be loaded by providing their names to the following method calls.
+Please be aware that there will be no check whether a show with the given name actually exists.
+Information about the currently loaded show, snapshot or cue is also available.
+
+| Call                                              | Description                           |
+| ------------------------------------------------- | ------------------------------------- |
+| `conn.shows.loadShow(showName)`                   | Load a show by its name               |
+| `conn.shows.loadSnapshot(showName, snapshotName)` | Load a snapshot in a show by its name |
+| `conn.shows.loadCue(showName, cueName)`           | Load a cue in a show by its name      |
+| `conn.shows.currentShow$`                         | Currently loaded show                 |
+| `conn.shows.currentSnapshot$`                     | Currently loaded snapshot             |
+| `conn.shows.currentCue$`                          | Currently loaded cue                  |
+
+### Recording and playback
+
+#### Media Player
 
 | Call                                     | Description                                                                                                  |
 | ---------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
@@ -291,7 +311,7 @@ This behaves differently from the "CLEAR MUTE" button in the Soundcraft Web App 
 | `conn.player.setManual()`                | Enable manual mode                                                                                           |
 | `conn.player.setAuto()`                  | Enable automatic mode                                                                                        |
 
-### 2-Track USB Recorder
+#### 2-Track USB Recorder
 
 The following commands control the dual-track USB recorder in the media player section of the Soundcraft Web App:
 
@@ -301,20 +321,24 @@ The following commands control the dual-track USB recorder in the media player s
 | `conn.recorderDualTrack.busy$`          | Recording busy state (`0` or `1`) |
 | `conn.recorderDualTrack.recordToggle()` | Toggle recording                  |
 
-### Shows, Snapshots and Cues
+#### Multitrack Recording (Ui24R only)
 
-Shows and their snapshots/cues can be loaded by providing their names to the following method calls.
-Please be aware that there will be no check whether a show with the given name actually exists.
-Information about the currently loaded show, snapshot or cue is also available.
+The Ui24R features multi-track recording. The `MultiTackRecorder` object can be retrieved via `conn.recorderMultiTrack`.
+It supports the following operations:
 
-| Call                                              | Description                           |
-| ------------------------------------------------- | ------------------------------------- |
-| `conn.shows.loadShow(showName)`                   | Load a show by its name               |
-| `conn.shows.loadSnapshot(showName, snapshotName)` | Load a snapshot in a show by its name |
-| `conn.shows.loadCue(showName, cueName)`           | Load a cue in a show by its name      |
-| `conn.shows.currentShow$`                         | Currently loaded show                 |
-| `conn.shows.currentSnapshot$`                     | Currently loaded snapshot             |
-| `conn.shows.currentCue$`                          | Currently loaded cue                  |
+| Call             | Description                                                                                                                                   |
+| ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `state$`         | Current state (playing, stopped, paused) as a value of the `MtkState` enum. Please be aware that the values are different from `PlayerState`. |
+| `session$`       | Current session name (e.g. `0001` or individual name)                                                                                         |
+| `length$`        | Current session length in seconds                                                                                                             |
+| `elapsedTime$`   | Elapsed time of current session in seconds                                                                                                    |
+| `remainingTime$` | Remaining time of current session in seconds                                                                                                  |
+| `recording$`     | Recording state (`0` or `1`)                                                                                                                  |
+| `recordingTime$` | Recording time in seconds                                                                                                                     |
+| `play()`         | Play                                                                                                                                          |
+| `pause()`        | Pause                                                                                                                                         |
+| `stop()`         | Stop                                                                                                                                          |
+| `recordToggle()` | Toggle recording                                                                                                                              |
 
 ## Transitions
 
