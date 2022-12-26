@@ -1,5 +1,7 @@
 /******************************************************/
 
+import { clamp } from '../../../util';
+
 /**
  * Calculation functions for dB / linear conversion.
  * LUT should be preferred over those direct calculations
@@ -51,3 +53,20 @@ export function faderValueToDBCALC(value: number) {
 }
 
 /******************************************************/
+
+const gainValueSteps = [
+  -5, -5, -3, -3, -1, -1, 1, 1, 3, 3, 5, 5, 7, 7, 9, 9, 11, 11, 13, 13, 15, 15, 17, 17, 19, 19, 21,
+  21, 23, 23, 25, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45,
+  46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58,
+];
+
+export function gainValueToDBCALC(value: number): number {
+  value = (64 * value) | 0;
+  if (value < 0) {
+    value = 0;
+  }
+  if (value > 63) {
+    value = 63;
+  }
+  return gainValueSteps[value] - 1;
+}

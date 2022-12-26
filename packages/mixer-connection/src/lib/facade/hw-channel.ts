@@ -1,7 +1,9 @@
-import { take } from 'rxjs';
+import { map, take } from 'rxjs';
 import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
-import { select, selectPhantom } from '../state/state-selectors';
+import { select, selectGain, selectPhantom } from '../state/state-selectors';
+import { clamp } from '../util';
+import { DBToGainValue, gainValueToDB } from '../utils/value-converters/value-converters';
 
 /**
  * Represents a hardware input on the mixer
@@ -11,6 +13,12 @@ export class HwChannel {
 
   /** Phantom power state of the channel (`0` or `1`) */
   phantom$ = this.store.state$.pipe(select(selectPhantom(this.channel)));
+
+  /** Linear gain level of the channel (between `0` and `1`) */
+  gain$ = this.store.state$.pipe(select(selectGain(this.channel)));
+
+  /** dB gain level of the channel (between `-6` and `57`) */
+  gainDB$ = this.gain$.pipe(map(v => gainValueToDB(v)));
 
   constructor(
     protected conn: MixerConnection,
@@ -49,5 +57,31 @@ export class HwChannel {
   /** Toggle phantom power for the channel */
   togglePhantom() {
     this.phantom$.pipe(take(1)).subscribe(phantomOn => this.setPhantom(phantomOn ^ 1));
+  }
+
+  /**
+   * Set gain level (linear) for the channel
+   * @param value value between `0` and `1`
+   */
+  setGain(value: number) {
+    value = clamp(value, 0, 1);
+    const command = `SETD^${this.fullChannelId}.gain^${value}`;
+    this.conn.sendMessage(command);
+  }
+
+  /**
+   * Set gain level (dB) for the channel
+   * @param value value between `-6` and `57`
+   */
+  setGainDB(dbValue: number) {
+    this.setGain(DBToGainValue(dbValue));
+  }
+
+  /**
+   * Change the gain value relatively by adding a given value
+   * @param offsetDB value (dB) to add to the current value
+   */
+  changeGainDB(offsetDB: number) {
+    this.gainDB$.pipe(take(1)).subscribe(v => this.setGainDB(v + offsetDB));
   }
 }

@@ -72,49 +72,49 @@ conn.master.faderLevel$.subscribe(value => {
 
 The following operations can be used to interact with the global master fader.
 
-| Call                                      | Description                                                                |
-| ----------------------------------------- | -------------------------------------------------------------------------- |
-| `conn.master.setFaderLevel(value)`        | Set the master fader level (between `0` and `1`)                           |
-| `conn.master.setFaderLevelDB(dbValue)`    | Set the master fader level in dB (between `-Infinity` and `10`)            |
-| `conn.master.changeFaderLevelDB(dbValue)` | Change the master fader level relatively by adding a given value (in dB)   |
-| `conn.master.fadeTo(value, fadeTime)`     | Fade master to value (between `0` and `1`)                                 |
-| `conn.master.fadeToDB(value, fadeTime)`   | Fade master to dB value (between `-Infinity` and `10`)                     |
-| `conn.master.pan(value)`                  | Set the master pan (between `0` and `1`)                                   |
-| `conn.master.setDelayL(ms)`               | Set left delay (ms) of the master output (between `0` and `500`)           |
-| `conn.master.setDelayR(ms)`               | Set right delay (ms) of the master output (between `0` and `500`)          |
-| `conn.master.changeDelayL(offsetMs)`      | Relatively change left delay (ms) of the master output (maximum `500` ms)  |
-| `conn.master.changeDelayR(offsetMs)`      | Relatively change right delay (ms) of the master output (maximum `500` ms) |
-| `conn.master.dim()`                       | Dim master                                                                 |
-| `conn.master.undim()`                     | Undim master                                                               |
-| `conn.master.toggleDim()`                 | Toggle master dim                                                          |
-| `conn.master.setDim(value)`               | Set master dim (`0` or `1`)                                                |
-| `conn.master.faderLevel$`                 | Get master fader level (between `0` and `1`)                               |
-| `conn.master.faderLevelDB$`               | Get master fader level in dB (between `-Infinity` and `10`)                |
-| `conn.master.pan$`                        | Get master pan value (between `0` and `1`)                                 |
-| `conn.master.dim$`                        | Get master dim status (`0` or `1`)                                         |
-| `conn.master.delayL$`                     | Get left delay (ms) of the master output (between `0` and `500`)           |
-| `conn.master.delayR$`                     | Get right delay (ms) of the master output (between `0` and `500`)          |
+| Call                                       | Description                                                                |
+| ------------------------------------------ | -------------------------------------------------------------------------- |
+| `conn.master.setFaderLevel(value)`         | Set the master fader level (between `0` and `1`)                           |
+| `conn.master.setFaderLevelDB(dbValue)`     | Set the master fader level in dB (between `-Infinity` and `10`)            |
+| `conn.master.changeFaderLevelDB(offsetDB)` | Change the master fader level relatively by adding a given value (in dB)   |
+| `conn.master.fadeTo(value, fadeTime)`      | Fade master to value (between `0` and `1`)                                 |
+| `conn.master.fadeToDB(value, fadeTime)`    | Fade master to dB value (between `-Infinity` and `10`)                     |
+| `conn.master.pan(value)`                   | Set the master pan (between `0` and `1`)                                   |
+| `conn.master.setDelayL(ms)`                | Set left delay (ms) of the master output (between `0` and `500`)           |
+| `conn.master.setDelayR(ms)`                | Set right delay (ms) of the master output (between `0` and `500`)          |
+| `conn.master.changeDelayL(offsetMs)`       | Relatively change left delay (ms) of the master output (maximum `500` ms)  |
+| `conn.master.changeDelayR(offsetMs)`       | Relatively change right delay (ms) of the master output (maximum `500` ms) |
+| `conn.master.dim()`                        | Dim master                                                                 |
+| `conn.master.undim()`                      | Undim master                                                               |
+| `conn.master.toggleDim()`                  | Toggle master dim                                                          |
+| `conn.master.setDim(value)`                | Set master dim (`0` or `1`)                                                |
+| `conn.master.faderLevel$`                  | Get master fader level (between `0` and `1`)                               |
+| `conn.master.faderLevelDB$`                | Get master fader level in dB (between `-Infinity` and `10`)                |
+| `conn.master.pan$`                         | Get master pan value (between `0` and `1`)                                 |
+| `conn.master.dim$`                         | Get master dim status (`0` or `1`)                                         |
+| `conn.master.delayL$`                      | Get left delay (ms) of the master output (between `0` and `500`)           |
+| `conn.master.delayR$`                      | Get right delay (ms) of the master output (between `0` and `500`)          |
 
 ### Generic channel operations
 
 All channels on all buses have similar behavior.
 Therefore, these operations are available for any channel like `MasterChannel`, `FxChannel` or `AuxChannel`:
 
-| Call                          | Description                                                   |
-| ----------------------------- | ------------------------------------------------------------- |
-| `setFaderLevel(value)`        | Set fader level (between `0` and `1`)                         |
-| `setFaderLevelDB(dbValue)`    | Set fader level in dB (between `-Infinity` and `10`)          |
-| `changeFaderLevelDB(dbValue)` | Change fader level relatively by adding a given value (in dB) |
-| `fadeTo(value, fadeTime)`     | Fade channel to value (between `0` and `1`)                   |
-| `fadeToDB(value, fadeTime)`   | Fade channel to dB value (between `-Infinity` and `10`)       |
-| `setMute(value)`              | Set mute for channel (`0` or `1`)                             |
-| `mute()`                      | Mute channel                                                  |
-| `unmute()`                    | Unmute channel                                                |
-| `toggleMute()`                | Toggle mute status                                            |
-| `name$`                       | Get readable name of the channel                              |
-| `faderLevel$`                 | Get fader level (between `0` and `1`)                         |
-| `faderLevelDB$`               | Get fader level in dB (between `-Infinity` and `10`)          |
-| `mute$`                       | Get mute status (`0` or `1`)                                  |
+| Call                           | Description                                                   |
+| ------------------------------ | ------------------------------------------------------------- |
+| `setFaderLevel(value)`         | Set fader level (between `0` and `1`)                         |
+| `setFaderLevelDB(dbValue)`     | Set fader level in dB (between `-Infinity` and `10`)          |
+| `changeFaderLevelDB(offsetDB)` | Change fader level relatively by adding a given value (in dB) |
+| `fadeTo(value, fadeTime)`      | Fade channel to value (between `0` and `1`)                   |
+| `fadeToDB(value, fadeTime)`    | Fade channel to dB value (between `-Infinity` and `10`)       |
+| `setMute(value)`               | Set mute for channel (`0` or `1`)                             |
+| `mute()`                       | Mute channel                                                  |
+| `unmute()`                     | Unmute channel                                                |
+| `toggleMute()`                 | Toggle mute status                                            |
+| `name$`                        | Get readable name of the channel                              |
+| `faderLevel$`                  | Get fader level (between `0` and `1`)                         |
+| `faderLevelDB$`                | Get fader level in dB (between `-Infinity` and `10`)          |
+| `mute$`                        | Get mute status (`0` or `1`)                                  |
 
 ### Master bus
 
@@ -206,20 +206,27 @@ An `FxChannel` supports the following operations:
 ### Hardware Channels (Phantom Power)
 
 A `HwChannel` represents a hardware input on the mixer.
-At the moment, hardware channels can only be used to switch the phantom power for an input.
 
 > Since hardware inputs can be patched to different channels, a hardware channel is not always the same as an input.
 > This distinction is also visible in the original protocol of the mixer as well as in the UI (Phantom Power/Gain are on another page than the input faders).
 
 First, get a `HwChannel` by calling `conn.hw(inputNumber)`, e.g. `conn.hw(1)` for the first input.
 
-| Call on `HwChannel` | Description                           |
-| ------------------- | ------------------------------------- |
-| `phantomOn()`       | Switch ON phantom power               |
-| `phantomOff()`      | Switch OFF phantom power              |
-| `togglePhantom()`   | Toggle phantom power status           |
-| `setPhantom(value)` | Set phantom power status (`0` or `1`) |
-| `phantom$`          | Get phantom power status (`0` or `1`) |
+| Call on `HwChannel`      | Description                                            |
+| ------------------------ | ------------------------------------------------------ |
+| `phantomOn()`            | Switch ON phantom power                                |
+| `phantomOff()`           | Switch OFF phantom power                               |
+| `togglePhantom()`        | Toggle phantom power status                            |
+| `setPhantom(value)`      | Set phantom power status (`0` or `1`)                  |
+| `setGain(value)`         | Set gain (between `0` and `1`)                         |
+| `setGainDB(dbValue)`     | Set gain in dB (between `-6` and `57`)                 |
+| `changeGainDB(offsetDB)` | Change gain relatively by adding a given value (in dB) |
+| `phantom$`               | Get phantom power status (`0` or `1`)                  |
+| `gain$`                  | Linear gain level of the channel (between `0` and `1`) |
+| `gainDB$`                | dB gain level of the channel (between `-6` and `57`)   |
+
+Please note that the value conversion for gain dB values in the original Web UI is not exact.
+Values emitted by `gain$` may differ from the values visible in the UI.
 
 ### SOLO and Headphone Buses
 
@@ -234,15 +241,15 @@ Get access to a `VolumeBus` object through `conn.volume`:
 
 A `VolumeBus` supports the following operations (which are quite similar to all other fadeable channels):
 
-| Call                          | Description                                                   |
-| ----------------------------- | ------------------------------------------------------------- |
-| `setFaderLevel(value)`        | Set fader level (between `0` and `1`)                         |
-| `setFaderLevelDB(dbValue)`    | Set fader level in dB (between `-Infinity` and `10`)          |
-| `changeFaderLevelDB(dbValue)` | Change fader level relatively by adding a given value (in dB) |
-| `fadeTo(value, fadeTime)`     | Fade channel to value (between `0` and `1`)                   |
-| `fadeToDB(value, fadeTime)`   | Fade channel to dB value (between `-Infinity` and `10`)       |
-| `faderLevel$`                 | Get fader level (between `0` and `1`)                         |
-| `faderLevelDB$`               | Get fader level in dB (between `-Infinity` and `10`)          |
+| Call                           | Description                                                   |
+| ------------------------------ | ------------------------------------------------------------- |
+| `setFaderLevel(value)`         | Set fader level (between `0` and `1`)                         |
+| `setFaderLevelDB(dbValue)`     | Set fader level in dB (between `-Infinity` and `10`)          |
+| `changeFaderLevelDB(offsetDB)` | Change fader level relatively by adding a given value (in dB) |
+| `fadeTo(value, fadeTime)`      | Fade channel to value (between `0` and `1`)                   |
+| `fadeToDB(value, fadeTime)`    | Fade channel to dB value (between `-Infinity` and `10`)       |
+| `faderLevel$`                  | Get fader level (between `0` and `1`)                         |
+| `faderLevelDB$`                | Get fader level in dB (between `-Infinity` and `10`)          |
 
 ### MUTE Groups
 

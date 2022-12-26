@@ -829,5 +829,20 @@ describe('Outbound messages', () => {
 
     conn.hw(4).phantomOff();
     expect(message).toBe('SETD^hw.3.phantom^0');
+
+    conn.hw(5).setGain(0.56789);
+    expect(message).toBe('SETD^hw.4.gain^0.56789');
+
+    conn.hw(5).setGain(-1);
+    expect(message).toBe('SETD^hw.4.gain^0');
+
+    conn.hw(6).setGainDB(57);
+    expect(message).toBe('SETD^hw.5.gain^1');
+
+    conn.hw(6).setGainDB(-6);
+    expect(message).toBe('SETD^hw.5.gain^0');
+
+    conn.hw(7).setGainDB(10);
+    expect(message).toBe('SETD^hw.6.gain^0.25396825396825395');
   });
 });
