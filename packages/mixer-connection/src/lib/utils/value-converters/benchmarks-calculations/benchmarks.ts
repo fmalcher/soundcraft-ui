@@ -4,12 +4,8 @@
  * They are not needed in production, but just if you want to re-generate and evaluate the LUT.
  */
 
-import {
-  DBToFaderValue,
-  DBToFaderValueCALC,
-  faderValueToDB,
-  faderValueToDBCALC,
-} from './value-converters';
+import { DBToFaderValueCALC, faderValueToDBCALC } from './db-calculations';
+import { DBToFaderValue, faderValueToDB } from '../value-converters';
 
 function generateLUT() {
   const dbValues = [];
