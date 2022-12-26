@@ -38,4 +38,37 @@ describe('AUX Channel', () => {
       expect(await firstValueFrom(channel.phantom$)).toBe(0);
     });
   });
+
+  describe('Gain', () => {
+    it('gain$', async () => {
+      channel.setGain(1);
+      expect(await firstValueFrom(channel.gain$)).toBe(1);
+
+      channel.setGain(0.25396825396825395);
+      expect(await firstValueFrom(channel.gain$)).toBe(0.25396825396825395);
+
+      channel.setGainDB(0);
+      expect(await firstValueFrom(channel.gain$)).toBe(0.09523809523809523);
+    });
+
+    it('faderLevelDB$', async () => {
+      channel.setGainDB(-3);
+      expect(await firstValueFrom(channel.gainDB$)).toBe(-3);
+
+      channel.setGainDB(24);
+      expect(await firstValueFrom(channel.gainDB$)).toBe(24);
+
+      channel.setGain(0.25396825396825395);
+      expect(await firstValueFrom(channel.gainDB$)).toBe(10);
+    });
+
+    it('changeFaderLevelDB', async () => {
+      channel.setGainDB(4);
+      channel.changeGainDB(3);
+      expect(await firstValueFrom(channel.gainDB$)).toBe(7);
+
+      channel.changeGainDB(-10);
+      expect(await firstValueFrom(channel.gainDB$)).toBe(-3);
+    });
+  });
 });

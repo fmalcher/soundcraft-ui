@@ -227,6 +227,15 @@ export const selectPhantom: Selector<number> = (channel: number) => {
 };
 
 /**
+ * Select linear gain level of a hardware channel
+ * @param channel
+ */
+export const selectGain: Selector<number> = (channel: number) => {
+  const path = joinStatePath('hw', channel - 1, 'gain');
+  return state => getValueFromObject<number>(state, path);
+};
+
+/**
  * Select fader value of a volume bus (headphones or solo)
  * @param busName Name of the bus in the "settings" part of the state
  * @param busId Optional ID of the bus
