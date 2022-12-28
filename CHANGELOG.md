@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/fmalcher/soundcraft-ui/compare/v1.1.1...v1.2.0) (2022-12-28)
+
+
+### Features
+
+* add multitrack busy state ([3e0fb3c](https://github.com/fmalcher/soundcraft-ui/commit/3e0fb3cf38d3cf62ee029b1857f8542c8cd3e5ac))
+* add support for gain control on HW channels ([c064ab3](https://github.com/fmalcher/soundcraft-ui/commit/c064ab36e7ef412a20d44a9ccffd1a7c64e09865))
+
+
+### Other
+
+* create FUNDING.yml ([aa59c96](https://github.com/fmalcher/soundcraft-ui/commit/aa59c966c25cde1475eca65ec69d6fca21d7a3ee))
+* move dB calculation and benckmark to separate files ([2a8dd5d](https://github.com/fmalcher/soundcraft-ui/commit/2a8dd5dd8936813c5c6c284d21298ee3ecd0f04c))
+
 ### [1.1.1](https://github.com/fmalcher/soundcraft-ui/compare/v1.1.0...v1.1.1) (2022-12-22)
 
 
