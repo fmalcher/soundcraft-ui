@@ -1,3 +1,4 @@
+import { AsyncPipe, NgIf } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ConnectionService } from '../../connection.service';
 
@@ -5,6 +6,7 @@ import { ConnectionService } from '../../connection.service';
   selector: 'soundcraft-ui-connection',
   templateUrl: './connection.component.html',
   standalone: true,
+  imports: [AsyncPipe, NgIf],
 })
 export class ConnectionComponent {
   cs = inject(ConnectionService);
