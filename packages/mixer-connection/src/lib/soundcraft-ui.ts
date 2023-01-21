@@ -80,7 +80,7 @@ export class SoundcraftUI {
    * @param channel Channel number
    */
   hw(channel: number) {
-    return new HwChannel(this.conn, this.store, channel);
+    return new HwChannel(this.conn, this.store, this.deviceInfo, channel);
   }
 
   /** Connect to the mixer. Returns a Promise that resolves when the connection is open. */
