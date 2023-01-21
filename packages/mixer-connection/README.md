@@ -400,6 +400,15 @@ This also applies to stereo-linked AUX buses so that the corresponding channel o
 
 This behavior matches the way the original web app handles stereo-linking.
 
+## Device Info
+
+The mixer exposes the following information about the device:
+
+| Call                        | Description                             |
+| --------------------------- | --------------------------------------- |
+| `conn.deviceInfo.model$`    | Hardware model (`ui12`, `ui16`, `ui24`) |
+| `conn.deviceInfo.firmware$` | Firmware version                        |
+
 ## Working with raw messages and state
 
 The `MixerStore` object exposes raw streams with messages and state data. You can use them for debugging purposes or for integration in other services:

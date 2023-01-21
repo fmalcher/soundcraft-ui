@@ -1,4 +1,5 @@
-import { ChannelType } from './types';
+import { SoundcraftUI } from './soundcraft-ui';
+import { ChannelType, MixerModel } from './types';
 
 /** Clamp numeric value to min and max */
 export function clamp(value: number, min: number, max: number): number {
@@ -78,4 +79,9 @@ export function constructReadableChannelName(type: ChannelType, channel: number)
     case 'p':
       return 'PLAYER ' + numberToLR(channel);
   }
+}
+
+/** Manually set mixer model. Used for testing only! */
+export function setMixerModel(model: MixerModel, conn: SoundcraftUI) {
+  conn.conn.sendMessage('SETD^model^' + model);
 }

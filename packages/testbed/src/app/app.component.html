@@ -7,6 +7,10 @@
       <ng-container *ngIf="status$ | async as status">{{ status.type }}</ng-container>
 
       <span class="float-end">
+        <span *ngIf="model$ | async as model" class="me-2">
+          <strong>Hardware Model:</strong>
+          {{ model }}
+        </span>
         <button class="btn btn-success btn-sm me-2" (click)="connect()">Connect</button>
         <button class="btn btn-danger btn-sm" (click)="disconnect()">Disconnect</button>
       </span>
