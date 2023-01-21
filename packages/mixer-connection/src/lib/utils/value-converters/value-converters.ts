@@ -67,19 +67,27 @@ export function faderValueToDB(value: number) {
 /*****************************************************/
 
 /**
- * Convert gain from dB to linear float value between 0 and 1
- * @param value gain value in dB
+ * Linear scaling from dB value (defined by upper and lower bound) to linear float value (between 0 and 1)
+ * @param dbValue dB value within bounds
+ * @param lowerBound lower bound for dB range
+ * @param upperBound upper bound for dB range
  */
-export function DBToGainValue(gain: number): number {
-  const result = (gain + 6) / 63;
+export function linearMappingDBToValue(
+  dbValue: number,
+  lowerBound: number,
+  upperBound: number
+): number {
+  const result = (dbValue - lowerBound) / (upperBound - lowerBound);
   return clamp(result, 0, 1);
 }
 
 /**
- * Convert gain from linear float value (between 0 and 1) to dB value (between -6 and 57)
- * @param value linear gain value
+ * Linear scaling from linear float value (between 0 and 1) to dB value (defined by upper and lower bound)
+ * @param value linear value
+ * @param lowerBound lower bound for dB range
+ * @param upperBound upper bound for dB range
  */
-export function gainValueToDB(value: number): number {
-  const result = Math.round((value * 63 - 6) * 10) / 10; // round to 1 decimal place
-  return clamp(result, -6, 57);
+export function linearMappingValueToDB(value: number, lowerBound: number, upperBound: number) {
+  const result = Math.round((value * (upperBound - lowerBound) + lowerBound) * 10) / 10; // round to 1 decimal place
+  return clamp(result, lowerBound, upperBound);
 }

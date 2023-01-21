@@ -1,9 +1,13 @@
-import { map, take } from 'rxjs';
+import { map, switchMap, take } from 'rxjs';
 import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
 import { select, selectGain, selectPhantom } from '../state/state-selectors';
 import { clamp } from '../util';
-import { DBToGainValue, gainValueToDB } from '../utils/value-converters/value-converters';
+import {
+  linearMappingDBToValue,
+  linearMappingValueToDB,
+} from '../utils/value-converters/value-converters';
+import { DeviceInfo } from './device-info';
 
 /**
  * Represents a hardware input on the mixer
@@ -12,17 +16,50 @@ export class HwChannel {
   fullChannelId = `hw.${this.channel - 1}`;
 
   /** Phantom power state of the channel (`0` or `1`) */
-  phantom$ = this.store.state$.pipe(select(selectPhantom(this.channel)));
+  phantom$ = this.deviceInfo.model$.pipe(
+    switchMap(model => {
+      switch (model) {
+        case 'ui24':
+          return this.store.state$.pipe(select(selectPhantom(this.channel, 'hw')));
+        case 'ui16':
+        case 'ui12':
+          return this.store.state$.pipe(select(selectPhantom(this.channel, 'i')));
+      }
+    })
+  );
 
   /** Linear gain level of the channel (between `0` and `1`) */
-  gain$ = this.store.state$.pipe(select(selectGain(this.channel)));
+  gain$ = this.deviceInfo.model$.pipe(
+    switchMap(model => {
+      switch (model) {
+        case 'ui24':
+          return this.store.state$.pipe(select(selectGain(this.channel, 'hw')));
+        case 'ui16':
+        case 'ui12':
+          return this.store.state$.pipe(select(selectGain(this.channel, 'i')));
+      }
+    })
+  );
 
-  /** dB gain level of the channel (between `-6` and `57`) */
-  gainDB$ = this.gain$.pipe(map(v => gainValueToDB(v)));
+  /** dB gain level of the channel */
+  gainDB$ = this.deviceInfo.model$.pipe(
+    switchMap(model => {
+      switch (model) {
+        case 'ui24':
+          // ui24 gain range: -6..57 dB
+          return this.gain$.pipe(map(v => linearMappingValueToDB(v, -6, 57)));
+        case 'ui16':
+        case 'ui12':
+          // ui12 and ui16 gain range: -40..50 dB
+          return this.gain$.pipe(map(v => linearMappingValueToDB(v, -40, 50)));
+      }
+    })
+  );
 
   constructor(
     protected conn: MixerConnection,
     protected store: MixerStore,
+    protected deviceInfo: DeviceInfo,
     protected channel: number
   ) {
     // lookup channel in the store and use existing object if possible
@@ -33,6 +70,19 @@ export class HwChannel {
     } else {
       this.store.channelStore.set(storeId, this);
     }
+
+    // change full channel ID according to device model
+    this.deviceInfo.model$.subscribe(model => {
+      switch (model) {
+        case 'ui24':
+          this.fullChannelId = `hw.${this.channel - 1}`;
+          return;
+        case 'ui16':
+        case 'ui12':
+          this.fullChannelId = `i.${this.channel - 1}`;
+          return;
+      }
+    });
   }
 
   /**
@@ -74,7 +124,17 @@ export class HwChannel {
    * @param value value between `-6` and `57`
    */
   setGainDB(dbValue: number) {
-    this.setGain(DBToGainValue(dbValue));
+    switch (this.deviceInfo.model) {
+      case 'ui24':
+        // ui24 gain range: -6..57 dB
+        this.setGain(linearMappingDBToValue(dbValue, -6, 57));
+        return;
+      case 'ui16':
+      case 'ui12':
+        // ui12 and ui16 gain range: -40..50 dB
+        this.setGain(linearMappingDBToValue(dbValue, -40, 50));
+        return;
+    }
   }
 
   /**
