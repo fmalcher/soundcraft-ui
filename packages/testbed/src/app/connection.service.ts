@@ -5,16 +5,19 @@ import { SoundcraftUI } from 'soundcraft-ui-connection';
   providedIn: 'root',
 })
 export class ConnectionService {
-  mixerIP = '10.75.23.95';
-  conn = new SoundcraftUI(this.mixerIP);
+  conn?: SoundcraftUI;
 
-  setMixerIP(ip: string) {
-    if (ip !== this.mixerIP) {
-      this.mixerIP = ip;
-      if (this.conn) {
-        this.conn.disconnect();
-      }
-      this.conn = new SoundcraftUI(this.mixerIP);
+  async createConnectionAndConnect(ip: string) {
+    if (this.conn) {
+      await this.conn.disconnect();
     }
+
+    this.conn = new SoundcraftUI(ip);
+    await this.conn.connect();
+  }
+
+  disconnect() {
+    this.conn.disconnect();
+    this.conn = undefined;
   }
 }

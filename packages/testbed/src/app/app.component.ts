@@ -12,11 +12,8 @@ import { ConnectionService } from './connection.service';
 })
 export class AppComponent {
   cs = inject(ConnectionService);
-  status$ = this.cs.conn.status$;
-  model$ = this.cs.conn.deviceInfo.model$;
 
   navLinks = [
-    { label: 'Connection', target: '/connection' },
     { label: 'Master', target: '/master' },
     { label: 'Master bus', target: '/masterbus' },
     { label: 'AUX bus 1', target: '/auxbus/1' },
@@ -31,15 +28,14 @@ export class AppComponent {
     { label: 'Full state', target: '/fullstate' },
   ];
 
-  connect() {
-    this.cs.conn.connect().then(() => {
-      console.log('CONNECTED');
-    });
+  connectCustomIp(ip: string) {
+    if (ip) {
+      localStorage.setItem('mixerIP', ip);
+      this.cs.createConnectionAndConnect(ip);
+    }
   }
 
-  disconnect() {
-    this.cs.conn.disconnect().then(() => {
-      console.log('DISCONNECTED');
-    });
+  getCustomIPFromStorage() {
+    return localStorage.getItem('mixerIP');
   }
 }
