@@ -32,3 +32,5 @@ export enum MtkState {
   Paused = 1,
   Playing = 2,
 }
+
+export type MixerModel = 'ui12' | 'ui16' | 'ui24';

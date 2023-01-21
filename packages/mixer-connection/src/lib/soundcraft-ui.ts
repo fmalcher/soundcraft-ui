@@ -1,4 +1,5 @@
 import { AuxBus } from './facade/aux-bus';
+import { DeviceInfo } from './facade/device-info';
 import { DualTrackRecorder } from './facade/dual-track-recorder';
 import { FxBus } from './facade/fx-bus';
 import { HwChannel } from './facade/hw-channel';
@@ -14,6 +15,8 @@ import { MixerStore } from './state/mixer-store';
 export class SoundcraftUI {
   readonly conn = new MixerConnection(this.targetIP);
   readonly store = new MixerStore(this.conn);
+
+  deviceInfo = new DeviceInfo(this.store);
 
   /** Connection status */
   status$ = this.conn.status$;

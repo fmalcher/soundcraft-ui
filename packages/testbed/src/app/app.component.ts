@@ -13,6 +13,7 @@ import { ConnectionService } from './connection.service';
 export class AppComponent {
   cs = inject(ConnectionService);
   status$ = this.cs.conn.status$;
+  model$ = this.cs.conn.deviceInfo.model$;
 
   navLinks = [
     { label: 'Connection', target: '/connection' },
