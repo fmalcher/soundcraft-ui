@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { AuxBusComponent } from './pages/aux-bus/aux-bus.component';
-import { ConnectionComponent } from './pages/connection/connection.component';
 import { FullStateComponent } from './pages/full-state/full-state.component';
 import { FxBusComponent } from './pages/fx-bus/fx-bus.component';
 import { HwchannelsComponent } from './pages/hwchannels/hwchannels.component';
@@ -13,8 +12,7 @@ import { ShowsComponent } from './pages/shows/shows.component';
 import { VolumebusComponent } from './pages/volumebus/volumebus.component';
 
 export const APP_ROUTES: Routes = [
-  { path: '', redirectTo: 'connection', pathMatch: 'full' },
-  { path: 'connection', component: ConnectionComponent },
+  { path: '', redirectTo: 'master', pathMatch: 'full' },
   { path: 'master', component: MasterComponent },
   { path: 'masterbus', component: MasterBusComponent },
   { path: 'auxbus/:bus', component: AuxBusComponent },
