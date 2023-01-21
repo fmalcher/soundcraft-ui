@@ -1,18 +1,40 @@
 <div class="container">
   <h1>Soundcraft Ui Testbed</h1>
 
-  <div class="card mt-3">
+  <div *ngIf="!cs.conn">
+    <h2>Connection</h2>
+    <button
+      *ngFor="let ip of ['10.75.23.95', '10.75.23.96']"
+      class="btn btn-primary me-2"
+      (click)="cs.createConnectionAndConnect(ip)"
+    >
+      {{ ip }}
+    </button>
+
+    <div class="input-group mt-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Custom mixer IP"
+        #ipInput
+        [value]="getCustomIPFromStorage()"
+      />
+      <button class="btn btn-primary" type="button" (click)="connectCustomIp(ipInput.value)">
+        Connect
+      </button>
+    </div>
+  </div>
+
+  <div class="card mt-3" *ngIf="cs.conn">
     <div class="card-header text-muted">
-      <strong>Connection status: </strong>
-      <ng-container *ngIf="status$ | async as status">{{ status.type }}</ng-container>
+      <strong>Hardware:</strong>
+      {{ cs.conn.deviceInfo.model$ | async }} / {{ cs.conn.deviceInfo.firmware$ | async }}
 
       <span class="float-end">
-        <span *ngIf="model$ | async as model" class="me-2">
-          <strong>Hardware Model:</strong>
-          {{ model }}
-        </span>
-        <button class="btn btn-success btn-sm me-2" (click)="connect()">Connect</button>
-        <button class="btn btn-danger btn-sm" (click)="disconnect()">Disconnect</button>
+        <strong>Connection status: </strong>
+        <ng-container *ngIf="cs.conn.status$ | async as status">{{ status.type }}</ng-container>
+
+        <button class="btn btn-danger btn-sm ms-2" (click)="cs.disconnect()">Disconnect</button>
       </span>
     </div>
     <div class="card-body">
