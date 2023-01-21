@@ -1,4 +1,5 @@
 import { SoundcraftUI } from '../soundcraft-ui';
+import { setMixerModel } from '../util';
 
 describe('Outbound messages', () => {
   let conn: SoundcraftUI;
@@ -8,7 +9,7 @@ describe('Outbound messages', () => {
     conn = new SoundcraftUI('127.0.0.1');
 
     message = undefined;
-    conn.conn.sendMessage = msg => (message = msg);
+    conn.conn.allMessages$.subscribe(msg => (message = msg));
   });
 
   it('master', () => {
@@ -817,32 +818,98 @@ describe('Outbound messages', () => {
     expect(message).toBe('LOADCUE^testshow^testcue');
   });
 
-  it('hw channels', () => {
-    conn.hw(1).setPhantom(1);
-    expect(message).toBe('SETD^hw.0.phantom^1');
+  describe('hw channels', () => {
+    it('Ui24', () => {
+      setMixerModel('ui24', conn);
 
-    conn.hw(2).setPhantom(0);
-    expect(message).toBe('SETD^hw.1.phantom^0');
+      conn.hw(1).setPhantom(1);
+      expect(message).toBe('SETD^hw.0.phantom^1');
 
-    conn.hw(3).phantomOn();
-    expect(message).toBe('SETD^hw.2.phantom^1');
+      conn.hw(2).setPhantom(0);
+      expect(message).toBe('SETD^hw.1.phantom^0');
 
-    conn.hw(4).phantomOff();
-    expect(message).toBe('SETD^hw.3.phantom^0');
+      conn.hw(3).phantomOn();
+      expect(message).toBe('SETD^hw.2.phantom^1');
 
-    conn.hw(5).setGain(0.56789);
-    expect(message).toBe('SETD^hw.4.gain^0.56789');
+      conn.hw(4).phantomOff();
+      expect(message).toBe('SETD^hw.3.phantom^0');
 
-    conn.hw(5).setGain(-1);
-    expect(message).toBe('SETD^hw.4.gain^0');
+      conn.hw(5).setGain(0.56789);
+      expect(message).toBe('SETD^hw.4.gain^0.56789');
 
-    conn.hw(6).setGainDB(57);
-    expect(message).toBe('SETD^hw.5.gain^1');
+      conn.hw(5).setGain(-1);
+      expect(message).toBe('SETD^hw.4.gain^0');
 
-    conn.hw(6).setGainDB(-6);
-    expect(message).toBe('SETD^hw.5.gain^0');
+      conn.hw(6).setGainDB(57);
+      expect(message).toBe('SETD^hw.5.gain^1');
 
-    conn.hw(7).setGainDB(10);
-    expect(message).toBe('SETD^hw.6.gain^0.25396825396825395');
+      conn.hw(6).setGainDB(-6);
+      expect(message).toBe('SETD^hw.5.gain^0');
+
+      conn.hw(7).setGainDB(10);
+      expect(message).toBe('SETD^hw.6.gain^0.25396825396825395');
+    });
+
+    it('Ui16', () => {
+      setMixerModel('ui16', conn);
+
+      conn.hw(1).setPhantom(1);
+      expect(message).toBe('SETD^i.0.phantom^1');
+
+      conn.hw(2).setPhantom(0);
+      expect(message).toBe('SETD^i.1.phantom^0');
+
+      conn.hw(3).phantomOn();
+      expect(message).toBe('SETD^i.2.phantom^1');
+
+      conn.hw(4).phantomOff();
+      expect(message).toBe('SETD^i.3.phantom^0');
+
+      conn.hw(5).setGain(0.56789);
+      expect(message).toBe('SETD^i.4.gain^0.56789');
+
+      conn.hw(5).setGain(-1);
+      expect(message).toBe('SETD^i.4.gain^0');
+
+      conn.hw(6).setGainDB(50);
+      expect(message).toBe('SETD^i.5.gain^1');
+
+      conn.hw(6).setGainDB(-40);
+      expect(message).toBe('SETD^i.5.gain^0');
+
+      conn.hw(7).setGainDB(10);
+      expect(message).toBe('SETD^i.6.gain^0.5555555555555556');
+    });
+
+    it('Ui12', () => {
+      setMixerModel('ui12', conn);
+
+      conn.hw(1).setPhantom(1);
+      expect(message).toBe('SETD^i.0.phantom^1');
+
+      conn.hw(2).setPhantom(0);
+      expect(message).toBe('SETD^i.1.phantom^0');
+
+      conn.hw(3).phantomOn();
+      expect(message).toBe('SETD^i.2.phantom^1');
+
+      conn.hw(4).phantomOff();
+      expect(message).toBe('SETD^i.3.phantom^0');
+
+      conn.hw(5).setGain(0.56789);
+      expect(message).toBe('SETD^i.4.gain^0.56789');
+
+      conn.hw(5).setGain(-1);
+      expect(message).toBe('SETD^i.4.gain^0');
+
+      conn.hw(6).setGainDB(50);
+      expect(message).toBe('SETD^i.5.gain^1');
+
+      conn.hw(6).setGainDB(-40);
+      expect(message).toBe('SETD^i.5.gain^0');
+
+      conn.hw(7).setGainDB(10);
+      expect(message).toBe('SETD^i.6.gain^0.5555555555555556');
+    });
   });
 });

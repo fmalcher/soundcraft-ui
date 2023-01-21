@@ -1,7 +1,7 @@
 import {
   DBToFaderValue,
-  DBToGainValue,
-  gainValueToDB,
+  linearMappingDBToValue,
+  linearMappingValueToDB,
   sanitizeDelayValue,
 } from './value-converters';
 
@@ -36,76 +36,77 @@ describe('Value converters', () => {
 
   describe('gainValueToDB', () => {
     it('should convert linear gain values to dB', () => {
-      expect(gainValueToDB(0)).toBe(-6);
-      expect(gainValueToDB(1)).toBe(57);
-      expect(gainValueToDB(0.25396825396825395)).toBe(10);
-      expect(gainValueToDB(0.36507936507936506)).toBe(17);
-      expect(gainValueToDB(0.4126984126984127)).toBe(20);
-      expect(gainValueToDB(0.419047619047619)).toBe(20.4);
-      expect(gainValueToDB(0.5238095238095238)).toBe(27);
-      expect(gainValueToDB(0.9682539682539683)).toBe(55);
-      expect(gainValueToDB(0.6666666666666666)).toBe(36);
+      expect(linearMappingValueToDB(0, -6, 57)).toBe(-6);
+      expect(linearMappingValueToDB(1, -6, 57)).toBe(57);
+      expect(linearMappingValueToDB(0.25396825396825395, -6, 57)).toBe(10);
+      expect(linearMappingValueToDB(0.36507936507936506, -6, 57)).toBe(17);
+      expect(linearMappingValueToDB(0.4126984126984127, -6, 57)).toBe(20);
+      expect(linearMappingValueToDB(0.419047619047619, -6, 57)).toBe(20.4);
+      expect(linearMappingValueToDB(0.5238095238095238, -6, 57)).toBe(27);
+      expect(linearMappingValueToDB(0.9682539682539683, -6, 57)).toBe(55);
+      expect(linearMappingValueToDB(0.6666666666666666, -6, 57)).toBe(36);
     });
 
     it('should work with back-and-forth conversion', () => {
       let value: number;
 
       value = 0.419047619047619;
-      expect(DBToGainValue(gainValueToDB(value))).toBe(value);
+      expect(linearMappingDBToValue(linearMappingValueToDB(value, -6, 57), -6, 57)).toBe(value);
 
       value = 0.09523809523809523;
-      expect(DBToGainValue(gainValueToDB(value))).toBe(value);
+      expect(linearMappingDBToValue(linearMappingValueToDB(value, -6, 57), -6, 57)).toBe(value);
 
       value = 0.9682539682539683;
-      expect(DBToGainValue(gainValueToDB(value))).toBe(value);
+      expect(linearMappingDBToValue(linearMappingValueToDB(value, -6, 57), -6, 57)).toBe(value);
 
       value = 0.5238095238095238;
-      expect(DBToGainValue(gainValueToDB(value))).toBe(value);
-    });
-  });
-
-  describe('DBToGainValue', () => {
-    it('should convert dB gain values to linear values', () => {
-      expect(DBToGainValue(-6)).toBe(0);
-      expect(DBToGainValue(57)).toBe(1);
-
-      expect(DBToGainValue(0)).toBe(0.09523809523809523);
-      expect(DBToGainValue(0.1)).toBe(0.09682539682539681);
-      expect(DBToGainValue(2)).toBe(0.12698412698412698);
-      expect(DBToGainValue(5)).toBe(0.1746031746031746);
-      expect(DBToGainValue(10)).toBe(0.25396825396825395);
-      expect(DBToGainValue(15)).toBe(0.3333333333333333);
-      expect(DBToGainValue(17)).toBe(0.36507936507936506);
-      expect(DBToGainValue(20)).toBe(0.4126984126984127);
-      expect(DBToGainValue(20.4)).toBe(0.419047619047619);
-      expect(DBToGainValue(27)).toBe(0.5238095238095238);
-      expect(DBToGainValue(30.5)).toBe(0.5793650793650794);
-      expect(DBToGainValue(36)).toBe(0.6666666666666666);
-      expect(DBToGainValue(55)).toBe(0.9682539682539683);
-      expect(DBToGainValue(55.3)).toBe(0.973015873015873);
+      expect(linearMappingDBToValue(linearMappingValueToDB(value, -6, 57), -6, 57)).toBe(value);
+      linearMappingDBToValue;
     });
 
-    it('should respect limits', () => {
-      expect(DBToGainValue(200)).toBe(1);
-      expect(DBToGainValue(100)).toBe(1);
-      expect(DBToGainValue(-20)).toBe(0);
-      expect(DBToGainValue(-300)).toBe(0);
-    });
+    describe('DBToGainValue', () => {
+      it('should convert dB gain values to linear values', () => {
+        expect(linearMappingDBToValue(-6, -6, 57)).toBe(0);
+        expect(linearMappingDBToValue(57, -6, 57)).toBe(1);
 
-    it('should work with back-and-forth conversion', () => {
-      let result: number;
+        expect(linearMappingDBToValue(0, -6, 57)).toBe(0.09523809523809523);
+        expect(linearMappingDBToValue(0.1, -6, 57)).toBe(0.09682539682539681);
+        expect(linearMappingDBToValue(2, -6, 57)).toBe(0.12698412698412698);
+        expect(linearMappingDBToValue(5, -6, 57)).toBe(0.1746031746031746);
+        expect(linearMappingDBToValue(10, -6, 57)).toBe(0.25396825396825395);
+        expect(linearMappingDBToValue(15, -6, 57)).toBe(0.3333333333333333);
+        expect(linearMappingDBToValue(17, -6, 57)).toBe(0.36507936507936506);
+        expect(linearMappingDBToValue(20, -6, 57)).toBe(0.4126984126984127);
+        expect(linearMappingDBToValue(20.4, -6, 57)).toBe(0.419047619047619);
+        expect(linearMappingDBToValue(27, -6, 57)).toBe(0.5238095238095238);
+        expect(linearMappingDBToValue(30.5, -6, 57)).toBe(0.5793650793650794);
+        expect(linearMappingDBToValue(36, -6, 57)).toBe(0.6666666666666666);
+        expect(linearMappingDBToValue(55, -6, 57)).toBe(0.9682539682539683);
+        expect(linearMappingDBToValue(55.3, -6, 57)).toBe(0.973015873015873);
+      });
 
-      result = DBToGainValue(24);
-      expect(gainValueToDB(result)).toBe(24);
+      it('should respect limits', () => {
+        expect(linearMappingDBToValue(200, -6, 57)).toBe(1);
+        expect(linearMappingDBToValue(100, -6, 57)).toBe(1);
+        expect(linearMappingDBToValue(-20, -6, 57)).toBe(0);
+        expect(linearMappingDBToValue(-300, -6, 57)).toBe(0);
+      });
 
-      result = DBToGainValue(0);
-      expect(gainValueToDB(result)).toBe(0);
+      it('should work with back-and-forth conversion', () => {
+        let result: number;
 
-      result = DBToGainValue(-6);
-      expect(gainValueToDB(result)).toBe(-6);
+        result = linearMappingDBToValue(24, -6, 57);
+        expect(linearMappingValueToDB(result, -6, 57)).toBe(24);
 
-      result = DBToGainValue(52);
-      expect(gainValueToDB(result)).toBe(52);
+        result = linearMappingDBToValue(0, -6, 57);
+        expect(linearMappingValueToDB(result, -6, 57)).toBe(0);
+
+        result = linearMappingDBToValue(-6, -40, 50);
+        expect(linearMappingValueToDB(result, -40, 50)).toBe(-6);
+
+        result = linearMappingDBToValue(42, -40, 50);
+        expect(linearMappingValueToDB(result, -40, 50)).toBe(42);
+      });
     });
   });
 });

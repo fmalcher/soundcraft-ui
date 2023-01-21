@@ -220,18 +220,20 @@ export const selectStereoIndex: Selector<number> = (channelType: ChannelType, ch
 /**
  * Select phantom power state of a hardware channel
  * @param channel
+ * @param key Type of the channel: `hw` or `i`, according to the mixer model
  */
-export const selectPhantom: Selector<number> = (channel: number) => {
-  const path = joinStatePath('hw', channel - 1, 'phantom');
+export const selectPhantom: Selector<number> = (channel: number, key: 'hw' | 'i') => {
+  const path = joinStatePath(key, channel - 1, 'phantom');
   return state => getValueFromObject<number>(state, path);
 };
 
 /**
- * Select linear gain level of a hardware channel
+ * Select linear gain level of a channel
  * @param channel
+ * @param key Type of the channel: `hw` or `i`, according to the mixer model
  */
-export const selectGain: Selector<number> = (channel: number) => {
-  const path = joinStatePath('hw', channel - 1, 'gain');
+export const selectGain: Selector<number> = (channel: number, key: 'hw' | 'i') => {
+  const path = joinStatePath(key, channel - 1, 'gain');
   return state => getValueFromObject<number>(state, path);
 };
 
