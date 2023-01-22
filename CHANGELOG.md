@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/fmalcher/soundcraft-ui/compare/v1.2.0...v1.3.0) (2023-01-22)
+
+
+### Features
+
+* add device info with mixer model ([08315c5](https://github.com/fmalcher/soundcraft-ui/commit/08315c582b4deea4a49f342b9be5f588340d876c))
+* differentiate between mixer models for HW channels ([7d95c1f](https://github.com/fmalcher/soundcraft-ui/commit/7d95c1fcef872fc8b15e14d1a436f8e9bd8096a4))
+* export all facade types in barrel ([f07afc4](https://github.com/fmalcher/soundcraft-ui/commit/f07afc42cec297e5355713c15cf5719b65308848))
+* **testbed:** add opening page for connection ([7e7eec9](https://github.com/fmalcher/soundcraft-ui/commit/7e7eec947145275cf838f8f179010570f4700519))
+
+
+### Other
+
+* nx migrate to 15.5 ([05cc00d](https://github.com/fmalcher/soundcraft-ui/commit/05cc00d2c3552d4eaf4032db4c25902f0644bf0e))
+* remove unused imports and non-necessary types ([ca151f2](https://github.com/fmalcher/soundcraft-ui/commit/ca151f230179a1a615d2f4dcdfa6b24297788fbb))
+* setup CI with Nx Cloud ([6ac0ef4](https://github.com/fmalcher/soundcraft-ui/commit/6ac0ef46d7f625c9628a969d14cd8a7b0afbfab0))
+* **testbed:** correctly setup ESLint ([1261807](https://github.com/fmalcher/soundcraft-ui/commit/126180714296b5887a49f31d48a961388bad33ae))
+
 ## [1.2.0](https://github.com/fmalcher/soundcraft-ui/compare/v1.1.1...v1.2.0) (2022-12-28)
 
 
