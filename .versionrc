@@ -1,4 +1,8 @@
 {
+  "skip": {
+    "commit": true,
+    "tag": true
+  },
   "packageFiles": [
     {
       "filename": "package.json",
