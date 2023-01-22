@@ -10,7 +10,7 @@ import { Component, Input, EventEmitter, Output } from '@angular/core';
 })
 export class MixerButtonComponent {
   @Input() activeClass = 'default-active';
-  @Input() active: boolean = false;
+  @Input() active = false;
   @Output() press = new EventEmitter<void>();
 
   get ngClassDefinition() {
