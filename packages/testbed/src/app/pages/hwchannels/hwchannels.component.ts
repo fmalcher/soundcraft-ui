@@ -1,6 +1,6 @@
 import { AsyncPipe, NgFor } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { HwChannel } from 'packages/mixer-connection/src/lib/facade/hw-channel';
+import { HwChannel } from 'soundcraft-ui-connection';
 import { ConnectionService } from '../../connection.service';
 import { MixerButtonComponent } from '../../ui/mixer-button/mixer-button.component';
 
