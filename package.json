@@ -38,6 +38,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular-eslint/builder": "^15.0.0",
     "@angular/common": "^15.0.0",
     "@angular/compiler": "^15.0.0",
     "@angular/core": "^15.0.0",
@@ -56,7 +57,7 @@
     "@angular-devkit/core": "^15.0.1",
     "@angular-eslint/eslint-plugin": "15.0.0",
     "@angular-eslint/eslint-plugin-template": "15.0.0",
-    "@angular-eslint/template-parser": "15.0.0",
+    "@angular-eslint/template-parser": "^15.0.0",
     "@angular/compiler-cli": "^15.0.0",
     "@nrwl/angular": "15.3.0",
     "@nrwl/cli": "15.3.0",
