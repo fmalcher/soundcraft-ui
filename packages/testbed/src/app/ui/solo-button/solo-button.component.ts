@@ -12,5 +12,5 @@ import { MixerButtonComponent } from '../mixer-button/mixer-button.component';
 })
 export class SoloButtonComponent {
   @Input() channel?: MasterChannel;
-  @Input() label: string = '';
+  @Input() label = '';
 }

@@ -8,8 +8,8 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   imports: [],
 })
 export class InputComponent {
-  @Input() value: string = '';
-  @Input() label: string = '';
-  @Input() buttonLabel: string = '';
+  @Input() value = '';
+  @Input() label = '';
+  @Input() buttonLabel = '';
   @Output() valueChange = new EventEmitter<string>();
 }
