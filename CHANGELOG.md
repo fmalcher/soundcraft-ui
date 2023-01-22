@@ -4,57 +4,50 @@ All notable changes to this project will be documented in this file. See [standa
 
 ## [1.3.0](https://github.com/fmalcher/soundcraft-ui/compare/v1.2.0...v1.3.0) (2023-01-22)
 
-
 ### Features
 
-* add device info with mixer model ([08315c5](https://github.com/fmalcher/soundcraft-ui/commit/08315c582b4deea4a49f342b9be5f588340d876c))
-* differentiate between mixer models for HW channels ([7d95c1f](https://github.com/fmalcher/soundcraft-ui/commit/7d95c1fcef872fc8b15e14d1a436f8e9bd8096a4))
-* export all facade types in barrel ([f07afc4](https://github.com/fmalcher/soundcraft-ui/commit/f07afc42cec297e5355713c15cf5719b65308848))
-* **testbed:** add opening page for connection ([7e7eec9](https://github.com/fmalcher/soundcraft-ui/commit/7e7eec947145275cf838f8f179010570f4700519))
-
+- add device info with mixer model ([08315c5](https://github.com/fmalcher/soundcraft-ui/commit/08315c582b4deea4a49f342b9be5f588340d876c))
+- differentiate between mixer models for HW channels ([7d95c1f](https://github.com/fmalcher/soundcraft-ui/commit/7d95c1fcef872fc8b15e14d1a436f8e9bd8096a4))
+- export all facade types in barrel ([f07afc4](https://github.com/fmalcher/soundcraft-ui/commit/f07afc42cec297e5355713c15cf5719b65308848))
+- **testbed:** add opening page for connection ([7e7eec9](https://github.com/fmalcher/soundcraft-ui/commit/7e7eec947145275cf838f8f179010570f4700519))
 
 ### Other
 
-* nx migrate to 15.5 ([05cc00d](https://github.com/fmalcher/soundcraft-ui/commit/05cc00d2c3552d4eaf4032db4c25902f0644bf0e))
-* remove unused imports and non-necessary types ([ca151f2](https://github.com/fmalcher/soundcraft-ui/commit/ca151f230179a1a615d2f4dcdfa6b24297788fbb))
-* setup CI with Nx Cloud ([6ac0ef4](https://github.com/fmalcher/soundcraft-ui/commit/6ac0ef46d7f625c9628a969d14cd8a7b0afbfab0))
-* **testbed:** correctly setup ESLint ([1261807](https://github.com/fmalcher/soundcraft-ui/commit/126180714296b5887a49f31d48a961388bad33ae))
+- nx migrate to 15.5 ([05cc00d](https://github.com/fmalcher/soundcraft-ui/commit/05cc00d2c3552d4eaf4032db4c25902f0644bf0e))
+- remove unused imports and non-necessary types ([ca151f2](https://github.com/fmalcher/soundcraft-ui/commit/ca151f230179a1a615d2f4dcdfa6b24297788fbb))
+- setup CI with Nx Cloud ([6ac0ef4](https://github.com/fmalcher/soundcraft-ui/commit/6ac0ef46d7f625c9628a969d14cd8a7b0afbfab0))
+- **testbed:** correctly setup ESLint ([1261807](https://github.com/fmalcher/soundcraft-ui/commit/126180714296b5887a49f31d48a961388bad33ae))
 
 ## [1.2.0](https://github.com/fmalcher/soundcraft-ui/compare/v1.1.1...v1.2.0) (2022-12-28)
 
-
 ### Features
 
-* add multitrack busy state ([3e0fb3c](https://github.com/fmalcher/soundcraft-ui/commit/3e0fb3cf38d3cf62ee029b1857f8542c8cd3e5ac))
-* add support for gain control on HW channels ([c064ab3](https://github.com/fmalcher/soundcraft-ui/commit/c064ab36e7ef412a20d44a9ccffd1a7c64e09865))
-
+- add multitrack busy state ([3e0fb3c](https://github.com/fmalcher/soundcraft-ui/commit/3e0fb3cf38d3cf62ee029b1857f8542c8cd3e5ac))
+- add support for gain control on HW channels ([c064ab3](https://github.com/fmalcher/soundcraft-ui/commit/c064ab36e7ef412a20d44a9ccffd1a7c64e09865))
 
 ### Other
 
-* create FUNDING.yml ([aa59c96](https://github.com/fmalcher/soundcraft-ui/commit/aa59c966c25cde1475eca65ec69d6fca21d7a3ee))
-* move dB calculation and benckmark to separate files ([2a8dd5d](https://github.com/fmalcher/soundcraft-ui/commit/2a8dd5dd8936813c5c6c284d21298ee3ecd0f04c))
+- create FUNDING.yml ([aa59c96](https://github.com/fmalcher/soundcraft-ui/commit/aa59c966c25cde1475eca65ec69d6fca21d7a3ee))
+- move dB calculation and benckmark to separate files ([2a8dd5d](https://github.com/fmalcher/soundcraft-ui/commit/2a8dd5dd8936813c5c6c284d21298ee3ecd0f04c))
 
 ### [1.1.1](https://github.com/fmalcher/soundcraft-ui/compare/v1.1.0...v1.1.1) (2022-12-22)
 
-
 ### Bug Fixes
 
-* add isomorphic-ws as dependency in lib pjson ([9b91341](https://github.com/fmalcher/soundcraft-ui/commit/9b9134162848df6ec9624d85eccb840f4e69e678))
+- add isomorphic-ws as dependency in lib pjson ([9b91341](https://github.com/fmalcher/soundcraft-ui/commit/9b9134162848df6ec9624d85eccb840f4e69e678))
 
 ## [1.1.0](https://github.com/fmalcher/soundcraft-ui/compare/v1.0.0...v1.1.0) (2022-12-22)
 
-
 ### Features
 
-* add support for multitrack recording on Ui24R ([889ad2b](https://github.com/fmalcher/soundcraft-ui/commit/889ad2becb9211045e8392dd36f96a98748a0720))
-
+- add support for multitrack recording on Ui24R ([889ad2b](https://github.com/fmalcher/soundcraft-ui/commit/889ad2becb9211045e8392dd36f96a98748a0720))
 
 ### Other
 
-* add NPM badge to main README ([6f6e468](https://github.com/fmalcher/soundcraft-ui/commit/6f6e468dd86488a95bf7c4dcd5ae9fa4226b3b60))
-* emit all commit types to changelog ([a82c6a6](https://github.com/fmalcher/soundcraft-ui/commit/a82c6a6d6083cb73807ec9d0a1657ede280580d4))
-* explicitly set useDefineForClassfields to false ([a7f66a7](https://github.com/fmalcher/soundcraft-ui/commit/a7f66a77fda0ee31dfe31133a75ce35727864dd9))
-* **testbed:** migrate Angular app to full standalone app ([ce7d58e](https://github.com/fmalcher/soundcraft-ui/commit/ce7d58ed026bc452ad59a6de778cdbf64e774880))
+- add NPM badge to main README ([6f6e468](https://github.com/fmalcher/soundcraft-ui/commit/6f6e468dd86488a95bf7c4dcd5ae9fa4226b3b60))
+- emit all commit types to changelog ([a82c6a6](https://github.com/fmalcher/soundcraft-ui/commit/a82c6a6d6083cb73807ec9d0a1657ede280580d4))
+- explicitly set useDefineForClassfields to false ([a7f66a7](https://github.com/fmalcher/soundcraft-ui/commit/a7f66a77fda0ee31dfe31133a75ce35727864dd9))
+- **testbed:** migrate Angular app to full standalone app ([ce7d58e](https://github.com/fmalcher/soundcraft-ui/commit/ce7d58ed026bc452ad59a6de778cdbf64e774880))
 
 ## [1.0.0](https://github.com/fmalcher/soundcraft-ui/compare/v0.11.0...v1.0.0) (2022-12-15)
 
