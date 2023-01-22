@@ -12,5 +12,5 @@ import { MixerButtonComponent } from '../mixer-button/mixer-button.component';
 })
 export class MuteButtonComponent {
   @Input() channel?: Channel;
-  @Input() label: string = '';
+  @Input() label = '';
 }

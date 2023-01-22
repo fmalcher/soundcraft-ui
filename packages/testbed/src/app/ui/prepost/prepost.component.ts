@@ -14,7 +14,7 @@ import { MixerButtonComponent } from '../mixer-button/mixer-button.component';
 export class PrepostComponent implements OnInit, OnDestroy {
   @Input() channel?: SendChannel;
 
-  post: boolean = false;
+  post = false;
   private destroy$ = new Subject<void>();
 
   ngOnInit(): void {

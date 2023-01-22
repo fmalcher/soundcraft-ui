@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AuxChannel } from 'soundcraft-ui-connection';
-import { Observable, map } from 'rxjs';
+import { map } from 'rxjs';
 import { AsyncPipe, NgFor } from '@angular/common';
 
 import { ConnectionService } from '../../connection.service';

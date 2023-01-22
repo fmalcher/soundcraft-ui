@@ -1,7 +1,5 @@
 /******************************************************/
 
-import { clamp } from '../../../util';
-
 /**
  * Calculation functions for dB / linear conversion.
  * LUT should be preferred over those direct calculations
