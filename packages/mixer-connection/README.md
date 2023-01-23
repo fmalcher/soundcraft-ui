@@ -406,10 +406,11 @@ This behavior matches the way the original web app handles stereo-linking.
 
 The mixer exposes the following information about the device:
 
-| Call                        | Description                             |
-| --------------------------- | --------------------------------------- |
-| `conn.deviceInfo.model$`    | Hardware model (`ui12`, `ui16`, `ui24`) |
-| `conn.deviceInfo.firmware$` | Firmware version                        |
+| Call                        | Description                                                  |
+| --------------------------- | ------------------------------------------------------------ |
+| `conn.deviceInfo.model$`    | Hardware model (`ui12`, `ui16`, `ui24`) as observable stream |
+| `conn.deviceInfo.model`     | Hardware model (`ui12`, `ui16`, `ui24`) as synchronous value |
+| `conn.deviceInfo.firmware$` | Firmware version                                             |
 
 ## Working with raw messages and state
 
