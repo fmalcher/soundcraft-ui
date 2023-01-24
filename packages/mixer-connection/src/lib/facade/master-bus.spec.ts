@@ -33,15 +33,25 @@ describe('Master Bus', () => {
     });
   });
 
-  it('pan$', async () => {
-    master.pan(0);
-    expect(await firstValueFrom(master.pan$)).toBe(0);
+  describe('PAN', () => {
+    it('pan$', async () => {
+      master.pan(0);
+      expect(await firstValueFrom(master.pan$)).toBe(0);
 
-    master.pan(1);
-    expect(await firstValueFrom(master.pan$)).toBe(1);
+      master.pan(1);
+      expect(await firstValueFrom(master.pan$)).toBe(1);
 
-    master.pan(0.5);
-    expect(await firstValueFrom(master.pan$)).toBe(0.5);
+      master.pan(0.5);
+      expect(await firstValueFrom(master.pan$)).toBe(0.5);
+    });
+
+    it('should be clamped to 0..1', async () => {
+      master.pan(1.4);
+      expect(await firstValueFrom(master.pan$)).toBe(1);
+
+      master.pan(-4.3);
+      expect(await firstValueFrom(master.pan$)).toBe(0);
+    });
   });
 
   describe('left delay', () => {

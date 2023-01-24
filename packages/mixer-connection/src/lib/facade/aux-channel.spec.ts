@@ -28,6 +28,14 @@ describe('AUX Channel', () => {
       channel.pan(0.5);
       expect(await firstValueFrom(channel.pan$)).toBe(0.5);
     });
+
+    it('should be clamped to 0..1', async () => {
+      channel.pan(1.4);
+      expect(await firstValueFrom(channel.pan$)).toBe(1);
+
+      channel.pan(-4.3);
+      expect(await firstValueFrom(channel.pan$)).toBe(0);
+    });
   });
 
   describe('PRE/POST', () => {
