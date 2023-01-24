@@ -4,7 +4,7 @@ import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
 import { select, selectPan, selectSolo } from '../state/state-selectors';
 import { ChannelType } from '../types';
-import { getLinkedChannelNumber } from '../util';
+import { clamp, getLinkedChannelNumber } from '../util';
 import { Channel } from './channel';
 import { PannableChannel } from './interfaces';
 
@@ -50,6 +50,7 @@ export class MasterChannel extends Channel implements PannableChannel {
    * @param value value between `0` and `1`
    */
   pan(value: number) {
+    value = clamp(value, 0, 1);
     const command = `SETD^${this.fullChannelId}.pan^${value}`;
     this.conn.sendMessage(command);
   }

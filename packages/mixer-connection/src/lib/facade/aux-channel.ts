@@ -3,7 +3,7 @@ import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
 import { select, selectPan, selectStereoIndex } from '../state/state-selectors';
 import { ChannelType } from '../types';
-import { getLinkedChannelNumber } from '../util';
+import { clamp, getLinkedChannelNumber } from '../util';
 import { PannableChannel } from './interfaces';
 import { SendChannel } from './send-channel';
 
@@ -76,6 +76,7 @@ export class AuxChannel extends SendChannel implements PannableChannel {
    * @param value value between `0` and `1`
    */
   pan(value: number) {
+    value = clamp(value, 0, 1);
     [...this.auxLinkChannelIds, this.fullChannelId].forEach(cid => {
       const command = `SETD^${cid}.pan^${value}`;
       this.conn.sendMessage(command);

@@ -174,6 +174,7 @@ export class MasterBus implements FadeableChannel, PannableChannel {
    * @param value value between `0` and `1`
    */
   pan(value: number) {
+    value = clamp(value, 0, 1);
     const command = `SETD^m.pan^${value}`;
     this.conn.sendMessage(command);
   }
