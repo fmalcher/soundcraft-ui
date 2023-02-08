@@ -121,4 +121,14 @@ describe('Master Bus', () => {
       expect(await firstValueFrom(master.delayR$)).toBe(0);
     });
   });
+
+  describe('fader level', () => {
+    it('should change level from -Infinity dB upwards', async () => {
+      master.setFaderLevel(0); // -Infinity dB
+      master.changeFaderLevelDB(3);
+
+      expect(await firstValueFrom(master.faderLevelDB$)).toBe(-97);
+      expect(await firstValueFrom(master.faderLevel$)).not.toBe(0);
+    });
+  });
 });

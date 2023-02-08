@@ -48,6 +48,14 @@ describe('Volume Bus', () => {
       bus.changeFaderLevelDB(-6);
       expect(await firstValueFrom(bus.faderLevelDB$)).toBe(-15);
     });
+
+    it('should change level from -Infinity dB upwards', async () => {
+      bus.setFaderLevel(0); // -Infinity dB
+      bus.changeFaderLevelDB(3);
+
+      expect(await firstValueFrom(bus.faderLevelDB$)).toBe(-97);
+      expect(await firstValueFrom(bus.faderLevel$)).not.toBe(0);
+    });
   });
 
   describe('Fades', () => {

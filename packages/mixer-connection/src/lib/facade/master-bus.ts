@@ -166,7 +166,9 @@ export class MasterBus implements FadeableChannel, PannableChannel {
    * @param offsetDB value (dB) to add to the current value
    */
   changeFaderLevelDB(offsetDB: number) {
-    this.faderLevelDB$.pipe(take(1)).subscribe(v => this.setFaderLevelDB(v + offsetDB));
+    this.faderLevelDB$
+      .pipe(take(1))
+      .subscribe(v => this.setFaderLevelDB(Math.max(v, -100) + offsetDB));
   }
 
   /**

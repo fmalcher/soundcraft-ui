@@ -48,6 +48,14 @@ describe('AUX Channel', () => {
       channel.changeFaderLevelDB(-6);
       expect(await firstValueFrom(channel.faderLevelDB$)).toBe(-15);
     });
+
+    it('should change level from -Infinity dB upwards', async () => {
+      channel.setFaderLevel(0); // -Infinity dB
+      channel.changeFaderLevelDB(3);
+
+      expect(await firstValueFrom(channel.faderLevelDB$)).toBe(-97);
+      expect(await firstValueFrom(channel.faderLevel$)).not.toBe(0);
+    });
   });
 
   describe('PRE/POST', () => {
