@@ -1,7 +1,7 @@
 {
   "name": "soundcraft-ui-connection",
   "description": "Library for controlling the Soundcraft Ui series audio mixers",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "license": "MIT",
   "author": "Ferdinand Malcher <ferdinand@malcher.media>",
   "repository": {

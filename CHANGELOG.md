@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/fmalcher/soundcraft-ui/compare/v1.3.0...v1.4.0) (2023-02-08)
+
+### Features
+
+- allow changing fader levels from -Infinity dB ([6afc45b](https://github.com/fmalcher/soundcraft-ui/commit/6afc45b1be883f16186b7a5d3f107de60ce38427))
+- restrict pan values to range of 0..1 ([65b7e88](https://github.com/fmalcher/soundcraft-ui/commit/65b7e88045600b32639cc01f78d847e4f60ff59f))
+
+### Other
+
+- add explanation for deviceinfo.model ([276471f](https://github.com/fmalcher/soundcraft-ui/commit/276471f7ecc71254ccee6a3a0ee2906d23f288f5))
+- change list symbol in CHANGELOG file ([70ada4d](https://github.com/fmalcher/soundcraft-ui/commit/70ada4de2f1d8dff7cf28024bae14e76a34261c7))
+- exclude commit and tag from release process ([2d002e7](https://github.com/fmalcher/soundcraft-ui/commit/2d002e75c433aa5b470e43050cabca25444e1a6c))
+
 ## [1.3.0](https://github.com/fmalcher/soundcraft-ui/compare/v1.2.0...v1.3.0) (2023-01-22)
 
 ### Features
