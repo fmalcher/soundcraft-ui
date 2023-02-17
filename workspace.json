@@ -1,8 +1,0 @@
-{
-  "version": 2,
-  "projects": {
-    "mixer-connection": "packages/mixer-connection",
-    "testbed": "packages/testbed"
-  },
-  "$schema": "./node_modules/nx/schemas/workspace-schema.json"
-}
