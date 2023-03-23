@@ -851,6 +851,18 @@ describe('Outbound messages', () => {
 
     mtk.recordToggle();
     expect(message).toBe('MTK_REC_TOGGLE');
+
+    mtk.setSoundcheck(0);
+    expect(message).toBe('SETD^var.mtk.soundcheck^0');
+
+    mtk.setSoundcheck(1);
+    expect(message).toBe('SETD^var.mtk.soundcheck^1');
+
+    mtk.deactivateSoundcheck();
+    expect(message).toBe('SETD^var.mtk.soundcheck^0');
+
+    mtk.activateSoundcheck();
+    expect(message).toBe('SETD^var.mtk.soundcheck^1');
   });
 
   it('Volume Buses', () => {

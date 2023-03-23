@@ -17,3 +17,18 @@
     >REC</soundcraft-ui-mixer-button
   >
 </div>
+
+<div class="mb-3">
+  <h2>Soundcheck</h2>
+  <soundcraft-ui-mixer-button (press)="mtk.activateSoundcheck()"
+    >Activate</soundcraft-ui-mixer-button
+  >
+  <soundcraft-ui-mixer-button (press)="mtk.deactivateSoundcheck()"
+    >Deactivate</soundcraft-ui-mixer-button
+  >
+  <soundcraft-ui-mixer-button
+    (press)="mtk.toggleSoundcheck()"
+    [active]="!!(mtk.soundcheck$ | async)"
+    >Toggle</soundcraft-ui-mixer-button
+  >
+</div>
