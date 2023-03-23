@@ -80,4 +80,39 @@ describe('Multi-track recorder', () => {
       expect(await firstValueFrom(mtk.recordingTime$)).toBe(25);
     });
   });
+
+  describe('Soundcheck', () => {
+    it('soundcheck$', async () => {
+      conn.conn.sendMessage('SETD^var.mtk.soundcheck^0');
+      expect(await firstValueFrom(mtk.soundcheck$)).toBe(0);
+
+      conn.conn.sendMessage('SETD^var.mtk.soundcheck^1');
+      expect(await firstValueFrom(mtk.soundcheck$)).toBe(1);
+    });
+
+    it('setSoundcheck', async () => {
+      mtk.setSoundcheck(0);
+      expect(await firstValueFrom(mtk.soundcheck$)).toBe(0);
+
+      mtk.setSoundcheck(1);
+      expect(await firstValueFrom(mtk.soundcheck$)).toBe(1);
+    });
+
+    it('activate/deactivateSoundcheck', async () => {
+      mtk.activateSoundcheck();
+      expect(await firstValueFrom(mtk.soundcheck$)).toBe(1);
+
+      mtk.deactivateSoundcheck();
+      expect(await firstValueFrom(mtk.soundcheck$)).toBe(0);
+    });
+
+    it('toggleSoundcheck', async () => {
+      mtk.setSoundcheck(0);
+      mtk.toggleSoundcheck();
+      expect(await firstValueFrom(mtk.soundcheck$)).toBe(1);
+
+      mtk.toggleSoundcheck();
+      expect(await firstValueFrom(mtk.soundcheck$)).toBe(0);
+    });
+  });
 });

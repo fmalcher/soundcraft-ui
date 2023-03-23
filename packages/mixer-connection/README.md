@@ -335,20 +335,25 @@ The following commands control the dual-track USB recorder in the media player s
 The Ui24R features multi-track recording. The `MultiTackRecorder` object can be retrieved via `conn.recorderMultiTrack`.
 It supports the following operations:
 
-| Call             | Description                                                                                                                                   |
-| ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| `state$`         | Current state (playing, stopped, paused) as a value of the `MtkState` enum. Please be aware that the values are different from `PlayerState`. |
-| `session$`       | Current session name (e.g. `0001` or individual name)                                                                                         |
-| `length$`        | Current session length in seconds                                                                                                             |
-| `elapsedTime$`   | Elapsed time of current session in seconds                                                                                                    |
-| `remainingTime$` | Remaining time of current session in seconds                                                                                                  |
-| `recording$`     | Recording state (`0` or `1`)                                                                                                                  |
-| `busy$`          | Recording busy state (`0` or `1`)                                                                                                             |
-| `recordingTime$` | Recording time in seconds                                                                                                                     |
-| `play()`         | Play                                                                                                                                          |
-| `pause()`        | Pause                                                                                                                                         |
-| `stop()`         | Stop                                                                                                                                          |
-| `recordToggle()` | Toggle recording                                                                                                                              |
+| Call                     | Description                                                                                                                                   |
+| ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `state$`                 | Current state (playing, stopped, paused) as a value of the `MtkState` enum. Please be aware that the values are different from `PlayerState`. |
+| `session$`               | Current session name (e.g. `0001` or individual name)                                                                                         |
+| `length$`                | Current session length in seconds                                                                                                             |
+| `elapsedTime$`           | Elapsed time of current session in seconds                                                                                                    |
+| `remainingTime$`         | Remaining time of current session in seconds                                                                                                  |
+| `recording$`             | Recording state (`0` or `1`)                                                                                                                  |
+| `busy$`                  | Recording busy state (`0` or `1`)                                                                                                             |
+| `recordingTime$`         | Recording time in seconds                                                                                                                     |
+| `soundcheck$`            | Soundcheck activation state                                                                                                                   |
+| `play()`                 | Play                                                                                                                                          |
+| `pause()`                | Pause                                                                                                                                         |
+| `stop()`                 | Stop                                                                                                                                          |
+| `recordToggle()`         | Toggle recording                                                                                                                              |
+| `activateSoundcheck()`   | Activate soundcheck                                                                                                                           |
+| `deactivateSoundcheck()` | Deactivate soundcheck                                                                                                                         |
+| `toggleSoundcheck()`     | Toggle soundcheck                                                                                                                             |
+| `setSoundcheck(value)`   | Set soundcheck (activate or deactivate) (`0` or `1`)                                                                                          |
 
 ## Transitions
 

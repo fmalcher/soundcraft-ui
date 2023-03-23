@@ -1,4 +1,4 @@
-import { map, withLatestFrom } from 'rxjs';
+import { map, take, withLatestFrom } from 'rxjs';
 import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
 import {
@@ -54,6 +54,9 @@ export class MultiTrackRecorder {
     map(([value, recording]) => (recording ? value : 0)) // set to 0 if not actually recording. otherwise, it emits strange values
   );
 
+  /** Soundcheck activation state (`0` or `1`) */
+  soundcheck$ = this.store.state$.pipe(selectRawValue('var.mtk.soundcheck', 0));
+
   constructor(private conn: MixerConnection, private store: MixerStore) {}
 
   /** Start the player */
@@ -74,5 +77,29 @@ export class MultiTrackRecorder {
   /** Toggle recording */
   recordToggle() {
     this.conn.sendMessage('MTK_REC_TOGGLE');
+  }
+
+  /**
+   * Set soundcheck (activate or deactivate)
+   * @param value `0` or `1`
+   */
+  setSoundcheck(value: number) {
+    const command = `SETD^var.mtk.soundcheck^${value}`;
+    this.conn.sendMessage(command);
+  }
+
+  /** Activate soundcheck */
+  activateSoundcheck() {
+    this.setSoundcheck(1);
+  }
+
+  /** Deactivate soundcheck */
+  deactivateSoundcheck() {
+    this.setSoundcheck(0);
+  }
+
+  /** Toggle soundcheck */
+  toggleSoundcheck() {
+    this.soundcheck$.pipe(take(1)).subscribe(value => this.setSoundcheck(value ^ 1));
   }
 }
