@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com/fmalcher/soundcraft-ui/compare/v1.4.0...v1.5.0) (2023-03-23)
+
+### Features
+
+- add support for MTK soundcheck ([8aefb5a](https://github.com/fmalcher/soundcraft-ui/commit/8aefb5a8c9778ecdf992441ab536caed6be109e4))
+
+### Other
+
+- nx migrate to 15.6 ([df36847](https://github.com/fmalcher/soundcraft-ui/commit/df368470ccb8ac5540ef2f8a5d5f39c2cf3d409c))
+- nx migrate to 15.7 ([257978f](https://github.com/fmalcher/soundcraft-ui/commit/257978fc271e13921f7d4e89287befaf1dde6a21))
+- update nrwl/ci refs in workflow ([05a37a8](https://github.com/fmalcher/soundcraft-ui/commit/05a37a8c1633d239808c484c66f8d7f67a9f9fb3))
+
 ## [1.4.0](https://github.com/fmalcher/soundcraft-ui/compare/v1.3.0...v1.4.0) (2023-02-08)
 
 ### Features
