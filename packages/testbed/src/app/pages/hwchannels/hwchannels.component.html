@@ -2,13 +2,11 @@
   <h2 class="mt-5">HW Channel {{ channel.fullChannelId }}</h2>
 
   <h3>Phantom Power</h3>
-  <soundcraft-ui-mixer-button (press)="channel.phantomOn()">ON</soundcraft-ui-mixer-button>
-  <soundcraft-ui-mixer-button (press)="channel.phantomOff()">OFF</soundcraft-ui-mixer-button>
-  <soundcraft-ui-mixer-button
-    (press)="channel.togglePhantom()"
-    [active]="!!(channel.phantom$ | async)"
-    >Toggle</soundcraft-ui-mixer-button
-  >
+  <sui-mixer-button (press)="channel.phantomOn()">ON</sui-mixer-button>
+  <sui-mixer-button (press)="channel.phantomOff()">OFF</sui-mixer-button>
+  <sui-mixer-button (press)="channel.togglePhantom()" [active]="!!(channel.phantom$ | async)">
+    Toggle
+  </sui-mixer-button>
 
   <div class="mt-3">
     <h3>Gain</h3>

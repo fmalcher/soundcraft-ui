@@ -5,7 +5,7 @@ import { ConnectionService } from '../../connection.service';
 import { MixerButtonComponent } from '../../ui/mixer-button/mixer-button.component';
 
 @Component({
-  selector: 'soundcraft-ui-mute-groups',
+  selector: 'sui-mute-groups',
   templateUrl: './mute-groups.component.html',
   standalone: true,
   imports: [NgFor, AsyncPipe, MixerButtonComponent],

@@ -5,7 +5,7 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { ConnectionService } from './connection.service';
 
 @Component({
-  selector: 'soundcraft-ui-root',
+  selector: 'sui-root',
   templateUrl: './app.component.html',
   standalone: true,
   imports: [RouterOutlet, AsyncPipe, NgIf, NgFor, RouterLink, RouterLinkActive],

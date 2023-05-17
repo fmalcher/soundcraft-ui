@@ -1,6 +1,6 @@
 <div *ngFor="let c of channels" class="mb-5">
   <h2>{{ c.label }}</h2>
-  <soundcraft-ui-fader-level [channel]="c.channel"></soundcraft-ui-fader-level>
+  <sui-fader-level [channel]="c.channel" />
 
-  <soundcraft-ui-transition class="d-block mt-3" [channel]="c.channel"></soundcraft-ui-transition>
+  <sui-transition class="d-block mt-3" [channel]="c.channel" />
 </div>

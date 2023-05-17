@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 import { AuxChannel, MasterBus, MasterChannel } from 'soundcraft-ui-connection';
 
 @Component({
-  selector: 'soundcraft-ui-pan',
+  selector: 'sui-pan',
   templateUrl: './pan.component.html',
   styleUrls: ['./pan.component.css'],
   standalone: true,

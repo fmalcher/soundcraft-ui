@@ -8,42 +8,38 @@
 </div>
 
 <div class="mb-3">
-  <soundcraft-ui-mixer-button (press)="player.prev()">|&lt; Prev</soundcraft-ui-mixer-button>
-  <soundcraft-ui-mixer-button (press)="player.play()">PLAY</soundcraft-ui-mixer-button>
-  <soundcraft-ui-mixer-button (press)="player.pause()">PAUSE</soundcraft-ui-mixer-button>
-  <soundcraft-ui-mixer-button (press)="player.stop()">STOP</soundcraft-ui-mixer-button>
-  <soundcraft-ui-mixer-button (press)="player.next()">Next &gt;|</soundcraft-ui-mixer-button>
+  <sui-mixer-button (press)="player.prev()">|&lt; Prev</sui-mixer-button>
+  <sui-mixer-button (press)="player.play()">PLAY</sui-mixer-button>
+  <sui-mixer-button (press)="player.pause()">PAUSE</sui-mixer-button>
+  <sui-mixer-button (press)="player.stop()">STOP</sui-mixer-button>
+  <sui-mixer-button (press)="player.next()">Next &gt;|</sui-mixer-button>
 </div>
 
-<soundcraft-ui-input
+<sui-input
   label="Load playlist"
   buttonLabel="Load"
   [value]="playlistFromInput"
   (valueChange)="player.loadPlaylist($event); this.playlistFromInput = $event"
-></soundcraft-ui-input>
+/>
 
-<soundcraft-ui-input
+<sui-input
   label="Load track from playlist {{ playlistFromInput }}"
   buttonLabel="Load"
   value="/Power_Shutoff.mp3"
   (valueChange)="loadTrack($event)"
-></soundcraft-ui-input>
+/>
 <div class="text-muted" *ngIf="!playlistFromInput">Set playlist first with input above!</div>
 
 <div class="mb-3">
-  <soundcraft-ui-mixer-button (press)="player.setManual()">Manual</soundcraft-ui-mixer-button>
-  <soundcraft-ui-mixer-button (press)="player.setAuto()">Auto</soundcraft-ui-mixer-button>
+  <sui-mixer-button (press)="player.setManual()">Manual</sui-mixer-button>
+  <sui-mixer-button (press)="player.setAuto()">Auto</sui-mixer-button>
 </div>
 <div>
-  <soundcraft-ui-mixer-button
-    (press)="player.toggleShuffle()"
-    [active]="!!(player.shuffle$ | async)"
-    >Shuffle Toggle</soundcraft-ui-mixer-button
-  >
-  <soundcraft-ui-mixer-button (press)="player.setShuffle(1)">Shuffle On</soundcraft-ui-mixer-button>
-  <soundcraft-ui-mixer-button (press)="player.setShuffle(0)"
-    >Shuffle Off</soundcraft-ui-mixer-button
-  >
+  <sui-mixer-button (press)="player.toggleShuffle()" [active]="!!(player.shuffle$ | async)">
+    Shuffle Toggle
+  </sui-mixer-button>
+  <sui-mixer-button (press)="player.setShuffle(1)">Shuffle On</sui-mixer-button>
+  <sui-mixer-button (press)="player.setShuffle(0)">Shuffle Off</sui-mixer-button>
 </div>
 
 <h2 class="mt-5">2-Track USB Recorder</h2>
@@ -53,6 +49,6 @@
   <p><label>Busy</label> {{ rec.busy$ | async }}</p>
 </div>
 
-<soundcraft-ui-mixer-button (press)="rec.recordToggle()" [active]="!!(rec.recording$ | async)"
-  >REC</soundcraft-ui-mixer-button
->
+<sui-mixer-button (press)="rec.recordToggle()" [active]="!!(rec.recording$ | async)">
+  REC
+</sui-mixer-button>

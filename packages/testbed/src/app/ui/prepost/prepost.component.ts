@@ -5,7 +5,7 @@ import { SendChannel } from 'soundcraft-ui-connection';
 import { MixerButtonComponent } from '../mixer-button/mixer-button.component';
 
 @Component({
-  selector: 'soundcraft-ui-prepost',
+  selector: 'sui-prepost',
   templateUrl: './prepost.component.html',
   styleUrls: ['./prepost.component.css'],
   standalone: true,

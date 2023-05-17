@@ -10,7 +10,7 @@
     }
   },
   "sourceRoot": "packages/testbed/src",
-  "prefix": "soundcraft-ui",
+  "prefix": "sui",
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",

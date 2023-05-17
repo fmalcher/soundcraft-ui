@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 import { FadeableChannel } from 'soundcraft-ui-connection';
 
 @Component({
-  selector: 'soundcraft-ui-fader-level',
+  selector: 'sui-fader-level',
   templateUrl: './fader-level.component.html',
   styleUrls: ['./fader-level.component.css'],
   standalone: true,

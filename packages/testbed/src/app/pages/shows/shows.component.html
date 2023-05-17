@@ -4,25 +4,25 @@
   <p><label>Current cue</label> {{ showCtrl.currentCue$ | async }}</p>
 </div>
 
-<soundcraft-ui-input
+<sui-input
   label="Load show"
   buttonLabel="Load show"
   [value]="showFromInput"
   (valueChange)="showFromInput = $event; loadShow($event)"
-></soundcraft-ui-input>
+/>
 
-<soundcraft-ui-input
+<sui-input
   label="Load snapshot from show {{ showFromInput }}"
   buttonLabel="Load snapshot"
   value="testsnapshot1"
   (valueChange)="loadSnapshot($event)"
-></soundcraft-ui-input>
+/>
 <div class="text-muted" *ngIf="!showFromInput">Set show name first with input above!</div>
 
-<soundcraft-ui-input
+<sui-input
   label="Load cue from show {{ showFromInput }}"
   buttonLabel="Load cue"
   value="testcue1"
   (valueChange)="loadCue($event)"
-></soundcraft-ui-input>
+/>
 <div class="text-muted" *ngIf="!showFromInput">Set show name first with input above!</div>
