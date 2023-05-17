@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'soundcraft-ui-input',
+  selector: 'sui-input',
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.css'],
   standalone: true,

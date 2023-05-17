@@ -7,7 +7,7 @@ import { MixerButtonComponent } from '../../ui/mixer-button/mixer-button.compone
 import { TimePipe } from '../../ui/time.pipe';
 
 @Component({
-  selector: 'soundcraft-ui-multitrack',
+  selector: 'sui-multitrack',
   templateUrl: './multitrack.component.html',
   standalone: true,
   imports: [AsyncPipe, TimePipe, MixerButtonComponent],

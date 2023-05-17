@@ -12,7 +12,7 @@ import { PanComponent } from '../../ui/pan/pan.component';
 import { TransitionComponent } from '../../ui/transition/transition.component';
 
 @Component({
-  selector: 'soundcraft-ui-aux-bus',
+  selector: 'sui-aux-bus',
   templateUrl: './aux-bus.component.html',
   standalone: true,
   imports: [

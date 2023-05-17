@@ -1,14 +1,15 @@
 <ng-container *ngIf="channel">
-  <soundcraft-ui-mixer-button (press)="channel.post()"> POST</soundcraft-ui-mixer-button>
-  <soundcraft-ui-mixer-button (press)="channel.pre()">PRE</soundcraft-ui-mixer-button>
-  <soundcraft-ui-mixer-button
+  <sui-mixer-button (press)="channel.post()"> POST</sui-mixer-button>
+  <sui-mixer-button (press)="channel.pre()">PRE</sui-mixer-button>
+  <sui-mixer-button
     activeClass="post"
     [active]="!!(channel.post$ | async)"
     (press)="channel.togglePost()"
-    >Toggle PRE/POST</soundcraft-ui-mixer-button
   >
+    Toggle PRE/POST
+  </sui-mixer-button>
 
-  <span class="badge ms-2" [ngClass]="{ 'badge-success': post, 'badge-secondary': !post }">{{
-    post ? 'POST' : 'PRE'
-  }}</span>
+  <span class="badge ms-2" [ngClass]="{ 'badge-success': post, 'badge-secondary': !post }">
+    {{ post ? 'POST' : 'PRE' }}
+  </span>
 </ng-container>

@@ -4,7 +4,7 @@ import { MasterChannel } from 'soundcraft-ui-connection';
 import { MixerButtonComponent } from '../mixer-button/mixer-button.component';
 
 @Component({
-  selector: 'soundcraft-ui-solo-button',
+  selector: 'sui-solo-button',
   templateUrl: './solo-button.component.html',
   styleUrls: ['./solo-button.component.css'],
   standalone: true,

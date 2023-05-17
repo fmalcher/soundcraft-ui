@@ -11,7 +11,7 @@ import { SoloButtonComponent } from '../../ui/solo-button/solo-button.component'
 import { TransitionComponent } from '../../ui/transition/transition.component';
 
 @Component({
-  selector: 'soundcraft-ui-master-bus',
+  selector: 'sui-master-bus',
   templateUrl: './master-bus.component.html',
   standalone: true,
   imports: [

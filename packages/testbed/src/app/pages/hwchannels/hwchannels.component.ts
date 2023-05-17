@@ -5,7 +5,7 @@ import { ConnectionService } from '../../connection.service';
 import { MixerButtonComponent } from '../../ui/mixer-button/mixer-button.component';
 
 @Component({
-  selector: 'soundcraft-ui-hwchannels',
+  selector: 'sui-hwchannels',
   templateUrl: './hwchannels.component.html',
   styleUrls: ['./hwchannels.component.css'],
   standalone: true,

@@ -7,7 +7,7 @@ import { PanComponent } from '../../ui/pan/pan.component';
 import { TransitionComponent } from '../../ui/transition/transition.component';
 
 @Component({
-  selector: 'soundcraft-ui-master',
+  selector: 'sui-master',
   templateUrl: './master.component.html',
   standalone: true,
   imports: [

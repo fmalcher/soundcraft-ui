@@ -6,20 +6,18 @@
 <ng-container *ngFor="let c of channels$ | async">
   <h2 class="mt-4">{{ c.label }} ({{ c.channel.name$ | async }})</h2>
 
-  <soundcraft-ui-mute-button [channel]="c.channel"></soundcraft-ui-mute-button>
+  <sui-mute-button [channel]="c.channel" />
 
-  <soundcraft-ui-prepost [channel]="c.channel"></soundcraft-ui-prepost>
+  <sui-prepost [channel]="c.channel" />
 
   <!-- POST/PRE PROC -->
   <div>
-    <soundcraft-ui-mixer-button (press)="c.channel.preProc()"> PRE PROC</soundcraft-ui-mixer-button>
-    <soundcraft-ui-mixer-button (press)="c.channel.postProc()"
-      >POST PROC</soundcraft-ui-mixer-button
-    >
+    <sui-mixer-button (press)="c.channel.preProc()"> PRE PROC</sui-mixer-button>
+    <sui-mixer-button (press)="c.channel.postProc()">POST PROC</sui-mixer-button>
   </div>
 
-  <soundcraft-ui-fader-level [channel]="c.channel"></soundcraft-ui-fader-level>
-  <soundcraft-ui-pan [channel]="c.channel"></soundcraft-ui-pan>
+  <sui-fader-level [channel]="c.channel" />
+  <sui-pan [channel]="c.channel" />
 
-  <soundcraft-ui-transition [channel]="c.channel"></soundcraft-ui-transition>
+  <sui-transition [channel]="c.channel" />
 </ng-container>

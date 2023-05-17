@@ -10,7 +10,7 @@ import { FaderLevelComponent } from '../../ui/fader-level/fader-level.component'
 import { TransitionComponent } from '../../ui/transition/transition.component';
 
 @Component({
-  selector: 'soundcraft-ui-fx-bus',
+  selector: 'sui-fx-bus',
   templateUrl: './fx-bus.component.html',
   standalone: true,
   imports: [

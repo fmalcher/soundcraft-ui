@@ -4,7 +4,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Easings, FadeableChannel, faderValueToDB } from 'soundcraft-ui-connection';
 
 @Component({
-  selector: 'soundcraft-ui-transition',
+  selector: 'sui-transition',
   templateUrl: './transition.component.html',
   styleUrls: ['./transition.component.css'],
   standalone: true,

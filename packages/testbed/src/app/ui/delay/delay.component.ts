@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 import { DelayableMasterChannel } from 'soundcraft-ui-connection';
 
 @Component({
-  selector: 'soundcraft-ui-delay',
+  selector: 'sui-delay',
   templateUrl: './delay.component.html',
   styleUrls: ['./delay.component.css'],
   standalone: true,

@@ -9,7 +9,7 @@ import { MixerButtonComponent } from '../../ui/mixer-button/mixer-button.compone
 import { TimePipe } from '../../ui/time.pipe';
 
 @Component({
-  selector: 'soundcraft-ui-player',
+  selector: 'sui-player',
   templateUrl: './player.component.html',
   standalone: true,
   imports: [AsyncPipe, MixerButtonComponent, InputComponent, NgIf, TimePipe],

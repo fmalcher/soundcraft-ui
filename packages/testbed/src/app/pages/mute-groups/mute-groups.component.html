@@ -1,18 +1,12 @@
 <div class="mb-5">
-  <soundcraft-ui-mixer-button (press)="clearMuteGroups()"
-    >Clear Mute groups</soundcraft-ui-mixer-button
-  >
+  <sui-mixer-button (press)="clearMuteGroups()">Clear Mute groups</sui-mixer-button>
 </div>
 
 <div *ngFor="let g of groups">
-  <soundcraft-ui-mixer-button
-    activeClass="mute"
-    [active]="!!(g.state$ | async)"
-    (press)="g.toggle()"
-  >
+  <sui-mixer-button activeClass="mute" [active]="!!(g.state$ | async)" (press)="g.toggle()">
     Toggle {{ g.id }}
-  </soundcraft-ui-mixer-button>
+  </sui-mixer-button>
 
-  <soundcraft-ui-mixer-button (press)="g.mute()">Mute {{ g.id }}</soundcraft-ui-mixer-button>
-  <soundcraft-ui-mixer-button (press)="g.unmute()">Unmute {{ g.id }}</soundcraft-ui-mixer-button>
+  <sui-mixer-button (press)="g.mute()">Mute {{ g.id }}</sui-mixer-button>
+  <sui-mixer-button (press)="g.unmute()">Unmute {{ g.id }}</sui-mixer-button>
 </div>

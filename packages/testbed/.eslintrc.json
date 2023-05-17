@@ -19,7 +19,7 @@
           "error",
           {
             "type": "element",
-            "prefix": "soundcraft-ui",
+            "prefix": "sui",
             "style": "kebab-case"
           }
         ],
@@ -27,7 +27,7 @@
           "error",
           {
             "type": "attribute",
-            "prefix": "soundcraftUi",
+            "prefix": "sui",
             "style": "camelCase"
           }
         ],

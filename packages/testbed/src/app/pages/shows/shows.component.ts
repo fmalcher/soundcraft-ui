@@ -4,7 +4,7 @@ import { ConnectionService } from '../../connection.service';
 import { InputComponent } from '../../ui/input/input.component';
 
 @Component({
-  selector: 'soundcraft-ui-shows',
+  selector: 'sui-shows',
   templateUrl: './shows.component.html',
   standalone: true,
   imports: [AsyncPipe, NgIf, InputComponent],

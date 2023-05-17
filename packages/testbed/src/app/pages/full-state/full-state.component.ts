@@ -4,7 +4,7 @@ import { map } from 'rxjs';
 import { ConnectionService } from '../../connection.service';
 
 @Component({
-  selector: 'soundcraft-ui-full-state',
+  selector: 'sui-full-state',
   templateUrl: './full-state.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
