@@ -3,9 +3,10 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "generators": {
-    "@nrwl/angular:component": {
+    "@nx/angular:component": {
       "style": "scss",
-      "skipTests": true
+      "skipTests": true,
+      "standalone": true
     }
   },
   "sourceRoot": "packages/testbed/src",
@@ -84,7 +85,7 @@
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "packages/testbed/jest.config.ts",
         "passWithNoTests": true

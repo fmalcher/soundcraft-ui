@@ -12,7 +12,7 @@
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "packages/mixer-connection/jest.config.ts",
         "passWithNoTests": true
@@ -20,7 +20,7 @@
       "outputs": ["{workspaceRoot}/coverage/packages/mixer-connection"]
     },
     "build": {
-      "executor": "@nrwl/js:tsc",
+      "executor": "@nx/js:tsc",
       "options": {
         "outputPath": "dist/packages/mixer-connection",
         "tsConfig": "packages/mixer-connection/tsconfig.lib.json",
