@@ -65,7 +65,7 @@ describe('Volume Bus', () => {
     it('fadeTo', async () => {
       bus.setFaderLevel(0.3);
 
-      const results = [];
+      const results: number[] = [];
       bus.faderLevel$.subscribe(e => results.push(e));
 
       bus.fadeTo(0.8, 500);
@@ -93,7 +93,7 @@ describe('Volume Bus', () => {
     it('fadeToDB', async () => {
       bus.setFaderLevelDB(-15);
 
-      const results = [];
+      const results: number[] = [];
       bus.faderLevelDB$.subscribe(e => results.push(e));
 
       bus.fadeToDB(-3, 500);

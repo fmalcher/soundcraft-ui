@@ -16,8 +16,8 @@ export class MasterChannel extends Channel implements PannableChannel {
     return `${channelType}.${channel - 1}`;
   }
 
-  fullChannelId = this.constructChannelId(this.channelType, this.channel);
-  faderLevelCommand = 'mix';
+  override fullChannelId = this.constructChannelId(this.channelType, this.channel);
+  override faderLevelCommand = 'mix';
 
   /** SOLO value of the channel (`0` or `1`) */
   solo$ = this.store.state$.pipe(select(selectSolo(this.channelType, this.channel)));

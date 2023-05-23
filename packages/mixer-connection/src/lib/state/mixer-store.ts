@@ -8,7 +8,7 @@ export class MixerStore {
   /** Internal filtered stream of matched SETD and SETS messages */
   private setdSetsMessageMatches$ = this.conn.allMessages$.pipe(
     map(msg => msg.match(/(SETD|SETS)\^([a-zA-Z0-9.]+)\^(.*)/)),
-    filter(e => !!e),
+    filter((e): e is RegExpMatchArray => !!e),
     share()
   );
 
@@ -18,7 +18,8 @@ export class MixerStore {
   /** The full mixer state as a flat object. Updates whenever the state changes. */
   readonly state$ = connectable(
     this.setdSetsMessageMatches$.pipe(
-      scan((acc, [, , path, value]) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      scan((acc: any, [, , path, value]) => {
         // mutable implementation
         acc[path] = transformStringValue(value);
         return acc;

@@ -3,7 +3,7 @@ import { setMixerModel } from '../util';
 
 describe('Outbound messages', () => {
   let conn: SoundcraftUI;
-  let message: string;
+  let message: string | undefined;
 
   beforeEach(() => {
     conn = new SoundcraftUI('127.0.0.1');

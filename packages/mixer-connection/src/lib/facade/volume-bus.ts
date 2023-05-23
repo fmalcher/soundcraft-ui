@@ -16,7 +16,9 @@ export class VolumeBus implements FadeableChannel {
   private transitionSources$ = new Subject<TransitionSource>();
 
   /** Linear level of the volume bus (between `0` and `1`) */
-  faderLevel$ = this.store.state$.pipe(select(selectVolumeBusValue(this.busName, this.busId - 1)));
+  faderLevel$ = this.store.state$.pipe(
+    select(selectVolumeBusValue(this.busName, this.busId ? this.busId - 1 : undefined))
+  );
 
   /** dB level of the volume bus (between `-Infinity` and `10`) */
   faderLevelDB$ = this.faderLevel$.pipe(map(v => faderValueToDB(v)));
