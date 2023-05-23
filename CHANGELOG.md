@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.1](https://github.com/fmalcher/soundcraft-ui/compare/v2.0.0...v2.0.1) (2023-05-23)
+
+### Bug Fixes
+
+- do not bundle WebSocket implementation ([3380078](https://github.com/fmalcher/soundcraft-ui/commit/3380078f7555ee9b2117b85b3711d93aee87fe48))
+
+### Other
+
+- add NPM OTP to publish script ([b399ba6](https://github.com/fmalcher/soundcraft-ui/commit/b399ba6ff3a86f3ee85457118d132738da0eb30c))
+
 ## [2.0.0](https://github.com/fmalcher/soundcraft-ui/compare/v1.5.0...v2.0.0) (2023-05-23)
 
 This release adds no new functionality and no API surface changes. However, since we changed the build and bundling process, it could break existing integrations.
