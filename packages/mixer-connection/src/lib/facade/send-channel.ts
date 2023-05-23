@@ -20,8 +20,13 @@ export class SendChannel extends Channel {
     return `${channelType}.${channel - 1}.${busType}.${bus - 1}`;
   }
 
-  fullChannelId = this.constructChannelId(this.channelType, this.channel, this.busType, this.bus);
-  faderLevelCommand = 'value';
+  override fullChannelId = this.constructChannelId(
+    this.channelType,
+    this.channel,
+    this.busType,
+    this.bus
+  );
+  override faderLevelCommand = 'value';
 
   /** PRE/POST value of the channel (`1` (POST) or `0` (PRE)) */
   post$ = this.store.state$.pipe(

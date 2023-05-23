@@ -12,7 +12,7 @@ import { SendChannel } from './send-channel';
  */
 export class AuxChannel extends SendChannel implements PannableChannel {
   /** when the AUX bus is stereo-linked, this contains the ID of this channel on the linked bus */
-  private auxLinkChannelIds = [];
+  private auxLinkChannelIds: string[] = [];
 
   /** PAN value of the AUX channel (between `0` and `1`) */
   pan$ = this.store.state$.pipe(

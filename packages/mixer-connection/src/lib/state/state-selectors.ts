@@ -4,7 +4,8 @@ import { ChannelType, BusType } from '../types';
 import { getValueFromObject, joinStatePath } from '../utils/state-utils';
 
 type Projector<T> = (state: unknown) => T;
-type Selector<T> = (...args: unknown[]) => Projector<T>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type Selector<T> = (...args: any[]) => Projector<T>;
 
 /**
  * RxJS operator to apply a custom projection to the full mixer state.
@@ -37,11 +38,11 @@ export const selectRawValue = <T>(path: string, defaultValue?: T) =>
  */
 const selectGenericChannelProperty: Selector<number> = (
   property: string,
-  defaultValue: number = undefined,
+  defaultValue = 0,
   channelType: ChannelType,
   channel: number,
   busType: BusType,
-  bus?: number
+  bus = 1
 ) => {
   switch (busType) {
     case 'master': {
@@ -144,7 +145,7 @@ export const selectFaderValue: Selector<number> = (
   channelType: ChannelType,
   channel: number,
   busType: BusType,
-  bus?: number
+  bus = 1
 ) => {
   {
     switch (busType) {
@@ -243,7 +244,11 @@ export const selectGain: Selector<number> = (channel: number, key: 'hw' | 'i') =
  * @param busId Optional ID of the bus
  */
 export const selectVolumeBusValue: Selector<number> = (busName: string, busId?: number) => {
-  const path = joinStatePath('settings', busName, ...(busId >= 0 ? [busId] : []));
+  const path = joinStatePath(
+    'settings',
+    busName,
+    ...(busId !== undefined && busId >= 0 ? [busId] : [])
+  );
   return state => getValueFromObject<number>(state, path);
 };
 

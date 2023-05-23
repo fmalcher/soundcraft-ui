@@ -45,6 +45,8 @@ function findInLUT(
       );
     }
   }
+  // fallback
+  return lut[0][resultIndex];
 }
 
 /**

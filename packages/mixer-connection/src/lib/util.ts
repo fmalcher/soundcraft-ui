@@ -40,6 +40,8 @@ export function getLinkedChannelNumber(channel: number, stereoIndex: number): nu
       return channel - 1;
     case 0:
       return channel + 1;
+    default:
+      return channel;
   }
 }
 

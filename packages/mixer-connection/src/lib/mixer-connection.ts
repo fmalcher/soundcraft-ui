@@ -61,7 +61,26 @@ export class MixerConnection {
   allMessages$ = merge(this.outbound$, this.inbound$);
 
   constructor(private targetIP: string) {
-    this.createSocket();
+    /**
+     * Wire up the websocket connection object.
+     * The connection will be established on first subscribe
+     */
+    this.socket$ = webSocket<string>({
+      url: `ws://${this.targetIP}`,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      WebSocketCtor: ws as any, // cast necessary since ws object is not fully compatible to WebSocket
+      serializer: data => data,
+      deserializer: ({ data }) => data,
+      openObserver: {
+        next: () => this.statusSubject$.next({ type: ConnectionStatus.Open }),
+      },
+      closingObserver: {
+        next: () => this.statusSubject$.next({ type: ConnectionStatus.Closing }),
+      },
+      closeObserver: {
+        next: () => this.statusSubject$.next({ type: ConnectionStatus.Close }),
+      },
+    });
 
     /**
      * Keepalive interval
@@ -84,29 +103,6 @@ export class MixerConnection {
         // tap(msg => console.log(new Date(), 'SENDING:', msg)) // log message
       )
       .subscribe(this.socket$);
-  }
-
-  /**
-   * Wire up the websocket connection object.
-   * The connection will be established on first subscribe
-   */
-  private createSocket() {
-    this.socket$ = webSocket<string>({
-      url: `ws://${this.targetIP}`,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      WebSocketCtor: ws as any, // cast necessary since ws object is not fully compatible to WebSocket
-      serializer: data => data,
-      deserializer: ({ data }) => data,
-      openObserver: {
-        next: () => this.statusSubject$.next({ type: ConnectionStatus.Open }),
-      },
-      closingObserver: {
-        next: () => this.statusSubject$.next({ type: ConnectionStatus.Closing }),
-      },
-      closeObserver: {
-        next: () => this.statusSubject$.next({ type: ConnectionStatus.Close }),
-      },
-    });
   }
 
   /** Connect to socket and retry if connection lost */
@@ -134,7 +130,7 @@ export class MixerConnection {
         const match = message.match(/^(3:::)([\s\S]*)/);
         return match && match[2];
       }),
-      filter(e => !!e),
+      filter((e): e is string => !!e),
       mergeMap(message => message.split('\n')) // one message can contain multiple lines with commands. split them into single emissions
     );
 
