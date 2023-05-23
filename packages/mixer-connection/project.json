@@ -3,32 +3,38 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/mixer-connection/src",
   "projectType": "library",
-  "generators": {},
   "targets": {
+    "build": {
+      "executor": "@nx/vite:build",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/mixer-connection"
+      }
+    },
+    "publish": {
+      "command": "node tools/scripts/publish.mjs mixer-connection {args.ver} {args.tag}",
+      "dependsOn": ["build"]
+    },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["packages/mixer-connection/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "packages/mixer-connection/jest.config.ts",
         "passWithNoTests": true
       },
-      "outputs": ["{workspaceRoot}/coverage/packages/mixer-connection"]
-    },
-    "build": {
-      "executor": "@nx/js:tsc",
-      "options": {
-        "outputPath": "dist/packages/mixer-connection",
-        "tsConfig": "packages/mixer-connection/tsconfig.lib.json",
-        "packageJson": "packages/mixer-connection/package.json",
-        "main": "packages/mixer-connection/src/index.ts",
-        "assets": ["packages/mixer-connection/*.md"]
-      },
-      "outputs": ["{options.outputPath}"]
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
     }
   },
   "tags": []
