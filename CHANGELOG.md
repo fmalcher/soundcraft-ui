@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/fmalcher/soundcraft-ui/compare/v1.5.0...v2.0.0) (2023-05-23)
+
+This release adds no new functionality and no API surface changes. However, since we changed the build and bundling process, it could break existing integrations.
+
+- enable strict TS settings and fix code ([f08fc1b](https://github.com/fmalcher/soundcraft-ui/commit/f08fc1be579241470985b614c069430dc304afbe))
+- nx migrate to 16.1 and Angular 16 ([d685d33](https://github.com/fmalcher/soundcraft-ui/commit/d685d33e2512781d1daa62794839172e6c85a567))
+- **testbed:** rename comp selectors, use self-closing tags ([95cbd94](https://github.com/fmalcher/soundcraft-ui/commit/95cbd94b761b94b36d196d8069fe365ddb5bbb3e))
+- use Vite for bundling ([0e3b119](https://github.com/fmalcher/soundcraft-ui/commit/0e3b1193f124103fb470b3d6ba62a66045cdb3cd))
+
 ## [1.5.0](https://github.com/fmalcher/soundcraft-ui/compare/v1.4.0...v1.5.0) (2023-03-23)
 
 ### Features
