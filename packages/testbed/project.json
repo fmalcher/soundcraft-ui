@@ -78,12 +78,6 @@
         "browserTarget": "testbed:build"
       }
     },
-    "lint": {
-      "executor": "@angular-eslint/builder:lint",
-      "options": {
-        "lintFilePatterns": ["packages/testbed/**/*.ts", "packages/testbed/**/*.html"]
-      }
-    },
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
@@ -91,6 +85,13 @@
         "passWithNoTests": true
       },
       "outputs": ["{workspaceRoot}/coverage/packages/testbed"]
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/testbed/**/*.ts", "packages/testbed/**/*.html"]
+      }
     }
   },
   "tags": []

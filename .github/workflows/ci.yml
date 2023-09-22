@@ -15,7 +15,6 @@ jobs:
       init-commands: |
         npx nx-cloud start-ci-run --stop-agents-after="build" --agent-count=3
       parallel-commands: |
-        npx nx-cloud record -- npx nx workspace-lint
         npx nx-cloud record -- npx nx format:check
       parallel-commands-on-agents: |
         npx nx affected --target=lint --parallel=3

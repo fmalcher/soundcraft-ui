@@ -1,28 +1,11 @@
 {
-  "extends": "../../.eslintrc.json",
+  "extends": ["../../.eslintrc.json"],
   "ignorePatterns": ["!**/*"],
   "overrides": [
     {
       "files": ["*.ts"],
-      "parserOptions": {
-        "project": ["packages/testbed/tsconfig.app.json", "packages/testbed/tsconfig.spec.json"],
-        "createDefaultProgram": true
-      },
-      "extends": [
-        "eslint:recommended",
-        "plugin:@typescript-eslint/recommended",
-        "plugin:@angular-eslint/recommended",
-        "plugin:@angular-eslint/template/process-inline-templates"
-      ],
+      "extends": ["plugin:@nx/angular", "plugin:@angular-eslint/template/process-inline-templates"],
       "rules": {
-        "@angular-eslint/component-selector": [
-          "error",
-          {
-            "type": "element",
-            "prefix": "sui",
-            "style": "kebab-case"
-          }
-        ],
         "@angular-eslint/directive-selector": [
           "error",
           {
@@ -31,22 +14,19 @@
             "style": "camelCase"
           }
         ],
-        "@typescript-eslint/consistent-type-definitions": "error",
-        "@typescript-eslint/dot-notation": "off",
-        "@typescript-eslint/explicit-member-accessibility": [
-          "off",
+        "@angular-eslint/component-selector": [
+          "error",
           {
-            "accessibility": "explicit"
+            "type": "element",
+            "prefix": "sui",
+            "style": "kebab-case"
           }
-        ],
-        "id-blacklist": "off",
-        "id-match": "off",
-        "no-underscore-dangle": "off"
+        ]
       }
     },
     {
       "files": ["*.html"],
-      "extends": ["plugin:@angular-eslint/template/recommended"],
+      "extends": ["plugin:@nx/angular-template"],
       "rules": {}
     }
   ]
