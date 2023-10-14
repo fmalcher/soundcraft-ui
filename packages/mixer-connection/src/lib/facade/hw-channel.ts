@@ -4,8 +4,8 @@ import { MixerStore } from '../state/mixer-store';
 import { select, selectGain, selectPhantom } from '../state/state-selectors';
 import { clamp } from '../util';
 import {
-  linearMappingDBToValue,
-  linearMappingValueToDB,
+  linearMappingRangeToValue,
+  linearMappingValueToRange,
 } from '../utils/value-converters/value-converters';
 import { DeviceInfo } from './device-info';
 
@@ -47,11 +47,11 @@ export class HwChannel {
       switch (model) {
         case 'ui24':
           // ui24 gain range: -6..57 dB
-          return this.gain$.pipe(map(v => linearMappingValueToDB(v, -6, 57)));
+          return this.gain$.pipe(map(v => linearMappingValueToRange(v, -6, 57)));
         case 'ui16':
         case 'ui12':
           // ui12 and ui16 gain range: -40..50 dB
-          return this.gain$.pipe(map(v => linearMappingValueToDB(v, -40, 50)));
+          return this.gain$.pipe(map(v => linearMappingValueToRange(v, -40, 50)));
       }
     })
   );
@@ -127,12 +127,12 @@ export class HwChannel {
     switch (this.deviceInfo.model) {
       case 'ui24':
         // ui24 gain range: -6..57 dB
-        this.setGain(linearMappingDBToValue(dbValue, -6, 57));
+        this.setGain(linearMappingRangeToValue(dbValue, -6, 57));
         return;
       case 'ui16':
       case 'ui12':
         // ui12 and ui16 gain range: -40..50 dB
-        this.setGain(linearMappingDBToValue(dbValue, -40, 50));
+        this.setGain(linearMappingRangeToValue(dbValue, -40, 50));
         return;
     }
   }
