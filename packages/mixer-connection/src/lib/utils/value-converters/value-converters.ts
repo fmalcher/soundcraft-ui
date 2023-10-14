@@ -69,27 +69,27 @@ export function faderValueToDB(value: number) {
 /*****************************************************/
 
 /**
- * Linear scaling from dB value (defined by upper and lower bound) to linear float value (between 0 and 1)
- * @param dbValue dB value within bounds
- * @param lowerBound lower bound for dB range
- * @param upperBound upper bound for dB range
+ * Linear scaling from range value (defined by upper and lower bound) to linear float value (between 0 and 1)
+ * @param rangeValue dB value within bounds
+ * @param lowerBound lower bound for range
+ * @param upperBound upper bound for range
  */
-export function linearMappingDBToValue(
-  dbValue: number,
+export function linearMappingRangeToValue(
+  rangeValue: number,
   lowerBound: number,
   upperBound: number
 ): number {
-  const result = (dbValue - lowerBound) / (upperBound - lowerBound);
+  const result = (rangeValue - lowerBound) / (upperBound - lowerBound);
   return clamp(result, 0, 1);
 }
 
 /**
- * Linear scaling from linear float value (between 0 and 1) to dB value (defined by upper and lower bound)
+ * Linear scaling from linear float value (between 0 and 1) to a range value (defined by upper and lower bound)
  * @param value linear value
- * @param lowerBound lower bound for dB range
- * @param upperBound upper bound for dB range
+ * @param lowerBound lower bound for range
+ * @param upperBound upper bound for range
  */
-export function linearMappingValueToDB(value: number, lowerBound: number, upperBound: number) {
+export function linearMappingValueToRange(value: number, lowerBound: number, upperBound: number) {
   const result = Math.round((value * (upperBound - lowerBound) + lowerBound) * 10) / 10; // round to 1 decimal place
   return clamp(result, lowerBound, upperBound);
 }
