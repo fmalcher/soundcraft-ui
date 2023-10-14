@@ -68,6 +68,38 @@ export function faderValueToDB(value: number) {
 
 /*****************************************************/
 
+/** Lower bound (ms) for automix time fader */
+const timeMsLowerBound = 20;
+/** Upper bound (ms) for automix time fader */
+const timeMsUpperBound = 4000;
+
+/**
+ * Convert time fader value from linear float value (between 0 and 1) to milliseconds between 20..4000 ms
+ * @param value linear fader value
+ */
+export function faderValueToTimeMs(value: number) {
+  return Math.round(
+    (timeMsUpperBound - timeMsLowerBound) * Math.pow(value, 3.0517) + timeMsLowerBound
+  );
+}
+
+/**
+ * Convert milliseconds to linear time fader value (between 0 and 1)
+ * @param timeMs time in milliseconds between 20..4000
+ */
+export function timeMsToFaderValue(timeMs: number) {
+  const sanitizedTime = clamp(timeMs, timeMsLowerBound, timeMsUpperBound);
+  const result = Math.pow(
+    (sanitizedTime - timeMsLowerBound) / (timeMsUpperBound - timeMsLowerBound),
+    0.32768620768751844
+  );
+
+  return Math.floor(result * 10000000) / 10000000;
+  // 0.32768620768751844 = 1 / 3.0517
+}
+
+/*****************************************************/
+
 /**
  * Linear scaling from range value (defined by upper and lower bound) to linear float value (between 0 and 1)
  * @param rangeValue dB value within bounds

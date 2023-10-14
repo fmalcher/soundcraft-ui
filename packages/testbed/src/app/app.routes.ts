@@ -10,6 +10,7 @@ import { MuteGroupsComponent } from './pages/mute-groups/mute-groups.component';
 import { PlayerComponent } from './pages/player/player.component';
 import { ShowsComponent } from './pages/shows/shows.component';
 import { VolumebusComponent } from './pages/volumebus/volumebus.component';
+import { AutomixComponent } from './pages/automix/automix.component';
 
 export const APP_ROUTES: Routes = [
   { path: '', redirectTo: 'master', pathMatch: 'full' },
@@ -23,5 +24,6 @@ export const APP_ROUTES: Routes = [
   { path: 'volumebus', component: VolumebusComponent },
   { path: 'shows', component: ShowsComponent },
   { path: 'hwchannels', component: HwchannelsComponent },
+  { path: 'automix', component: AutomixComponent },
   { path: 'fullstate', component: FullStateComponent },
 ];

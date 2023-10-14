@@ -1,3 +1,4 @@
+import { AutomixController } from './facade/automix-controller';
 import { AuxBus } from './facade/aux-bus';
 import { DeviceInfo } from './facade/device-info';
 import { DualTrackRecorder } from './facade/dual-track-recorder';
@@ -41,6 +42,9 @@ export class SoundcraftUI {
 
   /** Show controller (Shows, Snapshots, Cues) */
   shows = new ShowController(this.conn, this.store);
+
+  /** Automix controller */
+  automix = new AutomixController(this.conn, this.store);
 
   constructor(private targetIP: string) {}
 

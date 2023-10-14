@@ -51,7 +51,7 @@ describe('Player', () => {
   });
 
   describe('Shuffle', () => {
-    it('dim$', async () => {
+    it('shuffle$', async () => {
       player.setShuffle(0);
       expect(await firstValueFrom(player.shuffle$)).toBe(0);
 
