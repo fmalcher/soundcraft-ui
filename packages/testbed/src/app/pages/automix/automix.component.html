@@ -1,0 +1,99 @@
+<div>
+  <h2>Global Response Time</h2>
+
+  <input
+    type="range"
+    min="0"
+    max="1"
+    step="0.0001"
+    (input)="setTime(timeInput.value)"
+    [value]="automix.responseTime$ | async"
+    #timeInput
+  />
+  <span class="ms-3">{{ automix.responseTimeMs$ | async }} ms</span>
+  <span class="ms-3">{{ automix.responseTime$ | async }}</span>
+
+  <div>
+    <button
+      *ngFor="let v of [20, 100, 1234, 2400, 3120, 4000]"
+      class="btn btn-success btn-sm me-3"
+      (click)="automix.setResponseTimeMs(v)"
+    >
+      {{ v }} ms
+    </button>
+  </div>
+</div>
+
+<div class="mb-5 mt-5" *ngFor="let g of groups">
+  <h2>{{ g.label }}</h2>
+  <sui-mixer-button (press)="g.group.enable()">Enable</sui-mixer-button>
+  <sui-mixer-button (press)="g.group.disable()">Disable</sui-mixer-button>
+  <sui-mixer-button (press)="g.group.toggle()" [active]="!!(g.group.state$ | async)"
+    >Toggle</sui-mixer-button
+  >
+</div>
+
+<div *ngFor="let c of channels" class="mb-4">
+  <h2>{{ c.label }}</h2>
+  <sui-mixer-button
+    (press)="c.channel.automixAssignGroup('a')"
+    [active]="(c.channel.automixGroup$ | async) === 'a'"
+    >A</sui-mixer-button
+  >
+  <sui-mixer-button
+    (press)="c.channel.automixAssignGroup('b')"
+    [active]="(c.channel.automixGroup$ | async) === 'b'"
+    >B</sui-mixer-button
+  >
+  <sui-mixer-button
+    (press)="c.channel.automixAssignGroup('none')"
+    [active]="(c.channel.automixGroup$ | async) === 'none'"
+    >None</sui-mixer-button
+  >
+  <button class="btn btn-secondary" (click)="c.channel.automixRemove()">Remove</button>
+
+  <div class="mt-2">
+    <label class="me-3">Weight</label>
+    <input
+      type="range"
+      min="0"
+      max="1"
+      step="0.0001"
+      (input)="setWeight(c.channel, weightInput.value)"
+      [value]="c.channel.automixWeight$ | async"
+      #weightInput
+    />
+
+    <span class="ms-3">{{ c.channel.automixWeightDB$ | async }} dB</span>
+    <span class="ms-3">{{ c.channel.automixWeight$ | async }}</span>
+  </div>
+
+  <div class="mt-2">
+    <h4>Set weight</h4>
+    <button class="btn btn-success btn-sm me-3" (click)="c.channel.automixSetWeightDB(-12)">
+      -12 dB
+    </button>
+    <button class="btn btn-success btn-sm me-3" (click)="c.channel.automixSetWeightDB(-6)">
+      -6 dB
+    </button>
+    <button class="btn btn-success btn-sm me-3" (click)="c.channel.automixSetWeightDB(0)">
+      0 dB
+    </button>
+    <button class="btn btn-success btn-sm me-3" (click)="c.channel.automixSetWeightDB(6)">
+      6 dB
+    </button>
+    <button class="btn btn-success btn-sm me-3" (click)="c.channel.automixSetWeightDB(12)">
+      12 dB
+    </button>
+  </div>
+
+  <div class="mt-3">
+    <h4>Change weight</h4>
+    <button class="btn btn-success btn-sm me-3" (click)="c.channel.automixChangeWeightDB(-1)">
+      -1 dB
+    </button>
+    <button class="btn btn-success btn-sm me-3" (click)="c.channel.automixChangeWeightDB(1)">
+      +1 dB
+    </button>
+  </div>
+</div>

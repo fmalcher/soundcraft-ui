@@ -110,6 +110,22 @@ describe('Outbound messages', () => {
 
     conn.master.input(3).setDelay(210);
     expect(message).toBe('SETD^i.2.delay^0.21');
+
+    // automix (only for input channels)
+    conn.master.input(3).automixAssignGroup('a');
+    expect(message).toBe('SETD^i.2.amixgroup^0');
+
+    conn.master.input(3).automixAssignGroup('b');
+    expect(message).toBe('SETD^i.2.amixgroup^1');
+
+    conn.master.input(3).automixAssignGroup('none');
+    expect(message).toBe('SETD^i.2.amixgroup^-1');
+
+    conn.master.input(3).automixSetWeight(0.1234567);
+    expect(message).toBe('SETD^i.2.amix^0.1234567');
+
+    conn.master.input(3).automixSetWeightDB(6);
+    expect(message).toBe('SETD^i.2.amix^0.75');
   });
 
   it('master channels LINE', () => {
@@ -900,6 +916,42 @@ describe('Outbound messages', () => {
 
     conn.shows.loadCue('testshow', 'testcue');
     expect(message).toBe('LOADCUE^testshow^testcue');
+  });
+
+  it('automix controller', () => {
+    // response time
+    conn.automix.setResponseTime(0);
+    expect(message).toBe('SETD^automix.time^0');
+
+    conn.automix.setResponseTime(1);
+    expect(message).toBe('SETD^automix.time^1');
+
+    conn.automix.setResponseTime(0.12345);
+    expect(message).toBe('SETD^automix.time^0.12345');
+
+    // response time (ms)
+    conn.automix.setResponseTimeMs(20);
+    expect(message).toBe('SETD^automix.time^0');
+
+    conn.automix.setResponseTimeMs(4000);
+    expect(message).toBe('SETD^automix.time^1');
+
+    conn.automix.setResponseTimeMs(500);
+    expect(message).toBe('SETD^automix.time^0.5000043');
+
+    // Group A
+    conn.automix.groups.a.enable();
+    expect(message).toBe('SETD^automix.a.on^1');
+
+    conn.automix.groups.a.disable();
+    expect(message).toBe('SETD^automix.a.on^0');
+
+    // Group B
+    conn.automix.groups.b.enable();
+    expect(message).toBe('SETD^automix.b.on^1');
+
+    conn.automix.groups.b.disable();
+    expect(message).toBe('SETD^automix.b.on^0');
   });
 
   describe('hw channels', () => {

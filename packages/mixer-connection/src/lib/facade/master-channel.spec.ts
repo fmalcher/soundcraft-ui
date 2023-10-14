@@ -59,4 +59,71 @@ describe('Master Channel', () => {
       expect(await firstValueFrom(channel.solo$)).toBe(0);
     });
   });
+
+  describe('Automix', () => {
+    it('automixGroup$', async () => {
+      conn.conn.sendMessage('SETD^i.1.amixgroup^0');
+      expect(await firstValueFrom(channel.automixGroup$)).toBe('a');
+
+      conn.conn.sendMessage('SETD^i.1.amixgroup^1');
+      expect(await firstValueFrom(channel.automixGroup$)).toBe('b');
+
+      conn.conn.sendMessage('SETD^i.1.amixgroup^-1');
+      expect(await firstValueFrom(channel.automixGroup$)).toBe('none');
+    });
+
+    it('automixAssignGroup', async () => {
+      channel.automixAssignGroup('a');
+      expect(await firstValueFrom(channel.automixGroup$)).toBe('a');
+
+      channel.automixAssignGroup('b');
+      expect(await firstValueFrom(channel.automixGroup$)).toBe('b');
+
+      channel.automixAssignGroup('none');
+      expect(await firstValueFrom(channel.automixGroup$)).toBe('none');
+    });
+
+    it('automixRemove', async () => {
+      channel.automixRemove();
+      expect(await firstValueFrom(channel.automixGroup$)).toBe('none');
+    });
+
+    it('weight$', async () => {
+      channel.automixSetWeight(0.25396825396825395);
+      expect(await firstValueFrom(channel.automixWeight$)).toBe(0.25396825396825395);
+
+      channel.automixSetWeight(0);
+      expect(await firstValueFrom(channel.automixWeight$)).toBe(0);
+
+      channel.automixSetWeight(1);
+      expect(await firstValueFrom(channel.automixWeight$)).toBe(1);
+    });
+
+    it('weightDB$', async () => {
+      channel.automixSetWeightDB(-3);
+      expect(await firstValueFrom(channel.automixWeightDB$)).toBe(-3);
+
+      channel.automixSetWeightDB(10);
+      expect(await firstValueFrom(channel.automixWeightDB$)).toBe(10);
+
+      channel.automixSetWeightDB(-12);
+      expect(await firstValueFrom(channel.automixWeightDB$)).toBe(-12);
+    });
+
+    it('changeWeightDB', async () => {
+      channel.automixSetWeightDB(4);
+      channel.automixChangeWeightDB(3);
+      expect(await firstValueFrom(channel.automixWeightDB$)).toBe(7);
+
+      channel.automixChangeWeightDB(-10);
+      expect(await firstValueFrom(channel.automixWeightDB$)).toBe(-3);
+    });
+
+    it('should only work for input channels', () => {
+      const playerChannel = conn.master.player(1);
+      expect(() => {
+        playerChannel.automixAssignGroup('a');
+      }).toThrow();
+    });
+  });
 });

@@ -16,3 +16,4 @@ export * from './player';
 export * from './send-channel';
 export * from './show-controller';
 export * from './volume-bus';
+export * from './automix-controller';

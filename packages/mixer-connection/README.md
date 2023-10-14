@@ -132,7 +132,7 @@ Get access to a `MasterChannel` object first:
 
 The `MasterChannel` exposes the following operations:
 
-| Call on master channel           | Description                               |
+| Call on `MasterChannel`          | Description                               |
 | -------------------------------- | ----------------------------------------- |
 | _all generic channel operations_ |                                           |
 | `pan(value)`                     | Set pan for channel (between `0` and `1`) |
@@ -153,6 +153,8 @@ It contains the following members:
 | `changeDelay(offsetMs)`   | Change channel delay relatively by adding a given value in milliseconds                                                      |
 | `delay$`                  | Get channel delay in milliseconds                                                                                            |
 
+Input channels on the master bus also support automix settings, see separate section about the automix feature.
+
 ### AUX buses
 
 Get access to a `AuxBus` object with `conn.aux(busNumber)`.
@@ -167,7 +169,7 @@ Then pick one of the available `AuxChannel` objects:
 
 An `AuxChannel` supports the following operations:
 
-| Call on AUX channel              | Description                                                           |
+| Call on `AuxChannel`             | Description                                                           |
 | -------------------------------- | --------------------------------------------------------------------- |
 | _all generic channel operations_ |                                                                       |
 | `pan(value)`                     | Set pan for channel (between `0` and `1`). Not possible for mono AUX! |
@@ -195,13 +197,63 @@ Then pick one of the available `FxChannel`s:
 
 An `FxChannel` supports the following operations:
 
-| Call on FX channel               | Description                                 |
+| Call on `FxChannel`              | Description                                 |
 | -------------------------------- | ------------------------------------------- |
 | _all generic channel operations_ |                                             |
 | `pre()`                          | Set channel to PRE                          |
 | `post()`                         | Set channel to POST                         |
 | `setPost(value)`                 | Set POST (`1`) or PRE (`0`)                 |
 | `post$`                          | Get POST status (`0` for PRE, `1` for POST) |
+
+### Automix
+
+#### Global Automix Settings
+
+The global settings are available through the automix controller in `conn.automix`:
+
+| Call on `AutomixController` | Description                                                           |
+| --------------------------- | --------------------------------------------------------------------- |
+| `responseTime$`             | Global response time (linear, between `0` and `1`)                    |
+| `responseTimeMs$`           | Global response time in milliseconds (between `20` and `4000` ms)     |
+| `setResponseTime(value)`    | Set global response time (linear, between `0` and `1`)                |
+| `setResponseTimeMs(timeMs)` | Set global response time in milliseconds (between `20` and `4000` ms) |
+| `groups`                    | Access to automix groups `a` and `b`                                  |
+
+The state of the two automix groups `a` and `b` can be controlled through the `AutomixGroup` object.
+First, get access to a group:
+
+```ts
+const groupA = conn.automix.groups.a;
+const groupB = conn.automix.groups.b;
+```
+
+Each group exposes the following methods and properties:
+
+| Call on `AutomixGroup` | Description                                     |
+| ---------------------- | ----------------------------------------------- |
+| `enable()`             | Globally enable this automix group              |
+| `disable()`            | Globally disable this automix group             |
+| `toggle()`             | Toggle the state of this automix group          |
+| `state$`               | Active state of this automix group (`0` or `1`) |
+
+#### Automix Channel Assignment
+
+Assignment of channels to the automix groups can be done through the `MasterChannel` object.
+Important: Only input channels on the master bus can be used in automix groups.
+A channel can only be assigned to exactly one or no group.
+
+After getting access to a `MasterChannel` input (e.g. `conn.master.input(1)`), the following operations are available:
+
+| Call on `MasterChannel`           | Description                                                                                            |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| `automixAssignGroup(group)`       | Assign this channel to an automix group (`a`, `b`, `none`). This also includes stereo-linked channels. |
+| `automixRemove()`                 | Remove this channel from the automix group. This does the same as `automixAssignGroup('none')`.        |
+| `automixSetWeight(value)`         | Set automix weight for the channel (linear between `0` and `1`)                                        |
+| `automixSetWeightDB(dbValue)`     | Set automix weight for the channel (dB between `-12` and `12`)                                         |
+| `automixChangeWeightDB(offsetDB)` | Change the automix weight relatively by adding a given value                                           |
+| `automixWeight$`                  | Automix weight (linear) for this channel (between `0` and `1`)                                         |
+| `automixWeightDB$`                | Automix weight (dB) for this channel (between `-12` and `12` dB)                                       |
+| `automixGroup$`                   | Automix group (`a`, `b`, `none`) that this channel is assigned to                                      |
 
 ### Hardware Channels (Phantom Power)
 
@@ -243,7 +295,7 @@ Get access to a `VolumeBus` object through `conn.volume`:
 
 A `VolumeBus` supports the following operations (which are quite similar to all other fadeable channels):
 
-| Call                           | Description                                                   |
+| Call on `VolumeBus`            | Description                                                   |
 | ------------------------------ | ------------------------------------------------------------- |
 | `setFaderLevel(value)`         | Set fader level (between `0` and `1`)                         |
 | `setFaderLevelDB(dbValue)`     | Set fader level in dB (between `-Infinity` and `10`)          |
@@ -285,40 +337,44 @@ Shows and their snapshots/cues can be loaded by providing their names to the fol
 Please be aware that there will be no check whether a show with the given name actually exists.
 Information about the currently loaded show, snapshot or cue is also available.
 
-| Call                                              | Description                           |
-| ------------------------------------------------- | ------------------------------------- |
-| `conn.shows.loadShow(showName)`                   | Load a show by its name               |
-| `conn.shows.loadSnapshot(showName, snapshotName)` | Load a snapshot in a show by its name |
-| `conn.shows.loadCue(showName, cueName)`           | Load a cue in a show by its name      |
-| `conn.shows.currentShow$`                         | Currently loaded show                 |
-| `conn.shows.currentSnapshot$`                     | Currently loaded snapshot             |
-| `conn.shows.currentCue$`                          | Currently loaded cue                  |
+The `ShowController` object is available in `conn.shows` and supports these operations:
+
+| Call                                   | Description                           |
+| -------------------------------------- | ------------------------------------- |
+| `loadShow(showName)`                   | Load a show by its name               |
+| `loadSnapshot(showName, snapshotName)` | Load a snapshot in a show by its name |
+| `loadCue(showName, cueName)`           | Load a cue in a show by its name      |
+| `currentShow$`                         | Currently loaded show                 |
+| `currentSnapshot$`                     | Currently loaded snapshot             |
+| `currentCue$`                          | Currently loaded cue                  |
 
 ### Recording and playback
 
 #### Media Player
 
-| Call                                     | Description                                                                                                  |
-| ---------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
-| `conn.player.state$`                     | Current state (playing, stopped, paused) as a value of the `PlayerState` enum                                |
-| `conn.player.playlist$`                  | Current playlist name                                                                                        |
-| `conn.player.track$`                     | Current track name                                                                                           |
-| `conn.player.length$`                    | Current track length in seconds                                                                              |
-| `conn.player.elapsedTime$`               | Elapsed time of current track in seconds                                                                     |
-| `conn.player.remainingTime$`             | Remaining time of current track in seconds                                                                   |
-| `conn.player.shuffle$`                   | Shuffle setting (`0` or `1`)                                                                                 |
-| `conn.player.play()`                     | Play                                                                                                         |
-| `conn.player.pause()`                    | Pause                                                                                                        |
-| `conn.player.stop()`                     | Stop                                                                                                         |
-| `conn.player.next()`                     | Next track                                                                                                   |
-| `conn.player.prev()`                     | Previous track                                                                                               |
-| `conn.player.loadPlaylist(playlist)`     | Load a playlist by name. `playlist` is the name of the playlist/folder                                       |
-| `conn.player.loadTrack(track, playlist)` | Load a track from a given playlist. `track` and `playlist` are the file/folder names as seen in the Web UI.  |
-| `conn.player.setShuffle(value)`          | Set player shuffle setting (`0` or `1`)                                                                      |
-| `conn.player.toggleShuffle()`            | Toggle player shuffle setting                                                                                |
-| `conn.player.setPlayMode(value)`         | Set player mode like `manual` or `auto`. Values are rather internal, please use convenience functions below. |
-| `conn.player.setManual()`                | Enable manual mode                                                                                           |
-| `conn.player.setAuto()`                  | Enable automatic mode                                                                                        |
+The Media Player can be accessed through `conn.player`. This object exposes the following properties and methods:
+
+| Call on `Player`             | Description                                                                                                  |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| `state$`                     | Current state (playing, stopped, paused) as a value of the `PlayerState` enum                                |
+| `playlist$`                  | Current playlist name                                                                                        |
+| `track$`                     | Current track name                                                                                           |
+| `length$`                    | Current track length in seconds                                                                              |
+| `elapsedTime$`               | Elapsed time of current track in seconds                                                                     |
+| `remainingTime$`             | Remaining time of current track in seconds                                                                   |
+| `shuffle$`                   | Shuffle setting (`0` or `1`)                                                                                 |
+| `play()`                     | Play                                                                                                         |
+| `pause()`                    | Pause                                                                                                        |
+| `stop()`                     | Stop                                                                                                         |
+| `next()`                     | Next track                                                                                                   |
+| `prev()`                     | Previous track                                                                                               |
+| `loadPlaylist(playlist)`     | Load a playlist by name. `playlist` is the name of the playlist/folder                                       |
+| `loadTrack(track, playlist)` | Load a track from a given playlist. `track` and `playlist` are the file/folder names as seen in the Web UI.  |
+| `setShuffle(value)`          | Set player shuffle setting (`0` or `1`)                                                                      |
+| `toggleShuffle()`            | Toggle player shuffle setting                                                                                |
+| `setPlayMode(value)`         | Set player mode like `manual` or `auto`. Values are rather internal, please use convenience functions below. |
+| `setManual()`                | Enable manual mode                                                                                           |
+| `setAuto()`                  | Enable automatic                                                                                             |
 
 #### 2-Track USB Recorder
 
@@ -335,25 +391,25 @@ The following commands control the dual-track USB recorder in the media player s
 The Ui24R features multi-track recording. The `MultiTackRecorder` object can be retrieved via `conn.recorderMultiTrack`.
 It supports the following operations:
 
-| Call                     | Description                                                                                                                                   |
-| ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| `state$`                 | Current state (playing, stopped, paused) as a value of the `MtkState` enum. Please be aware that the values are different from `PlayerState`. |
-| `session$`               | Current session name (e.g. `0001` or individual name)                                                                                         |
-| `length$`                | Current session length in seconds                                                                                                             |
-| `elapsedTime$`           | Elapsed time of current session in seconds                                                                                                    |
-| `remainingTime$`         | Remaining time of current session in seconds                                                                                                  |
-| `recording$`             | Recording state (`0` or `1`)                                                                                                                  |
-| `busy$`                  | Recording busy state (`0` or `1`)                                                                                                             |
-| `recordingTime$`         | Recording time in seconds                                                                                                                     |
-| `soundcheck$`            | Soundcheck activation state                                                                                                                   |
-| `play()`                 | Play                                                                                                                                          |
-| `pause()`                | Pause                                                                                                                                         |
-| `stop()`                 | Stop                                                                                                                                          |
-| `recordToggle()`         | Toggle recording                                                                                                                              |
-| `activateSoundcheck()`   | Activate soundcheck                                                                                                                           |
-| `deactivateSoundcheck()` | Deactivate soundcheck                                                                                                                         |
-| `toggleSoundcheck()`     | Toggle soundcheck                                                                                                                             |
-| `setSoundcheck(value)`   | Set soundcheck (activate or deactivate) (`0` or `1`)                                                                                          |
+| Call on `MultiTackRecorder` | Description                                                                                                                                   |
+| --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `state$`                    | Current state (playing, stopped, paused) as a value of the `MtkState` enum. Please be aware that the values are different from `PlayerState`. |
+| `session$`                  | Current session name (e.g. `0001` or individual name)                                                                                         |
+| `length$`                   | Current session length in seconds                                                                                                             |
+| `elapsedTime$`              | Elapsed time of current session in seconds                                                                                                    |
+| `remainingTime$`            | Remaining time of current session in seconds                                                                                                  |
+| `recording$`                | Recording state (`0` or `1`)                                                                                                                  |
+| `busy$`                     | Recording busy state (`0` or `1`)                                                                                                             |
+| `recordingTime$`            | Recording time in seconds                                                                                                                     |
+| `soundcheck$`               | Soundcheck activation state                                                                                                                   |
+| `play()`                    | Play                                                                                                                                          |
+| `pause()`                   | Pause                                                                                                                                         |
+| `stop()`                    | Stop                                                                                                                                          |
+| `recordToggle()`            | Toggle recording                                                                                                                              |
+| `activateSoundcheck()`      | Activate soundcheck                                                                                                                           |
+| `deactivateSoundcheck()`    | Deactivate soundcheck                                                                                                                         |
+| `toggleSoundcheck()`        | Toggle soundcheck                                                                                                                             |
+| `setSoundcheck(value)`      | Set soundcheck (activate or deactivate) (`0` or `1`)                                                                                          |
 
 ## Transitions
 

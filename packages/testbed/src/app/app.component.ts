@@ -25,6 +25,7 @@ export class AppComponent {
     { label: 'Volume Buses', target: '/volumebus' },
     { label: 'Shows', target: '/shows' },
     { label: 'HW Channels', target: '/hwchannels' },
+    { label: 'Automix', target: '/automix' },
     { label: 'Full state', target: '/fullstate' },
   ];
 
