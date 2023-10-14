@@ -312,8 +312,8 @@ Information about the currently loaded show, snapshot or cue is also available.
 | `conn.player.stop()`                     | Stop                                                                                                         |
 | `conn.player.next()`                     | Next track                                                                                                   |
 | `conn.player.prev()`                     | Previous track                                                                                               |
-| `conn.player.loadPlaylist(playlist)`     | Load a playlist by name                                                                                      |
-| `conn.player.loadTrack(track, playlist)` | Load a track from a given playlist                                                                           |
+| `conn.player.loadPlaylist(playlist)`     | Load a playlist by name. `playlist` is the name of the playlist/folder                                       |
+| `conn.player.loadTrack(track, playlist)` | Load a track from a given playlist. `track` and `playlist` are the file/folder names as seen in the Web UI.  |
 | `conn.player.setShuffle(value)`          | Set player shuffle setting (`0` or `1`)                                                                      |
 | `conn.player.toggleShuffle()`            | Toggle player shuffle setting                                                                                |
 | `conn.player.setPlayMode(value)`         | Set player mode like `manual` or `auto`. Values are rather internal, please use convenience functions below. |
