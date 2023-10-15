@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0](https://github.com/fmalcher/soundcraft-ui/compare/v2.0.1...v2.1.0) (2023-10-15)
+
+### Features
+
+- add support for automix ([c2fa5e7](https://github.com/fmalcher/soundcraft-ui/commit/c2fa5e7ef1093d5a8672c46181e4a01bf7f75286))
+
+### Bug Fixes
+
+- fix ESLint execution with Nx package ([94aeb19](https://github.com/fmalcher/soundcraft-ui/commit/94aeb19a9bb8a2eefd5fb6aaa8d0ab365eb82c7c))
+
+### Other
+
+- nx migrate to 16.8 ([aeda5d9](https://github.com/fmalcher/soundcraft-ui/commit/aeda5d9a778bac152c477eabc90879bf5cf37082))
+- nx update to 16.10 ([fc27778](https://github.com/fmalcher/soundcraft-ui/commit/fc2777826f866d78a0d8c0bce226af9b996bfcfc))
+- player track selection ([63bec3a](https://github.com/fmalcher/soundcraft-ui/commit/63bec3ad3186d46b973db9ddf2aca8df09765d77))
+- rename function to linearMappingValueToRange ([738b436](https://github.com/fmalcher/soundcraft-ui/commit/738b436ae9326761989223ce6fc9dd12a41873f8))
+
 ### [2.0.1](https://github.com/fmalcher/soundcraft-ui/compare/v2.0.0...v2.0.1) (2023-05-23)
 
 ### Bug Fixes
