@@ -12,7 +12,7 @@ import { ShowsComponent } from './pages/shows/shows.component';
 import { VolumebusComponent } from './pages/volumebus/volumebus.component';
 import { AutomixComponent } from './pages/automix/automix.component';
 
-export const APP_ROUTES: Routes = [
+export const routes: Routes = [
   { path: '', redirectTo: 'master', pathMatch: 'full' },
   { path: 'master', component: MasterComponent },
   { path: 'masterbus', component: MasterBusComponent },
