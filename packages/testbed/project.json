@@ -13,12 +13,12 @@
   "prefix": "sui",
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "@angular-devkit/build-angular:application",
       "options": {
         "outputPath": "dist/packages/testbed",
         "index": "packages/testbed/src/index.html",
-        "main": "packages/testbed/src/main.ts",
-        "polyfills": "packages/testbed/src/polyfills.ts",
+        "browser": "packages/testbed/src/main.ts",
+        "polyfills": ["zone.js"],
         "tsConfig": "packages/testbed/tsconfig.app.json",
         "aot": true,
         "assets": ["packages/testbed/src/favicon.ico", "packages/testbed/src/assets"],
@@ -33,8 +33,6 @@
           "sourceMap": false,
           "namedChunks": false,
           "extractLicenses": true,
-          "vendorChunk": false,
-          "buildOptimizer": true,
           "budgets": [
             {
               "type": "initial",
@@ -49,9 +47,7 @@
           ]
         },
         "development": {
-          "buildOptimizer": false,
           "optimization": false,
-          "vendorChunk": true,
           "extractLicenses": false,
           "sourceMap": true,
           "namedChunks": true
@@ -64,10 +60,10 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "browserTarget": "testbed:build:production"
+          "buildTarget": "testbed:build:production"
         },
         "development": {
-          "browserTarget": "testbed:build:development"
+          "buildTarget": "testbed:build:development"
         }
       },
       "defaultConfiguration": "development"
@@ -75,14 +71,13 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "testbed:build"
+        "buildTarget": "testbed:build"
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "packages/testbed/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "packages/testbed/jest.config.ts"
       },
       "outputs": ["{workspaceRoot}/coverage/packages/testbed"]
     },
