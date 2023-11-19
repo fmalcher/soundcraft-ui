@@ -58,5 +58,13 @@
     ]
   },
   "nxCloudAccessToken": "MGUyMTUyY2ItMTJlMy00NDU5LTljZDMtZDAwYTZiZjU2NDg2fHJlYWQtd3JpdGU=",
-  "parallel": 1
+  "parallel": 1,
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "nx-cloud",
+      "options": {
+        "accessToken": "MGFiMmE4MmItNmI1YS00OWU1LTg2MTUtM2FlZWVhMmE5M2Y2fHJlYWQtd3JpdGU="
+      }
+    }
+  }
 }
