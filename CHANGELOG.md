@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.2.1](https://github.com/fmalcher/soundcraft-ui/compare/v2.2.0...v2.2.1) (2024-02-12)
+
+### Bug Fixes
+
+- remove unnecessary console.log ([4c82f52](https://github.com/fmalcher/soundcraft-ui/commit/4c82f527807e1d0719c6a8c7157492cdc92d58eb))
+
 ## [2.2.0](https://github.com/fmalcher/soundcraft-ui/compare/v2.1.0...v2.2.0) (2024-02-12)
 
 ### Features
