@@ -6,7 +6,7 @@
     <button
       *ngFor="let ip of ['10.75.23.95', '10.75.23.96']"
       class="btn btn-primary me-2"
-      (click)="cs.createConnectionAndConnect(ip)"
+      (click)="connectCustomIp(ip)"
     >
       {{ ip }}
     </button>

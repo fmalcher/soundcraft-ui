@@ -13,7 +13,7 @@ export class ConnectionService {
     }
 
     this.conn = new SoundcraftUI(ip);
-    await this.conn.connect();
+    return this.conn.connect();
   }
 
   disconnect() {
