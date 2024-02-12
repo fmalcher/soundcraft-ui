@@ -57,7 +57,7 @@ export class Channel implements FadeableChannel {
     protected channelType: ChannelType,
     protected channel: number,
     protected busType: BusType = 'master',
-    protected bus: number = 0
+    protected bus = 0
   ) {
     // lookup channel in the store and use existing object if possible
     const storeId = busType + bus + channelType + channel;
