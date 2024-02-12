@@ -71,7 +71,6 @@ export class MixerConnection {
     // track connection status in synchronously readable field
     this.statusSubject$.subscribe(status => {
       this._status = status.type;
-      console.log('STATUS', this.status);
     });
 
     /**
