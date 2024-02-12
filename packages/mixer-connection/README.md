@@ -31,7 +31,20 @@ If you want to receive errors, use the `status$` Observable instead.
 
 ### Receive status
 
-Status messages of the connection are exposed as an observable stream:
+The current connection state is synchronously readable from the `status` field of type `ConnectionStatus`:
+
+```ts
+const currentStatus = conn.status;
+
+// Example:
+if (conn.status === ConnectionStatus.Open) {
+  // ...
+}
+```
+
+Status changes are exposed as an observable stream.
+All messages have a `type` property of type `ConnectionStatus`.
+Use this if you want to react to any changes:
 
 ```ts
 conn.status$.subscribe(status => {
@@ -39,16 +52,16 @@ conn.status$.subscribe(status => {
 });
 ```
 
-All messages have a `type` property with one of the following values:
+The `ConnectionStatus` enum has the following fields and values:
 
-| Message        | Description                                                                                               |
-| -------------- | --------------------------------------------------------------------------------------------------------- |
-| `OPENING`      | Connecting to the mixer                                                                                   |
-| `OPEN`         | Successfully connected to the mixer                                                                       |
-| `CLOSING`      | Disconnecting from the mixer                                                                              |
-| `CLOSE`        | Disconnected from the mixer                                                                               |
-| `ERROR`        | Connection error occured. The error object can be accessed through the `payload` property of the message. |
-| `RECONNECTING` | After an error, trying reconnection                                                                       |
+| Value          | Enum field name | Description                                                                                               |
+| -------------- | --------------- | --------------------------------------------------------------------------------------------------------- |
+| `OPENING`      | `Opening`       | Connecting to the mixer                                                                                   |
+| `OPEN`         | `Open`          | Successfully connected to the mixer                                                                       |
+| `CLOSING`      | `Closing`       | Disconnecting from the mixer                                                                              |
+| `CLOSE`        | `Close`         | Disconnected from the mixer                                                                               |
+| `ERROR`        | `Error`         | Connection error occured. The error object can be accessed through the `payload` property of the message. |
+| `RECONNECTING` | `Reconnecting`  | After an error, trying reconnection                                                                       |
 
 ### Use commands and feedback
 
