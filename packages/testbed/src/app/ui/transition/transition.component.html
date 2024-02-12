@@ -13,9 +13,7 @@
       title="Target value"
     />
   </div>
-  <div class="col">
-    {{ targetValueDB }} dB
-  </div>
+  <div class="col">{{ targetValueDB }} dB</div>
 
   <div class="col">
     <input
@@ -31,7 +29,9 @@
 
   <div class="col">
     <select formControlName="easing" class="form-select" title="Easing">
-      <option *ngFor="let o of easingOptions" [value]="o.value">{{ o.label }}</option>
+      @for (o of easingOptions; track o) {
+      <option [value]="o.value">{{ o.label }}</option>
+      }
     </select>
   </div>
 

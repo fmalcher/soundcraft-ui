@@ -1,4 +1,4 @@
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
@@ -8,7 +8,7 @@ import { ConnectionService } from './connection.service';
   selector: 'sui-root',
   templateUrl: './app.component.html',
   standalone: true,
-  imports: [RouterOutlet, AsyncPipe, NgIf, NgFor, RouterLink, RouterLinkActive],
+  imports: [RouterOutlet, AsyncPipe, RouterLink, RouterLinkActive],
 })
 export class AppComponent {
   cs = inject(ConnectionService);

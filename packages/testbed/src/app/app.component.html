@@ -1,16 +1,14 @@
 <div class="container">
   <h1>Soundcraft Ui Testbed</h1>
 
-  <div *ngIf="!cs.conn">
+  @if (!cs.conn) {
+  <div>
     <h2>Connection</h2>
-    <button
-      *ngFor="let ip of ['10.75.23.95', '10.75.23.96']"
-      class="btn btn-primary me-2"
-      (click)="connectCustomIp(ip)"
-    >
+    @for (ip of ['10.75.23.95', '10.75.23.96']; track ip) {
+    <button class="btn btn-primary me-2" (click)="connectCustomIp(ip)">
       {{ ip }}
     </button>
-
+    }
     <div class="input-group mt-3">
       <input
         type="text"
@@ -24,29 +22,31 @@
       </button>
     </div>
   </div>
-
-  <div class="card mt-3" *ngIf="cs.conn">
+  } @if (cs.conn) {
+  <div class="card mt-3">
     <div class="card-header text-muted">
       <strong>Hardware:</strong>
       {{ cs.conn.deviceInfo.model$ | async }} / {{ cs.conn.deviceInfo.firmware$ | async }}
-
       <span class="float-end">
         <strong>Connection status: </strong>
-        <ng-container *ngIf="cs.conn.status$ | async as status">{{ status.type }}</ng-container>
-
+        @if (cs.conn.status$ | async; as status) {
+        {{ status.type }}
+        }
         <button class="btn btn-danger btn-sm ms-2" (click)="cs.disconnect()">Disconnect</button>
       </span>
     </div>
     <div class="card-body">
       <ul class="nav nav-tabs nav-fill mb-3">
-        <li class="nav-item" *ngFor="let link of navLinks">
+        @for (link of navLinks; track link) {
+        <li class="nav-item">
           <a class="nav-link" [routerLink]="link.target" routerLinkActive="active">{{
             link.label
           }}</a>
         </li>
+        }
       </ul>
-
       <router-outlet></router-outlet>
     </div>
   </div>
+  }
 </div>

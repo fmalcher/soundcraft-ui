@@ -1,4 +1,3 @@
-import { NgFor } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ConnectionService } from '../../connection.service';
 import { FaderLevelComponent } from '../../ui/fader-level/fader-level.component';
@@ -8,7 +7,7 @@ import { TransitionComponent } from '../../ui/transition/transition.component';
   selector: 'sui-volumebus',
   templateUrl: './volumebus.component.html',
   standalone: true,
-  imports: [NgFor, FaderLevelComponent, TransitionComponent],
+  imports: [FaderLevelComponent, TransitionComponent],
 })
 export class VolumebusComponent {
   cs = inject(ConnectionService);

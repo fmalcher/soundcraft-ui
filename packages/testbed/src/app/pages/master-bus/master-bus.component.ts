@@ -1,4 +1,4 @@
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { MasterChannel, DelayableMasterChannel } from 'soundcraft-ui-connection';
 
@@ -15,9 +15,7 @@ import { TransitionComponent } from '../../ui/transition/transition.component';
   templateUrl: './master-bus.component.html',
   standalone: true,
   imports: [
-    NgFor,
     AsyncPipe,
-    NgIf,
     FaderLevelComponent,
     SoloButtonComponent,
     MuteButtonComponent,

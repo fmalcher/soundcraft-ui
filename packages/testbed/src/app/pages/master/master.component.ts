@@ -1,4 +1,4 @@
-import { AsyncPipe, NgFor } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ConnectionService } from '../../connection.service';
 import { FaderLevelComponent } from '../../ui/fader-level/fader-level.component';
@@ -12,7 +12,6 @@ import { TransitionComponent } from '../../ui/transition/transition.component';
   standalone: true,
   imports: [
     AsyncPipe,
-    NgFor,
     MixerButtonComponent,
     FaderLevelComponent,
     PanComponent,

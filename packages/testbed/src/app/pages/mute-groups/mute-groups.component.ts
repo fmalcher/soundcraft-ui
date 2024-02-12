@@ -1,4 +1,4 @@
-import { AsyncPipe, NgFor } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { MuteGroup, MuteGroupID } from 'soundcraft-ui-connection';
 import { ConnectionService } from '../../connection.service';
@@ -8,7 +8,7 @@ import { MixerButtonComponent } from '../../ui/mixer-button/mixer-button.compone
   selector: 'sui-mute-groups',
   templateUrl: './mute-groups.component.html',
   standalone: true,
-  imports: [NgFor, AsyncPipe, MixerButtonComponent],
+  imports: [AsyncPipe, MixerButtonComponent],
 })
 export class MuteGroupsComponent {
   cs = inject(ConnectionService);

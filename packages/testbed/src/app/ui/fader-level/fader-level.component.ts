@@ -1,4 +1,4 @@
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { FadeableChannel } from 'soundcraft-ui-connection';
 
@@ -7,7 +7,7 @@ import { FadeableChannel } from 'soundcraft-ui-connection';
   templateUrl: './fader-level.component.html',
   styleUrls: ['./fader-level.component.css'],
   standalone: true,
-  imports: [AsyncPipe, NgIf],
+  imports: [AsyncPipe],
 })
 export class FaderLevelComponent {
   @Input() channel?: FadeableChannel;

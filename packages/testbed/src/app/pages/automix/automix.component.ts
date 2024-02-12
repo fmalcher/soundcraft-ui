@@ -1,4 +1,4 @@
-import { AsyncPipe, NgFor } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ConnectionService } from '../../connection.service';
 import { MixerButtonComponent } from '../../ui/mixer-button/mixer-button.component';
@@ -9,7 +9,7 @@ import { MasterChannel } from 'soundcraft-ui-connection';
   templateUrl: './automix.component.html',
   styleUrls: ['./automix.component.css'],
   standalone: true,
-  imports: [NgFor, AsyncPipe, MixerButtonComponent],
+  imports: [AsyncPipe, MixerButtonComponent],
 })
 export class AutomixComponent {
   cs = inject(ConnectionService);

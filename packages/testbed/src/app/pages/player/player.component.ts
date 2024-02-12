@@ -1,4 +1,4 @@
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { map } from 'rxjs';
 import { PlayerState } from 'soundcraft-ui-connection';
@@ -12,7 +12,7 @@ import { TimePipe } from '../../ui/time.pipe';
   selector: 'sui-player',
   templateUrl: './player.component.html',
   standalone: true,
-  imports: [AsyncPipe, MixerButtonComponent, InputComponent, NgIf, TimePipe],
+  imports: [AsyncPipe, MixerButtonComponent, InputComponent, TimePipe],
 })
 export class PlayerComponent {
   cs = inject(ConnectionService);
