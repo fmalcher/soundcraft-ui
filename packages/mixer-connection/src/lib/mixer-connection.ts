@@ -46,10 +46,17 @@ export class MixerConnection {
   private outboundSubject$ = new Subject<string>();
   private inboundSubject$ = new Subject<string>();
 
+  private _status: ConnectionStatus = ConnectionStatus.Close;
+
   /** public message streams */
 
-  /** Connection status */
+  /** Connection status stream */
   status$ = this.statusSubject$.asObservable();
+
+  /** Connection status */
+  get status() {
+    return this._status;
+  }
 
   /** All outbound messages (from client to mixer) */
   outbound$ = this.outboundSubject$.asObservable();
@@ -61,6 +68,12 @@ export class MixerConnection {
   allMessages$ = merge(this.outbound$, this.inbound$);
 
   constructor(private targetIP: string) {
+    // track connection status in synchronously readable field
+    this.statusSubject$.subscribe(status => {
+      this._status = status.type;
+      console.log('STATUS', this.status);
+    });
+
     /**
      * Wire up the websocket connection object.
      * The connection will be established on first subscribe
