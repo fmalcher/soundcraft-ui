@@ -1,4 +1,4 @@
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { AuxChannel, MasterBus, MasterChannel } from 'soundcraft-ui-connection';
 
@@ -7,7 +7,7 @@ import { AuxChannel, MasterBus, MasterChannel } from 'soundcraft-ui-connection';
   templateUrl: './pan.component.html',
   styleUrls: ['./pan.component.css'],
   standalone: true,
-  imports: [NgIf, AsyncPipe],
+  imports: [AsyncPipe],
 })
 export class PanComponent {
   @Input() channel?: MasterChannel | AuxChannel | MasterBus;

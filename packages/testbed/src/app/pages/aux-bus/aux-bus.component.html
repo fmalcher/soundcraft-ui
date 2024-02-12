@@ -3,21 +3,16 @@
   bus.
 </div>
 
-<ng-container *ngFor="let c of channels$ | async">
-  <h2 class="mt-4">{{ c.label }} ({{ c.channel.name$ | async }})</h2>
-
-  <sui-mute-button [channel]="c.channel" />
-
-  <sui-prepost [channel]="c.channel" />
-
-  <!-- POST/PRE PROC -->
-  <div>
-    <sui-mixer-button (press)="c.channel.preProc()"> PRE PROC</sui-mixer-button>
-    <sui-mixer-button (press)="c.channel.postProc()">POST PROC</sui-mixer-button>
-  </div>
-
-  <sui-fader-level [channel]="c.channel" />
-  <sui-pan [channel]="c.channel" />
-
-  <sui-transition [channel]="c.channel" />
-</ng-container>
+@for (c of channels$ | async; track c) {
+<h2 class="mt-4">{{ c.label }} ({{ c.channel.name$ | async }})</h2>
+<sui-mute-button [channel]="c.channel" />
+<sui-prepost [channel]="c.channel" />
+<!-- POST/PRE PROC -->
+<div>
+  <sui-mixer-button (press)="c.channel.preProc()"> PRE PROC</sui-mixer-button>
+  <sui-mixer-button (press)="c.channel.postProc()">POST PROC</sui-mixer-button>
+</div>
+<sui-fader-level [channel]="c.channel" />
+<sui-pan [channel]="c.channel" />
+<sui-transition [channel]="c.channel" />
+}

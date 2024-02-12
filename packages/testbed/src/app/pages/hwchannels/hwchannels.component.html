@@ -1,40 +1,35 @@
-<ng-container *ngFor="let channel of channels">
-  <h2 class="mt-5">HW Channel {{ channel.fullChannelId }}</h2>
-
-  <h3>Phantom Power</h3>
-  <sui-mixer-button (press)="channel.phantomOn()">ON</sui-mixer-button>
-  <sui-mixer-button (press)="channel.phantomOff()">OFF</sui-mixer-button>
-  <sui-mixer-button (press)="channel.togglePhantom()" [active]="!!(channel.phantom$ | async)">
-    Toggle
-  </sui-mixer-button>
-
-  <div class="mt-3">
-    <h3>Gain</h3>
-    <input
-      type="range"
-      min="0"
-      max="1"
-      step="0.0001"
-      (input)="setGain(channel, gainLevelInput.value)"
-      [value]="channel.gain$ | async"
-      #gainLevelInput
-    />
-
-    <span class="ms-3">{{ channel.gainDB$ | async }} dB</span>
-    <span class="ms-3">{{ channel.gain$ | async }}</span>
-
-    <div class="mt-2">
-      <h4>Set value</h4>
-      <button class="btn btn-success btn-sm me-3" (click)="channel.setGainDB(-6)">-6 dB</button>
-      <button class="btn btn-success btn-sm me-3" (click)="channel.setGainDB(0)">0 dB</button>
-      <button class="btn btn-success btn-sm me-3" (click)="channel.setGainDB(24)">24 dB</button>
-      <button class="btn btn-success btn-sm me-3" (click)="channel.setGainDB(13)">13 dB</button>
-    </div>
-
-    <div class="mt-3">
-      <h4>Change value</h4>
-      <button class="btn btn-success btn-sm me-3" (click)="channel.changeGainDB(-3)">-3 dB</button>
-      <button class="btn btn-success btn-sm me-3" (click)="channel.changeGainDB(3)">+3 dB</button>
-    </div>
+@for (channel of channels; track channel) {
+<h2 class="mt-5">HW Channel {{ channel.fullChannelId }}</h2>
+<h3>Phantom Power</h3>
+<sui-mixer-button (press)="channel.phantomOn()">ON</sui-mixer-button>
+<sui-mixer-button (press)="channel.phantomOff()">OFF</sui-mixer-button>
+<sui-mixer-button (press)="channel.togglePhantom()" [active]="!!(channel.phantom$ | async)">
+  Toggle
+</sui-mixer-button>
+<div class="mt-3">
+  <h3>Gain</h3>
+  <input
+    type="range"
+    min="0"
+    max="1"
+    step="0.0001"
+    (input)="setGain(channel, gainLevelInput.value)"
+    [value]="channel.gain$ | async"
+    #gainLevelInput
+  />
+  <span class="ms-3">{{ channel.gainDB$ | async }} dB</span>
+  <span class="ms-3">{{ channel.gain$ | async }}</span>
+  <div class="mt-2">
+    <h4>Set value</h4>
+    <button class="btn btn-success btn-sm me-3" (click)="channel.setGainDB(-6)">-6 dB</button>
+    <button class="btn btn-success btn-sm me-3" (click)="channel.setGainDB(0)">0 dB</button>
+    <button class="btn btn-success btn-sm me-3" (click)="channel.setGainDB(24)">24 dB</button>
+    <button class="btn btn-success btn-sm me-3" (click)="channel.setGainDB(13)">13 dB</button>
   </div>
-</ng-container>
+  <div class="mt-3">
+    <h4>Change value</h4>
+    <button class="btn btn-success btn-sm me-3" (click)="channel.changeGainDB(-3)">-3 dB</button>
+    <button class="btn btn-success btn-sm me-3" (click)="channel.changeGainDB(3)">+3 dB</button>
+  </div>
+</div>
+}

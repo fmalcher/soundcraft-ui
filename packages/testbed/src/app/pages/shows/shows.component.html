@@ -17,7 +17,9 @@
   value="testsnapshot1"
   (valueChange)="loadSnapshot($event)"
 />
-<div class="text-muted" *ngIf="!showFromInput">Set show name first with input above!</div>
+@if (!showFromInput) {
+<div class="text-muted">Set show name first with input above!</div>
+}
 
 <sui-input
   label="Load cue from show {{ showFromInput }}"
@@ -25,4 +27,6 @@
   value="testcue1"
   (valueChange)="loadCue($event)"
 />
-<div class="text-muted" *ngIf="!showFromInput">Set show name first with input above!</div>
+@if (!showFromInput) {
+<div class="text-muted">Set show name first with input above!</div>
+}

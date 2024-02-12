@@ -18,7 +18,8 @@
 
 <div class="mt-4">
   <h2>Delay</h2>
-  <div class="mb-2" *ngFor="let d of delays">
+  @for (d of delays; track d) {
+  <div class="mb-2">
     <strong>{{ d.side }}</strong>
     <input
       class="w-25 d-inline ms-4"
@@ -29,10 +30,9 @@
       [value]="d.data$ | async"
       (change)="d.setDelay($any($event.target).value)"
     />
-
     <button class="btn btn-success btn-sm ms-3" (click)="d.changeDelay(50)">+ 50 ms</button>
     <button class="btn btn-success btn-sm ms-3 me-3" (click)="d.changeDelay(-30)">- 30 ms</button>
-
     {{ d.data$ | async }} ms
   </div>
+  }
 </div>

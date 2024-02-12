@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs';
-import { AsyncPipe, NgFor } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 
 import { ConnectionService } from '../../connection.service';
 import { MuteButtonComponent } from '../../ui/mute-button/mute-button.component';
@@ -16,7 +16,6 @@ import { TransitionComponent } from '../../ui/transition/transition.component';
   templateUrl: './aux-bus.component.html',
   standalone: true,
   imports: [
-    NgFor,
     AsyncPipe,
     MuteButtonComponent,
     PrepostComponent,

@@ -28,7 +28,9 @@
   value="/Power_Shutoff.mp3"
   (valueChange)="loadTrack($event)"
 />
-<div class="text-muted" *ngIf="!playlistFromInput">Set playlist first with input above!</div>
+@if (!playlistFromInput) {
+<div class="text-muted">Set playlist first with input above!</div>
+}
 
 <div class="mb-3">
   <sui-mixer-button (press)="player.setManual()">Manual</sui-mixer-button>

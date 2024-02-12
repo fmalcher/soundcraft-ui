@@ -1,14 +1,12 @@
-<ng-container *ngFor="let c of channels">
-  <h2 class="mt-4">{{ c.label }} ({{ c.channel.name$ | async }})</h2>
-
-  <sui-mute-button [channel]="c.channel" />
-
-  <sui-solo-button [channel]="c.channel" />
-
-  <sui-fader-level [channel]="c.channel" />
-  <sui-pan *ngIf="!c.noPan" [channel]="c.channel" />
-
-  <sui-transition [channel]="c.channel" />
-
-  <sui-delay *ngIf="isDelayable(c.channel)" [channel]="c.channel" [maxValue]="c.delayMax || 250" />
-</ng-container>
+@for (c of channels; track c) {
+<h2 class="mt-4">{{ c.label }} ({{ c.channel.name$ | async }})</h2>
+<sui-mute-button [channel]="c.channel" />
+<sui-solo-button [channel]="c.channel" />
+<sui-fader-level [channel]="c.channel" />
+@if (!c.noPan) {
+<sui-pan [channel]="c.channel" />
+}
+<sui-transition [channel]="c.channel" />
+@if (isDelayable(c.channel)) {
+<sui-delay [channel]="c.channel" [maxValue]="c.delayMax || 250" />
+} }

@@ -1,4 +1,4 @@
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ConnectionService } from '../../connection.service';
 import { InputComponent } from '../../ui/input/input.component';
@@ -7,7 +7,7 @@ import { InputComponent } from '../../ui/input/input.component';
   selector: 'sui-shows',
   templateUrl: './shows.component.html',
   standalone: true,
-  imports: [AsyncPipe, NgIf, InputComponent],
+  imports: [AsyncPipe, InputComponent],
 })
 export class ShowsComponent {
   cs = inject(ConnectionService);
