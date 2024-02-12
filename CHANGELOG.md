@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.0](https://github.com/fmalcher/soundcraft-ui/compare/v2.1.0...v2.2.0) (2024-02-12)
+
+### Features
+
+- expose connection status as value ([1ad0c60](https://github.com/fmalcher/soundcraft-ui/commit/1ad0c6014c3c4354664ac9dc4321271f36b67d8c))
+- **testbed:** add custom title strategy ([ce74836](https://github.com/fmalcher/soundcraft-ui/commit/ce74836963c151faba68f422cbbbea2e49d2d75b))
+
+### Other
+
+- nx migrate to 17 and Angular 17 ([caf4695](https://github.com/fmalcher/soundcraft-ui/commit/caf4695773bbcadb1fe533591573f3b20dac4b1e))
+- nx update 18 ([364cd68](https://github.com/fmalcher/soundcraft-ui/commit/364cd68d21dec088445fe9ab8587ce99ea0bd231))
+- reconnect to nx cloud ([dc8442f](https://github.com/fmalcher/soundcraft-ui/commit/dc8442f81cfbe7f19bb60a9c1020b49cff2551f0))
+- remove unnecessary type declaration ([c8550ab](https://github.com/fmalcher/soundcraft-ui/commit/c8550ab958f83332a3e4b19c418385add6a146f0))
+- setup nx-cloud connection again ([af00913](https://github.com/fmalcher/soundcraft-ui/commit/af009132f4f005931db229d7b4a150237201b682))
+- **testbed:** add route titles ([0ec666e](https://github.com/fmalcher/soundcraft-ui/commit/0ec666e5d84bbdc5f43d1ca301405bce815f8f9a))
+- **testbed:** align structure with current Angular project structure ([a134163](https://github.com/fmalcher/soundcraft-ui/commit/a134163dde0bb76820b6b3b3c3b6d165ba41ad96))
+- **testbed:** use Angular control flow ([db7356f](https://github.com/fmalcher/soundcraft-ui/commit/db7356f16f3b37ac9129960e4e95ecb8dcd7186e))
+- **testbed:** use method for connection ([2dc017e](https://github.com/fmalcher/soundcraft-ui/commit/2dc017e04a481158a7451c9bdf1a13b925dbf772))
+- update nx cloud workflow ([fd6e615](https://github.com/fmalcher/soundcraft-ui/commit/fd6e615282e7224f6e0d95ea94f1582d86f5b1a6))
+
 ## [2.1.0](https://github.com/fmalcher/soundcraft-ui/compare/v2.0.1...v2.1.0) (2023-10-15)
 
 ### Features
