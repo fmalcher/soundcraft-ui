@@ -1,7 +1,4 @@
 {
-  "affected": {
-    "defaultBase": "main"
-  },
   "workspaceLayout": {
     "appsDir": "packages",
     "libsDir": "packages"
@@ -57,5 +54,6 @@
       "!{projectRoot}/src/test-setup.[jt]s"
     ]
   },
-  "nxCloudAccessToken": "MDI0NmZkMDAtNmVhOC00Y2Y4LTk0ZWEtYTdhYzBlY2IzYWUxfHJlYWQtd3JpdGU="
+  "nxCloudAccessToken": "MDI0NmZkMDAtNmVhOC00Y2Y4LTk0ZWEtYTdhYzBlY2IzYWUxfHJlYWQtd3JpdGU=",
+  "defaultBase": "main"
 }
