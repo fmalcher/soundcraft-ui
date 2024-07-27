@@ -1,4 +1,4 @@
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, of } from 'rxjs';
 import { SoundcraftUI } from '../soundcraft-ui';
 import { MtkState } from '../types';
 import { MultiTrackRecorder } from './multi-track-recorder';
@@ -113,6 +113,40 @@ describe('Multi-track recorder', () => {
 
       mtk.toggleSoundcheck();
       expect(await firstValueFrom(mtk.soundcheck$)).toBe(0);
+    });
+  });
+
+  describe('Recording Start/Stop', () => {
+    beforeEach(() => {
+      conn.conn.sendMessage = jest.fn();
+    });
+
+    it('recordStart should toggle when stopped', () => {
+      mtk.recording$ = of(0); // stopped;
+      mtk.recordStart();
+
+      expect(conn.conn.sendMessage).toHaveBeenCalledWith('MTK_REC_TOGGLE');
+    });
+
+    it('recordStart should not toggle when recording', () => {
+      mtk.recording$ = of(1); // recording;
+      mtk.recordStart();
+
+      expect(conn.conn.sendMessage).not.toHaveBeenCalled();
+    });
+
+    it('recordStop should toggle when recording', () => {
+      mtk.recording$ = of(1); // recording;
+      mtk.recordStop();
+
+      expect(conn.conn.sendMessage).toHaveBeenCalledWith('MTK_REC_TOGGLE');
+    });
+
+    it('recordStop should not toggle when stopped', () => {
+      mtk.recording$ = of(0); // stopped;
+      mtk.recordStop();
+
+      expect(conn.conn.sendMessage).not.toHaveBeenCalled();
     });
   });
 });

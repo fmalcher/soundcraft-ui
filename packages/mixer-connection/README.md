@@ -419,6 +419,8 @@ It supports the following operations:
 | `pause()`                   | Pause                                                                                                                                         |
 | `stop()`                    | Stop                                                                                                                                          |
 | `recordToggle()`            | Toggle recording                                                                                                                              |
+| `recordStart()`             | Start recording                                                                                                                               |
+| `recordStop()`              | Stop recording                                                                                                                                |
 | `activateSoundcheck()`      | Activate soundcheck                                                                                                                           |
 | `deactivateSoundcheck()`    | Deactivate soundcheck                                                                                                                         |
 | `toggleSoundcheck()`        | Toggle soundcheck                                                                                                                             |
