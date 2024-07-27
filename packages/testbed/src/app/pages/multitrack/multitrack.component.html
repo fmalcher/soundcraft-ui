@@ -16,6 +16,8 @@
   <sui-mixer-button (press)="mtk.recordToggle()" [active]="!!(mtk.recording$ | async)">
     REC
   </sui-mixer-button>
+  <sui-mixer-button (press)="mtk.recordStart()">REC Start</sui-mixer-button>
+  <sui-mixer-button (press)="mtk.recordStop()">REC Stop</sui-mixer-button>
 </div>
 
 <div class="mb-3">

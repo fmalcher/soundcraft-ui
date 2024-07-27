@@ -79,6 +79,26 @@ export class MultiTrackRecorder {
     this.conn.sendMessage('MTK_REC_TOGGLE');
   }
 
+  /** Start recording */
+  recordStart() {
+    this.recording$.pipe(take(1)).subscribe(recording => {
+      // to start recording we have to make sure recording is stopped so that toggling will start it
+      if (!recording) {
+        this.recordToggle();
+      }
+    });
+  }
+
+  /** Stop recording */
+  recordStop() {
+    this.recording$.pipe(take(1)).subscribe(recording => {
+      // to stop recording we have to make sure recording is running so that toggling will stop it
+      if (recording) {
+        this.recordToggle();
+      }
+    });
+  }
+
   /**
    * Set soundcheck (activate or deactivate)
    * @param value `0` or `1`
