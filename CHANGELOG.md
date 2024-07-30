@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.3.0](https://github.com/fmalcher/soundcraft-ui/compare/v2.2.1...v2.3.0) (2024-07-30)
+
+### Features
+
+- add start and stop for dual-track recording ([ab69511](https://github.com/fmalcher/soundcraft-ui/commit/ab695114ccaefd8e8cb4bd328c0464000ebbc33c))
+- add start and stop for multi-track recording ([#135](https://github.com/fmalcher/soundcraft-ui/issues/135)) ([be50bbd](https://github.com/fmalcher/soundcraft-ui/commit/be50bbdafa129fca204418eaa23fa72a11503251))
+- add support for multi-track channel selection ([d5256bb](https://github.com/fmalcher/soundcraft-ui/commit/d5256bb0aa375ef21120908ef7d8e193112f17f8))
+
+### Bug Fixes
+
+- installation conflicts ([be67a54](https://github.com/fmalcher/soundcraft-ui/commit/be67a5431e6679a812501b3412eab169f3d00a46))
+
+### Other
+
+- nx update to 18.3 ([b08d763](https://github.com/fmalcher/soundcraft-ui/commit/b08d763dda4f807bcd773d705cbfcdb86256c69f))
+- nx update to 19.5 ([4b0e44a](https://github.com/fmalcher/soundcraft-ui/commit/4b0e44a2ca25c4223c2dc4ec2a848b8e68096e76))
+- use new CI script for Nx agents ([#136](https://github.com/fmalcher/soundcraft-ui/issues/136)) ([0a1dd5f](https://github.com/fmalcher/soundcraft-ui/commit/0a1dd5fda9a61ae195b676aade770535f3617107))
+
 ### [2.2.1](https://github.com/fmalcher/soundcraft-ui/compare/v2.2.0...v2.2.1) (2024-02-12)
 
 ### Bug Fixes
