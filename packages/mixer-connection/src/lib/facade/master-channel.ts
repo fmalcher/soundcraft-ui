@@ -53,6 +53,11 @@ export class MasterChannel extends Channel implements PannableChannel {
   /** Automix weight (dB) for this channel (between `-12` and `12` dB) */
   automixWeightDB$ = this.automixWeight$.pipe(map(v => linearMappingValueToRange(v, -12, 12)));
 
+  /** Multitrack selection state for the channel (`0` or `1`) */
+  multiTrackSelected$ = this.store.state$.pipe(
+    selectRawValue<number>(`${this.fullChannelId}.mtkrec`)
+  );
+
   constructor(conn: MixerConnection, store: MixerStore, channelType: ChannelType, channel: number) {
     super(conn, store, channelType, channel);
 
@@ -105,6 +110,37 @@ export class MasterChannel extends Channel implements PannableChannel {
   /** Toggle SOLO status for the channel */
   toggleSolo() {
     this.solo$.pipe(take(1)).subscribe(solo => this.setSolo(solo ^ 1));
+  }
+
+  private multiTrackAssertChannelType() {
+    if (this.channelType !== 'i' && this.channelType !== 'l') {
+      throw new Error('Multitrack recording can only be used with input and line channels');
+    }
+  }
+
+  private multiTrackSetSelection(value: number) {
+    this.multiTrackAssertChannelType();
+
+    const command = `SETD^${this.fullChannelId}.mtkrec^${value}`;
+    this.conn.sendMessage(command);
+  }
+
+  /** Select this channel for multitrack recording */
+  multiTrackSelect() {
+    this.multiTrackSetSelection(1);
+  }
+
+  /** Remove this channel from multitrack recording */
+  multiTrackUnselect() {
+    this.multiTrackSetSelection(0);
+  }
+
+  /** Toggle multitrack recording for this channel */
+  multiTrackToggle() {
+    this.multiTrackAssertChannelType();
+    this.multiTrackSelected$
+      .pipe(take(1))
+      .subscribe(selected => this.multiTrackSetSelection(selected ^ 1));
   }
 
   /** Assign this channel to an automix group. This also includes stereo-linked channels.

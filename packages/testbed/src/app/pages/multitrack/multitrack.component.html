@@ -28,3 +28,19 @@
     Toggle
   </sui-mixer-button>
 </div>
+
+<div class="mb-3">
+  <h2>Channels</h2>
+  @for (c of channels; track c) {
+  <div class="mb-3">
+    <h3>{{ c.label }}</h3>
+    <sui-mixer-button (press)="c.channel.multiTrackSelect()">Select</sui-mixer-button>
+    <sui-mixer-button (press)="c.channel.multiTrackUnselect()">Unselect</sui-mixer-button>
+    <sui-mixer-button
+      (press)="c.channel.multiTrackToggle()"
+      [active]="!!(c.channel.multiTrackSelected$ | async)"
+      >Toggle</sui-mixer-button
+    >
+  </div>
+  }
+</div>
