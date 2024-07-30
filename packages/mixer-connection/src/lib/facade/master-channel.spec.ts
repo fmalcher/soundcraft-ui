@@ -126,4 +126,32 @@ describe('Master Channel', () => {
       }).toThrow();
     });
   });
+
+  describe('Multitrack Config', () => {
+    it('select', async () => {
+      channel.multiTrackSelect();
+      expect(await firstValueFrom(channel.multiTrackSelected$)).toBe(1);
+    });
+
+    it('unselect', async () => {
+      channel.multiTrackUnselect();
+      expect(await firstValueFrom(channel.multiTrackSelected$)).toBe(0);
+    });
+
+    it('toggle', async () => {
+      channel.multiTrackUnselect();
+      channel.multiTrackToggle();
+      expect(await firstValueFrom(channel.multiTrackSelected$)).toBe(1);
+
+      channel.multiTrackToggle();
+      expect(await firstValueFrom(channel.multiTrackSelected$)).toBe(0);
+    });
+
+    it('should only work for input and line channels', () => {
+      const playerChannel = conn.master.player(1);
+      expect(() => playerChannel.multiTrackToggle()).toThrow();
+      expect(() => playerChannel.multiTrackSelect()).toThrow();
+      expect(() => playerChannel.multiTrackUnselect()).toThrow();
+    });
+  });
 });

@@ -126,6 +126,13 @@ describe('Outbound messages', () => {
 
     conn.master.input(3).automixSetWeightDB(6);
     expect(message).toBe('SETD^i.2.amix^0.75');
+
+    // multitrack config (only for input and line channels)
+    conn.master.input(3).multiTrackSelect();
+    expect(message).toBe('SETD^i.2.mtkrec^1');
+
+    conn.master.input(3).multiTrackUnselect();
+    expect(message).toBe('SETD^i.2.mtkrec^0');
   });
 
   it('master channels LINE', () => {

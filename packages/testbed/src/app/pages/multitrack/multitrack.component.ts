@@ -13,7 +13,17 @@ import { TimePipe } from '../../ui/time.pipe';
   imports: [AsyncPipe, TimePipe, MixerButtonComponent],
 })
 export class MultitrackComponent {
-  mtk = inject(ConnectionService).conn.recorderMultiTrack;
+  private cs = inject(ConnectionService);
+  mtk = this.cs.conn.recorderMultiTrack;
+  master = this.cs.conn.master;
+
+  channels = [
+    { channel: this.master.input(1), label: 'Input 1' },
+    { channel: this.master.input(2), label: 'Input 2' },
+    { channel: this.master.input(3), label: 'Input 3' },
+    { channel: this.master.line(1), label: 'Line 1' },
+    { channel: this.master.line(2), label: 'Line 2' },
+  ];
 
   state$ = this.mtk.state$.pipe(
     map(s => {
