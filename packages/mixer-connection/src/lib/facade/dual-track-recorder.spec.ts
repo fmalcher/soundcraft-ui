@@ -1,4 +1,4 @@
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, of } from 'rxjs';
 import { SoundcraftUI } from '../soundcraft-ui';
 import { DualTrackRecorder } from './dual-track-recorder';
 
@@ -25,5 +25,39 @@ describe('DualTrackRecorder', () => {
 
     conn.conn.sendMessage('SETD^var.recBusy^0');
     expect(await firstValueFrom(recorder.busy$)).toBe(0);
+  });
+
+  describe('Recording Start/Stop', () => {
+    beforeEach(() => {
+      conn.conn.sendMessage = jest.fn();
+    });
+
+    it('recordStart should toggle when stopped', () => {
+      recorder.recording$ = of(0); // stopped;
+      recorder.recordStart();
+
+      expect(conn.conn.sendMessage).toHaveBeenCalledWith('RECTOGGLE');
+    });
+
+    it('recordStart should not toggle when recording', () => {
+      recorder.recording$ = of(1); // recording;
+      recorder.recordStart();
+
+      expect(conn.conn.sendMessage).not.toHaveBeenCalled();
+    });
+
+    it('recordStop should toggle when recording', () => {
+      recorder.recording$ = of(1); // recording;
+      recorder.recordStop();
+
+      expect(conn.conn.sendMessage).toHaveBeenCalledWith('RECTOGGLE');
+    });
+
+    it('recordStop should not toggle when stopped', () => {
+      recorder.recording$ = of(0); // stopped;
+      recorder.recordStop();
+
+      expect(conn.conn.sendMessage).not.toHaveBeenCalled();
+    });
   });
 });
