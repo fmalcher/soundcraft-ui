@@ -1,3 +1,4 @@
+import { take } from 'rxjs';
 import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
 import { selectRawValue } from '../state/state-selectors';
@@ -17,5 +18,25 @@ export class DualTrackRecorder {
   /** Toggle recording */
   recordToggle() {
     this.conn.sendMessage('RECTOGGLE');
+  }
+
+  /** Start recording */
+  recordStart() {
+    this.recording$.pipe(take(1)).subscribe(recording => {
+      // to start recording we have to make sure recording is stopped so that toggling will start it
+      if (!recording) {
+        this.recordToggle();
+      }
+    });
+  }
+
+  /** Stop recording */
+  recordStop() {
+    this.recording$.pipe(take(1)).subscribe(recording => {
+      // to stop recording we have to make sure recording is running so that toggling will stop it
+      if (recording) {
+        this.recordToggle();
+      }
+    });
   }
 }

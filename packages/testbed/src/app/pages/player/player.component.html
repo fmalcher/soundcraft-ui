@@ -54,3 +54,5 @@
 <sui-mixer-button (press)="rec.recordToggle()" [active]="!!(rec.recording$ | async)">
   REC
 </sui-mixer-button>
+<sui-mixer-button (press)="rec.recordStart()">REC Start</sui-mixer-button>
+<sui-mixer-button (press)="rec.recordStop()">REC Stop</sui-mixer-button>
