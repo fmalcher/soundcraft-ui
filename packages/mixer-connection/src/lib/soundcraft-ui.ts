@@ -12,15 +12,20 @@ import { ShowController } from './facade/show-controller';
 import { VolumeBus } from './facade/volume-bus';
 import { MixerConnection } from './mixer-connection';
 import { MixerStore } from './state/mixer-store';
+import { VuProcessor } from './vu/vu-processor';
 
 export class SoundcraftUI {
   readonly conn = new MixerConnection(this.targetIP);
   readonly store = new MixerStore(this.conn);
 
+  /** Information about hardware and software of the mixer */
   deviceInfo = new DeviceInfo(this.store);
 
   /** Connection status */
   status$ = this.conn.status$;
+
+  /** VU meter information for master channels */
+  readonly vuProcessor = new VuProcessor(this.conn);
 
   /** Master bus */
   master = new MasterBus(this.conn, this.store);

@@ -11,6 +11,7 @@ import { PlayerComponent } from './pages/player/player.component';
 import { ShowsComponent } from './pages/shows/shows.component';
 import { VolumebusComponent } from './pages/volumebus/volumebus.component';
 import { AutomixComponent } from './pages/automix/automix.component';
+import { VuComponent } from './pages/vu/vu.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'master', pathMatch: 'full' },
@@ -26,4 +27,5 @@ export const routes: Routes = [
   { path: 'hwchannels', component: HwchannelsComponent, title: 'HW Channels' },
   { path: 'automix', component: AutomixComponent, title: 'Automix' },
   { path: 'fullstate', component: FullStateComponent, title: 'Full state' },
+  { path: 'vu', component: VuComponent, title: 'VU' },
 ];
