@@ -27,6 +27,7 @@ export class AppComponent {
     { label: 'HW Channels', target: '/hwchannels' },
     { label: 'Automix', target: '/automix' },
     { label: 'Full state', target: '/fullstate' },
+    { label: 'VU', target: '/vu' },
   ];
 
   connectCustomIp(ip: string) {

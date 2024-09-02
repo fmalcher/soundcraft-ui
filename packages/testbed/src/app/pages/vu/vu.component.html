@@ -1,0 +1,40 @@
+@for (c of inputChannels; track c) {
+<h2 class="mt-4">{{ c.label }}</h2>
+<sui-vu-meter [value]="(c.vuData | async)?.vuPre" mode="pre"></sui-vu-meter>
+<sui-vu-meter [value]="(c.vuData | async)?.vuPost" mode="post"></sui-vu-meter>
+<sui-vu-meter [value]="(c.vuData | async)?.vuPostFader" mode="postFader"></sui-vu-meter>
+}
+
+<hr />
+
+@for (c of auxChannels; track c) {
+<h2 class="mt-4">{{ c.label }}</h2>
+<sui-vu-meter [value]="(c.vuData | async)?.vuPost" mode="post"></sui-vu-meter>
+<sui-vu-meter [value]="(c.vuData | async)?.vuPostFader" mode="postFader"></sui-vu-meter>
+}
+
+<hr />
+
+@for (c of stereoChannels; track c) {
+<h2 class="mt-4">{{ c.label }}</h2>
+<sui-vu-meter [value]="(c.vuData | async)?.vuPostL" mode="post" label="Post L"></sui-vu-meter>
+<sui-vu-meter [value]="(c.vuData | async)?.vuPostR" mode="post" label="Post R"></sui-vu-meter>
+<sui-vu-meter
+  [value]="(c.vuData | async)?.vuPostFaderL"
+  mode="postFader"
+  label="Post Fader L"
+></sui-vu-meter>
+<sui-vu-meter
+  [value]="(c.vuData | async)?.vuPostFaderR"
+  mode="postFader"
+  label="Post Fader R"
+></sui-vu-meter>
+}
+
+<h2 class="mt-5">Full VU state</h2>
+
+@if(!fullStateVisible()) {
+<button class="btn btn-success" (click)="fullStateVisible.set(true)">Show</button>
+} @if (fullStateVisible()) {
+<pre>{{ vuData$ | async | json }}</pre>
+}

@@ -1,0 +1,39 @@
+div.meter {
+  width: 100%;
+  height: 15px;
+  text-align: right;
+  margin-top: 2px;
+
+  &.pre {
+    background: rgb(41, 41, 41);
+  }
+
+  &.post {
+    background: rgb(67, 97, 206);
+  }
+
+  &.postFader {
+    background: linear-gradient(
+      90deg,
+      rgba(39, 143, 25, 1) 0%,
+      rgba(255, 248, 4, 1) 48%,
+      rgba(255, 0, 0, 1) 100%
+    );
+  }
+
+  label {
+    display: inline;
+    position: absolute;
+    left: 15px;
+    color: white;
+    font-size: 10px;
+    margin-left: 10px;
+  }
+
+  .bar {
+    height: 100%;
+    float: right;
+    background: #aaa;
+    transition: width 10ms;
+  }
+}
