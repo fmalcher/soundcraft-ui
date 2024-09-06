@@ -19,37 +19,37 @@ export class SoundcraftUI {
   readonly store = new MixerStore(this.conn);
 
   /** Information about hardware and software of the mixer */
-  deviceInfo = new DeviceInfo(this.store);
+  readonly deviceInfo = new DeviceInfo(this.store);
 
   /** Connection status */
-  status$ = this.conn.status$;
+  readonly status$ = this.conn.status$;
 
   /** VU meter information for master channels */
   readonly vuProcessor = new VuProcessor(this.conn);
 
   /** Master bus */
-  master = new MasterBus(this.conn, this.store);
+  readonly master = new MasterBus(this.conn, this.store);
 
   /** Media player */
-  player = new Player(this.conn, this.store);
+  readonly player = new Player(this.conn, this.store);
 
   /** 2-track recorder */
-  recorderDualTrack = new DualTrackRecorder(this.conn, this.store);
+  readonly recorderDualTrack = new DualTrackRecorder(this.conn, this.store);
 
   /** multitrack recorder */
-  recorderMultiTrack = new MultiTrackRecorder(this.conn, this.store);
+  readonly recorderMultiTrack = new MultiTrackRecorder(this.conn, this.store);
 
   /** SOLO and Headphone buses */
-  volume = {
+  readonly volume = {
     solo: new VolumeBus(this.conn, this.store, 'solovol'),
     headphone: (id: number) => new VolumeBus(this.conn, this.store, 'hpvol', id),
   };
 
   /** Show controller (Shows, Snapshots, Cues) */
-  shows = new ShowController(this.conn, this.store);
+  readonly shows = new ShowController(this.conn, this.store);
 
   /** Automix controller */
-  automix = new AutomixController(this.conn, this.store);
+  readonly automix = new AutomixController(this.conn, this.store);
 
   constructor(private targetIP: string) {}
 
