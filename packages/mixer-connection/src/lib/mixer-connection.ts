@@ -39,8 +39,7 @@ export class MixerConnection {
 
   /**
    * internal message streams.
-   * can be fed from anywhere inside this class
-   * but must not be exposed
+   * can be fed from anywhere inside this class but must not be exposed
    */
   private statusSubject$ = new Subject<ConnectionEvent>();
   private outboundSubject$ = new Subject<string>();
@@ -226,7 +225,7 @@ export class MixerConnection {
 
   /**
    * Send command to the mixer
-   * @param msg Message to send
+   * @param msg Message to send, e.g. `SETD^i.2.mute^1`
    */
   sendMessage(msg: string) {
     this.outboundSubject$.next(msg);

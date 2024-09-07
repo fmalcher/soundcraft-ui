@@ -71,7 +71,7 @@ export class SoundcraftUI {
 
   /**
    * Get MUTE group or related groupings (MUTE ALL and MUTE FX)
-   * @param id ID of the group: 1..6, all, fx
+   * @param id ID of the group: `1`..`6`, `all`, `fx`
    */
   muteGroup(id: MuteGroupID) {
     return new MuteGroup(this.conn, this.store, id);
