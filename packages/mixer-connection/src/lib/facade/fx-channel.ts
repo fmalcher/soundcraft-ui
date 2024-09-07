@@ -3,7 +3,7 @@ import { map } from 'rxjs';
 import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
 import { ChannelType } from '../types';
-import { getLinkedChannelNumber } from '../util';
+import { getLinkedChannelNumber } from '../utils';
 import { SendChannel } from './send-channel';
 
 /**

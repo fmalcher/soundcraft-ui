@@ -1,5 +1,5 @@
 import { SoundcraftUI } from '../soundcraft-ui';
-import { setMixerModel } from '../util';
+import { setMixerModel } from '../test.utils';
 
 describe('Outbound messages', () => {
   let conn: SoundcraftUI;

@@ -1,6 +1,6 @@
 import { firstValueFrom } from 'rxjs';
 import { SoundcraftUI } from '../soundcraft-ui';
-import { setMixerModel } from '../util';
+import { setMixerModel } from '../test.utils';
 import { HwChannel } from './hw-channel';
 
 describe('AUX Channel', () => {

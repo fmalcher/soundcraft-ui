@@ -2,7 +2,7 @@ import { map, switchMap, take } from 'rxjs';
 import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
 import { select, selectGain, selectPhantom } from '../state/state-selectors';
-import { clamp } from '../util';
+import { clamp } from '../utils';
 import {
   linearMappingRangeToValue,
   linearMappingValueToRange,
