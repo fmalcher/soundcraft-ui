@@ -3,7 +3,7 @@ import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
 import { select, selectPan, selectStereoIndex } from '../state/state-selectors';
 import { ChannelType } from '../types';
-import { clamp, getLinkedChannelNumber } from '../util';
+import { clamp, getLinkedChannelNumber } from '../utils';
 import { PannableChannel } from './interfaces';
 import { SendChannel } from './send-channel';
 

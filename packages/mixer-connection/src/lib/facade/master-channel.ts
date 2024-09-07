@@ -4,7 +4,7 @@ import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
 import { select, selectPan, selectRawValue, selectSolo } from '../state/state-selectors';
 import { ChannelType } from '../types';
-import { clamp, getLinkedChannelNumber } from '../util';
+import { clamp, getLinkedChannelNumber } from '../utils';
 import { Channel } from './channel';
 import { PannableChannel } from './interfaces';
 import { AutomixGroupId } from './automix-controller';

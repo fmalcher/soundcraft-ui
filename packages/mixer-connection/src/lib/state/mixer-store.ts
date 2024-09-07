@@ -1,6 +1,6 @@
 import { connectable, filter, map, ReplaySubject, scan, share } from 'rxjs';
 
-import { transformStringValue } from '../util';
+import { transformStringValue } from '../utils';
 import { MixerConnection } from '../mixer-connection';
 import { ChannelStore } from './channel-store';
 

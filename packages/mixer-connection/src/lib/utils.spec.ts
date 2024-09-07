@@ -1,6 +1,6 @@
-import { clamp, playerTimeToString, transformStringValue } from './util';
+import { clamp, playerTimeToString, transformStringValue } from './utils';
 
-describe('util', () => {
+describe('utils', () => {
   describe('clamp', () => {
     it('should leave in-range values unchanged', () => {
       expect(clamp(400, 0, 500)).toBe(400);

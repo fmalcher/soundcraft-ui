@@ -82,8 +82,3 @@ export function constructReadableChannelName(type: ChannelType, channel: number)
       return 'PLAYER ' + numberToLR(channel);
   }
 }
-
-/** Manually set mixer model. Used for testing only! */
-export function setMixerModel(model: MixerModel, conn: SoundcraftUI) {
-  conn.conn.sendMessage('SETD^model^' + model);
-}

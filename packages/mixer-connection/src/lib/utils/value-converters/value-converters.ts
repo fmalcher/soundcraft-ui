@@ -1,4 +1,4 @@
-import { clamp } from '../../util';
+import { clamp } from '../../utils';
 import { dBLinearLUT } from './db-lut';
 
 /**

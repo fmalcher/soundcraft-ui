@@ -10,7 +10,7 @@ import {
   selectMasterValue,
 } from '../state/state-selectors';
 import { sourcesToTransition, TransitionSource } from '../transitions';
-import { clamp } from '../util';
+import { clamp } from '../utils';
 import { resolveDelayed } from '../utils/async-helpers';
 import { Easings } from '../utils/transitions/easings';
 import { DBToFaderValue, faderValueToDB } from '../utils/value-converters';
