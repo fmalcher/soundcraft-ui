@@ -7,3 +7,4 @@ export { Easings } from './lib/utils/transitions/easings';
 
 export * from './lib/vu/vu-processor';
 export * from './lib/vu/vu.types';
+export { vuValueToDB } from './lib/vu/vu.utils';

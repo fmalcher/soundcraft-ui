@@ -561,6 +561,18 @@ This can be used to process all information at once, e.g. for a VU meter dashboa
 conn.vuProcessor.vuData$;
 ```
 
+### VU values in dB
+
+All VU values are linear values between `0` and `1`. To express the level in dB you need to project the value to the dB range of the meter (`-80..0 dB`).
+The exported utility function `vuValueToDB()` helps with that task and can be used as follows:
+
+```ts
+conn.vuProcessor
+  .master()
+  .pipe(map(data => vuValueToDB(data.vuPostFaderL)))
+  .subscribe(/* ... */);
+```
+
 ## Working with raw messages and state
 
 The `MixerStore` object exposes raw streams with messages and state data. You can use them for debugging purposes or for integration in other services:
