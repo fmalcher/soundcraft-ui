@@ -15,6 +15,8 @@
 
 <hr />
 
+<p><strong>Master Post Fader L:</strong> {{ masterPostFaderLDB$ | async }} dB</p>
+
 @for (c of stereoChannels; track c) {
 <h2 class="mt-4">{{ c.label }}</h2>
 <sui-vu-meter [value]="(c.vuData | async)?.vuPostL" mode="post" label="Post L"></sui-vu-meter>

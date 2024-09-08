@@ -1,4 +1,18 @@
+import { linearMappingValueToRange } from '../utils/value-converters/value-converters';
 import { VuData } from './vu.types';
+
+/** convert linear VU value (between `0`..`1`) to dB (between `-80`..`0`)
+ *
+ * ```ts
+ * // Example
+ * conn.vuProcessor.master().pipe(
+ *   map(data => vuValueToDB(data.vuPostFaderL))
+ * );
+ * ```
+ */
+export function vuValueToDB(linearValue: number) {
+  return linearMappingValueToRange(linearValue, -80, 0);
+}
 
 /** convert base64 VU data to array */
 export function vuMessageToArray(vuMessage: string): Uint8Array {

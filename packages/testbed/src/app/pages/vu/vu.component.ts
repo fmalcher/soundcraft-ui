@@ -2,6 +2,8 @@ import { AsyncPipe, JsonPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { ConnectionService } from '../../connection.service';
 import { VuMeterComponent } from '../../ui/vu-meter/vu-meter.component';
+import { map } from 'rxjs';
+import { vuValueToDB } from 'soundcraft-ui-connection';
 
 @Component({
   selector: 'sui-vu',
@@ -38,4 +40,6 @@ export class VuComponent {
     { vuData: this.vuProcessor.sub(1), label: 'Sub group 1', type: 'stereo' },
     { vuData: this.vuProcessor.sub(2), label: 'Sub group 2', type: 'stereo' },
   ];
+
+  masterPostFaderLDB$ = this.vuProcessor.master().pipe(map(data => vuValueToDB(data.vuPostFaderL)));
 }
