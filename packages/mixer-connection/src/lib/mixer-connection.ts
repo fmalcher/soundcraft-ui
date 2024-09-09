@@ -141,7 +141,7 @@ export class MixerConnection {
         const match = message.match(/^(3:::)([\s\S]*)/);
         return match && match[2];
       }),
-      filter(e => e !== null),
+      filter((e): e is string => e !== null),
       mergeMap(message => message.split('\n')) // one message can contain multiple lines with commands. split them into single emissions
     );
 
