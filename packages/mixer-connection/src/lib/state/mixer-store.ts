@@ -8,7 +8,7 @@ export class MixerStore {
   /** Internal filtered stream of matched SETD and SETS messages */
   private setdSetsMessageMatches$ = this.conn.allMessages$.pipe(
     map(msg => msg.match(/(SETD|SETS)\^([a-zA-Z0-9.]+)\^(.*)/)),
-    filter(e => e !== null),
+    filter((e): e is RegExpMatchArray => e !== null),
     share()
   );
 
