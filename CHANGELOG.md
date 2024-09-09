@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.4.0](https://github.com/fmalcher/soundcraft-ui/compare/v2.3.0...v2.4.0) (2024-09-09)
+
+This is a huge release as it adds a brand new feature: **VU meter**! You can now consume the volume levels of all channels on the master bus. See the [README](https://github.com/fmalcher/soundcraft-ui/blob/main/packages/mixer-connection/README.md) for more information.
+
+### Features
+
+- add support for VU meter ([a764ceb](https://github.com/fmalcher/soundcraft-ui/commit/a764ceb8ee6331547b24c27891ed4be85e9f221d))
+- **vu:** add utility function vuValueToDB() for conversion to dB values ([cff10be](https://github.com/fmalcher/soundcraft-ui/commit/cff10bee66f0905488251cdc0cda051fa7d8eb0e))
+
+### Other
+
+- add tests for ChannelStore and channel singletons ([44ea734](https://github.com/fmalcher/soundcraft-ui/commit/44ea7342528d98bf55c2d9ff9b99f01b24a77ff6))
+- fix dependency conflicts ([48b4543](https://github.com/fmalcher/soundcraft-ui/commit/48b4543771bb553080be5b890bbe637b9d7011c7))
+- mark class fields as readonly ([e247e1b](https://github.com/fmalcher/soundcraft-ui/commit/e247e1b5a9f681bcba883b291b5c440ec3720b2c))
+- minor docs/comment improvements ([d09bca5](https://github.com/fmalcher/soundcraft-ui/commit/d09bca52679ac6a30f463f48f1750ed2cb9b8f97))
+- nx update to 19.6 ([1613c97](https://github.com/fmalcher/soundcraft-ui/commit/1613c976dc77031cd132963d298dcfa909c6951a))
+- nx update to 19.6.5 ([e21b186](https://github.com/fmalcher/soundcraft-ui/commit/e21b1867b6d63337c30a2ac3b0328bea39eee644))
+- remove unnecessary type guard and use faster comparison in filter() ([695556e](https://github.com/fmalcher/soundcraft-ui/commit/695556e0044d8a076c7741fa9912b7c3cebdce5e))
+- rename "util" to "utils" ([e2fcc06](https://github.com/fmalcher/soundcraft-ui/commit/e2fcc0697eff2d0bed1655fa5cf8250558038053))
+
 ## [2.3.0](https://github.com/fmalcher/soundcraft-ui/compare/v2.2.1...v2.3.0) (2024-07-30)
 
 ### Features
