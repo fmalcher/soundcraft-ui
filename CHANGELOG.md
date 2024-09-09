@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.1](https://github.com/fmalcher/soundcraft-ui/compare/v2.4.0...v2.4.1) (2024-09-09)
+
+### Bug Fixes
+
+- re-add type guards ([5ed4402](https://github.com/fmalcher/soundcraft-ui/commit/5ed4402481011f5f0b38f726a01380e4f95be511))
+
+### Other
+
+- copy README to build output ([946d035](https://github.com/fmalcher/soundcraft-ui/commit/946d035efaff7aa47fda348ebf7f75b9dea30574))
+
 ## [2.4.0](https://github.com/fmalcher/soundcraft-ui/compare/v2.3.0...v2.4.0) (2024-09-09)
 
 This is a huge release as it adds a brand new feature: **VU meter**! You can now consume the volume levels of all channels on the master bus. See the [README](https://github.com/fmalcher/soundcraft-ui/blob/main/packages/mixer-connection/README.md) for more information.
