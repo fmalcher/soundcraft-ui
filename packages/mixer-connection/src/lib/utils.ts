@@ -1,5 +1,4 @@
-import { SoundcraftUI } from './soundcraft-ui';
-import { ChannelType, MixerModel } from './types';
+import { ChannelType } from './types';
 
 /** Clamp numeric value to min and max */
 export function clamp(value: number, min: number, max: number): number {
