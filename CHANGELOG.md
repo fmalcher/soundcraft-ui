@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.5.0](https://github.com/fmalcher/soundcraft-ui/compare/v2.4.1...v2.5.0) (2024-09-14)
+
+### Features
+
+- add support for saving/updating snapshots ([26d50d7](https://github.com/fmalcher/soundcraft-ui/commit/26d50d72098c79be379b70f09e603d6debecfc4e))
+
+### Other
+
+- nx update to 19.7.3 ([1d1acb0](https://github.com/fmalcher/soundcraft-ui/commit/1d1acb0257c5b5d391931bc3c0c1cea7c060b344))
+- remove unused imports ([90b3855](https://github.com/fmalcher/soundcraft-ui/commit/90b385542db5936599e89fdc783c1a50ef7439f2))
+- **testbed:** migrate inputs/outputs to signal functions ([f09bafe](https://github.com/fmalcher/soundcraft-ui/commit/f09bafe5e76e6582de488c5f5956b39eb2ed96ad))
+
 ### [2.4.1](https://github.com/fmalcher/soundcraft-ui/compare/v2.4.0...v2.4.1) (2024-09-09)
 
 ### Bug Fixes
