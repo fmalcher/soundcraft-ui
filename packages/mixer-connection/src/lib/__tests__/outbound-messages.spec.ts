@@ -923,6 +923,9 @@ describe('Outbound messages', () => {
 
     conn.shows.loadCue('testshow', 'testcue');
     expect(message).toBe('LOADCUE^testshow^testcue');
+
+    conn.shows.saveSnapshot('testshow', 'testsnapshot');
+    expect(message).toBe('SAVESNAPSHOT^testshow^testsnapshot');
   });
 
   it('automix controller', () => {

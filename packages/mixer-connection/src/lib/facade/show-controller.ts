@@ -1,3 +1,4 @@
+import { combineLatest, take } from 'rxjs';
 import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
 import { selectRawValue } from '../state/state-selectors';
@@ -41,5 +42,23 @@ export class ShowController {
    */
   loadCue(show: string, cue: string) {
     this.conn.sendMessage(`LOADCUE^${show}^${cue}`);
+  }
+
+  /**
+   * Save a snapshot in a show. This will overwrite an existing snapshot.
+   * @param show Show name
+   * @param snapshot Snapshot name in the show
+   */
+  saveSnapshot(show: string, snapshot: string) {
+    this.conn.sendMessage(`SAVESNAPSHOT^${show}^${snapshot}`);
+  }
+
+  /**
+   * Update and overwrite the currently loaded snapshot
+   */
+  updateCurrentSnapshot() {
+    combineLatest([this.currentShow$, this.currentSnapshot$])
+      .pipe(take(1))
+      .subscribe(([show, snapshot]) => this.saveSnapshot(show, snapshot));
   }
 }
