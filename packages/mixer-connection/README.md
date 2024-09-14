@@ -352,14 +352,18 @@ Information about the currently loaded show, snapshot or cue is also available.
 
 The `ShowController` object is available in `conn.shows` and supports these operations:
 
-| Call                                   | Description                           |
-| -------------------------------------- | ------------------------------------- |
-| `loadShow(showName)`                   | Load a show by its name               |
-| `loadSnapshot(showName, snapshotName)` | Load a snapshot in a show by its name |
-| `loadCue(showName, cueName)`           | Load a cue in a show by its name      |
-| `currentShow$`                         | Currently loaded show                 |
-| `currentSnapshot$`                     | Currently loaded snapshot             |
-| `currentCue$`                          | Currently loaded cue                  |
+| Call                                   | Description                                                          |
+| -------------------------------------- | -------------------------------------------------------------------- |
+| `loadShow(showName)`                   | Load a show by its name                                              |
+| `loadSnapshot(showName, snapshotName)` | Load a snapshot in a show by its name                                |
+| `loadCue(showName, cueName)`           | Load a cue in a show by its name                                     |
+| `saveSnapshot(showName, snapshotName)` | Save a snapshot in a show. This will overwrite an existing snapshot. |
+| `updateCurrentSnapshot()`              | Update/overwrite the currently loaded snapshot                       |
+| `currentShow$`                         | Currently loaded show                                                |
+| `currentSnapshot$`                     | Currently loaded snapshot                                            |
+| `currentCue$`                          | Currently loaded cue                                                 |
+
+Please be aware that no confirmation is required when snapshots are saved. Be careful not to overwrite existing snapshots by accident.
 
 ### Recording and playback
 

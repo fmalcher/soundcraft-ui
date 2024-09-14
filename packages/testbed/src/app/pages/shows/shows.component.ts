@@ -1,37 +1,47 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
 import { ConnectionService } from '../../connection.service';
-import { InputComponent } from '../../ui/input/input.component';
 
 @Component({
   selector: 'sui-shows',
   templateUrl: './shows.component.html',
+  styleUrl: './shows.component.scss',
   standalone: true,
-  imports: [AsyncPipe, InputComponent],
+  imports: [AsyncPipe, FormsModule],
 })
 export class ShowsComponent {
   cs = inject(ConnectionService);
   showCtrl = this.cs.conn.shows;
-  showFromInput = 'testshow';
 
-  loadShow(show: string) {
-    if (!show) {
-      return;
+  formData = {
+    show: 'testshow',
+    snapshot: '',
+    cue: '',
+  };
+
+  loadShow() {
+    if (this.formData.show) {
+      this.showCtrl.loadShow(this.formData.show);
     }
-    this.showCtrl.loadShow(show);
   }
 
-  loadSnapshot(snapshot: string) {
-    if (!this.showFromInput) {
-      return;
+  loadSnapshot() {
+    if (this.formData.show && this.formData.snapshot) {
+      this.showCtrl.loadSnapshot(this.formData.show, this.formData.snapshot);
     }
-    this.showCtrl.loadSnapshot(this.showFromInput, snapshot);
   }
 
-  loadCue(cue: string) {
-    if (!this.showFromInput) {
-      return;
+  loadCue() {
+    if (this.formData.show && this.formData.cue) {
+      this.showCtrl.loadCue(this.formData.show, this.formData.cue);
     }
-    this.showCtrl.loadCue(this.showFromInput, cue);
+  }
+
+  saveSnapshot() {
+    if (this.formData.show && this.formData.snapshot) {
+      this.showCtrl.saveSnapshot(this.formData.show, this.formData.snapshot);
+    }
   }
 }

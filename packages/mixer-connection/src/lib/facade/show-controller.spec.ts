@@ -22,4 +22,14 @@ describe('Show Controller', () => {
     conn.conn.sendMessage('SETD^var.currentCue^THECUE');
     expect(await firstValueFrom(conn.shows.currentCue$)).toBe('THECUE');
   });
+
+  it('updateCurrentSnapshot', () => {
+    conn.conn.sendMessage('SETD^var.currentShow^THESHOW');
+    conn.conn.sendMessage('SETD^var.currentSnapshot^THESNAPSHOT');
+
+    conn.conn.sendMessage = jest.fn();
+    conn.shows.updateCurrentSnapshot();
+
+    expect(conn.conn.sendMessage).toHaveBeenCalledWith('SAVESNAPSHOT^THESHOW^THESNAPSHOT');
+  });
 });

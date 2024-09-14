@@ -1,32 +1,66 @@
-<div class="mb-5">
+<div>
   <p><label>Current show</label> {{ showCtrl.currentShow$ | async }}</p>
   <p><label>Current snapshot</label> {{ showCtrl.currentSnapshot$ | async }}</p>
   <p><label>Current cue</label> {{ showCtrl.currentCue$ | async }}</p>
 </div>
 
-<sui-input
-  label="Load show"
-  buttonLabel="Load show"
-  [value]="showFromInput"
-  (valueChange)="showFromInput = $event; loadShow($event)"
-/>
+<div class="mt-3">
+  <button class="btn btn-danger me-2" (click)="showCtrl.updateCurrentSnapshot()">
+    Update current snapshot
+  </button>
+</div>
 
-<sui-input
-  label="Load snapshot from show {{ showFromInput }}"
-  buttonLabel="Load snapshot"
-  value="testsnapshot1"
-  (valueChange)="loadSnapshot($event)"
-/>
-@if (!showFromInput) {
-<div class="text-muted">Set show name first with input above!</div>
-}
+<h2 class="mt-4">Load and save</h2>
 
-<sui-input
-  label="Load cue from show {{ showFromInput }}"
-  buttonLabel="Load cue"
-  value="testcue1"
-  (valueChange)="loadCue($event)"
-/>
-@if (!showFromInput) {
-<div class="text-muted">Set show name first with input above!</div>
-}
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <label>Show</label>
+      <input type="text" class="form-control" [(ngModel)]="formData.show" />
+    </div>
+    <div class="col-sm">
+      <label>Snapshot</label>
+      <input type="text" class="form-control" [(ngModel)]="formData.snapshot" />
+    </div>
+    <div class="col-sm">
+      <label>Cue</label>
+      <input type="text" class="form-control" [(ngModel)]="formData.cue" />
+    </div>
+  </div>
+
+  <div class="mt-3">
+    <button class="btn btn-secondary me-2" (click)="loadShow()" [disabled]="!formData.show">
+      Load show <strong>{{ formData.show }}</strong>
+    </button>
+  </div>
+  <div class="mt-3">
+    <button
+      class="btn btn-secondary me-2"
+      (click)="loadSnapshot()"
+      [disabled]="!formData.show || !formData.snapshot"
+    >
+      Load snapshot <strong>{{ formData.snapshot }}</strong> in show
+      <strong>{{ formData.show }}</strong>
+    </button>
+  </div>
+  <div class="mt-3">
+    <button
+      class="btn btn-secondary me-2"
+      (click)="loadCue()"
+      [disabled]="!formData.show || !formData.cue"
+    >
+      Load cue <strong>{{ formData.cue }}</strong> in show <strong>{{ formData.show }}</strong>
+    </button>
+  </div>
+
+  <div class="mt-3">
+    <button
+      class="btn btn-warning me-2"
+      (click)="saveSnapshot()"
+      [disabled]="!formData.show || !formData.snapshot"
+    >
+      Save snapshot <strong>{{ formData.snapshot }}</strong> in show
+      <strong>{{ formData.show }}</strong>
+    </button>
+  </div>
+</div>
