@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { AuxChannel, MasterBus, MasterChannel } from 'soundcraft-ui-connection';
 
 @Component({
@@ -10,9 +10,9 @@ import { AuxChannel, MasterBus, MasterChannel } from 'soundcraft-ui-connection';
   imports: [AsyncPipe],
 })
 export class PanComponent {
-  @Input() channel?: MasterChannel | AuxChannel | MasterBus;
+  channel = input.required<MasterChannel | AuxChannel | MasterBus>();
 
   pan(value: string) {
-    this.channel && this.channel.pan(Number(value));
+    this.channel().pan(Number(value));
   }
 }

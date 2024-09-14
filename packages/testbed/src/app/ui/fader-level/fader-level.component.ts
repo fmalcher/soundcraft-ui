@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { FadeableChannel } from 'soundcraft-ui-connection';
 
 @Component({
@@ -10,9 +10,9 @@ import { FadeableChannel } from 'soundcraft-ui-connection';
   imports: [AsyncPipe],
 })
 export class FaderLevelComponent {
-  @Input() channel?: FadeableChannel;
+  channel = input.required<FadeableChannel>();
 
   setFaderLevel(level: string) {
-    this.channel && this.channel.setFaderLevel(Number(level));
+    this.channel().setFaderLevel(Number(level));
   }
 }

@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, Input, EventEmitter, Output } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 
 @Component({
   selector: 'sui-mixer-button',
@@ -9,16 +9,16 @@ import { Component, Input, EventEmitter, Output } from '@angular/core';
   imports: [NgClass],
 })
 export class MixerButtonComponent {
-  @Input() activeClass = 'default-active';
-  @Input() active = false;
-  @Output() press = new EventEmitter<void>();
+  activeClass = input('default-active');
+  active = input(false);
+  press = output();
 
   get ngClassDefinition() {
     if (!this.activeClass) {
       return;
     }
     return {
-      [this.activeClass]: !!this.active,
+      [this.activeClass()]: !!this.active(),
     };
   }
 }

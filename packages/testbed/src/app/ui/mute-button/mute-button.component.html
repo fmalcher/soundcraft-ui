@@ -1,11 +1,11 @@
 @if (channel) {
 <sui-mixer-button
   activeClass="mute"
-  [active]="!!(channel.mute$ | async)"
-  (press)="channel.toggleMute()"
+  [active]="!!(channel().mute$ | async)"
+  (press)="channel().toggleMute()"
 >
-  Mute toggle {{ label }}
+  Mute toggle {{ label() }}
 </sui-mixer-button>
-<sui-mixer-button (press)="channel.mute()">Mute {{ label }}</sui-mixer-button>
-<sui-mixer-button (press)="channel.unmute()">Unmute {{ label }}</sui-mixer-button>
+<sui-mixer-button (press)="channel().mute()">Mute {{ label() }}</sui-mixer-button>
+<sui-mixer-button (press)="channel().unmute()">Unmute {{ label() }}</sui-mixer-button>
 }

@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { Channel } from 'soundcraft-ui-connection';
 import { MixerButtonComponent } from '../mixer-button/mixer-button.component';
 
@@ -11,6 +11,6 @@ import { MixerButtonComponent } from '../mixer-button/mixer-button.component';
   imports: [AsyncPipe, MixerButtonComponent],
 })
 export class MuteButtonComponent {
-  @Input() channel?: Channel;
-  @Input() label = '';
+  channel = input.required<Channel>();
+  label = input('');
 }
