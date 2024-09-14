@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { DelayableMasterChannel } from 'soundcraft-ui-connection';
 
 @Component({
@@ -10,14 +10,14 @@ import { DelayableMasterChannel } from 'soundcraft-ui-connection';
   imports: [AsyncPipe],
 })
 export class DelayComponent {
-  @Input() channel?: DelayableMasterChannel;
-  @Input() maxValue = 250;
+  channel = input.required<DelayableMasterChannel>();
+  maxValue = input(250);
 
   setDelay(level: string) {
-    this.channel && this.channel.setDelay(Number(level));
+    this.channel().setDelay(Number(level));
   }
 
   changeDelay(offset: number) {
-    this.channel && this.channel.changeDelay(offset);
+    this.channel().changeDelay(offset);
   }
 }

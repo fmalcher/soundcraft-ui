@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 
 @Component({
   selector: 'sui-input',
@@ -8,8 +8,8 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   imports: [],
 })
 export class InputComponent {
-  @Input() value = '';
-  @Input() label = '';
-  @Input() buttonLabel = '';
-  @Output() valueChange = new EventEmitter<string>();
+  value = input('');
+  label = input('');
+  buttonLabel = input('');
+  valueChange = output<string>();
 }

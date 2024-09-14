@@ -1,5 +1,5 @@
 import { AsyncPipe, NgClass } from '@angular/common';
-import { Input, Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, input } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { SendChannel } from 'soundcraft-ui-connection';
 import { MixerButtonComponent } from '../mixer-button/mixer-button.component';
@@ -12,14 +12,15 @@ import { MixerButtonComponent } from '../mixer-button/mixer-button.component';
   imports: [MixerButtonComponent, NgClass, AsyncPipe],
 })
 export class PrepostComponent implements OnInit, OnDestroy {
-  @Input() channel?: SendChannel;
+  channel = input.required<SendChannel>();
 
   post = false;
   private destroy$ = new Subject<void>();
 
   ngOnInit(): void {
-    this.channel &&
-      this.channel.post$.pipe(takeUntil(this.destroy$)).subscribe(value => (this.post = !!value));
+    this.channel()
+      .post$.pipe(takeUntil(this.destroy$))
+      .subscribe(value => (this.post = !!value));
   }
 
   ngOnDestroy(): void {
