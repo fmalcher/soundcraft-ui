@@ -54,11 +54,25 @@ export class ShowController {
   }
 
   /**
-   * Update and overwrite the currently loaded snapshot
+   * Save a cue in a show. This will overwrite an existing cue.
+   * @param show Show name
+   * @param cue Cue name in the show
    */
+  saveCue(show: string, cue: string) {
+    this.conn.sendMessage(`SAVECUE^${show}^${cue}`);
+  }
+
+  /** Update and overwrite the currently loaded snapshot */
   updateCurrentSnapshot() {
     combineLatest([this.currentShow$, this.currentSnapshot$])
       .pipe(take(1))
       .subscribe(([show, snapshot]) => this.saveSnapshot(show, snapshot));
+  }
+
+  /** Update and overwrite the currently loaded cue */
+  updateCurrentCue() {
+    combineLatest([this.currentShow$, this.currentCue$])
+      .pipe(take(1))
+      .subscribe(([show, cue]) => this.saveCue(show, cue));
   }
 }

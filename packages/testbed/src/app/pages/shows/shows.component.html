@@ -8,6 +8,9 @@
   <button class="btn btn-danger me-2" (click)="showCtrl.updateCurrentSnapshot()">
     Update current snapshot
   </button>
+  <button class="btn btn-danger me-2" (click)="showCtrl.updateCurrentCue()">
+    Update current cue
+  </button>
 </div>
 
 <h2 class="mt-4">Load and save</h2>
@@ -60,6 +63,16 @@
       [disabled]="!formData.show || !formData.snapshot"
     >
       Save snapshot <strong>{{ formData.snapshot }}</strong> in show
+      <strong>{{ formData.show }}</strong>
+    </button>
+  </div>
+  <div class="mt-3">
+    <button
+      class="btn btn-warning me-2"
+      (click)="saveCue()"
+      [disabled]="!formData.show || !formData.cue"
+    >
+      Save cue <strong>{{ formData.cue }}</strong> in show
       <strong>{{ formData.show }}</strong>
     </button>
   </div>
