@@ -23,25 +23,69 @@ describe('Show Controller', () => {
     expect(await firstValueFrom(conn.shows.currentCue$)).toBe('THECUE');
   });
 
-  it('updateCurrentSnapshot', () => {
-    conn.conn.sendMessage('SETD^var.currentShow^THESHOW');
-    conn.conn.sendMessage('SETD^var.currentSnapshot^THESNAPSHOT');
-    conn.conn.sendMessage('SETD^var.currentCue^THECUE');
+  describe('updateCurrentSnapshot', () => {
+    it('should send SAVESNAPSHOT message', () => {
+      conn.conn.sendMessage('SETD^var.currentShow^THESHOW');
+      conn.conn.sendMessage('SETD^var.currentSnapshot^THESNAPSHOT');
+      conn.conn.sendMessage('SETD^var.currentCue^THECUE');
 
-    conn.conn.sendMessage = jest.fn();
-    conn.shows.updateCurrentSnapshot();
+      conn.conn.sendMessage = jest.fn();
+      conn.shows.updateCurrentSnapshot();
 
-    expect(conn.conn.sendMessage).toHaveBeenCalledWith('SAVESNAPSHOT^THESHOW^THESNAPSHOT');
+      expect(conn.conn.sendMessage).toHaveBeenCalledWith('SAVESNAPSHOT^THESHOW^THESNAPSHOT');
+    });
+
+    it('should not send message when no snapshot is given', () => {
+      conn.conn.sendMessage('SETD^var.currentShow^THESHOW');
+      conn.conn.sendMessage('SETD^var.currentCue^THECUE');
+
+      conn.conn.sendMessage = jest.fn();
+      conn.shows.updateCurrentSnapshot();
+
+      expect(conn.conn.sendMessage).not.toHaveBeenCalled();
+    });
+
+    it('should not send message when no show is given', () => {
+      conn.conn.sendMessage('SETD^var.currentSnapshot^THESNAPSHOT');
+      conn.conn.sendMessage('SETD^var.currentCue^THECUE');
+
+      conn.conn.sendMessage = jest.fn();
+      conn.shows.updateCurrentSnapshot();
+
+      expect(conn.conn.sendMessage).not.toHaveBeenCalled();
+    });
   });
 
-  it('updateCurrentCue', () => {
-    conn.conn.sendMessage('SETD^var.currentShow^THESHOW');
-    conn.conn.sendMessage('SETD^var.currentSnapshot^THESNAPSHOT');
-    conn.conn.sendMessage('SETD^var.currentCue^THECUE');
+  describe('updateCurrentCue', () => {
+    it('should send SAVECUE message', () => {
+      conn.conn.sendMessage('SETD^var.currentShow^THESHOW');
+      conn.conn.sendMessage('SETD^var.currentSnapshot^THESNAPSHOT');
+      conn.conn.sendMessage('SETD^var.currentCue^THECUE');
 
-    conn.conn.sendMessage = jest.fn();
-    conn.shows.updateCurrentCue();
+      conn.conn.sendMessage = jest.fn();
+      conn.shows.updateCurrentCue();
 
-    expect(conn.conn.sendMessage).toHaveBeenCalledWith('SAVECUE^THESHOW^THECUE');
+      expect(conn.conn.sendMessage).toHaveBeenCalledWith('SAVECUE^THESHOW^THECUE');
+    });
+
+    it('should not send message when no cue is given', () => {
+      conn.conn.sendMessage('SETD^var.currentShow^THESHOW');
+      conn.conn.sendMessage('SETD^var.currentSnapshot^THESNAPSHOT');
+
+      conn.conn.sendMessage = jest.fn();
+      conn.shows.updateCurrentCue();
+
+      expect(conn.conn.sendMessage).not.toHaveBeenCalled();
+    });
+
+    it('should not send message when no show is given', () => {
+      conn.conn.sendMessage('SETD^var.currentSnapshot^THESNAPSHOT');
+      conn.conn.sendMessage('SETD^var.currentCue^THECUE');
+
+      conn.conn.sendMessage = jest.fn();
+      conn.shows.updateCurrentCue();
+
+      expect(conn.conn.sendMessage).not.toHaveBeenCalled();
+    });
   });
 });

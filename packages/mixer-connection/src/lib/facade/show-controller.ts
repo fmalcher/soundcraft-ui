@@ -1,4 +1,4 @@
-import { combineLatest, take } from 'rxjs';
+import { combineLatest, filter, take } from 'rxjs';
 import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
 import { selectRawValue } from '../state/state-selectors';
@@ -65,14 +65,20 @@ export class ShowController {
   /** Update and overwrite the currently loaded snapshot */
   updateCurrentSnapshot() {
     combineLatest([this.currentShow$, this.currentSnapshot$])
-      .pipe(take(1))
+      .pipe(
+        take(1),
+        filter(([show, snapshot]) => !!show && !!snapshot)
+      )
       .subscribe(([show, snapshot]) => this.saveSnapshot(show, snapshot));
   }
 
   /** Update and overwrite the currently loaded cue */
   updateCurrentCue() {
     combineLatest([this.currentShow$, this.currentCue$])
-      .pipe(take(1))
+      .pipe(
+        take(1),
+        filter(([show, cue]) => !!show && !!cue)
+      )
       .subscribe(([show, cue]) => this.saveCue(show, cue));
   }
 }
