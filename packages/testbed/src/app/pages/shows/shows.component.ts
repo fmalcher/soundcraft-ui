@@ -44,4 +44,10 @@ export class ShowsComponent {
       this.showCtrl.saveSnapshot(this.formData.show, this.formData.snapshot);
     }
   }
+
+  saveCue() {
+    if (this.formData.show && this.formData.cue) {
+      this.showCtrl.saveCue(this.formData.show, this.formData.cue);
+    }
+  }
 }

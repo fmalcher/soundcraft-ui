@@ -358,7 +358,9 @@ The `ShowController` object is available in `conn.shows` and supports these oper
 | `loadSnapshot(showName, snapshotName)` | Load a snapshot in a show by its name                                |
 | `loadCue(showName, cueName)`           | Load a cue in a show by its name                                     |
 | `saveSnapshot(showName, snapshotName)` | Save a snapshot in a show. This will overwrite an existing snapshot. |
+| `saveCue(showName, cueName)`           | Save a cue in a show. This will overwrite an existing cue.           |
 | `updateCurrentSnapshot()`              | Update/overwrite the currently loaded snapshot                       |
+| `updateCurrentCue()`                   | Update/overwrite the currently loaded cue                            |
 | `currentShow$`                         | Currently loaded show                                                |
 | `currentSnapshot$`                     | Currently loaded snapshot                                            |
 | `currentCue$`                          | Currently loaded cue                                                 |

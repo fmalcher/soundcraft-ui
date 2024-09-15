@@ -26,10 +26,22 @@ describe('Show Controller', () => {
   it('updateCurrentSnapshot', () => {
     conn.conn.sendMessage('SETD^var.currentShow^THESHOW');
     conn.conn.sendMessage('SETD^var.currentSnapshot^THESNAPSHOT');
+    conn.conn.sendMessage('SETD^var.currentCue^THECUE');
 
     conn.conn.sendMessage = jest.fn();
     conn.shows.updateCurrentSnapshot();
 
     expect(conn.conn.sendMessage).toHaveBeenCalledWith('SAVESNAPSHOT^THESHOW^THESNAPSHOT');
+  });
+
+  it('updateCurrentCue', () => {
+    conn.conn.sendMessage('SETD^var.currentShow^THESHOW');
+    conn.conn.sendMessage('SETD^var.currentSnapshot^THESNAPSHOT');
+    conn.conn.sendMessage('SETD^var.currentCue^THECUE');
+
+    conn.conn.sendMessage = jest.fn();
+    conn.shows.updateCurrentCue();
+
+    expect(conn.conn.sendMessage).toHaveBeenCalledWith('SAVECUE^THESHOW^THECUE');
   });
 });
