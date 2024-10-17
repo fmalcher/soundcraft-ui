@@ -15,3 +15,12 @@ It can be used in Node.js or in the browser to control most of the mixer's featu
 ```sh
 npm i soundcraft-ui-connection
 ```
+
+## Names and trademark
+
+This project is **not** associated with Soundcraft. It is an open-source community project without any connection to the companies who develop, produce and sell the mixer.
+All trademark and names are property of their respective owners.
+
+## License
+
+MIT

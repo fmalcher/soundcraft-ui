@@ -70,9 +70,14 @@ const config: Config = {
               label: 'GitHub',
               href: 'https://github.com/fmalcher/soundcraft-ui',
             },
+            {
+              label: 'Imprint',
+              href: '/imprint',
+            },
           ],
         },
       ],
+      copyright: 'Made with ❤️ by Ferdinand Malcher',
     },
     prism: {
       theme: prismThemes.github,
