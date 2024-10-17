@@ -1,0 +1,8 @@
+{
+  "label": "Buses and Faders",
+  "position": 10,
+  "link": {
+    "type": "generated-index",
+    "description": "Interaction with all faders and buttons on all buses of the mixer"
+  }
+}
