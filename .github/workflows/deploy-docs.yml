@@ -22,11 +22,11 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-        working-directory: thedocs
+        working-directory: docs
 
       - name: Build website
         run: npm run build
-        working-directory: thedocs
+        working-directory: docs
 
       - name: Upload Build Artifact
         uses: actions/upload-pages-artifact@v3
