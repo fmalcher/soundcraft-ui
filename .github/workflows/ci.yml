@@ -3,8 +3,6 @@ on:
   push:
     branches:
       - main
-    paths-ignore:
-      - 'docs/**'
   pull_request:
 
 # Needed for nx-set-shas when run on the main branch
