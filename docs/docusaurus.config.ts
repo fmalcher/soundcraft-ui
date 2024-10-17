@@ -4,17 +4,11 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
   title: 'soundcraft-ui-connection',
-  tagline: 'Connection Library for the Soundcraft Ui Series Audio Mixers',
-  // favicon: 'img/favicon.ico',
 
-  // Set the production url of your site here
   url: 'https://fmalcher.github.io',
-  // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/soundcraft-ui/',
 
-  // GitHub pages deployment config.
-  // If you aren't using GitHub pages, you don't need these.
+  // GitHub pages deployment config
   organizationName: 'fmalcher',
   projectName: 'soundcraft-ui',
   deploymentBranch: 'gh-pages',
@@ -23,9 +17,6 @@ const config: Config = {
   onBrokenLinks: 'warn', // 'throw',
   onBrokenMarkdownLinks: 'warn',
 
-  // Even if you don't use internationalization, you can use this field to set
-  // useful metadata like html lang. For example, if your site is Chinese, you
-  // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
@@ -38,8 +29,6 @@ const config: Config = {
         docs: {
           routeBasePath: '/',
           sidebarPath: './sidebars.ts',
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
           editUrl: 'https://github.com/fmalcher/soundcraft-ui/tree/main/docs/',
         },
         blog: false,
@@ -58,7 +47,7 @@ const config: Config = {
           type: 'docSidebar',
           sidebarId: 'docSidebar',
           position: 'left',
-          label: 'Docs',
+          label: 'Home',
         },
         {
           href: 'https://github.com/fmalcher/soundcraft-ui',
@@ -71,17 +60,12 @@ const config: Config = {
       style: 'dark',
       links: [
         {
-          title: 'Docs',
+          title: 'More',
           items: [
             {
               label: 'Documentation',
-              to: '/docs',
+              to: '/',
             },
-          ],
-        },
-        {
-          title: 'More',
-          items: [
             {
               label: 'GitHub',
               href: 'https://github.com/fmalcher/soundcraft-ui',

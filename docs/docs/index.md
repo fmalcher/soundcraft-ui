@@ -1,3 +1,8 @@
+---
+title: Home
+sidebar_position: 0
+---
+
 # soundcraft-ui-connection
 
 **Connection library for the Soundcraft Ui series mixers (Ui12, Ui16 and Ui24R), written in TypeScript/JavaScript**
