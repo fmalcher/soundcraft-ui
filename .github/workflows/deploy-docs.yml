@@ -5,6 +5,8 @@ on:
     branches:
       - main
       - docusaurus # temporary during development
+    paths:
+      - 'docs/**'
 
 jobs:
   build:
