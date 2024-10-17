@@ -7,10 +7,12 @@ sidebar_position: 5
 A `HwChannel` represents a hardware input on the mixer. It can be used to control input gain and phantom power.
 
 :::info
+
 On the Ui24R, hardware inputs can be patched to different channels. This is why a hardware channel is not always the same as an input.
 This distinction is also visible in the original protocol of the mixer as well as in the UI (Phantom Power/Gain are on another page than the input faders).
 For Ui16 and Ui12, those hardware settings are part of the input channels internally.
 To keep the library surface clean, this library considers the mixer model in the background and offers all options through the `HwChannel` class.
+
 :::
 
 First, get a `HwChannel` by calling `conn.hw(inputNumber)`, e.g. `conn.hw(1)` for the first input.

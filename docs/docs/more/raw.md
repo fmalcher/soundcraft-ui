@@ -18,5 +18,7 @@ conn.conn.sendMessage('SETD^i.2.mute^0');
 ```
 
 :::warning
+
 **Please prefer the human-readable interface over using the raw format!** If you're missing any features, please [file an issue](https://github.com/fmalcher/soundcraft-ui/issues) or [Pull Request](https://github.com/fmalcher/soundcraft-ui/pulls).
+
 :::
