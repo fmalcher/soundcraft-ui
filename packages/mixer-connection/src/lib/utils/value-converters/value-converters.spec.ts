@@ -71,7 +71,6 @@ describe('Value converters', () => {
       expect(linearMappingRangeToValue(linearMappingValueToRange(value, -6, 57), -6, 57)).toBe(
         value
       );
-      linearMappingRangeToValue;
     });
   });
 
