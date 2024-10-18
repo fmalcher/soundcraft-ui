@@ -2,7 +2,7 @@
 sidebar_position: 4
 ---
 
-# FX Buses
+# FX Sends
 
 Get access to a `FxBus` object with `conn.fx(busNumber)`.
 Then pick one of the available `FxChannel`s:

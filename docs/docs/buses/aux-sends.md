@@ -2,7 +2,7 @@
 sidebar_position: 3
 ---
 
-# AUX Buses
+# AUX Sends
 
 Get access to a `AuxBus` object with `conn.aux(busNumber)`.
 Then pick one of the available `AuxChannel` objects:
