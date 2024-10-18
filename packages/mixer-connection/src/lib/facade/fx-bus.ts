@@ -20,7 +20,16 @@ export class FxBus {
    */
   bpm$ = this.store.state$.pipe(select(selectFxBpm(this.bus)));
 
-  constructor(private conn: MixerConnection, private store: MixerStore, private bus: number) {}
+  constructor(private conn: MixerConnection, private store: MixerStore, private bus: number) {
+    // lookup object in the store and use existing object if possible
+    const storeId = 'fxbus' + bus;
+    const storedObject = this.store.objectStore.get<FxBus>(storeId);
+    if (storedObject) {
+      return storedObject;
+    } else {
+      this.store.objectStore.set(storeId, this);
+    }
+  }
 
   /**
    * Get input channel on the FX bus

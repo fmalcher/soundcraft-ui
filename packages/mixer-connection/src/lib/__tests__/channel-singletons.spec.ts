@@ -52,5 +52,11 @@ describe('Object Store Singletons', () => {
       const obj2 = conn.hw(4);
       expect(obj1 === obj2).toBe(true);
     });
+
+    it('FxBus', () => {
+      const obj1 = conn.fx(3);
+      const obj2 = conn.fx(3);
+      expect(obj1 === obj2).toBe(true);
+    });
   });
 });
