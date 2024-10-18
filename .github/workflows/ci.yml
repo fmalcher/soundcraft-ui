@@ -3,11 +3,7 @@ on:
   push:
     branches:
       - main
-    paths:
-      - '!docs'
   pull_request:
-    paths:
-      - '!docs'
 
 # Needed for nx-set-shas when run on the main branch
 permissions:
