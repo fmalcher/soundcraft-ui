@@ -1,4 +1,4 @@
-import { clamp, playerTimeToString, transformStringValue } from './utils';
+import { clamp, fxTypeToString, playerTimeToString, transformStringValue } from './utils';
 
 describe('utils', () => {
   describe('clamp', () => {
@@ -46,6 +46,16 @@ describe('utils', () => {
     it('should display minutes and seconds', () => {
       expect(playerTimeToString(60)).toBe('1:00');
       expect(playerTimeToString(1678)).toBe('27:58');
+    });
+  });
+
+  describe('fxTypeToString', () => {
+    it('should convert nueric values to string output', () => {
+      expect(fxTypeToString(-1)).toBe('None');
+      expect(fxTypeToString(0)).toBe('Reverb');
+      expect(fxTypeToString(1)).toBe('Delay');
+      expect(fxTypeToString(2)).toBe('Chorus');
+      expect(fxTypeToString(3)).toBe('Room');
     });
   });
 });

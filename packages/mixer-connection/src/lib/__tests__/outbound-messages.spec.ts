@@ -811,6 +811,20 @@ describe('Outbound messages', () => {
     expect(message).toBe('SETD^s.3.fx.2.post^0');
   });
 
+  it('FX Bus', () => {
+    conn.fx(1).setBpm(100);
+    expect(message).toBe('SETD^f.0.bpm^100');
+
+    conn.fx(2).setBpm(30);
+    expect(message).toBe('SETD^f.1.bpm^30');
+
+    conn.fx(3).setBpm(5000); // clamp upper
+    expect(message).toBe('SETD^f.2.bpm^400');
+
+    conn.fx(4).setBpm(-10); // clamp lower
+    expect(message).toBe('SETD^f.3.bpm^20');
+  });
+
   it('Media player', () => {
     conn.player.play();
     expect(message).toBe('MEDIA_PLAY');

@@ -1,0 +1,16 @@
+@for (bus of buses; track bus) {
+<div class="mb-5">
+  <h2>
+    {{ bus.label }}
+    <span class="small text-muted"
+      >{{ withFxType(bus.fx.fxType$) | async }} ({{ bus.fx.fxType$ | async }})</span
+    >
+  </h2>
+  <div>
+    @for (v of [1, 20, 60, 80, 100, 220, 400, 1000]; track v) {
+    <button class="btn btn-success btn-sm me-2" (click)="bus.fx.setBpm(v)">{{ v }} BPM</button>
+    }
+    <strong>{{ bus.fx.bpm$ | async }} BPM</strong>
+  </div>
+</div>
+}
