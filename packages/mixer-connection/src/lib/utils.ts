@@ -1,4 +1,4 @@
-import { ChannelType } from './types';
+import { ChannelType, FxType } from './types';
 
 /** Clamp numeric value to min and max */
 export function clamp(value: number, min: number, max: number): number {
@@ -44,7 +44,7 @@ export function getLinkedChannelNumber(channel: number, stereoIndex: number): nu
   }
 }
 
-/** Helper function to convert channel number to readable L/R value */
+/** Helper function to convert channel number into readable L/R value */
 function numberToLR(channel: number): string {
   switch (channel) {
     case 1:
@@ -53,6 +53,22 @@ function numberToLR(channel: number): string {
       return 'R';
     default:
       return '';
+  }
+}
+
+/** Helper function to convert FX type into readable name (Reverb, Chorus, ...) */
+export function fxTypeToString(type: FxType): keyof typeof FxType {
+  switch (type) {
+    case FxType.None:
+      return 'None';
+    case FxType.Chorus:
+      return 'Chorus';
+    case FxType.Reverb:
+      return 'Reverb';
+    case FxType.Delay:
+      return 'Delay';
+    case FxType.Room:
+      return 'Room';
   }
 }
 

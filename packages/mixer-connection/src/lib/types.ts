@@ -33,4 +33,12 @@ export enum MtkState {
   Playing = 2,
 }
 
+export enum FxType {
+  None = -1,
+  Reverb = 0,
+  Delay = 1,
+  Chorus = 2,
+  Room = 3,
+}
+
 export type MixerModel = 'ui12' | 'ui16' | 'ui24';

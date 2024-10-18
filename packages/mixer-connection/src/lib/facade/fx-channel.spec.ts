@@ -2,7 +2,7 @@ import { firstValueFrom } from 'rxjs';
 import { SoundcraftUI } from '../soundcraft-ui';
 import { FxChannel } from './fx-channel';
 
-describe('AUX Channel', () => {
+describe('FX Channel', () => {
   let conn: SoundcraftUI;
   let channel: FxChannel;
 

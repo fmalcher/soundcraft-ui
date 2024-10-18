@@ -1,6 +1,6 @@
 import { distinctUntilChanged, filter, map, OperatorFunction, pipe } from 'rxjs';
 
-import { ChannelType, BusType } from '../types';
+import { ChannelType, BusType, FxType } from '../types';
 import { getValueFromObject, joinStatePath } from '../utils/state-utils';
 
 type Projector<T> = (state: unknown) => T;
@@ -199,6 +199,25 @@ export const selectAuxPostProc: Selector<number> = (
 ) => {
   const path = joinStatePath(channelType, channel - 1, 'aux', aux - 1, 'postproc');
   return state => getValueFromObject(state, path, 0);
+};
+
+/**
+ * Select BPM value of an FX bus
+ * @param bus
+ */
+export const selectFxBpm: Selector<number> = (bus = 1) => {
+  const path = joinStatePath('f', bus - 1, 'bpm');
+  return state => getValueFromObject<number>(state, path);
+};
+
+/**
+ * Select FX type of an FX bus
+ * @param channelType
+ * @param channel
+ */
+export const selectFxType: Selector<FxType> = (bus = 1) => {
+  const path = joinStatePath('f', bus - 1, 'fxtype');
+  return state => getValueFromObject<number>(state, path);
 };
 
 /**

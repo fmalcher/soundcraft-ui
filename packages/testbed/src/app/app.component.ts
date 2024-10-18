@@ -19,6 +19,7 @@ export class AppComponent {
     { label: 'AUX bus 1', target: '/auxbus/1' },
     { label: 'AUX bus 2', target: '/auxbus/2' },
     { label: 'FX bus 1', target: '/fxbus/1' },
+    { label: 'FX Settings', target: '/fx' },
     { label: 'Player/Rec', target: '/player' },
     { label: 'Multitrack', target: '/multitrack' },
     { label: 'MUTE Groups', target: '/mutegroups' },
