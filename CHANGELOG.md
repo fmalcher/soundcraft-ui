@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.6.0](https://github.com/fmalcher/soundcraft-ui/compare/v2.5.0...v2.6.0) (2024-10-18)
+
+### Features
+
+- add support for FX BPM and type settings ([140b25b](https://github.com/fmalcher/soundcraft-ui/commit/140b25b237f12ea7aae16d7a84ebe5ff8a95020d))
+- add support for saving/updating cues ([0da073f](https://github.com/fmalcher/soundcraft-ui/commit/0da073f7c58b9087dfc46cf5fd082c40b42f6777))
+- docs page with Docusaurus ([13d8360](https://github.com/fmalcher/soundcraft-ui/commit/13d836090bc5d289664500f9f369fb754854ac77))
+
+### Bug Fixes
+
+- do not update current snapshot/cue when info is missing ([ebf4071](https://github.com/fmalcher/soundcraft-ui/commit/ebf407167710eb63f94983565fd2dd9ecb99bd5b))
+
+### Other
+
+- add docs page to package.json ([00b3348](https://github.com/fmalcher/soundcraft-ui/commit/00b3348a2d0517557d3a1fa4d8dd8401bf506ebe))
+- add imprint and legal info ([85a7c49](https://github.com/fmalcher/soundcraft-ui/commit/85a7c497c12009e9dbc828504ccf95890c9e118f))
+- remove path filter for CI build ([bb63ccf](https://github.com/fmalcher/soundcraft-ui/commit/bb63ccf692a59cd6fc54aee6bc9b3697a2a2474f))
+- rename AUX/FX buses to "sends" to align with the web app ([1030f62](https://github.com/fmalcher/soundcraft-ui/commit/1030f62932174f7aefc9b820e2f541c26cf139c5))
+
 ## [2.5.0](https://github.com/fmalcher/soundcraft-ui/compare/v2.4.1...v2.5.0) (2024-09-14)
 
 ### Features
