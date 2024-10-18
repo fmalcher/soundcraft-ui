@@ -2,7 +2,7 @@ import { connectable, filter, map, ReplaySubject, scan, share } from 'rxjs';
 
 import { transformStringValue } from '../utils';
 import { MixerConnection } from '../mixer-connection';
-import { ChannelStore } from './channel-store';
+import { ObjectStore } from './object-store';
 
 export class MixerStore {
   /** Internal filtered stream of matched SETD and SETS messages */
@@ -31,7 +31,7 @@ export class MixerStore {
     { connector: () => new ReplaySubject(1) }
   );
 
-  readonly channelStore = new ChannelStore();
+  readonly objectStore = new ObjectStore();
 
   constructor(private conn: MixerConnection) {
     // start producing state values

@@ -1,8 +1,8 @@
-import { ChannelStore } from './channel-store';
+import { ObjectStore } from './object-store';
 
-describe('Channel Store', () => {
+describe('Object Store', () => {
   it('should store and retrieve an object', () => {
-    const store = new ChannelStore();
+    const store = new ObjectStore();
     const myObject = { foo: 'bar', bar: 5 };
 
     store.set('myKey', myObject);
