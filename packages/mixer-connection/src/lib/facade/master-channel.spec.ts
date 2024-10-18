@@ -12,9 +12,9 @@ describe('Master Channel', () => {
   });
 
   it('should return the exact same channel object', () => {
-    const channel1 = conn.master.input(5);
-    const channel2 = conn.master.input(5);
-    expect(channel1).toBe(channel2);
+    const obj1 = conn.master.input(5);
+    const obj2 = conn.master.input(5);
+    expect(obj1).toBe(obj2);
   });
 
   describe('Pan', () => {

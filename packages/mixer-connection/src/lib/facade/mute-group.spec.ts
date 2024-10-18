@@ -12,9 +12,9 @@ describe('Mute Group', () => {
   });
 
   it('should return the exact same object', () => {
-    const group1 = conn.muteGroup(2);
-    const group2 = conn.muteGroup(2);
-    expect(group1).toBe(group2);
+    const obj1 = conn.muteGroup(2);
+    const obj2 = conn.muteGroup(2);
+    expect(obj1).toBe(obj2);
   });
 
   describe('numeric', () => {

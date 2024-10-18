@@ -31,11 +31,11 @@ export class VolumeBus implements FadeableChannel {
   ) {
     // lookup channel in the store and use existing object if possible
     const storeId = 'volume-' + this.busName + this.busId;
-    const storedChannel = this.store.channelStore.get<VolumeBus>(storeId);
-    if (storedChannel) {
-      return storedChannel;
+    const storedObject = this.store.objectStore.get<VolumeBus>(storeId);
+    if (storedObject) {
+      return storedObject;
     } else {
-      this.store.channelStore.set(storeId, this);
+      this.store.objectStore.set(storeId, this);
     }
 
     // create transition steps and set fader level accordingly

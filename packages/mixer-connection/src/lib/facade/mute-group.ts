@@ -27,13 +27,13 @@ export class MuteGroup {
   constructor(private conn: MixerConnection, private store: MixerStore, readonly id: MuteGroupID) {
     this.groupIndex = groupIDToIndex(id);
 
-    // lookup channel in the store and use existing object if possible
+    // lookup object in the store and use existing object if possible
     const storeId = 'mutegroup' + id;
-    const storedChannel = this.store.channelStore.get<MuteGroup>(storeId);
-    if (storedChannel) {
-      return storedChannel;
+    const storedObject = this.store.objectStore.get<MuteGroup>(storeId);
+    if (storedObject) {
+      return storedObject;
     } else {
-      this.store.channelStore.set(storeId, this);
+      this.store.objectStore.set(storeId, this);
     }
   }
 

@@ -12,9 +12,9 @@ describe('AUX Channel', () => {
   });
 
   it('should return the exact same channel object', () => {
-    const channel1 = conn.aux(4).input(2);
-    const channel2 = conn.aux(4).input(2);
-    expect(channel1).toBe(channel2);
+    const obj1 = conn.aux(4).input(2);
+    const obj2 = conn.aux(4).input(2);
+    expect(obj1).toBe(obj2);
   });
 
   describe('Pan', () => {

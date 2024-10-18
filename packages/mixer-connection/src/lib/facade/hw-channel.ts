@@ -62,13 +62,13 @@ export class HwChannel {
     protected deviceInfo: DeviceInfo,
     protected channel: number
   ) {
-    // lookup channel in the store and use existing object if possible
+    // lookup object in the store and use existing object if possible
     const storeId = 'hw' + channel;
-    const storedChannel = this.store.channelStore.get<HwChannel>(storeId);
-    if (storedChannel) {
-      return storedChannel;
+    const storedObject = this.store.objectStore.get<HwChannel>(storeId);
+    if (storedObject) {
+      return storedObject;
     } else {
-      this.store.channelStore.set(storeId, this);
+      this.store.objectStore.set(storeId, this);
     }
 
     // change full channel ID according to device model
