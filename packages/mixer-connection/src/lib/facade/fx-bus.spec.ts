@@ -8,6 +8,12 @@ describe('FX Bus', () => {
     conn = new SoundcraftUI('0.0.0.0');
   });
 
+  it('should return the exact same object', () => {
+    const obj1 = conn.fx(2);
+    const obj2 = conn.fx(2);
+    expect(obj1).toBe(obj2);
+  });
+
   it('fxType$', async () => {
     conn.conn.sendMessage('SETD^f.1.fxtype^0');
     expect(await firstValueFrom(conn.fx(2).fxType$)).toBe(0);
