@@ -12,7 +12,7 @@
   "bugs": {
     "url": "https://github.com/fmalcher/soundcraft-ui/issues"
   },
-  "homepage": "https://github.com/fmalcher/soundcraft-ui/tree/main/packages/mixer-connection",
+  "homepage": "https://fmalcher.github.io/soundcraft-ui",
   "keywords": [
     "Soundcraft Ui",
     "Mixer control",
