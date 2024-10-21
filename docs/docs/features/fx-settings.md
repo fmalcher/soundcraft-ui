@@ -48,3 +48,7 @@ The Soundcraft Web App features a global "TAP TEMPO" button. It is also possible
 Please note that this behavior is not implemented in this library. If you want to set the BPM for multiple/all FX, you have to use the `setBpm()` method on multiple `FxBus` objects.
 
 :::
+
+## FX Parameters
+
+TODO
