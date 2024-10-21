@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { map, Observable } from 'rxjs';
-import { FxType, fxTypeToString } from 'soundcraft-ui-connection';
+import { FxBus, FxType, fxTypeToString } from 'soundcraft-ui-connection';
 
 import { ConnectionService } from '../../connection.service';
 
@@ -10,6 +10,7 @@ import { ConnectionService } from '../../connection.service';
   templateUrl: './fx-settings.component.html',
   standalone: true,
   imports: [AsyncPipe],
+  styleUrl: './fx-settings.component.scss',
 })
 export class FxSettingsComponent {
   cs = inject(ConnectionService);
@@ -23,5 +24,9 @@ export class FxSettingsComponent {
 
   withFxType(fxType$: Observable<FxType>): Observable<string> {
     return fxType$.pipe(map(v => fxTypeToString(v)));
+  }
+
+  setFxParam(bus: FxBus, param: number, value: string) {
+    bus.setParam(param, Number(value));
   }
 }
