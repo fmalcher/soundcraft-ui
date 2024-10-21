@@ -811,7 +811,7 @@ describe('Outbound messages', () => {
     expect(message).toBe('SETD^s.3.fx.2.post^0');
   });
 
-  it('FX Bus', () => {
+  it('FX Bus BPM', () => {
     conn.fx(1).setBpm(100);
     expect(message).toBe('SETD^f.0.bpm^100');
 
@@ -823,6 +823,20 @@ describe('Outbound messages', () => {
 
     conn.fx(4).setBpm(-10); // clamp lower
     expect(message).toBe('SETD^f.3.bpm^20');
+  });
+
+  it('FX Bus Params', () => {
+    conn.fx(1).setParam(1, 0.444);
+    expect(message).toBe('SETD^f.0.par1^0.444');
+
+    conn.fx(4).setParam(3, 0.899);
+    expect(message).toBe('SETD^f.3.par3^0.899');
+
+    conn.fx(3).setParam(2, 2.345); // clamp upper
+    expect(message).toBe('SETD^f.2.par2^1');
+
+    conn.fx(2).setParam(4, -2); // clamp lower
+    expect(message).toBe('SETD^f.1.par4^0');
   });
 
   it('Media player', () => {

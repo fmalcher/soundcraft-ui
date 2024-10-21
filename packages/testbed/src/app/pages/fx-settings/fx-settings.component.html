@@ -1,16 +1,41 @@
 @for (bus of buses; track bus) {
-<div class="mb-5">
+<div class="mb-4">
   <h2>
     {{ bus.label }}
     <span class="small text-muted"
       >{{ withFxType(bus.fx.fxType$) | async }} ({{ bus.fx.fxType$ | async }})</span
     >
   </h2>
-  <div>
+  <!-- BPM -->
+  <div class="mb-4">
+    <h3>BPM</h3>
     @for (v of [1, 20, 60, 80, 100, 220, 400, 1000]; track v) {
     <button class="btn btn-success btn-sm me-2" (click)="bus.fx.setBpm(v)">{{ v }} BPM</button>
     }
     <strong>{{ bus.fx.bpm$ | async }} BPM</strong>
   </div>
+
+  <!-- Params -->
+  <div class="mb-4">
+    <h3>Params</h3>
+
+    @for (param of [1,2,3,4,5,6]; track $index) {
+    <div class="mb-1">
+      @let paramValue = bus.fx.getParam(param) | async;
+      <strong class="me-2">{{ param }}</strong>
+      <input
+        type="range"
+        min="0"
+        max="1"
+        step="0.0001"
+        (input)="setFxParam(bus.fx, param, paramValueInput.value)"
+        [value]="paramValue"
+        #paramValueInput
+      />
+      <span class="ms-4">{{ paramValue }}</span>
+    </div>
+    }
+  </div>
+  <hr />
 </div>
 }
