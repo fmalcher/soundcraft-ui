@@ -1,6 +1,7 @@
+import { Observable } from 'rxjs';
 import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
-import { select, selectFxBpm, selectFxType } from '../state/state-selectors';
+import { select, selectFxBpm, selectFxType, selectRawValue } from '../state/state-selectors';
 import { clamp } from '../utils';
 import { FxChannel } from './fx-channel';
 
@@ -72,5 +73,38 @@ export class FxBus {
     value = Math.round(value); // make integer
 
     this.conn.sendMessage(`SETD^f.${this.bus - 1}.bpm^${value}`);
+  }
+
+  private assertFxParamInRange(param: number) {
+    if (param < 1 || param > 6) {
+      throw new Error('FX Parameter must be between 1 and 6.');
+    }
+  }
+
+  private makeFxParamPath(param: number) {
+    return `f.${this.bus - 1}.par${param}`;
+  }
+
+  /**
+   * Get linear values (between `0` and `1`) of one FX parameter as an Observable stream
+   * @param param FX Parameter, between `1` and `6`
+   * @returns Observable<number>
+   */
+  getParam(param: number): Observable<number> {
+    this.assertFxParamInRange(param);
+    return this.store.state$.pipe(selectRawValue<number>(this.makeFxParamPath(param)));
+  }
+
+  /**
+   * Set linear value for one FX parameter
+   * @param param FX Parameter, between `1` and `6`
+   * @param value value to set, between `0` and `1`
+   * @returns Observable<number>
+   */
+  setParam(param: number, value: number) {
+    this.assertFxParamInRange(param);
+
+    value = clamp(value, 0, 1);
+    this.conn.sendMessage(`SETD^${this.makeFxParamPath(param)}^${value}`);
   }
 }
