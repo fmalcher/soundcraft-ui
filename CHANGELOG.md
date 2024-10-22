@@ -56,7 +56,7 @@ All notable changes to this project will be documented in this file. See [standa
 - remove unused imports ([90b3855](https://github.com/fmalcher/soundcraft-ui/commit/90b385542db5936599e89fdc783c1a50ef7439f2))
 - **testbed:** migrate inputs/outputs to signal functions ([f09bafe](https://github.com/fmalcher/soundcraft-ui/commit/f09bafe5e76e6582de488c5f5956b39eb2ed96ad))
 
-### [2.4.1](https://github.com/fmalcher/soundcraft-ui/compare/v2.4.0...v2.4.1) (2024-09-09)
+## [2.4.1](https://github.com/fmalcher/soundcraft-ui/compare/v2.4.0...v2.4.1) (2024-09-09)
 
 ### Bug Fixes
 
@@ -104,7 +104,7 @@ This is a huge release as it adds a brand new feature: **VU meter**! You can now
 - nx update to 19.5 ([4b0e44a](https://github.com/fmalcher/soundcraft-ui/commit/4b0e44a2ca25c4223c2dc4ec2a848b8e68096e76))
 - use new CI script for Nx agents ([#136](https://github.com/fmalcher/soundcraft-ui/issues/136)) ([0a1dd5f](https://github.com/fmalcher/soundcraft-ui/commit/0a1dd5fda9a61ae195b676aade770535f3617107))
 
-### [2.2.1](https://github.com/fmalcher/soundcraft-ui/compare/v2.2.0...v2.2.1) (2024-02-12)
+## [2.2.1](https://github.com/fmalcher/soundcraft-ui/compare/v2.2.0...v2.2.1) (2024-02-12)
 
 ### Bug Fixes
 
@@ -147,7 +147,7 @@ This is a huge release as it adds a brand new feature: **VU meter**! You can now
 - player track selection ([63bec3a](https://github.com/fmalcher/soundcraft-ui/commit/63bec3ad3186d46b973db9ddf2aca8df09765d77))
 - rename function to linearMappingValueToRange ([738b436](https://github.com/fmalcher/soundcraft-ui/commit/738b436ae9326761989223ce6fc9dd12a41873f8))
 
-### [2.0.1](https://github.com/fmalcher/soundcraft-ui/compare/v2.0.0...v2.0.1) (2023-05-23)
+## [2.0.1](https://github.com/fmalcher/soundcraft-ui/compare/v2.0.0...v2.0.1) (2023-05-23)
 
 ### Bug Fixes
 
@@ -283,7 +283,7 @@ Please be aware of possible breaking changes. **Enjoy the lib and keep on produc
 
 - add support for phantom power ([08c8fd5](https://github.com/fmalcher/soundcraft-ui/commit/08c8fd564bf1f0508af07fac177448f3d908219a))
 
-### [0.10.1](https://github.com/fmalcher/soundcraft-ui/compare/v0.9.0...v0.10.1) (2021-08-05)
+## [0.10.1](https://github.com/fmalcher/soundcraft-ui/compare/v0.9.0...v0.10.1) (2021-08-05)
 
 ### Features
 
@@ -307,7 +307,7 @@ Please be aware of possible breaking changes. **Enjoy the lib and keep on produc
 
 - add volume control for SOLO and headphone bus ([b22de2b](https://github.com/fmalcher/soundcraft-ui/commit/b22de2bb980f2fc48246bf123096f10873e35a4a)), closes [#51](https://github.com/fmalcher/soundcraft-ui/issues/51)
 
-### [0.7.1](https://github.com/fmalcher/soundcraft-ui/compare/v0.7.0...v0.7.1) (2020-12-23)
+## [0.7.1](https://github.com/fmalcher/soundcraft-ui/compare/v0.7.0...v0.7.1) (2020-12-23)
 
 ### Bug Fixes
 
@@ -341,7 +341,7 @@ Please be aware of possible breaking changes. **Enjoy the lib and keep on produc
 - move rounding out of LUT lookup ([a91097c](https://github.com/fmalcher/soundcraft-ui/commit/a91097cea8384456ed56e26fc8a109fc85605321)), closes [#39](https://github.com/fmalcher/soundcraft-ui/issues/39)
 - use correct capping value for relative changes ([d57a030](https://github.com/fmalcher/soundcraft-ui/commit/d57a030bafc104b2dde062694f60f227d788053d))
 
-### [0.5.1](https://github.com/fmalcher/soundcraft-ui/compare/v0.5.0...v0.5.1) (2020-11-07)
+## [0.5.1](https://github.com/fmalcher/soundcraft-ui/compare/v0.5.0...v0.5.1) (2020-11-07)
 
 ### Bug Fixes
 
@@ -375,7 +375,7 @@ Please be aware of possible breaking changes. **Enjoy the lib and keep on produc
 
 - get and set fader values in dB ([c069ac4](https://github.com/fmalcher/soundcraft-ui/commit/c069ac44809622b105c14e569718c8cd21687cd6))
 
-### [0.2.1](https://github.com/fmalcher/soundcraft-ui/compare/v0.2.0...v0.2.1) (2020-11-01)
+## [0.2.1](https://github.com/fmalcher/soundcraft-ui/compare/v0.2.0...v0.2.1) (2020-11-01)
 
 ### Bug Fixes
 
