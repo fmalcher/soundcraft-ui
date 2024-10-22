@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.7.0](https://github.com/fmalcher/soundcraft-ui/compare/v2.6.0...v2.7.0) (2024-10-22)
+
+### Features
+
+- add FxBus to ObjectStore ([b929038](https://github.com/fmalcher/soundcraft-ui/commit/b9290388c217ce93ddb9b4a13d24def9f3ce35b7))
+- add support for changing channel name ([2f04098](https://github.com/fmalcher/soundcraft-ui/commit/2f040980d4a466a25fa8c8a73cb6d67968c426e9))
+- add support for FX parameters ([3099b64](https://github.com/fmalcher/soundcraft-ui/commit/3099b6404d92733ee632c5f7ed3c1b321a52987d))
+
+### Bug Fixes
+
+- correct behavior when reading channel name ([5546ee9](https://github.com/fmalcher/soundcraft-ui/commit/5546ee9fbbc095710df89b43d0fbc3e240dd1f46))
+- remove unused function reference ([d20caa7](https://github.com/fmalcher/soundcraft-ui/commit/d20caa753a5eb76aa2ca610e43b8e280683b863a))
+
+### Other
+
+- adjust BPM range ([517a3f2](https://github.com/fmalcher/soundcraft-ui/commit/517a3f24ffab8459fa6c008cb5b6b34de423108c))
+- broader typing for `selectGenericChannelProperty` ([079ba6b](https://github.com/fmalcher/soundcraft-ui/commit/079ba6b56e0aa20f42ee080cbf0ccc07d533a449))
+- fix dependency conflicts ([3568b6a](https://github.com/fmalcher/soundcraft-ui/commit/3568b6a107ec61e42d9029300f98a03abcf2e439))
+- nx update to 20.0.2 ([c8a5252](https://github.com/fmalcher/soundcraft-ui/commit/c8a5252c93cc0a49575932eae947b537d46f2455))
+- rename ChannelStore to ObjectStore ([a6aa8c7](https://github.com/fmalcher/soundcraft-ui/commit/a6aa8c751d2c862b9b97658f02311ce2d7548256))
+- restructure command tables and add more info ([dff0b86](https://github.com/fmalcher/soundcraft-ui/commit/dff0b86db62bc74c3bcd697c46565b61abd961ab))
+- update ESLint and remove deprecated rule ([0312d3f](https://github.com/fmalcher/soundcraft-ui/commit/0312d3ffc15572171b99d3d59292fc1d294d64c3))
+
 ## [2.6.0](https://github.com/fmalcher/soundcraft-ui/compare/v2.5.0...v2.6.0) (2024-10-18)
 
 ### Features
