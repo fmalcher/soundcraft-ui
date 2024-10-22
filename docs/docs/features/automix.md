@@ -43,11 +43,11 @@ After getting access to a `MasterChannel` input (e.g. `conn.master.input(1)`), t
 
 | Call on `MasterChannel`           | Description                                                                                            |
 | --------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| `automixWeight$`                  | Automix weight (linear) for this channel (between `0` and `1`)                                         |
+| `automixWeightDB$`                | Automix weight (dB) for this channel (between `-12` and `12` dB)                                       |
+| `automixGroup$`                   | Automix group (`a`, `b`, `none`) that this channel is assigned to                                      |
 | `automixAssignGroup(group)`       | Assign this channel to an automix group (`a`, `b`, `none`). This also includes stereo-linked channels. |
 | `automixRemove()`                 | Remove this channel from the automix group. This does the same as `automixAssignGroup('none')`.        |
 | `automixSetWeight(value)`         | Set automix weight for the channel (linear between `0` and `1`)                                        |
 | `automixSetWeightDB(dbValue)`     | Set automix weight for the channel (dB between `-12` and `12`)                                         |
 | `automixChangeWeightDB(offsetDB)` | Change the automix weight relatively by adding a given value                                           |
-| `automixWeight$`                  | Automix weight (linear) for this channel (between `0` and `1`)                                         |
-| `automixWeightDB$`                | Automix weight (dB) for this channel (between `-12` and `12` dB)                                       |
-| `automixGroup$`                   | Automix group (`a`, `b`, `none`) that this channel is assigned to                                      |

@@ -17,18 +17,25 @@ To keep the library surface clean, this library considers the mixer model in the
 
 First, get a `HwChannel` by calling `conn.hw(inputNumber)`, e.g. `conn.hw(1)` for the first input.
 
+## Phantom Power
+
+| Call on `HwChannel` | Description                           |
+| ------------------- | ------------------------------------- |
+| `phantom$`          | Get phantom power status (`0` or `1`) |
+| `phantomOn()`       | Switch ON phantom power               |
+| `phantomOff()`      | Switch OFF phantom power              |
+| `togglePhantom()`   | Toggle phantom power status           |
+| `setPhantom(value)` | Set phantom power status (`0` or `1`) |
+
+## Gain
+
 | Call on `HwChannel`      | Description                                            |
 | ------------------------ | ------------------------------------------------------ |
-| `phantomOn()`            | Switch ON phantom power                                |
-| `phantomOff()`           | Switch OFF phantom power                               |
-| `togglePhantom()`        | Toggle phantom power status                            |
-| `setPhantom(value)`      | Set phantom power status (`0` or `1`)                  |
+| `gain$`                  | Linear gain level of the channel (between `0` and `1`) |
+| `gainDB$`                | dB gain level of the channel (between `-6` and `57`)   |
 | `setGain(value)`         | Set gain (between `0` and `1`)                         |
 | `setGainDB(dbValue)`     | Set gain in dB (between `-6` and `57`)                 |
 | `changeGainDB(offsetDB)` | Change gain relatively by adding a given value (in dB) |
-| `phantom$`               | Get phantom power status (`0` or `1`)                  |
-| `gain$`                  | Linear gain level of the channel (between `0` and `1`) |
-| `gainDB$`                | dB gain level of the channel (between `-6` and `57`)   |
 
 Please note that the value conversion for gain dB values in the original Web UI is not exact.
 Values emitted by `gain$` may differ from the values visible in the UI.

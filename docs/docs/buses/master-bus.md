@@ -22,13 +22,13 @@ The `MasterChannel` exposes the following operations:
 | Call on `MasterChannel`          | Description                               |
 | -------------------------------- | ----------------------------------------- |
 | _all generic channel operations_ |                                           |
+| `pan$`                           | Get pan value (between `0` and `1`)       |
 | `pan(value)`                     | Set pan for channel (between `0` and `1`) |
+| `solo$`                          | Get solo status (`0` or `1`)              |
 | `setSolo(value)`                 | Set solo for channel (`0` or `1`)         |
 | `solo()`                         | Enable solo                               |
 | `unsolo()`                       | Disable solo                              |
 | `toggleSolo()`                   | Toggle solo status                        |
-| `solo$`                          | Get solo status (`0` or `1`)              |
-| `pan$`                           | Get pan value (between `0` and `1`)       |
 
 For `input`, `line` and `aux` master channels, the bus returns a `DelayableMasterChannel` object which is a subtype of `MasterChannel`.
 It contains the following members:
@@ -40,4 +40,4 @@ It contains the following members:
 | `changeDelay(offsetMs)`   | Change channel delay relatively by adding a given value in milliseconds                                                      |
 | `delay$`                  | Get channel delay in milliseconds                                                                                            |
 
-Input channels on the master bus also support automix and multitrack settings, see separate sections.
+Input channels on the master bus also support [automix](../features/automix) and [multitrack](../recording-playback/multitrack) settings, see separate sections.
