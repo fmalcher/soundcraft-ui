@@ -2,7 +2,7 @@
 
 [![npm](https://img.shields.io/npm/v/soundcraft-ui-connection.svg)](https://www.npmjs.com/package/soundcraft-ui-connection)
 [![GitHub Actions](https://github.com/fmalcher/soundcraft-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/fmalcher/soundcraft-ui/actions/workflows/ci.yml)
-[![The MIT License](https://img.shields.io/badge/license-MIT-orange.svg?color=blue&style=flat-square)](http://opensource.org/licenses/MIT)
+[![The MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](http://opensource.org/licenses/MIT)
 
 This project provides a generic connection library for the Soundcraft Ui series audio mixers (Ui12 / Ui16 / Ui24R).
 Go to the documentation for all information about this library.
