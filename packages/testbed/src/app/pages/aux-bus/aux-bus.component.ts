@@ -10,6 +10,7 @@ import { MixerButtonComponent } from '../../ui/mixer-button/mixer-button.compone
 import { FaderLevelComponent } from '../../ui/fader-level/fader-level.component';
 import { PanComponent } from '../../ui/pan/pan.component';
 import { TransitionComponent } from '../../ui/transition/transition.component';
+import { InputComponent } from '../../ui/input/input.component';
 
 @Component({
   selector: 'sui-aux-bus',
@@ -23,6 +24,7 @@ import { TransitionComponent } from '../../ui/transition/transition.component';
     FaderLevelComponent,
     PanComponent,
     TransitionComponent,
+    InputComponent,
   ],
 })
 export class AuxBusComponent {

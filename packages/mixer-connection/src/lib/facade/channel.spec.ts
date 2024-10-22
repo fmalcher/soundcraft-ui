@@ -164,16 +164,65 @@ describe('Channel', () => {
         it('should read name for master channels', async () => {
           conn.conn.sendMessage('SETS^i.3.name^TESTNAME');
           expect(await firstValueFrom(conn.master.input(4).name$)).toBe('TESTNAME');
+
+          conn.conn.sendMessage('SETS^p.0.name^PLAYER');
+          expect(await firstValueFrom(conn.master.player(1).name$)).toBe('PLAYER');
+
+          conn.conn.sendMessage('SETS^l.1.name^THELINE');
+          expect(await firstValueFrom(conn.master.line(2).name$)).toBe('THELINE');
+
+          conn.conn.sendMessage('SETS^s.3.name^SUBGROUP');
+          expect(await firstValueFrom(conn.master.sub(4).name$)).toBe('SUBGROUP');
+
+          conn.conn.sendMessage('SETS^a.4.name^AUXMASTER');
+          expect(await firstValueFrom(conn.master.aux(5).name$)).toBe('AUXMASTER');
+
+          conn.conn.sendMessage('SETS^v.1.name^THEVCA');
+          expect(await firstValueFrom(conn.master.vca(2).name$)).toBe('THEVCA');
         });
 
-        it('should read name for AUX and FX channels', async () => {
+        it('should read name for channels on AUX and FX buses', async () => {
           conn.conn.sendMessage('SETS^i.1.name^FOOBAR');
           expect(await firstValueFrom(conn.aux(2).input(2).name$)).toBe('FOOBAR');
+
+          conn.conn.sendMessage('SETS^i.4.name^BARFOO');
+          expect(await firstValueFrom(conn.fx(3).input(5).name$)).toBe('BARFOO');
+
+          conn.conn.sendMessage('SETS^p.1.name^THEPLAYER');
+          expect(await firstValueFrom(conn.aux(1).player(2).name$)).toBe('THEPLAYER');
         });
 
         it('should return generic readable name (CH 6) when no name is set', async () => {
           conn.conn.sendMessage('SETS^i.5.name^');
           expect(await firstValueFrom(conn.master.input(6).name$)).toBe('CH 6');
+        });
+      });
+
+      describe('setName', () => {
+        it('should set the channel name', async () => {
+          conn.master.input(3).setName('TESTNAME');
+          expect(await firstValueFrom(conn.master.input(3).name$)).toBe('TESTNAME');
+
+          conn.master.player(1).setName('TESTNAME');
+          expect(await firstValueFrom(conn.master.player(1).name$)).toBe('TESTNAME');
+
+          conn.master.fx(3).setName('FXNAME');
+          expect(await firstValueFrom(conn.master.fx(3).name$)).toBe('FXNAME');
+
+          conn.master.aux(6).setName('AUXNAME');
+          expect(await firstValueFrom(conn.master.aux(6).name$)).toBe('AUXNAME');
+
+          conn.master.sub(3).setName('SUBGROUP');
+          expect(await firstValueFrom(conn.master.sub(3).name$)).toBe('SUBGROUP');
+
+          conn.master.vca(2).setName('THEVCA');
+          expect(await firstValueFrom(conn.master.vca(2).name$)).toBe('THEVCA');
+
+          conn.aux(2).input(4).setName('FOOBAR');
+          expect(await firstValueFrom(conn.aux(2).input(4).name$)).toBe('FOOBAR');
+
+          conn.fx(3).input(1).setName('BARFOO');
+          expect(await firstValueFrom(conn.fx(3).input(1).name$)).toBe('BARFOO');
         });
       });
     });

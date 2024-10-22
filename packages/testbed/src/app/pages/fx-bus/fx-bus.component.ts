@@ -8,6 +8,7 @@ import { MuteButtonComponent } from '../../ui/mute-button/mute-button.component'
 import { PrepostComponent } from '../../ui/prepost/prepost.component';
 import { FaderLevelComponent } from '../../ui/fader-level/fader-level.component';
 import { TransitionComponent } from '../../ui/transition/transition.component';
+import { InputComponent } from '../../ui/input/input.component';
 
 @Component({
   selector: 'sui-fx-bus',
@@ -19,6 +20,7 @@ import { TransitionComponent } from '../../ui/transition/transition.component';
     PrepostComponent,
     FaderLevelComponent,
     TransitionComponent,
+    InputComponent,
   ],
 })
 export class FxBusComponent {

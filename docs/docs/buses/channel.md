@@ -31,6 +31,7 @@ Therefore, these operations are available for any channel like `MasterChannel`, 
 
 ## Other operations
 
-| Call    | Description                      |
-| ------- | -------------------------------- |
-| `name$` | Get readable name of the channel |
+| Call            | Description                                     |
+| --------------- | ----------------------------------------------- |
+| `name$`         | Get readable name of the channel                |
+| `setName(name)` | Set name of the channel (20 characters maximum) |
