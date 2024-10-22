@@ -36,14 +36,14 @@ export const selectRawValue = <T>(path: string, defaultValue?: T) =>
  * @param busType
  * @param bus
  */
-const selectGenericChannelProperty: Selector<number> = (
+const selectGenericChannelProperty = <T>(
   property: string,
-  defaultValue = 0,
+  defaultValue: T,
   channelType: ChannelType,
   channel: number,
   busType: BusType,
   bus = 1
-) => {
+): Projector<T> => {
   switch (busType) {
     case 'master': {
       const path = joinStatePath(channelType, channel - 1, property);
