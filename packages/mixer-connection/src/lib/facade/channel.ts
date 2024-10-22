@@ -4,9 +4,9 @@ import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
 import {
   select,
-  selectChannelName,
   selectFaderValue,
   selectMute,
+  selectRawValue,
   selectStereoIndex,
 } from '../state/state-selectors';
 import { sourcesToTransition, TransitionSource } from '../transitions';
@@ -16,6 +16,7 @@ import { resolveDelayed } from '../utils/async-helpers';
 import { Easings } from '../utils/transitions/easings';
 import { DBToFaderValue, faderValueToDB } from '../utils/value-converters';
 import { FadeableChannel } from './interfaces';
+import { joinStatePath } from '../utils/state-utils';
 
 /**
  * Represents a single channel with a fader
@@ -47,7 +48,9 @@ export class Channel implements FadeableChannel {
 
   /** Name of the channel */
   name$ = this.store.state$.pipe(
-    select(selectChannelName(this.channelType, this.channel, this.busType, this.bus)),
+    // Channel name is only available directly in the channel, e.g. `i.1.name`.
+    // `i.1.aux.2.name` will not work!
+    selectRawValue<string>(joinStatePath(this.channelType, this.channel - 1, 'name')),
     map(name => name || constructReadableChannelName(this.channelType, this.channel))
   );
 
