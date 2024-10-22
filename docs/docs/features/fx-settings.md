@@ -40,7 +40,7 @@ It can be accessed through the `bpm$` stream. The method `setBpm()` allows to se
 | Call on `FxBus` | Description                                       |
 | --------------- | ------------------------------------------------- |
 | `bpm$`          | BPM value of this FX                              |
-| `setBpm(value)` | Set BPM value of this FX (between `1` and `1000`) |
+| `setBpm(value)` | Set BPM value of this FX (between `20` and `400`) |
 
 :::info[Global Tap]
 
