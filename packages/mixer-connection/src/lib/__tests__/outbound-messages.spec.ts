@@ -111,6 +111,9 @@ describe('Outbound messages', () => {
     conn.master.input(3).setDelay(210);
     expect(message).toBe('SETD^i.2.delay^0.21');
 
+    conn.master.input(3).setName('INPUTNAME');
+    expect(message).toBe('SETS^i.2.name^INPUTNAME');
+
     // automix (only for input channels)
     conn.master.input(3).automixAssignGroup('a');
     expect(message).toBe('SETD^i.2.amixgroup^0');
@@ -183,6 +186,9 @@ describe('Outbound messages', () => {
 
     conn.master.line(1).setDelay(130);
     expect(message).toBe('SETD^l.0.delay^0.13');
+
+    conn.master.line(1).setName('LINENAME');
+    expect(message).toBe('SETS^l.0.name^LINENAME');
   });
 
   it('master channels PLAYER', () => {
@@ -230,6 +236,9 @@ describe('Outbound messages', () => {
 
     conn.master.player(2).unsolo();
     expect(message).toBe('SETD^p.1.solo^0');
+
+    conn.master.player(2).setName('PLAYERNAME');
+    expect(message).toBe('SETS^p.1.name^PLAYERNAME');
   });
 
   it('master channels AUX', () => {
@@ -280,6 +289,9 @@ describe('Outbound messages', () => {
 
     conn.master.aux(1).setDelay(400);
     expect(message).toBe('SETD^a.0.delay^0.4');
+
+    conn.master.aux(1).setName('AUXNAME');
+    expect(message).toBe('SETS^a.0.name^AUXNAME');
   });
 
   it('master channels FX', () => {
@@ -327,6 +339,9 @@ describe('Outbound messages', () => {
 
     conn.master.fx(3).unsolo();
     expect(message).toBe('SETD^f.2.solo^0');
+
+    conn.master.fx(3).setName('FXNAME');
+    expect(message).toBe('SETS^f.2.name^FXNAME');
   });
 
   it('master channels SUB', () => {
@@ -374,6 +389,9 @@ describe('Outbound messages', () => {
 
     conn.master.sub(4).unsolo();
     expect(message).toBe('SETD^s.3.solo^0');
+
+    conn.master.sub(4).setName('SUBNAME');
+    expect(message).toBe('SETS^s.3.name^SUBNAME');
   });
 
   it('master channels VCA', () => {
@@ -421,6 +439,9 @@ describe('Outbound messages', () => {
 
     conn.master.vca(3).unsolo();
     expect(message).toBe('SETD^v.2.solo^0');
+
+    conn.master.vca(3).setName('VCANAME');
+    expect(message).toBe('SETS^v.2.name^VCANAME');
   });
 
   it('AUX channels INPUT', () => {
@@ -480,6 +501,9 @@ describe('Outbound messages', () => {
 
     conn.aux(2).input(7).setPostProc(0);
     expect(message).toBe('SETD^i.6.aux.1.postproc^0');
+
+    conn.aux(2).input(7).setName('THENAME');
+    expect(message).toBe('SETS^i.6.name^THENAME');
   });
 
   it('AUX channels LINE', () => {
@@ -539,6 +563,9 @@ describe('Outbound messages', () => {
 
     conn.aux(2).line(1).setPostProc(0);
     expect(message).toBe('SETD^l.0.aux.1.postproc^0');
+
+    conn.aux(2).line(1).setName('THENAME');
+    expect(message).toBe('SETS^l.0.name^THENAME');
   });
 
   it('AUX channels PLAYER', () => {
@@ -598,6 +625,9 @@ describe('Outbound messages', () => {
 
     conn.aux(2).player(2).setPostProc(0);
     expect(message).toBe('SETD^p.1.aux.1.postproc^0');
+
+    conn.aux(2).player(2).setName('THENAME');
+    expect(message).toBe('SETS^p.1.name^THENAME');
   });
 
   it('AUX channels FX', () => {
@@ -657,6 +687,9 @@ describe('Outbound messages', () => {
 
     conn.aux(2).fx(1).setPostProc(0);
     expect(message).toBe('SETD^f.0.aux.1.postproc^0');
+
+    conn.aux(2).fx(1).setName('THENAME');
+    expect(message).toBe('SETS^f.0.name^THENAME');
   });
 
   it('FX channels INPUT', () => {
@@ -695,6 +728,9 @@ describe('Outbound messages', () => {
 
     conn.fx(3).input(6).setPost(0);
     expect(message).toBe('SETD^i.5.fx.2.post^0');
+
+    conn.fx(3).input(6).setName('THENAME');
+    expect(message).toBe('SETS^i.5.name^THENAME');
   });
 
   it('FX channels LINE', () => {
@@ -733,6 +769,9 @@ describe('Outbound messages', () => {
 
     conn.fx(3).line(2).setPost(0);
     expect(message).toBe('SETD^l.1.fx.2.post^0');
+
+    conn.fx(3).line(2).setName('THENAME');
+    expect(message).toBe('SETS^l.1.name^THENAME');
   });
 
   it('FX channels PLAYER', () => {
@@ -771,6 +810,9 @@ describe('Outbound messages', () => {
 
     conn.fx(3).player(1).setPost(0);
     expect(message).toBe('SETD^p.0.fx.2.post^0');
+
+    conn.fx(3).player(1).setName('THENAME');
+    expect(message).toBe('SETS^p.0.name^THENAME');
   });
 
   it('FX channels SUB', () => {
@@ -809,6 +851,9 @@ describe('Outbound messages', () => {
 
     conn.fx(3).sub(4).setPost(0);
     expect(message).toBe('SETD^s.3.fx.2.post^0');
+
+    conn.fx(3).sub(4).setName('THENAME');
+    expect(message).toBe('SETS^s.3.name^THENAME');
   });
 
   it('FX Bus BPM', () => {

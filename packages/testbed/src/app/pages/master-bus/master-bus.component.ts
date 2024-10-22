@@ -9,6 +9,7 @@ import { MuteButtonComponent } from '../../ui/mute-button/mute-button.component'
 import { PanComponent } from '../../ui/pan/pan.component';
 import { SoloButtonComponent } from '../../ui/solo-button/solo-button.component';
 import { TransitionComponent } from '../../ui/transition/transition.component';
+import { InputComponent } from '../../ui/input/input.component';
 
 @Component({
   selector: 'sui-master-bus',
@@ -22,6 +23,7 @@ import { TransitionComponent } from '../../ui/transition/transition.component';
     TransitionComponent,
     DelayComponent,
     PanComponent,
+    InputComponent,
   ],
 })
 export class MasterBusComponent {

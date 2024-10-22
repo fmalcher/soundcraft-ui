@@ -15,4 +15,10 @@
 <sui-fader-level [channel]="c.channel" />
 <sui-pan [channel]="c.channel" />
 <sui-transition [channel]="c.channel" />
+<sui-input
+  label="Channel Name"
+  buttonLabel="Set"
+  [value]="c.channel.name$ | async"
+  (valueChange)="c.channel.setName($event)"
+/>
 }

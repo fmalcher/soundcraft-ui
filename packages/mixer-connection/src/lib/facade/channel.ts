@@ -166,4 +166,15 @@ export class Channel implements FadeableChannel {
   toggleMute() {
     this.mute$.pipe(take(1)).subscribe(mute => this.setMute(mute ^ 1));
   }
+
+  /** Set name of the channel */
+  setName(name: string) {
+    name = name
+      .replace(/[\^]/gi, '') // ^ sign is not allowed
+      .substring(0, 20)
+      .toUpperCase();
+
+    const path = joinStatePath(this.channelType, this.channel - 1, 'name');
+    this.conn.sendMessage(`SETS^${path}^${name}`);
+  }
 }

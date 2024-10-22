@@ -83,20 +83,6 @@ export const selectMasterDelay: Selector<number> = (side: 'L' | 'R') => state =>
   getValueFromObject(state, `m.delay${side}`, 0) * 1000;
 
 /**
- * Select name of a channel
- * @param channelType Type of the channel
- * @param channel Channel number
- * @param busType Type of the bus
- * @param bus bus number
- */
-export const selectChannelName: Selector<number> = (
-  channelType: ChannelType,
-  channel: number,
-  busType: BusType,
-  bus?: number
-) => selectGenericChannelProperty('name', 0, channelType, channel, busType, bus);
-
-/**
  * Select pan value of a channel
  * @param channelType Type of the channel
  * @param channel Channel number
