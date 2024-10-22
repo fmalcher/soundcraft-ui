@@ -158,5 +158,24 @@ describe('Channel', () => {
         expect(results).toMatchSnapshot();
       });
     });
+
+    describe('Channel Name', () => {
+      describe('name$', () => {
+        it('should read name for master channels', async () => {
+          conn.conn.sendMessage('SETS^i.3.name^TESTNAME');
+          expect(await firstValueFrom(conn.master.input(4).name$)).toBe('TESTNAME');
+        });
+
+        it('should read name for AUX and FX channels', async () => {
+          conn.conn.sendMessage('SETS^i.1.name^FOOBAR');
+          expect(await firstValueFrom(conn.aux(2).input(2).name$)).toBe('FOOBAR');
+        });
+
+        it('should return generic readable name (CH 6) when no name is set', async () => {
+          conn.conn.sendMessage('SETS^i.5.name^');
+          expect(await firstValueFrom(conn.master.input(6).name$)).toBe('CH 6');
+        });
+      });
+    });
   });
 });
