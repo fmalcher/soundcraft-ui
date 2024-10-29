@@ -21,7 +21,7 @@
     "Sound"
   ],
   "dependencies": {
-    "isomorphic-ws": "^5.0.0",
-    "ws": "^7.4.1"
+    "modern-isomorphic-ws": "1.0.5",
+    "ws": "^8.18.0"
   }
 }

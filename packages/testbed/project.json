@@ -23,8 +23,7 @@
         "aot": true,
         "assets": ["packages/testbed/src/favicon.ico", "packages/testbed/src/assets"],
         "styles": ["packages/testbed/src/styles.scss"],
-        "scripts": [],
-        "allowedCommonJsDependencies": ["isomorphic-ws"]
+        "scripts": []
       },
       "configurations": {
         "production": {
