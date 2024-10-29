@@ -15,7 +15,7 @@ import {
   delay,
 } from 'rxjs';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
-import ws from 'isomorphic-ws';
+import ws from 'modern-isomorphic-ws';
 
 import { ConnectionEvent, ConnectionStatus } from './types';
 

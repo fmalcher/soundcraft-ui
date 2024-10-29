@@ -45,10 +45,10 @@
     "@angular/platform-browser-dynamic": "18.2.0",
     "@angular/router": "18.2.0",
     "bootstrap": "^5.2.3",
-    "isomorphic-ws": "^5.0.0",
+    "modern-isomorphic-ws": "1.0.5",
     "rxjs": "7.8.1",
     "tslib": "^2.3.0",
-    "ws": "^8.13.0",
+    "ws": "^8.18.0",
     "zone.js": "^0.14.3"
   },
   "devDependencies": {
@@ -70,6 +70,7 @@
     "@schematics/angular": "18.2.1",
     "@types/jest": "29.5.12",
     "@types/node": "^18.16.9",
+    "@types/ws": "^8.5.12",
     "@typescript-eslint/eslint-plugin": "8.2.0",
     "@typescript-eslint/parser": "8.2.0",
     "@typescript-eslint/utils": "^8.2.0",

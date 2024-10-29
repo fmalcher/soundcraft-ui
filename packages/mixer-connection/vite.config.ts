@@ -46,7 +46,7 @@ export default defineConfig({
     },
     rollupOptions: {
       // External packages that should not be bundled into your library.
-      external: ['isomorphic-ws', 'ws'],
+      external: ['modern-isomorphic-ws', 'ws'],
       plugins: [
         copy({
           targets: [
