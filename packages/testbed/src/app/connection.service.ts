@@ -12,6 +12,7 @@ export class ConnectionService {
       await this.conn.disconnect();
     }
 
+    // this.conn = new SoundcraftUI({ targetIP: ip, webSocketCtor: WebSocket });
     this.conn = new SoundcraftUI(ip);
     return this.conn.connect();
   }

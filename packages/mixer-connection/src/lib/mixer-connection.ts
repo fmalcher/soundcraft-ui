@@ -17,7 +17,7 @@ import {
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 import ws from 'modern-isomorphic-ws';
 
-import { ConnectionEvent, ConnectionStatus } from './types';
+import { ConnectionEvent, ConnectionStatus, SoundcraftUIOptions } from './types';
 
 export class MixerConnection {
   /** time to wait before reconnecting after an error */
@@ -66,7 +66,7 @@ export class MixerConnection {
   /** combined stream of inbound and outbound messages */
   allMessages$ = merge(this.outbound$, this.inbound$);
 
-  constructor(private targetIP: string) {
+  constructor(options: SoundcraftUIOptions) {
     // track connection status in synchronously readable field
     this.statusSubject$.subscribe(status => {
       this._status = status.type;
@@ -77,9 +77,9 @@ export class MixerConnection {
      * The connection will be established on first subscribe
      */
     this.socket$ = webSocket<string>({
-      url: `ws://${this.targetIP}`,
+      url: `ws://${options.targetIP}`,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      WebSocketCtor: ws as any, // cast necessary since ws object is not fully compatible to WebSocket
+      WebSocketCtor: options.webSocketCtor || (ws as any), // cast necessary since ws object is not fully compatible to WebSocket
       serializer: msg => `3:::${msg}`,
       deserializer: ({ data }) => data,
       openObserver: {
