@@ -80,7 +80,7 @@ export class MixerConnection {
       url: `ws://${this.targetIP}`,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       WebSocketCtor: ws as any, // cast necessary since ws object is not fully compatible to WebSocket
-      serializer: data => data,
+      serializer: msg => `3:::${msg}`,
       deserializer: ({ data }) => data,
       openObserver: {
         next: () => this.statusSubject$.next({ type: ConnectionStatus.Open }),
@@ -108,12 +108,7 @@ export class MixerConnection {
       .subscribe(msg => this.outboundSubject$.next(msg));
 
     /** Send outbound messages to mixer */
-    this.outbound$
-      .pipe(
-        map(msg => `3:::${msg}`)
-        // tap(msg => console.log(new Date(), 'SENDING:', msg)) // log message
-      )
-      .subscribe(this.socket$);
+    this.outbound$.subscribe(this.socket$);
   }
 
   /** Connect to socket and retry if connection lost */
