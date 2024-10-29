@@ -1,3 +1,5 @@
+import { Observable } from 'rxjs';
+
 import { AutomixController } from './facade/automix-controller';
 import { AuxBus } from './facade/aux-bus';
 import { DeviceInfo } from './facade/device-info';
@@ -12,46 +14,90 @@ import { ShowController } from './facade/show-controller';
 import { VolumeBus } from './facade/volume-bus';
 import { MixerConnection } from './mixer-connection';
 import { MixerStore } from './state/mixer-store';
+import { ConnectionEvent, SoundcraftUIOptions } from './types';
 import { VuProcessor } from './vu/vu-processor';
 
 export class SoundcraftUI {
-  readonly conn = new MixerConnection(this.targetIP);
-  readonly store = new MixerStore(this.conn);
+  private _options: SoundcraftUIOptions;
+
+  /**
+   * Get mixer options as a read-only copy.
+   * Options can only be set once at initialization and cannot be changed later.
+   */
+  get options(): Readonly<SoundcraftUIOptions> {
+    return Object.freeze({ ...this._options });
+  }
+
+  readonly conn: MixerConnection;
+  readonly store: MixerStore;
 
   /** Information about hardware and software of the mixer */
-  readonly deviceInfo = new DeviceInfo(this.store);
+  readonly deviceInfo: DeviceInfo;
 
   /** Connection status */
-  readonly status$ = this.conn.status$;
+  readonly status$: Observable<ConnectionEvent>;
 
   /** VU meter information for master channels */
-  readonly vuProcessor = new VuProcessor(this.conn);
+  readonly vuProcessor: VuProcessor;
 
   /** Master bus */
-  readonly master = new MasterBus(this.conn, this.store);
+  readonly master: MasterBus;
 
   /** Media player */
-  readonly player = new Player(this.conn, this.store);
+  readonly player: Player;
 
   /** 2-track recorder */
-  readonly recorderDualTrack = new DualTrackRecorder(this.conn, this.store);
+  readonly recorderDualTrack: DualTrackRecorder;
 
   /** multitrack recorder */
-  readonly recorderMultiTrack = new MultiTrackRecorder(this.conn, this.store);
+  readonly recorderMultiTrack: MultiTrackRecorder;
 
   /** SOLO and Headphone buses */
-  readonly volume = {
-    solo: new VolumeBus(this.conn, this.store, 'solovol'),
-    headphone: (id: number) => new VolumeBus(this.conn, this.store, 'hpvol', id),
-  };
+  readonly volume: { solo: VolumeBus; headphone: (id: number) => VolumeBus };
 
   /** Show controller (Shows, Snapshots, Cues) */
-  readonly shows = new ShowController(this.conn, this.store);
+  readonly shows: ShowController;
 
   /** Automix controller */
-  readonly automix = new AutomixController(this.conn, this.store);
+  readonly automix: AutomixController;
 
-  constructor(private targetIP: string) {}
+  /**
+   * Create a new instance to connect to a Soundcraft Ui mixer.
+   * The IP address of the mixer is a required parameter.
+   * You can either pass it in directly or as part of an options object:
+   *
+   * ```ts
+   * new SoundcraftUI('192.168.1.123');
+   * new SoundcraftUI({ targetIP: '192.168.1.123' });
+   * ```
+   */
+  constructor(options: SoundcraftUIOptions);
+  constructor(targetIP: string);
+  constructor(targetIPOrOpts: string | SoundcraftUIOptions) {
+    // build options object
+    if (typeof targetIPOrOpts === 'string') {
+      this._options = { targetIP: targetIPOrOpts };
+    } else {
+      this._options = targetIPOrOpts;
+    }
+
+    this.conn = new MixerConnection(this._options);
+
+    this.store = new MixerStore(this.conn);
+    this.deviceInfo = new DeviceInfo(this.store);
+    this.status$ = this.conn.status$;
+    this.vuProcessor = new VuProcessor(this.conn);
+    this.master = new MasterBus(this.conn, this.store);
+    this.player = new Player(this.conn, this.store);
+    this.recorderDualTrack = new DualTrackRecorder(this.conn, this.store);
+    this.recorderMultiTrack = new MultiTrackRecorder(this.conn, this.store);
+    this.volume = {
+      solo: new VolumeBus(this.conn, this.store, 'solovol'),
+      headphone: (id: number) => new VolumeBus(this.conn, this.store, 'hpvol', id),
+    };
+    this.shows = new ShowController(this.conn, this.store);
+    this.automix = new AutomixController(this.conn, this.store);
+  }
 
   /**
    * Get AUX bus

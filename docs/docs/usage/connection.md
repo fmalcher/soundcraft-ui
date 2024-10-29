@@ -5,14 +5,17 @@ sidebar_position: 0
 # Initialization and connection
 
 To get started, you need an instance of the `SoundcraftUI` class.
-It must be initialized with the IP adress of the mixer.
-After this, the object offers three methods to control the connection.
+It must be initialized with the IP adress of the mixer. This can be done by either directly passing the mixer IP as a parameter or by using an options object.
+After this, the `SoundcraftUI` instance offers three methods to control the connection.
 
 ```ts
 import { SoundcraftUI } from 'soundcraft-ui-connection';
 
 const conn = new SoundcraftUI(mixerIP);
-conn.connect();
+// OR
+const conn = new SoundcraftUI({ targetIP: mixerIP });
+
+conn.connect(); // open connection
 
 conn.disconnect(); // close connection
 conn.reconnect(); // close connection and reconnect after timeout

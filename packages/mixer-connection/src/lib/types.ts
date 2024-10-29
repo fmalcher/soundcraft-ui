@@ -1,6 +1,18 @@
 export type ChannelType = 'i' | 'l' | 'p' | 'f' | 's' | 'a' | 'v';
 export type BusType = 'master' | 'aux' | 'fx';
 
+export interface SoundcraftUIOptions {
+  /** IP address of the mixer */
+  targetIP: string;
+  /**
+   * A WebSocket constructor to use. This is useful for situations like using a
+   * WebSocket impl in Node (WebSocket is a DOM API), or for mocking a WebSocket
+   * for testing purposes. By default, this library uses `WebSocket`
+   * in the browser and falls back to `ws` on Node.js.
+   */
+  webSocketCtor?: { new (url: string, protocols?: string | string[]): WebSocket };
+}
+
 export enum ConnectionStatus {
   Opening = 'OPENING',
   Open = 'OPEN',
