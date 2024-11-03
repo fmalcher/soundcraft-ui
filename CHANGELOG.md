@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0](https://github.com/fmalcher/soundcraft-ui/compare/v2.7.0...v3.0.0) (2024-11-03)
+
+This release integrates another WebSocket abstraction. It also makes it possible to define an individual WebSocket constructor.
+Since we are not aware of potential edge cases and hidden breaking changes, this is published as a major release.
+
+### Features
+
+- add options to SoundcraftUI, make WS ctor configurable ([6510bfc](https://github.com/fmalcher/soundcraft-ui/commit/6510bfc56f2043402d2b90992725eacf519942e1))
+
+### Other
+
+- move serializer function to WS creation ([cba0fcc](https://github.com/fmalcher/soundcraft-ui/commit/cba0fcc888c5d863197f32aa958a319b0473b351))
+- set useDefineForClassFields explicitly to false ([d99b5e1](https://github.com/fmalcher/soundcraft-ui/commit/d99b5e159eadc93868c2081dfc5cdf7aa0860fea))
+- use modern-isomorphic-ws for WebSocket ([d9c9171](https://github.com/fmalcher/soundcraft-ui/commit/d9c9171fff67ef9550cfe05287e59f20fe296c6e))
+- add changelog to docs ([aeae426](https://github.com/fmalcher/soundcraft-ui/commit/aeae426b2b822732842730f09c2b767278798280))
+- rename workflow ([1acba84](https://github.com/fmalcher/soundcraft-ui/commit/1acba84858a660740ce9371d614484f3718e545c))
+- add badges for CI and license ([e3d96e5](https://github.com/fmalcher/soundcraft-ui/commit/e3d96e5746234e8fabbea962e7c284553cd1fcfc))
+- add badges in main README too ([260b266](https://github.com/fmalcher/soundcraft-ui/commit/260b266a50332073d6d77d9aadab1c9f7f9fc1f0))
+- fix README shields. again. ([19ecf9a](https://github.com/fmalcher/soundcraft-ui/commit/19ecf9a1d2b72c1887c3c8c77c03feeaf6ec6aa8))
+- reformat changelog ([2468177](https://github.com/fmalcher/soundcraft-ui/commit/2468177c820b16a53f5b82f42050febc9c344f17))
+- nx migrate 20.0.6 ([611c84b](https://github.com/fmalcher/soundcraft-ui/commit/611c84b1f3bfb530364cddc0e41cf2ba3f05d774))
+
 ## [2.7.0](https://github.com/fmalcher/soundcraft-ui/compare/v2.6.0...v2.7.0) (2024-10-22)
 
 ### Features
