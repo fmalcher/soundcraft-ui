@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 button {
   height: 45px;
   min-width: 120px;
@@ -10,7 +12,7 @@ button {
   padding: 10px;
 
   &:hover {
-    background: lighten(black, 20%);
+    background: color.adjust(black, $lightness: 20%);
   }
 
   &.default-active {
@@ -18,7 +20,7 @@ button {
     background: rgb(211, 16, 107);
 
     &:hover {
-      background: lighten(rgb(211, 16, 107), 20%);
+      background: color.adjust(rgb(211, 16, 107), $lightness: 20%);
     }
   }
 
@@ -27,7 +29,7 @@ button {
     background: yellow;
 
     &:hover {
-      background: lighten(yellow, 20%);
+      background: color.adjust(yellow, $lightness: 20%);
     }
   }
 
@@ -36,7 +38,7 @@ button {
     background: red;
 
     &:hover {
-      background: lighten(red, 20%);
+      background: color.adjust(red, $lightness: 20%);
     }
   }
 
@@ -45,7 +47,7 @@ button {
     background: #2782f2;
 
     &:hover {
-      background: lighten(#2782f2, 15%);
+      background: color.adjust(#2782f2, $lightness: 15%);
     }
   }
 
@@ -54,7 +56,7 @@ button {
     background: #069840;
 
     &:hover {
-      background: lighten(#069840, 5%);
+      background: color.adjust(#069840, $lightness: 5%);
     }
   }
 }
