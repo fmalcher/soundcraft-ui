@@ -1,4 +1,4 @@
-import { AsyncPipe, NgClass } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component, OnDestroy, OnInit, input } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { SendChannel } from 'soundcraft-ui-connection';
@@ -8,7 +8,7 @@ import { MixerButtonComponent } from '../mixer-button/mixer-button.component';
   selector: 'sui-prepost',
   templateUrl: './prepost.component.html',
   styleUrls: ['./prepost.component.css'],
-  imports: [MixerButtonComponent, NgClass, AsyncPipe],
+  imports: [MixerButtonComponent, AsyncPipe],
 })
 export class PrepostComponent implements OnInit, OnDestroy {
   channel = input.required<SendChannel>();
