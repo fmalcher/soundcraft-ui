@@ -6,7 +6,6 @@ import { Easings, FadeableChannel, faderValueToDB } from 'soundcraft-ui-connecti
   selector: 'sui-transition',
   templateUrl: './transition.component.html',
   styleUrls: ['./transition.component.css'],
-  standalone: true,
   imports: [ReactiveFormsModule],
 })
 export class TransitionComponent {

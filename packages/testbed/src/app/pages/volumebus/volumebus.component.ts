@@ -6,7 +6,6 @@ import { TransitionComponent } from '../../ui/transition/transition.component';
 @Component({
   selector: 'sui-volumebus',
   templateUrl: './volumebus.component.html',
-  standalone: true,
   imports: [FaderLevelComponent, TransitionComponent],
 })
 export class VolumebusComponent {

@@ -8,7 +8,6 @@ import { MasterChannel } from 'soundcraft-ui-connection';
   selector: 'sui-automix',
   templateUrl: './automix.component.html',
   styleUrls: ['./automix.component.css'],
-  standalone: true,
   imports: [AsyncPipe, MixerButtonComponent],
 })
 export class AutomixComponent {

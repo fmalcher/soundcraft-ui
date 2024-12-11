@@ -7,7 +7,6 @@ import { ConnectionService } from '../../connection.service';
   selector: 'sui-full-state',
   templateUrl: './full-state.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [AsyncPipe, JsonPipe],
 })
 export class FullStateComponent {

@@ -7,7 +7,6 @@ import { MixerButtonComponent } from '../../ui/mixer-button/mixer-button.compone
 @Component({
   selector: 'sui-mute-groups',
   templateUrl: './mute-groups.component.html',
-  standalone: true,
   imports: [AsyncPipe, MixerButtonComponent],
 })
 export class MuteGroupsComponent {

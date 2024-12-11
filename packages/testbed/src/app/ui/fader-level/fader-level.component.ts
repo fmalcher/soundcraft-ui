@@ -6,7 +6,6 @@ import { FadeableChannel } from 'soundcraft-ui-connection';
   selector: 'sui-fader-level',
   templateUrl: './fader-level.component.html',
   styleUrls: ['./fader-level.component.css'],
-  standalone: true,
   imports: [AsyncPipe],
 })
 export class FaderLevelComponent {

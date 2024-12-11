@@ -7,7 +7,6 @@ import { ConnectionService } from './connection.service';
 @Component({
   selector: 'sui-root',
   templateUrl: './app.component.html',
-  standalone: true,
   imports: [RouterOutlet, AsyncPipe, RouterLink, RouterLinkActive],
 })
 export class AppComponent {

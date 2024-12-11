@@ -9,7 +9,6 @@ import { TransitionComponent } from '../../ui/transition/transition.component';
 @Component({
   selector: 'sui-master',
   templateUrl: './master.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     MixerButtonComponent,

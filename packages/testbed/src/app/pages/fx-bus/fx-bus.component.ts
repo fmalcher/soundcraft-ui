@@ -13,7 +13,6 @@ import { InputComponent } from '../../ui/input/input.component';
 @Component({
   selector: 'sui-fx-bus',
   templateUrl: './fx-bus.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     MuteButtonComponent,

@@ -5,7 +5,6 @@ import { Component, input, output } from '@angular/core';
   selector: 'sui-mixer-button',
   templateUrl: './mixer-button.component.html',
   styleUrls: ['./mixer-button.component.scss'],
-  standalone: true,
   imports: [NgClass],
 })
 export class MixerButtonComponent {

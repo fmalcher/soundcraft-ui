@@ -14,7 +14,6 @@ import { InputComponent } from '../../ui/input/input.component';
 @Component({
   selector: 'sui-master-bus',
   templateUrl: './master-bus.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     FaderLevelComponent,

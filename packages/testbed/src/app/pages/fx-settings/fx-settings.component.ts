@@ -8,7 +8,6 @@ import { ConnectionService } from '../../connection.service';
 @Component({
   selector: 'sui-fx-settings',
   templateUrl: './fx-settings.component.html',
-  standalone: true,
   imports: [AsyncPipe],
   styleUrl: './fx-settings.component.scss',
 })

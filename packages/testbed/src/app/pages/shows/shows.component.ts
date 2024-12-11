@@ -8,7 +8,6 @@ import { ConnectionService } from '../../connection.service';
   selector: 'sui-shows',
   templateUrl: './shows.component.html',
   styleUrl: './shows.component.scss',
-  standalone: true,
   imports: [AsyncPipe, FormsModule],
 })
 export class ShowsComponent {
