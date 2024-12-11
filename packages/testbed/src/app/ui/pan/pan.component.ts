@@ -6,7 +6,6 @@ import { AuxChannel, MasterBus, MasterChannel } from 'soundcraft-ui-connection';
   selector: 'sui-pan',
   templateUrl: './pan.component.html',
   styleUrls: ['./pan.component.css'],
-  standalone: true,
   imports: [AsyncPipe],
 })
 export class PanComponent {

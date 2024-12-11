@@ -9,7 +9,6 @@ import { TimePipe } from '../../ui/time.pipe';
 @Component({
   selector: 'sui-multitrack',
   templateUrl: './multitrack.component.html',
-  standalone: true,
   imports: [AsyncPipe, TimePipe, MixerButtonComponent],
 })
 export class MultitrackComponent {

@@ -8,7 +8,6 @@ import { MixerButtonComponent } from '../../ui/mixer-button/mixer-button.compone
   selector: 'sui-hwchannels',
   templateUrl: './hwchannels.component.html',
   styleUrls: ['./hwchannels.component.css'],
-  standalone: true,
   imports: [AsyncPipe, MixerButtonComponent],
 })
 export class HwchannelsComponent {

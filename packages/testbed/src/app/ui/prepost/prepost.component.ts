@@ -8,7 +8,6 @@ import { MixerButtonComponent } from '../mixer-button/mixer-button.component';
   selector: 'sui-prepost',
   templateUrl: './prepost.component.html',
   styleUrls: ['./prepost.component.css'],
-  standalone: true,
   imports: [MixerButtonComponent, NgClass, AsyncPipe],
 })
 export class PrepostComponent implements OnInit, OnDestroy {

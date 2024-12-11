@@ -7,7 +7,6 @@ import { MixerButtonComponent } from '../mixer-button/mixer-button.component';
   selector: 'sui-solo-button',
   templateUrl: './solo-button.component.html',
   styleUrls: ['./solo-button.component.css'],
-  standalone: true,
   imports: [MixerButtonComponent, AsyncPipe],
 })
 export class SoloButtonComponent {

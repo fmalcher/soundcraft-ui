@@ -10,7 +10,6 @@ import { vuValueToDB } from 'soundcraft-ui-connection';
   templateUrl: './vu.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './vu.component.scss',
-  standalone: true,
   imports: [AsyncPipe, JsonPipe, VuMeterComponent],
 })
 export class VuComponent {

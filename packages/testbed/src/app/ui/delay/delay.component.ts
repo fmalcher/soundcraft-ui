@@ -6,7 +6,6 @@ import { DelayableMasterChannel } from 'soundcraft-ui-connection';
   selector: 'sui-delay',
   templateUrl: './delay.component.html',
   styleUrls: ['./delay.component.css'],
-  standalone: true,
   imports: [AsyncPipe],
 })
 export class DelayComponent {

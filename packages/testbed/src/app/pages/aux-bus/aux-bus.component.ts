@@ -15,7 +15,6 @@ import { InputComponent } from '../../ui/input/input.component';
 @Component({
   selector: 'sui-aux-bus',
   templateUrl: './aux-bus.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     MuteButtonComponent,

@@ -3,7 +3,6 @@ import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'sui-vu-meter',
-  standalone: true,
   imports: [NgClass],
   templateUrl: './vu-meter.component.html',
   styleUrl: './vu-meter.component.scss',

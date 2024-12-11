@@ -11,7 +11,6 @@ import { TimePipe } from '../../ui/time.pipe';
 @Component({
   selector: 'sui-player',
   templateUrl: './player.component.html',
-  standalone: true,
   imports: [AsyncPipe, MixerButtonComponent, InputComponent, TimePipe],
 })
 export class PlayerComponent {
