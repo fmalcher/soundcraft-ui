@@ -1,23 +1,22 @@
-import { NgClass } from '@angular/common';
-import { Component, input, output } from '@angular/core';
+import { Component, computed, input, output } from '@angular/core';
 
 @Component({
   selector: 'sui-mixer-button',
   templateUrl: './mixer-button.component.html',
   styleUrls: ['./mixer-button.component.scss'],
-  imports: [NgClass],
+  imports: [],
 })
 export class MixerButtonComponent {
   activeClass = input('default-active');
   active = input(false);
   press = output();
 
-  get ngClassDefinition() {
-    if (!this.activeClass) {
+  classDefinition = computed(() => {
+    if (!this.activeClass()) {
       return;
     }
     return {
       [this.activeClass()]: !!this.active(),
     };
-  }
+  });
 }
