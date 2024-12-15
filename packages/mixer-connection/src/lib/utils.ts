@@ -1,3 +1,5 @@
+import { debounceTime, firstValueFrom, race, take, timer } from 'rxjs';
+import { MixerStore } from './state/mixer-store';
 import { ChannelType, FxType } from './types';
 
 /** Clamp numeric value to min and max */
@@ -96,4 +98,13 @@ export function constructReadableChannelName(type: ChannelType, channel: number)
     case 'p':
       return 'PLAYER ' + numberToLR(channel);
   }
+}
+
+/**
+ * Returns a Promise that fires when the mixer state hasn't changed for 25 ms OR when 250 ms timeout are over.
+ * This makes sure that all initial params can be received by the mixer after connection init.
+ * In case the state never stands still for 50 ms, the 250 ms timeout will emit finally.
+ */
+export function waitForInitParams(store: MixerStore): Promise<void> {
+  return firstValueFrom(race(store.state$.pipe(debounceTime(25)), timer(250)));
 }

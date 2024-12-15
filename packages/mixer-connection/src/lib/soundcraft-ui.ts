@@ -16,6 +16,7 @@ import { MixerConnection } from './mixer-connection';
 import { MixerStore } from './state/mixer-store';
 import { ConnectionEvent, SoundcraftUIOptions } from './types';
 import { VuProcessor } from './vu/vu-processor';
+import { waitForInitParams } from './utils';
 
 export class SoundcraftUI {
   private _options: SoundcraftUIOptions;
@@ -138,9 +139,10 @@ export class SoundcraftUI {
     return new HwChannel(this.conn, this.store, this.deviceInfo, channel);
   }
 
-  /** Connect to the mixer. Returns a Promise that resolves when the connection is open. */
-  connect(): Promise<void> {
-    return this.conn.connect();
+  /** Connect to the mixer. Returns a Promise that resolves when the connection is open and the initial params have likely been received by the mixer. */
+  async connect(): Promise<void> {
+    await this.conn.connect();
+    await waitForInitParams(this.store);
   }
 
   /** Disconnect from the mixer. Returns a Promise that resolves when the connection is closed. */
@@ -150,9 +152,10 @@ export class SoundcraftUI {
 
   /**
    * Reconnect to the mixer after 1 second.
-   * Returns a Promise that resolves when the connection is open again.
+   * Returns a Promise that resolves when the connection is open again and the initial params have likely been received by the mixer.
    */
-  reconnect(): Promise<void> {
-    return this.conn.reconnect();
+  async reconnect(): Promise<void> {
+    await this.conn.reconnect();
+    await waitForInitParams(this.store);
   }
 }
