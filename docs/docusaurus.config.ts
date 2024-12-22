@@ -71,13 +71,17 @@ const config: Config = {
               href: 'https://github.com/fmalcher/soundcraft-ui',
             },
             {
+              label: 'Sponsor this project ❤️',
+              href: 'https://github.com/sponsors/fmalcher',
+            },
+            {
               label: 'Imprint',
               href: '/imprint',
             },
           ],
         },
       ],
-      copyright: 'Made with ❤️ by Ferdinand Malcher',
+      copyright: 'Made with ❤️ and ☕️ by Ferdinand Malcher',
     },
     prism: {
       theme: prismThemes.github,
