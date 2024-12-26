@@ -31,10 +31,28 @@ export class MixerStore {
     { connector: () => new ReplaySubject(1) }
   );
 
+  /**
+   * Stream of channel sync states.
+   * Each value is an object with syncId keys and index values.
+   */
+  readonly syncState$ = connectable(
+    this.conn.allMessages$.pipe(
+      // message format: BMSG^SYNC^<syncId>^<index>
+      filter(msg => msg.startsWith('BMSG^SYNC^')),
+      map(message => message.slice(10).split('^')),
+      scan(
+        (acc, [syncId, index]) => ({ ...acc, [syncId]: parseInt(index, 10) }),
+        {} as Record<string, number>
+      )
+    ),
+    { connector: () => new ReplaySubject(1) }
+  );
+
   readonly objectStore = new ObjectStore();
 
   constructor(private conn: MixerConnection) {
     // start producing state values
     this.state$.connect();
+    this.syncState$.connect();
   }
 }

@@ -1,6 +1,8 @@
+export * from './automix-controller';
 export * from './aux-bus';
 export * from './aux-channel';
 export * from './channel';
+export * from './channel-sync';
 export * from './delayable-master-channel';
 export * from './device-info';
 export * from './dual-track-recorder';
@@ -16,4 +18,3 @@ export * from './player';
 export * from './send-channel';
 export * from './show-controller';
 export * from './volume-bus';
-export * from './automix-controller';

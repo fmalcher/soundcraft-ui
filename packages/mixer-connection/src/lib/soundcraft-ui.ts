@@ -17,6 +17,7 @@ import { MixerStore } from './state/mixer-store';
 import { ConnectionEvent, SoundcraftUIOptions } from './types';
 import { VuProcessor } from './vu/vu-processor';
 import { waitForInitParams } from './utils';
+import { ChannelSync } from './facade/channel-sync';
 
 export class SoundcraftUI {
   private _options: SoundcraftUIOptions;
@@ -62,6 +63,9 @@ export class SoundcraftUI {
   /** Automix controller */
   readonly automix: AutomixController;
 
+  /** Channel Sync Controller */
+  readonly channelSync: ChannelSync;
+
   /**
    * Create a new instance to connect to a Soundcraft Ui mixer.
    * The IP address of the mixer is a required parameter.
@@ -98,6 +102,7 @@ export class SoundcraftUI {
     };
     this.shows = new ShowController(this.conn, this.store);
     this.automix = new AutomixController(this.conn, this.store);
+    this.channelSync = new ChannelSync(this);
   }
 
   /**

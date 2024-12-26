@@ -1,0 +1,38 @@
+<p>
+  Channel index goes from left to right on the master bus. Index <code>-1</code> refers to the grand
+  master fader.
+</p>
+
+@for (syncId of syncIds; track syncId) {
+<div>
+  @let currentIndex = channelSync.getSelectedChannelIndex(syncId) | async;
+  <h2 class="mt-4">
+    ID <code>{{ syncId }}</code>
+    <small class="ms-3 text-muted">
+      Selected:
+      @if (currentIndex !== null) { <code>{{ currentIndex }}</code> }
+      @else { None }
+
+      @if (channelSync.getSelectedChannel(syncId) | async; as channel) {
+        / {{ channel.name$ | async }}
+        <button class="btn btn-sm btn-success ms-1" (click)="channel.changeFaderLevelDB(-3)">-3 dB</button>
+        <button class="btn btn-sm btn-success ms-1" (click)="channel.changeFaderLevelDB(3)">+3 dB</button>
+      }
+    </small>
+  </h2>
+
+  <div>
+    @for (index of channelIndexes$ | async; track index) {
+    <button
+      class="btn btn-sm btn-secondary me-1 mb-1"
+      [class.btn-danger]="currentIndex === index"
+      (click)="channelSync.selectChannelIndex(index, syncId)"
+    >
+      {{ index }}</button
+    >}
+  </div>
+</div>
+}
+
+<h2 class="mt-4">Sync State</h2>
+<pre>{{ syncState$ | async | json }}</pre>

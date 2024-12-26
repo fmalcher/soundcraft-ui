@@ -26,6 +26,7 @@ export class AppComponent {
     { label: 'Shows', target: '/shows' },
     { label: 'HW Channels', target: '/hwchannels' },
     { label: 'Automix', target: '/automix' },
+    { label: 'Channel Sync', target: '/channelsync' },
     { label: 'Full state', target: '/fullstate' },
     { label: 'VU', target: '/vu' },
   ];

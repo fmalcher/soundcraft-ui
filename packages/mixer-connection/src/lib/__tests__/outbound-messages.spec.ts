@@ -1040,6 +1040,14 @@ describe('Outbound messages', () => {
     expect(message).toBe('SETD^automix.b.on^0');
   });
 
+  it('Channel Sync', () => {
+    conn.channelSync.selectChannelIndex(7);
+    expect(message).toBe('BMSG^SYNC^SYNC_ID^7');
+
+    conn.channelSync.selectChannelIndex(15, 'customSyncId');
+    expect(message).toBe('BMSG^SYNC^customSyncId^15');
+  });
+
   describe('hw channels', () => {
     it('Ui24', () => {
       setMixerModel('ui24', conn);
