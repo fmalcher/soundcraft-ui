@@ -1,4 +1,4 @@
-import { Subject, map, take } from 'rxjs';
+import { Subject, map, of, take } from 'rxjs';
 
 import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
@@ -23,6 +23,8 @@ import { MasterChannel } from './master-channel';
  * Represents the master bus
  */
 export class MasterBus implements FadeableChannel, PannableChannel {
+  name$ = of('MASTER');
+
   /** Linear level of the master fader (between `0` and `1`) */
   faderLevel$ = this.store.state$.pipe(select(selectMasterValue()));
 

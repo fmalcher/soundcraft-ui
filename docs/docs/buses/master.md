@@ -46,3 +46,9 @@ The following operations can be used to interact with the global master fader.
 | `undim()`           | Undim master                       |
 | `toggleDim()`       | Toggle master dim                  |
 | `setDim(value)`     | Set master dim (`0` or `1`)        |
+
+## Other operations
+
+| Call    | Description                      |
+| ------- | -------------------------------- |
+| `name$` | Get readable name of the channel |

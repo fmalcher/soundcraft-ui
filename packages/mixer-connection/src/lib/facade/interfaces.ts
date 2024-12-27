@@ -2,6 +2,9 @@ import { Observable } from 'rxjs';
 import { Easings } from '../utils/transitions/easings';
 
 export interface FadeableChannel {
+  /** Name of the channel */
+  name$: Observable<string>;
+
   faderLevel$: Observable<number>;
   faderLevelDB$: Observable<number>;
 

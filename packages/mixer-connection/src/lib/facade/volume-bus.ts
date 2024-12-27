@@ -1,13 +1,14 @@
-import { Subject, map, take } from 'rxjs';
+import { Subject, map, of, take } from 'rxjs';
 import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
 import { select, selectVolumeBusValue } from '../state/state-selectors';
 import { sourcesToTransition, TransitionSource } from '../transitions';
-import { clamp } from '../utils';
+import { clamp, constructReadableChannelName } from '../utils';
 import { resolveDelayed } from '../utils/async-helpers';
 import { Easings } from '../utils/transitions/easings';
 import { DBToFaderValue, faderValueToDB } from '../utils/value-converters';
 import { FadeableChannel } from './interfaces';
+import { VolumeBusType } from '../types';
 
 /**
  * Represents a volume bus like headphones or solo
@@ -23,10 +24,12 @@ export class VolumeBus implements FadeableChannel {
   /** dB level of the volume bus (between `-Infinity` and `10`) */
   faderLevelDB$ = this.faderLevel$.pipe(map(v => faderValueToDB(v)));
 
+  name$ = of(constructReadableChannelName(this.busName, this.busId || -1));
+
   constructor(
     protected conn: MixerConnection,
     protected store: MixerStore,
-    protected busName: string,
+    protected busName: VolumeBusType,
     protected busId?: number
   ) {
     // lookup channel in the store and use existing object if possible

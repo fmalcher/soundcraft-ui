@@ -1,4 +1,10 @@
-import { clamp, fxTypeToString, playerTimeToString, transformStringValue } from './utils';
+import {
+  clamp,
+  constructReadableChannelName,
+  fxTypeToString,
+  playerTimeToString,
+  transformStringValue,
+} from './utils';
 
 describe('utils', () => {
   describe('clamp', () => {
@@ -56,6 +62,35 @@ describe('utils', () => {
       expect(fxTypeToString(1)).toBe('Delay');
       expect(fxTypeToString(2)).toBe('Chorus');
       expect(fxTypeToString(3)).toBe('Room');
+    });
+  });
+
+  describe('constructReadableChannelName', () => {
+    it('should construct readable channel name', () => {
+      expect(constructReadableChannelName('i', 1)).toBe('CH 1');
+      expect(constructReadableChannelName('i', 2)).toBe('CH 2');
+      expect(constructReadableChannelName('i', 10)).toBe('CH 10');
+
+      expect(constructReadableChannelName('a', 1)).toBe('AUX 1');
+      expect(constructReadableChannelName('a', 4)).toBe('AUX 4');
+
+      expect(constructReadableChannelName('f', 2)).toBe('FX 2');
+      expect(constructReadableChannelName('f', 3)).toBe('FX 3');
+
+      expect(constructReadableChannelName('s', 1)).toBe('SUB 1');
+      expect(constructReadableChannelName('s', 4)).toBe('SUB 4');
+
+      expect(constructReadableChannelName('v', 1)).toBe('VCA 1');
+      expect(constructReadableChannelName('v', 4)).toBe('VCA 4');
+
+      expect(constructReadableChannelName('l', 1)).toBe('LINE IN L');
+      expect(constructReadableChannelName('l', 2)).toBe('LINE IN R');
+      expect(constructReadableChannelName('p', 1)).toBe('PLAYER L');
+      expect(constructReadableChannelName('p', 2)).toBe('PLAYER R');
+
+      expect(constructReadableChannelName('solovol', 1)).toBe('SOLO LEVEL');
+      expect(constructReadableChannelName('hpvol', 1)).toBe('HEADPHONE 1 LEVEL');
+      expect(constructReadableChannelName('hpvol', 2)).toBe('HEADPHONE 2 LEVEL');
     });
   });
 });

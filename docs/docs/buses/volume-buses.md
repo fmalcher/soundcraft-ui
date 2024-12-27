@@ -7,16 +7,17 @@ sidebar_position: 6
 SOLO and Headphone Outputs live on separate internal buses that have individual volume faders in the settings section of the web app.
 Get access to a `VolumeBus` object through `conn.volume`:
 
-| Call                       | Description        |
-| -------------------------- | ------------------ |
-| `conn.volume.solo`         | SOLO bus           |
-| `conn.volume.headphone(1)` | Headphone 1 Volume |
-| `conn.volume.headphone(2)` | Headphone 2 Volume |
+| Call                       | Description       |
+| -------------------------- | ----------------- |
+| `conn.volume.solo`         | SOLO Level        |
+| `conn.volume.headphone(1)` | Headphone 1 Level |
+| `conn.volume.headphone(2)` | Headphone 2 Level |
 
 A `VolumeBus` supports the following operations (which are quite similar to all other fadeable channels):
 
 | Call on `VolumeBus`            | Description                                                   |
 | ------------------------------ | ------------------------------------------------------------- |
+| `name$`                        | Get readable name of the channel                              |
 | `faderLevel$`                  | Get fader level (between `0` and `1`)                         |
 | `faderLevelDB$`                | Get fader level in dB (between `-Infinity` and `10`)          |
 | `setFaderLevel(value)`         | Set fader level (between `0` and `1`)                         |
