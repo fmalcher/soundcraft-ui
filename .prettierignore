@@ -5,3 +5,5 @@
 
 /.nx/cache
 /.nx/workspace-data
+
+*.html
