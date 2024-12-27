@@ -1,6 +1,6 @@
 import { debounceTime, firstValueFrom, race, take, timer } from 'rxjs';
 import { MixerStore } from './state/mixer-store';
-import { ChannelType, FxType } from './types';
+import { ChannelType, FxType, VolumeBusType } from './types';
 
 /** Clamp numeric value to min and max */
 export function clamp(value: number, min: number, max: number): number {
@@ -81,7 +81,10 @@ export function fxTypeToString(type: FxType): keyof typeof FxType {
  * @param channel
  * @returns
  */
-export function constructReadableChannelName(type: ChannelType, channel: number): string {
+export function constructReadableChannelName(
+  type: ChannelType | VolumeBusType,
+  channel: number
+): string {
   switch (type) {
     case 'i':
       return 'CH ' + channel;
@@ -97,6 +100,10 @@ export function constructReadableChannelName(type: ChannelType, channel: number)
       return 'LINE IN ' + numberToLR(channel);
     case 'p':
       return 'PLAYER ' + numberToLR(channel);
+    case 'solovol':
+      return 'SOLO LEVEL';
+    case 'hpvol':
+      return `HEADPHONE ${channel} LEVEL`;
   }
 }
 

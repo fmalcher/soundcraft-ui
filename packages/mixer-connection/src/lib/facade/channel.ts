@@ -46,7 +46,6 @@ export class Channel implements FadeableChannel {
     select(selectMute(this.channelType, this.channel, this.busType, this.bus))
   );
 
-  /** Name of the channel */
   name$ = this.store.state$.pipe(
     // Channel name is only available directly in the channel, e.g. `i.1.name`.
     // `i.1.aux.2.name` will not work!
