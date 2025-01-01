@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.1.0](https://github.com/fmalcher/soundcraft-ui/compare/v3.0.0...v3.1.0) (2025-01-01)
+
+### Features
+
+- add `name$` property to `FadeableChannel` ([5939eb2](https://github.com/fmalcher/soundcraft-ui/commit/5939eb2942d38681085c65df6eeb5b7c9a05f6ee))
+- add support for channel sync ([fdd6139](https://github.com/fmalcher/soundcraft-ui/commit/fdd6139f3de30ba2bc125e83f980f94c4aab2027))
+- wait for initial params after connection init ([73725b2](https://github.com/fmalcher/soundcraft-ui/commit/73725b2a54d3026d976ad1b905419b355bb008c0))
+
+### Other
+
+- add contribution section on index page ([fb65dd8](https://github.com/fmalcher/soundcraft-ui/commit/fb65dd85fd98a0516836e205872250db32798774))
+- add page "How this library works" ([1652887](https://github.com/fmalcher/soundcraft-ui/commit/16528874d4a203d4f2623379e702c0e7838453a7))
+- add quick start guide ([e57d73b](https://github.com/fmalcher/soundcraft-ui/commit/e57d73bc61d9506d978cafbbad3336796dbb98a9))
+- add section about usage with async/await ([347be1d](https://github.com/fmalcher/soundcraft-ui/commit/347be1d250c19830f31b0fe6b26dfe92c12b3d60))
+- add sponsor link in docs footer ([99aff47](https://github.com/fmalcher/soundcraft-ui/commit/99aff4767a31e885a9af2d1bfe027c15177fddb3))
+- add tests for MixerStore ([1dbaa82](https://github.com/fmalcher/soundcraft-ui/commit/1dbaa829542ec47b748087318a6e18c95f7c056f))
+- disable Nx legacy cache ([b7c5440](https://github.com/fmalcher/soundcraft-ui/commit/b7c54405ce5ace335e6d12010e1e848ba1afd4da))
+- nx migrate 20.1.4 ([f616e2d](https://github.com/fmalcher/soundcraft-ui/commit/f616e2d4ab9c4e098b77081b1459d6735125dd09))
+- nx migrate, use Angular 19 ([cbcd58a](https://github.com/fmalcher/soundcraft-ui/commit/cbcd58ade5f9ce72b7fde01afe59d7a11463c0c1))
+- prettier ignore all HTML files ([7e5182e](https://github.com/fmalcher/soundcraft-ui/commit/7e5182e0f8cadbeb64941158c2fabaedd78335da))
+- **testbed:** migrate styles to `[@use](https://github.com/use)` and remove `lighten()` ([c7cfc81](https://github.com/fmalcher/soundcraft-ui/commit/c7cfc818b2456aeb9750cfb6ce7afc9433fc726b))
+- **testbed:** remove `ngClass` and migrate to `[class]` ([1a041f5](https://github.com/fmalcher/soundcraft-ui/commit/1a041f5f3a05a4f2c1f94b47fc40a9925359365d))
+
 ## [3.0.0](https://github.com/fmalcher/soundcraft-ui/compare/v2.7.0...v3.0.0) (2024-11-03)
 
 This release integrates another WebSocket abstraction. It also makes it possible to define an individual WebSocket constructor.
