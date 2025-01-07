@@ -3,6 +3,7 @@ import { AsyncPipe, JsonPipe } from '@angular/common';
 
 import { ConnectionService } from '../../connection.service';
 import { map } from 'rxjs';
+import { isChannel, isDelayableMasterChannel, isMasterChannel } from 'soundcraft-ui-connection';
 
 @Component({
   selector: 'sui-channelsync',
@@ -27,4 +28,8 @@ export class ChannelsyncComponent {
       return [-1, ...Array.from({ length }, (_, i) => i), 100];
     })
   );
+
+  isChannel = isChannel;
+  isMasterChannel = isMasterChannel;
+  isDelayableMasterChannel = isDelayableMasterChannel;
 }

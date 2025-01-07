@@ -17,6 +17,23 @@
         / {{ channel.name$ | async }}
         <button class="btn btn-sm btn-success ms-1" (click)="channel.changeFaderLevelDB(-3)">-3 dB</button>
         <button class="btn btn-sm btn-success ms-1" (click)="channel.changeFaderLevelDB(3)">+3 dB</button>
+        @if (isChannel(channel)) {
+          @let mute = channel.mute$ | async;
+          <button class="btn btn-sm ms-1"
+            [class.btn-secondary]="!mute" [class.btn-danger]="mute"
+            (click)="channel.toggleMute()">Toggle mute</button>
+        }
+
+        @if (isMasterChannel(channel)) {
+          @let solo = channel.solo$ | async;
+          <button class="btn btn-sm ms-1"
+            [class.btn-secondary]="!solo" [class.btn-warning]="solo"
+            (click)="channel.toggleSolo()">Toggle solo</button>
+        }
+
+        @if (isDelayableMasterChannel(channel)) {
+          <span class="ms-1">Delay: {{ channel.delay$ | async }}&nbsp;ms</span>
+        }
       }
     </small>
   </h2>
