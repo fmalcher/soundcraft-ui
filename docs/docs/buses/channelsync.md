@@ -26,8 +26,6 @@ The `ChannelSync` class offers methods to select channels and retrieve selected 
 | `selectChannel('master', syncId)`                | Select the master fader                                                                                                                                                               |
 | `selectChannel(channelType, channelNum, syncId)` | Select a channel by type and number, see table below for possible channel type values                                                                                                 |
 
-The `FadeableChannel` interface includes only a subset of fields and methods that all faders share.
-
 `ChannelType` is a union type with the following possible values:
 
 | Value | Description |     | Value | Description |
@@ -57,6 +55,43 @@ conn.channelSync.selectChannel('p', 1);
 
 // Select AUX 2
 conn.channelSync.selectChannel('a', 2);
+```
+
+### Working with `FadeableChannel` / Using Type Guards
+
+The `FadeableChannel` interface defines a minimal subset of fields and methods that all fadeable objects share. It includes operations for setting fader values and accessing the channel name.
+To work with more specific members of a channel, you need to narrow down the type to the actual class, such as `MasterChannel` for channels on the master bus.
+
+This library provides utility functions with type guards to assert specific types:
+
+- `isChannel`: any channel
+- `isMasterChannel`: channel on the master bus
+- `isDelayableMasterChannel`: delayable channel on the master bus (input, line, aux)
+- `isMaster`: the master fader
+
+You can use these type guards in conditions:
+
+```ts
+if (isMasterChannel(ch)) {
+  ch.mute();
+}
+
+if (isMaster(ch)) {
+  ch.dim();
+}
+```
+
+The following example filters an Observable stream to only emit objects of type `MasterChannel`:
+
+```ts
+import { filter } from 'rxjs';
+
+conn.channelSync
+  .getSelectedChannel()
+  .pipe(filter(ch => isMasterChannel(ch)))
+  .subscribe(mch => {
+    // this stream only emits `MasterChannel` objects
+  });
 ```
 
 ## Usage with Channel Index
