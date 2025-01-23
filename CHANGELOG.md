@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.2.0](https://github.com/fmalcher/soundcraft-ui/compare/v3.1.0...v3.2.0) (2025-01-23)
+
+### Features
+
+- add type guard utilities for channel types ([091b566](https://github.com/fmalcher/soundcraft-ui/commit/091b566ca3c22ebee9772ce3873633d2541c09c9))
+
 ## [3.1.0](https://github.com/fmalcher/soundcraft-ui/compare/v3.0.0...v3.1.0) (2025-01-01)
 
 ### Features
