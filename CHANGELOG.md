@@ -42,7 +42,7 @@ The `pan()` method has been renamed to `setPan()` to align with the new `changeP
 - nx migrate 20.1.4 ([f616e2d](https://github.com/fmalcher/soundcraft-ui/commit/f616e2d4ab9c4e098b77081b1459d6735125dd09))
 - nx migrate, use Angular 19 ([cbcd58a](https://github.com/fmalcher/soundcraft-ui/commit/cbcd58ade5f9ce72b7fde01afe59d7a11463c0c1))
 - prettier ignore all HTML files ([7e5182e](https://github.com/fmalcher/soundcraft-ui/commit/7e5182e0f8cadbeb64941158c2fabaedd78335da))
-- **testbed:** migrate styles to `[@use](https://github.com/use)` and remove `lighten()` ([c7cfc81](https://github.com/fmalcher/soundcraft-ui/commit/c7cfc818b2456aeb9750cfb6ce7afc9433fc726b))
+- **testbed:** migrate styles to `@use` and remove `lighten()` ([c7cfc81](https://github.com/fmalcher/soundcraft-ui/commit/c7cfc818b2456aeb9750cfb6ce7afc9433fc726b))
 - **testbed:** remove `ngClass` and migrate to `[class]` ([1a041f5](https://github.com/fmalcher/soundcraft-ui/commit/1a041f5f3a05a4f2c1f94b47fc40a9925359365d))
 
 ## [3.0.0](https://github.com/fmalcher/soundcraft-ui/compare/v2.7.0...v3.0.0) (2024-11-03)
