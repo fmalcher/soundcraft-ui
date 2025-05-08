@@ -75,7 +75,7 @@ export class AuxChannel extends SendChannel implements PannableChannel {
    * This only works for stereo-linked AUX buses, not for mono AUX.
    * @param value value between `0` and `1`
    */
-  pan(value: number) {
+  setPan(value: number) {
     value = clamp(value, 0, 1);
     [...this.auxLinkChannelIds, this.fullChannelId].forEach(cid => {
       const command = `SETD^${cid}.pan^${value}`;

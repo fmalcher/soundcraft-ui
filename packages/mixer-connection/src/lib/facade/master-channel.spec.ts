@@ -19,21 +19,21 @@ describe('Master Channel', () => {
 
   describe('Pan', () => {
     it('pan$', async () => {
-      channel.pan(0);
+      channel.setPan(0);
       expect(await firstValueFrom(channel.pan$)).toBe(0);
 
-      channel.pan(1);
+      channel.setPan(1);
       expect(await firstValueFrom(channel.pan$)).toBe(1);
 
-      channel.pan(0.5);
+      channel.setPan(0.5);
       expect(await firstValueFrom(channel.pan$)).toBe(0.5);
     });
 
     it('should be clamped to 0..1', async () => {
-      channel.pan(1.1);
+      channel.setPan(1.1);
       expect(await firstValueFrom(channel.pan$)).toBe(1);
 
-      channel.pan(-0.2);
+      channel.setPan(-0.2);
       expect(await firstValueFrom(channel.pan$)).toBe(0);
     });
   });

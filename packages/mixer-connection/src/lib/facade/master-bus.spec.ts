@@ -35,21 +35,21 @@ describe('Master Bus', () => {
 
   describe('PAN', () => {
     it('pan$', async () => {
-      master.pan(0);
+      master.setPan(0);
       expect(await firstValueFrom(master.pan$)).toBe(0);
 
-      master.pan(1);
+      master.setPan(1);
       expect(await firstValueFrom(master.pan$)).toBe(1);
 
-      master.pan(0.5);
+      master.setPan(0.5);
       expect(await firstValueFrom(master.pan$)).toBe(0.5);
     });
 
     it('should be clamped to 0..1', async () => {
-      master.pan(1.4);
+      master.setPan(1.4);
       expect(await firstValueFrom(master.pan$)).toBe(1);
 
-      master.pan(-4.3);
+      master.setPan(-4.3);
       expect(await firstValueFrom(master.pan$)).toBe(0);
     });
   });
