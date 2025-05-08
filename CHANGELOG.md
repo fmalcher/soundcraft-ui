@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.0](https://github.com/fmalcher/soundcraft-ui/compare/v3.2.0...v4.0.0) (2025-05-08)
+
+### Features
+
+- add `changePan()` methods to relatively change PAN values ([a75a65e](https://github.com/fmalcher/soundcraft-ui/commit/a75a65e15960de94d0e3cf4f86da85aea85c0f9c))
+
+### Other
+
+- rename `pan()` to `setPan()` ([c98d734](https://github.com/fmalcher/soundcraft-ui/commit/c98d734538721f387733a900fb9731577377787b))
+
+### BREAKING CHANGES
+
+The `pan()` method has been renamed to `setPan()` to align with the new `changePan()` method.
+
 ## [3.2.0](https://github.com/fmalcher/soundcraft-ui/compare/v3.1.0...v3.2.0) (2025-01-23)
 
 ### Features
