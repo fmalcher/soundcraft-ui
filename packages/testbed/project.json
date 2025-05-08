@@ -2,6 +2,9 @@
   "name": "testbed",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
+  "sourceRoot": "packages/testbed/src",
+  "prefix": "sui",
+  "tags": [],
   "generators": {
     "@nx/angular:component": {
       "style": "scss",
@@ -9,8 +12,6 @@
       "standalone": true
     }
   },
-  "sourceRoot": "packages/testbed/src",
-  "prefix": "sui",
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:application",
@@ -65,7 +66,8 @@
           "buildTarget": "testbed:build:development"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "development",
+      "continuous": true
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
@@ -87,6 +89,5 @@
         "lintFilePatterns": ["packages/testbed/**/*.ts", "packages/testbed/**/*.html"]
       }
     }
-  },
-  "tags": []
+  }
 }
