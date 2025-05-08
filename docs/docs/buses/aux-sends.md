@@ -19,7 +19,7 @@ An `AuxChannel` supports the following operations:
 | Call on `AuxChannel`             | Description                                                           |
 | -------------------------------- | --------------------------------------------------------------------- |
 | _all generic channel operations_ |                                                                       |
-| `pan(value)`                     | Set pan for channel (between `0` and `1`). Not possible for mono AUX! |
+| `setPan(value)`                  | Set pan for channel (between `0` and `1`). Not possible for mono AUX! |
 | `pre()`                          | Set channel to PRE                                                    |
 | `post()`                         | Set channel to POST                                                   |
 | `togglePost()`                   | Toggle PRE/POST status                                                |

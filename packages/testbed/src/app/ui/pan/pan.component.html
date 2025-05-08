@@ -7,7 +7,7 @@
   step="0.00001"
   value="0.5"
   [value]="channel().pan$ | async"
-  (input)="pan(panInput.value)"
+  (input)="setPan(panInput.value)"
   #panInput
 />
 <span class="ms-3">{{ channel().pan$ | async }}</span>

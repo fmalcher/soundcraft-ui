@@ -34,13 +34,13 @@ describe('Outbound messages', () => {
     conn.master.setFaderLevelDB(-Infinity);
     expect(message).toBe('SETD^m.mix^0');
 
-    conn.master.pan(0.3);
+    conn.master.setPan(0.3);
     expect(message).toBe('SETD^m.pan^0.3');
 
-    conn.master.pan(-3);
+    conn.master.setPan(-3);
     expect(message).toBe('SETD^m.pan^0'); // clamp
 
-    conn.master.pan(1.1);
+    conn.master.setPan(1.1);
     expect(message).toBe('SETD^m.pan^1'); // clamp
 
     conn.master.dim();
@@ -87,13 +87,13 @@ describe('Outbound messages', () => {
     conn.master.input(3).unmute();
     expect(message).toBe('SETD^i.2.mute^0');
 
-    conn.master.input(3).pan(0.78);
+    conn.master.input(3).setPan(0.78);
     expect(message).toBe('SETD^i.2.pan^0.78');
 
-    conn.master.input(3).pan(-3);
+    conn.master.input(3).setPan(-3);
     expect(message).toBe('SETD^i.2.pan^0'); // clamp
 
-    conn.master.input(3).pan(1.1);
+    conn.master.input(3).setPan(1.1);
     expect(message).toBe('SETD^i.2.pan^1'); // clamp
 
     conn.master.input(3).setSolo(0);
@@ -163,13 +163,13 @@ describe('Outbound messages', () => {
     conn.master.line(1).unmute();
     expect(message).toBe('SETD^l.0.mute^0');
 
-    conn.master.line(1).pan(0.78);
+    conn.master.line(1).setPan(0.78);
     expect(message).toBe('SETD^l.0.pan^0.78');
 
-    conn.master.line(1).pan(-0.1);
+    conn.master.line(1).setPan(-0.1);
     expect(message).toBe('SETD^l.0.pan^0'); // clamp
 
-    conn.master.line(1).pan(3);
+    conn.master.line(1).setPan(3);
     expect(message).toBe('SETD^l.0.pan^1'); // clamp
 
     conn.master.line(1).setSolo(0);
@@ -216,13 +216,13 @@ describe('Outbound messages', () => {
     conn.master.player(2).unmute();
     expect(message).toBe('SETD^p.1.mute^0');
 
-    conn.master.player(2).pan(0.78);
+    conn.master.player(2).setPan(0.78);
     expect(message).toBe('SETD^p.1.pan^0.78');
 
-    conn.master.player(2).pan(-3.2);
+    conn.master.player(2).setPan(-3.2);
     expect(message).toBe('SETD^p.1.pan^0'); // clamp
 
-    conn.master.player(2).pan(1.3);
+    conn.master.player(2).setPan(1.3);
     expect(message).toBe('SETD^p.1.pan^1'); // clamp
 
     conn.master.player(2).setSolo(0);
@@ -266,13 +266,13 @@ describe('Outbound messages', () => {
     conn.master.aux(1).unmute();
     expect(message).toBe('SETD^a.0.mute^0');
 
-    conn.master.aux(1).pan(0.78);
+    conn.master.aux(1).setPan(0.78);
     expect(message).toBe('SETD^a.0.pan^0.78');
 
-    conn.master.aux(1).pan(-1.3);
+    conn.master.aux(1).setPan(-1.3);
     expect(message).toBe('SETD^a.0.pan^0'); // clamp
 
-    conn.master.aux(1).pan(2.2);
+    conn.master.aux(1).setPan(2.2);
     expect(message).toBe('SETD^a.0.pan^1'); // clamp
 
     conn.master.aux(1).setSolo(0);
@@ -319,13 +319,13 @@ describe('Outbound messages', () => {
     conn.master.fx(3).unmute();
     expect(message).toBe('SETD^f.2.mute^0');
 
-    conn.master.fx(3).pan(0.78);
+    conn.master.fx(3).setPan(0.78);
     expect(message).toBe('SETD^f.2.pan^0.78');
 
-    conn.master.fx(3).pan(-10);
+    conn.master.fx(3).setPan(-10);
     expect(message).toBe('SETD^f.2.pan^0'); // clamp
 
-    conn.master.fx(3).pan(10);
+    conn.master.fx(3).setPan(10);
     expect(message).toBe('SETD^f.2.pan^1'); // clamp
 
     conn.master.fx(3).setSolo(0);
@@ -369,13 +369,13 @@ describe('Outbound messages', () => {
     conn.master.sub(4).unmute();
     expect(message).toBe('SETD^s.3.mute^0');
 
-    conn.master.sub(4).pan(0.78);
+    conn.master.sub(4).setPan(0.78);
     expect(message).toBe('SETD^s.3.pan^0.78');
 
-    conn.master.sub(4).pan(-100.2);
+    conn.master.sub(4).setPan(-100.2);
     expect(message).toBe('SETD^s.3.pan^0'); // clamp
 
-    conn.master.sub(4).pan(5.4);
+    conn.master.sub(4).setPan(5.4);
     expect(message).toBe('SETD^s.3.pan^1'); // clamp
 
     conn.master.sub(4).setSolo(0);
@@ -419,13 +419,13 @@ describe('Outbound messages', () => {
     conn.master.vca(3).unmute();
     expect(message).toBe('SETD^v.2.mute^0');
 
-    conn.master.vca(3).pan(0.78);
+    conn.master.vca(3).setPan(0.78);
     expect(message).toBe('SETD^v.2.pan^0.78');
 
-    conn.master.vca(3).pan(1.1);
+    conn.master.vca(3).setPan(1.1);
     expect(message).toBe('SETD^v.2.pan^1'); // clamp
 
-    conn.master.vca(3).pan(-0.1);
+    conn.master.vca(3).setPan(-0.1);
     expect(message).toBe('SETD^v.2.pan^0'); // clamp
 
     conn.master.vca(3).setSolo(0);
@@ -469,13 +469,13 @@ describe('Outbound messages', () => {
     conn.aux(2).input(7).unmute();
     expect(message).toBe('SETD^i.6.aux.1.mute^0');
 
-    conn.aux(2).input(7).pan(0.12);
+    conn.aux(2).input(7).setPan(0.12);
     expect(message).toBe('SETD^i.6.aux.1.pan^0.12');
 
-    conn.aux(2).input(7).pan(1.12);
+    conn.aux(2).input(7).setPan(1.12);
     expect(message).toBe('SETD^i.6.aux.1.pan^1'); // clamp
 
-    conn.aux(2).input(7).pan(-0.12);
+    conn.aux(2).input(7).setPan(-0.12);
     expect(message).toBe('SETD^i.6.aux.1.pan^0'); // clamp
 
     conn.aux(2).input(7).pre();
@@ -531,13 +531,13 @@ describe('Outbound messages', () => {
     conn.aux(2).line(1).unmute();
     expect(message).toBe('SETD^l.0.aux.1.mute^0');
 
-    conn.aux(2).line(1).pan(0.12);
+    conn.aux(2).line(1).setPan(0.12);
     expect(message).toBe('SETD^l.0.aux.1.pan^0.12');
 
-    conn.aux(2).line(1).pan(1.3);
+    conn.aux(2).line(1).setPan(1.3);
     expect(message).toBe('SETD^l.0.aux.1.pan^1'); // clamp
 
-    conn.aux(2).line(1).pan(-1.3);
+    conn.aux(2).line(1).setPan(-1.3);
     expect(message).toBe('SETD^l.0.aux.1.pan^0'); // clamp
 
     conn.aux(2).line(1).pre();
@@ -593,13 +593,13 @@ describe('Outbound messages', () => {
     conn.aux(2).player(2).unmute();
     expect(message).toBe('SETD^p.1.aux.1.mute^0');
 
-    conn.aux(2).player(2).pan(0.12);
+    conn.aux(2).player(2).setPan(0.12);
     expect(message).toBe('SETD^p.1.aux.1.pan^0.12');
 
-    conn.aux(2).player(2).pan(3.5);
+    conn.aux(2).player(2).setPan(3.5);
     expect(message).toBe('SETD^p.1.aux.1.pan^1'); // clamp
 
-    conn.aux(2).player(2).pan(-4.5);
+    conn.aux(2).player(2).setPan(-4.5);
     expect(message).toBe('SETD^p.1.aux.1.pan^0'); // clamp
 
     conn.aux(2).player(2).pre();
@@ -655,13 +655,13 @@ describe('Outbound messages', () => {
     conn.aux(2).fx(1).unmute();
     expect(message).toBe('SETD^f.0.aux.1.mute^0');
 
-    conn.aux(2).fx(1).pan(0.12);
+    conn.aux(2).fx(1).setPan(0.12);
     expect(message).toBe('SETD^f.0.aux.1.pan^0.12');
 
-    conn.aux(2).fx(1).pan(-0.12);
+    conn.aux(2).fx(1).setPan(-0.12);
     expect(message).toBe('SETD^f.0.aux.1.pan^0');
 
-    conn.aux(2).fx(1).pan(50);
+    conn.aux(2).fx(1).setPan(50);
     expect(message).toBe('SETD^f.0.aux.1.pan^1');
 
     conn.aux(2).fx(1).pre();

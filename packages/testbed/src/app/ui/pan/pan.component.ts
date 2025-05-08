@@ -11,7 +11,7 @@ import { AuxChannel, MasterBus, MasterChannel } from 'soundcraft-ui-connection';
 export class PanComponent {
   channel = input.required<MasterChannel | AuxChannel | MasterBus>();
 
-  pan(value: string) {
-    this.channel().pan(Number(value));
+  setPan(value: string) {
+    this.channel().setPan(Number(value));
   }
 }

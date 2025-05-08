@@ -19,21 +19,21 @@ describe('AUX Channel', () => {
 
   describe('Pan', () => {
     it('pan$', async () => {
-      channel.pan(0);
+      channel.setPan(0);
       expect(await firstValueFrom(channel.pan$)).toBe(0);
 
-      channel.pan(1);
+      channel.setPan(1);
       expect(await firstValueFrom(channel.pan$)).toBe(1);
 
-      channel.pan(0.5);
+      channel.setPan(0.5);
       expect(await firstValueFrom(channel.pan$)).toBe(0.5);
     });
 
     it('should be clamped to 0..1', async () => {
-      channel.pan(1.4);
+      channel.setPan(1.4);
       expect(await firstValueFrom(channel.pan$)).toBe(1);
 
-      channel.pan(-4.3);
+      channel.setPan(-4.3);
       expect(await firstValueFrom(channel.pan$)).toBe(0);
     });
   });

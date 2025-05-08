@@ -24,7 +24,7 @@ The following operations can be used to interact with the global master fader.
 | Call on `MasterBus` | Description                                |
 | ------------------- | ------------------------------------------ |
 | `pan$`              | Get master pan value (between `0` and `1`) |
-| `pan(value)`        | Set the master pan (between `0` and `1`)   |
+| `setPan(value)`     | Set the master pan (between `0` and `1`)   |
 
 ## Delay
 

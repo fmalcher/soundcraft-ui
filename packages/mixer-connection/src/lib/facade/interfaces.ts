@@ -21,5 +21,5 @@ export interface FadeableChannel {
 export interface PannableChannel {
   pan$: Observable<number>;
 
-  pan(value: number): void;
+  setPan(value: number): void;
 }
