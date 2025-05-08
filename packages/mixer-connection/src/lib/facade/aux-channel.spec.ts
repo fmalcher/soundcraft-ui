@@ -36,6 +36,15 @@ describe('AUX Channel', () => {
       channel.setPan(-4.3);
       expect(await firstValueFrom(channel.pan$)).toBe(0);
     });
+
+    it('changePan', async () => {
+      channel.setPan(0.563);
+      channel.changePan(0.123);
+      expect(await firstValueFrom(channel.pan$)).toBe(0.686);
+
+      channel.changePan(-0.333000001);
+      expect(await firstValueFrom(channel.pan$)).toBe(0.353);
+    });
   });
 
   describe('PRE/POST', () => {

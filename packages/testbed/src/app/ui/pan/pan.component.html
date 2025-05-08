@@ -1,4 +1,3 @@
-@if (channel) {
 <label>Pan</label>
 <input
   type="range"
@@ -10,5 +9,6 @@
   (input)="setPan(panInput.value)"
   #panInput
 />
+<button class="btn btn-success btn-sm ms-3" (click)="channel().changePan(0.1)">+ 0.1</button>
+<button class="btn btn-success btn-sm ms-3" (click)="channel().changePan(-0.1)">– 0.1</button>
 <span class="ms-3">{{ channel().pan$ | async }}</span>
-}

@@ -7,6 +7,11 @@ export function clamp(value: number, min: number, max: number): number {
   return Math.min(max, Math.max(min, value));
 }
 
+/** Round a number to three decimal places */
+export function roundToThreeDecimals(value: number): number {
+  return Math.round((value + Number.EPSILON) * 1000) / 1000;
+}
+
 /**
  * Transform a given value to int, float or string
  * @param value

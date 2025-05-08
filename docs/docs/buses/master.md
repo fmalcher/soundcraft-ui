@@ -25,6 +25,7 @@ The following operations can be used to interact with the global master fader.
 | ------------------- | ------------------------------------------ |
 | `pan$`              | Get master pan value (between `0` and `1`) |
 | `setPan(value)`     | Set the master pan (between `0` and `1`)   |
+| `changePan(offset)` | Relatively change the master pan           |
 
 ## Delay
 

@@ -10,7 +10,7 @@ import {
   selectMasterValue,
 } from '../state/state-selectors';
 import { sourcesToTransition, TransitionSource } from '../transitions';
-import { clamp } from '../utils';
+import { clamp, roundToThreeDecimals } from '../utils';
 import { resolveDelayed } from '../utils/async-helpers';
 import { Easings } from '../utils/transitions/easings';
 import { DBToFaderValue, faderValueToDB } from '../utils/value-converters';
@@ -179,8 +179,17 @@ export class MasterBus implements FadeableChannel, PannableChannel {
    */
   setPan(value: number) {
     value = clamp(value, 0, 1);
+    value = roundToThreeDecimals(value);
     const command = `SETD^m.pan^${value}`;
     this.conn.sendMessage(command);
+  }
+
+  /**
+   * Relatively change PAN value for the master
+   * @param offset offset to change (final values are between `0` and `1`)
+   */
+  changePan(offset: number) {
+    this.pan$.pipe(take(1)).subscribe(v => this.setPan(v + offset));
   }
 
   /**

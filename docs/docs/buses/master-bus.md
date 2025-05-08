@@ -24,6 +24,7 @@ The `MasterChannel` exposes the following operations:
 | _all generic channel operations_ |                                           |
 | `pan$`                           | Get pan value (between `0` and `1`)       |
 | `setPan(value)`                  | Set pan for channel (between `0` and `1`) |
+| `changePan(offset)`              | Relatively change pan for channel         |
 | `solo$`                          | Get solo status (`0` or `1`)              |
 | `setSolo(value)`                 | Set solo for channel (`0` or `1`)         |
 | `solo()`                         | Enable solo                               |

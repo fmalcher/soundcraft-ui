@@ -52,6 +52,15 @@ describe('Master Bus', () => {
       master.setPan(-4.3);
       expect(await firstValueFrom(master.pan$)).toBe(0);
     });
+
+    it('changePan', async () => {
+      master.setPan(0.6);
+      master.changePan(0.1);
+      expect(await firstValueFrom(master.pan$)).toBe(0.7);
+
+      master.changePan(-0.5);
+      expect(await firstValueFrom(master.pan$)).toBe(0.2);
+    });
   });
 
   describe('left delay', () => {
