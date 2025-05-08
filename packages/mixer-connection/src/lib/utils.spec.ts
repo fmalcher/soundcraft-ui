@@ -3,6 +3,7 @@ import {
   constructReadableChannelName,
   fxTypeToString,
   playerTimeToString,
+  roundToThreeDecimals,
   transformStringValue,
 } from './utils';
 
@@ -16,6 +17,61 @@ describe('utils', () => {
     it('should clamp out-of-range value', () => {
       expect(clamp(600, 0, 500)).toBe(500);
       expect(clamp(-110, -100, 1000)).toBe(-100);
+    });
+  });
+
+  describe('roundToThreeDecimals', () => {
+    it('should round to three decimals', () => {
+      expect(roundToThreeDecimals(0.123456)).toBe(0.123);
+      expect(roundToThreeDecimals(0.123)).toBe(0.123);
+      expect(roundToThreeDecimals(5.1234)).toBe(5.123);
+      expect(roundToThreeDecimals(3.2)).toBe(3.2);
+    });
+    it('should round to three decimals with epsilon', () => {
+      expect(roundToThreeDecimals(0.123456 + Number.EPSILON)).toBe(0.123);
+      expect(roundToThreeDecimals(0.123 + Number.EPSILON)).toBe(0.123);
+      expect(roundToThreeDecimals(5.1234 + Number.EPSILON)).toBe(5.123);
+      expect(roundToThreeDecimals(3.2 + Number.EPSILON)).toBe(3.2);
+    });
+    it('should round to three decimals with negative values', () => {
+      expect(roundToThreeDecimals(-0.123456)).toBe(-0.123);
+      expect(roundToThreeDecimals(-0.123)).toBe(-0.123);
+      expect(roundToThreeDecimals(-5.1234)).toBe(-5.123);
+      expect(roundToThreeDecimals(-3.2)).toBe(-3.2);
+    });
+    it('should round to three decimals with negative values and epsilon', () => {
+      expect(roundToThreeDecimals(-0.123456 + Number.EPSILON)).toBe(-0.123);
+      expect(roundToThreeDecimals(-0.123 + Number.EPSILON)).toBe(-0.123);
+      expect(roundToThreeDecimals(-5.1234 + Number.EPSILON)).toBe(-5.123);
+      expect(roundToThreeDecimals(-3.2 + Number.EPSILON)).toBe(-3.2);
+    });
+    it('should round to three decimals with zero', () => {
+      expect(roundToThreeDecimals(0)).toBe(0);
+      expect(roundToThreeDecimals(0 + Number.EPSILON)).toBe(0);
+      expect(roundToThreeDecimals(-0)).toBe(0);
+      expect(roundToThreeDecimals(-0 + Number.EPSILON)).toBe(0);
+    });
+    it('should round to three decimals with very small values', () => {
+      expect(roundToThreeDecimals(0.0000001)).toBe(0);
+      expect(roundToThreeDecimals(0.0000001 + Number.EPSILON)).toBe(0);
+      expect(roundToThreeDecimals(-0.0000001)).toBe(-0);
+      expect(roundToThreeDecimals(-0.0000001 + Number.EPSILON)).toBe(-0);
+    });
+    it('should round to three decimals with very large values', () => {
+      expect(roundToThreeDecimals(1234567890)).toBe(1234567890);
+      expect(roundToThreeDecimals(1234567890 + Number.EPSILON)).toBe(1234567890);
+      expect(roundToThreeDecimals(-1234567890)).toBe(-1234567890);
+      expect(roundToThreeDecimals(-1234567890 + Number.EPSILON)).toBe(-1234567890);
+    });
+    it('should round to three decimals with very large values and decimals', () => {
+      expect(roundToThreeDecimals(1234567890.123456)).toBe(1234567890.123);
+      expect(roundToThreeDecimals(1234567890.123456 + Number.EPSILON)).toBe(1234567890.123);
+      expect(roundToThreeDecimals(-1234567890.123456)).toBe(-1234567890.123);
+      expect(roundToThreeDecimals(-1234567890.123456 + Number.EPSILON)).toBe(-1234567890.123);
+      expect(roundToThreeDecimals(1234567890.123)).toBe(1234567890.123);
+      expect(roundToThreeDecimals(1234567890.123 + Number.EPSILON)).toBe(1234567890.123);
+      expect(roundToThreeDecimals(-1234567890.123)).toBe(-1234567890.123);
+      expect(roundToThreeDecimals(-1234567890.123 + Number.EPSILON)).toBe(-1234567890.123);
     });
   });
 

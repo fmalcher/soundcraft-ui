@@ -36,6 +36,15 @@ describe('Master Channel', () => {
       channel.setPan(-0.2);
       expect(await firstValueFrom(channel.pan$)).toBe(0);
     });
+
+    it('changePan', async () => {
+      channel.setPan(0.3);
+      channel.changePan(0.63);
+      expect(await firstValueFrom(channel.pan$)).toBe(0.93);
+
+      channel.changePan(-0.54);
+      expect(await firstValueFrom(channel.pan$)).toBe(0.39);
+    });
   });
 
   describe('SOLO', () => {

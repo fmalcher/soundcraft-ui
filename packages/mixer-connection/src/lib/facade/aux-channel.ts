@@ -1,9 +1,9 @@
-import { combineLatest, map } from 'rxjs';
+import { combineLatest, map, take } from 'rxjs';
 import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
 import { select, selectPan, selectStereoIndex } from '../state/state-selectors';
 import { ChannelType } from '../types';
-import { clamp, getLinkedChannelNumber } from '../utils';
+import { clamp, getLinkedChannelNumber, roundToThreeDecimals } from '../utils';
 import { PannableChannel } from './interfaces';
 import { SendChannel } from './send-channel';
 
@@ -77,10 +77,20 @@ export class AuxChannel extends SendChannel implements PannableChannel {
    */
   setPan(value: number) {
     value = clamp(value, 0, 1);
+    value = roundToThreeDecimals(value);
     [...this.auxLinkChannelIds, this.fullChannelId].forEach(cid => {
       const command = `SETD^${cid}.pan^${value}`;
       this.conn.sendMessage(command);
     });
+  }
+
+  /**
+   * Relatively change PAN value of the AUX channel.
+   * This only works for stereo-linked AUX buses, not for mono AUX.
+   * @param offset offset to change (final values are between `0` and `1`)
+   */
+  changePan(offset: number) {
+    this.pan$.pipe(take(1)).subscribe(v => this.setPan(v + offset));
   }
 
   /**

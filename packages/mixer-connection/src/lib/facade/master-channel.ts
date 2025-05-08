@@ -4,7 +4,7 @@ import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
 import { select, selectPan, selectRawValue, selectSolo } from '../state/state-selectors';
 import { ChannelType } from '../types';
-import { clamp, getLinkedChannelNumber } from '../utils';
+import { clamp, getLinkedChannelNumber, roundToThreeDecimals } from '../utils';
 import { Channel } from './channel';
 import { PannableChannel } from './interfaces';
 import { AutomixGroupId } from './automix-controller';
@@ -82,8 +82,17 @@ export class MasterChannel extends Channel implements PannableChannel {
    */
   setPan(value: number) {
     value = clamp(value, 0, 1);
+    value = roundToThreeDecimals(value);
     const command = `SETD^${this.fullChannelId}.pan^${value}`;
     this.conn.sendMessage(command);
+  }
+
+  /**
+   * Relatively change PAN value of the channel
+   * @param offset offset to change (final values are between `0` and `1`)
+   */
+  changePan(offset: number) {
+    this.pan$.pipe(take(1)).subscribe(v => this.setPan(v + offset));
   }
 
   /**
