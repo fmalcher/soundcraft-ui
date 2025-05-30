@@ -1,7 +1,0 @@
-@for (c of channels; track c) {
-<div class="mb-5">
-  <h2>{{ c.label }}</h2>
-  <sui-fader-level [channel]="c.channel" />
-  <sui-transition class="d-block mt-3" [channel]="c.channel" />
-</div>
-}

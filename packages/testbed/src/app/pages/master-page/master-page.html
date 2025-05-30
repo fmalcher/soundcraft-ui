@@ -1,0 +1,38 @@
+<sui-fader-level-controls [channel]="master" />
+<sui-pan-controls [channel]="master" />
+
+<sui-transition-controls [channel]="master" />
+
+<div>
+  <sui-mixer-button
+    activeClass="dim"
+    [active]="!!(master.dim$ | async)"
+    (press)="master.toggleDim()"
+  >
+    DIM toggle
+  </sui-mixer-button>
+
+  <sui-mixer-button (press)="master.dim()">DIM on</sui-mixer-button>
+  <sui-mixer-button (press)="master.undim()">DIM off</sui-mixer-button>
+</div>
+
+<div class="mt-4">
+  <h2>Delay</h2>
+  @for (d of delays; track d) {
+  <div class="mb-2">
+    <strong>{{ d.side }}</strong>
+    <input
+      class="w-25 d-inline ms-4"
+      type="range"
+      min="0"
+      max="500"
+      step="1"
+      [value]="d.data$ | async"
+      (change)="d.setDelay($any($event.target).value)"
+    />
+    <button class="btn btn-success btn-sm ms-3" (click)="d.changeDelay(50)">+ 50 ms</button>
+    <button class="btn btn-success btn-sm ms-3 me-3" (click)="d.changeDelay(-30)">- 30 ms</button>
+    {{ d.data$ | async }} ms
+  </div>
+  }
+</div>

@@ -1,0 +1,24 @@
+<div class="text-muted">
+  Note: Pan is only possible for stereo-linked AUX buses. Pan does not work on a single mono AUX
+  bus.
+</div>
+
+@for (c of channels$ | async; track c) {
+<h2 class="mt-4">{{ c.label }} ({{ c.channel.name$ | async }})</h2>
+<sui-mute-button [channel]="c.channel" />
+<sui-prepost-controls [channel]="c.channel" />
+<!-- POST/PRE PROC -->
+<div>
+  <sui-mixer-button (press)="c.channel.preProc()"> PRE PROC</sui-mixer-button>
+  <sui-mixer-button (press)="c.channel.postProc()">POST PROC</sui-mixer-button>
+</div>
+<sui-fader-level-controls [channel]="c.channel" />
+<sui-pan-controls [channel]="c.channel" />
+<sui-transition-controls [channel]="c.channel" />
+<sui-input-field
+  label="Channel Name"
+  buttonLabel="Set"
+  [value]="c.channel.name$ | async"
+  (valueChange)="c.channel.setName($event)"
+/>
+}

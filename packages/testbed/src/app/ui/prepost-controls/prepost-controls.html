@@ -1,0 +1,14 @@
+@if (channel) {
+<sui-mixer-button (press)="channel().post()"> POST</sui-mixer-button>
+<sui-mixer-button (press)="channel().pre()">PRE</sui-mixer-button>
+<sui-mixer-button
+  activeClass="post"
+  [active]="!!(channel().post$ | async)"
+  (press)="channel().togglePost()"
+>
+  Toggle PRE/POST
+</sui-mixer-button>
+<span class="badge ms-2" [class]="{ 'bg-success': post(), 'bg-secondary': !post() }">
+  {{ post() ? 'POST' : 'PRE' }}
+</span>
+}
