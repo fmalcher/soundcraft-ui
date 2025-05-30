@@ -1,0 +1,13 @@
+@for (c of channels$ | async; track c) {
+<h2 class="mt-4">{{ c.label }} ({{ c.channel.name$ | async }})</h2>
+<sui-mute-button [channel]="c.channel" />
+<sui-prepost-controls [channel]="c.channel" />
+<sui-fader-level-controls [channel]="c.channel" />
+<sui-transition-controls [channel]="c.channel" />
+<sui-input-field
+  label="Channel Name"
+  buttonLabel="Set"
+  [value]="c.channel.name$ | async"
+  (valueChange)="c.channel.setName($event)"
+/>
+}

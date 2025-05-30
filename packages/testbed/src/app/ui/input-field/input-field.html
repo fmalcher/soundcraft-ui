@@ -1,0 +1,7 @@
+<label>{{ label() }}</label>
+<div class="input-group mb-3 w-50">
+  <input type="text" class="form-control" [value]="value()" #input />
+  <button class="btn btn-secondary" type="button" (click)="value.set(input.value)">
+    {{ buttonLabel() }}
+  </button>
+</div>
