@@ -92,7 +92,7 @@ describe('FX Bus', () => {
       });
 
       it('should send messages to set params', () => {
-        conn.conn.sendMessage = jest.fn();
+        conn.conn.sendMessage = vi.fn();
 
         conn.fx(1).setParam(1, 0.55);
         expect(conn.conn.sendMessage).toHaveBeenCalledWith('SETD^f.0.par1^0.55');

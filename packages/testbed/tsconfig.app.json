@@ -8,5 +8,5 @@
     "moduleResolution": "bundler"
   },
   "files": ["src/main.ts"],
-  "exclude": ["jest.config.ts"]
+  "exclude": []
 }

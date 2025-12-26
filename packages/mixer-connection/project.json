@@ -9,7 +9,8 @@
       "executor": "@nx/vite:build",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/packages/mixer-connection"
+        "outputPath": "dist/packages/mixer-connection",
+        "configFile": "packages/mixer-connection/vite.config.mts"
       }
     },
     "publish": {
@@ -24,10 +25,10 @@
       }
     },
     "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "executor": "@nx/vitest:test",
+      "outputs": ["{options.reportsDirectory}"],
       "options": {
-        "jestConfig": "packages/mixer-connection/jest.config.ts"
+        "reportsDirectory": "../../coverage/packages/mixer-connection"
       }
     }
   }

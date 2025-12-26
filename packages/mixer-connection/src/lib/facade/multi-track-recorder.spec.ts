@@ -118,7 +118,7 @@ describe('Multi-track recorder', () => {
 
   describe('Recording Start/Stop', () => {
     beforeEach(() => {
-      conn.conn.sendMessage = jest.fn();
+      conn.conn.sendMessage = vi.fn();
     });
 
     it('recordStart should toggle when stopped', () => {

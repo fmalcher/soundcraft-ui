@@ -85,11 +85,11 @@ describe('Channel', () => {
     let results: number[];
 
     beforeEach(() => {
-      jest.useFakeTimers();
+      vi.useFakeTimers();
       results = [];
     });
 
-    afterEach(() => jest.useRealTimers());
+    afterEach(() => vi.useRealTimers());
 
     describe('fadeTo', () => {
       beforeEach(() => {
@@ -99,28 +99,28 @@ describe('Channel', () => {
       it('Linear', () => {
         channel.setFaderLevel(0.3);
         channel.fadeTo(0.8, 1000, Easings.Linear);
-        jest.advanceTimersByTime(1000);
+        vi.advanceTimersByTime(1000);
         expect(results).toMatchSnapshot();
       });
 
       it('EaseIn', () => {
         channel.setFaderLevel(1);
         channel.fadeTo(0.2, 1000, Easings.EaseIn);
-        jest.advanceTimersByTime(1000);
+        vi.advanceTimersByTime(1000);
         expect(results).toMatchSnapshot();
       });
 
       it('EaseOut', () => {
         channel.setFaderLevel(0.7);
         channel.fadeTo(0.9, 1000, Easings.EaseOut);
-        jest.advanceTimersByTime(1000);
+        vi.advanceTimersByTime(1000);
         expect(results).toMatchSnapshot();
       });
 
       it('EaseInOut', () => {
         channel.setFaderLevel(0.1);
         channel.fadeTo(0.4, 1000, Easings.EaseInOut);
-        jest.advanceTimersByTime(1000);
+        vi.advanceTimersByTime(1000);
         expect(results).toMatchSnapshot();
       });
     });
@@ -133,28 +133,28 @@ describe('Channel', () => {
       it('Linear', () => {
         channel.setFaderLevelDB(-60);
         channel.fadeToDB(-3, 1000, Easings.Linear);
-        jest.advanceTimersByTime(1000);
+        vi.advanceTimersByTime(1000);
         expect(results).toMatchSnapshot();
       });
 
       it('EaseIn', () => {
         channel.setFaderLevelDB(3);
         channel.fadeToDB(-15, 1000, Easings.EaseIn);
-        jest.advanceTimersByTime(1000);
+        vi.advanceTimersByTime(1000);
         expect(results).toMatchSnapshot();
       });
 
       it('EaseOut', () => {
         channel.setFaderLevelDB(3);
         channel.fadeToDB(-15, 1000, Easings.EaseOut);
-        jest.advanceTimersByTime(1000);
+        vi.advanceTimersByTime(1000);
         expect(results).toMatchSnapshot();
       });
 
       it('EaseInOut', () => {
         channel.setFaderLevelDB(6);
         channel.fadeToDB(-6, 1000, Easings.EaseInOut);
-        jest.advanceTimersByTime(1000);
+        vi.advanceTimersByTime(1000);
         expect(results).toMatchSnapshot();
       });
     });

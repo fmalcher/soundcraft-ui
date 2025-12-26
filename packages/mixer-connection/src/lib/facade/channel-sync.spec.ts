@@ -31,7 +31,7 @@ describe('ChannelSync', () => {
   });
 
   it('should send message when selecting a channel', () => {
-    conn.conn.sendMessage = jest.fn();
+    conn.conn.sendMessage = vi.fn();
     cs.selectChannelIndex(5);
     expect(conn.conn.sendMessage).toHaveBeenCalledWith('BMSG^SYNC^SYNC_ID^5');
 
@@ -40,7 +40,7 @@ describe('ChannelSync', () => {
   });
 
   it('should emit nothing when no channel is selected', () => {
-    const nextCallback = jest.fn();
+    const nextCallback = vi.fn();
     cs.getSelectedChannelIndex().subscribe(nextCallback);
 
     expect(nextCallback).not.toHaveBeenCalled();
@@ -48,7 +48,7 @@ describe('ChannelSync', () => {
 
   describe('selectChannel', () => {
     beforeEach(() => {
-      jest.spyOn(conn.conn, 'sendMessage');
+      vi.spyOn(conn.conn, 'sendMessage');
       setMixerModel('ui24', conn);
     });
 
