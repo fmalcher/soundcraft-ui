@@ -34,7 +34,7 @@ export class TransitionControls {
   ];
 
   setEasing(e: Event) {
-    this.form.easing().value.set(Number((e.target as any).value));
+    this.form.easing().value.set(Number((e.target as HTMLSelectElement).value));
   }
 
   fade() {
