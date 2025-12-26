@@ -1,4 +1,3 @@
-@if (channel) {
 <sui-mixer-button
   activeClass="mute"
   [active]="!!(channel().mute$ | async)"
@@ -8,4 +7,3 @@
 </sui-mixer-button>
 <sui-mixer-button (press)="channel().mute()">Mute {{ label() }}</sui-mixer-button>
 <sui-mixer-button (press)="channel().unmute()">Unmute {{ label() }}</sui-mixer-button>
-}
