@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import {
   DBToFaderValue,
   faderValueToTimeMs,
@@ -54,22 +55,22 @@ describe('Value converters', () => {
 
       value = 0.419047619047619;
       expect(linearMappingRangeToValue(linearMappingValueToRange(value, -6, 57), -6, 57)).toBe(
-        value
+        value,
       );
 
       value = 0.09523809523809523;
       expect(linearMappingRangeToValue(linearMappingValueToRange(value, -6, 57), -6, 57)).toBe(
-        value
+        value,
       );
 
       value = 0.9682539682539683;
       expect(linearMappingRangeToValue(linearMappingValueToRange(value, -6, 57), -6, 57)).toBe(
-        value
+        value,
       );
 
       value = 0.5238095238095238;
       expect(linearMappingRangeToValue(linearMappingValueToRange(value, -6, 57), -6, 57)).toBe(
-        value
+        value,
       );
     });
   });

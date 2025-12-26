@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import { ObjectStore } from './object-store';
 
 describe('Object Store', () => {

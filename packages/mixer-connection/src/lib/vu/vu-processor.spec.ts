@@ -1,3 +1,4 @@
+import { describe, it, expect, beforeEach } from 'vitest';
 import { firstValueFrom, ReplaySubject, Subject } from 'rxjs';
 import { MixerConnection } from '../mixer-connection';
 import { VuProcessor } from './vu-processor';

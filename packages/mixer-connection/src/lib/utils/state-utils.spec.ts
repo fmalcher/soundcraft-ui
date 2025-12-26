@@ -1,3 +1,4 @@
+import { describe, it, expect, beforeEach } from 'vitest';
 import { getValueFromObject, joinStatePath } from './state-utils';
 
 describe('state utils', () => {

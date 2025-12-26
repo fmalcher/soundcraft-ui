@@ -1,3 +1,4 @@
+import { describe, it, expect, beforeEach } from 'vitest';
 import { SoundcraftUI } from '../soundcraft-ui';
 import { channelToIndex, indexToChannel } from './channel-sync-mapping';
 
