@@ -19,7 +19,7 @@
         "outputPath": "dist/packages/testbed",
         "index": "packages/testbed/src/index.html",
         "browser": "packages/testbed/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": [],
         "tsConfig": "packages/testbed/tsconfig.app.json",
         "aot": true,
         "assets": ["packages/testbed/src/favicon.ico", "packages/testbed/src/assets"],
