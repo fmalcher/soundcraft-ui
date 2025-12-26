@@ -3,7 +3,7 @@
   bus.
 </div>
 
-@for (c of channels$ | async; track c) {
+@for (c of channels$ | async; track c.channel) {
 <h2 class="mt-4">{{ c.label }} ({{ c.channel.name$ | async }})</h2>
 <sui-mute-button [channel]="c.channel" />
 <sui-prepost-controls [channel]="c.channel" />
