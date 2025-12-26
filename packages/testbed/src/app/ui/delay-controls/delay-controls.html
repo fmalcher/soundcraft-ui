@@ -1,4 +1,3 @@
-@if (channel) {
 <label>Delay (ms)</label>
 <input
   type="range"
@@ -12,4 +11,3 @@
 <button class="btn btn-success btn-sm ms-3" (click)="changeDelay(50)">+ 50 ms</button>
 <button class="btn btn-success btn-sm ms-3" (click)="changeDelay(-30)">- 30 ms</button>
 <span class="ms-3">{{ channel().delay$ | async }} ms</span>
-}
