@@ -78,7 +78,8 @@
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "packages/testbed/jest.config.ts"
+        "jestConfig": "packages/testbed/jest.config.ts",
+        "tsConfig": "packages/testbed/tsconfig.spec.json"
       },
       "outputs": ["{workspaceRoot}/coverage/packages/testbed"]
     },
