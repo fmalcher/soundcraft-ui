@@ -14,7 +14,7 @@ export class TransitionControls {
   private readonly formData = signal({
     targetValue: 0.7634,
     fadeTime: 2000,
-    easing: Easings.EaseOut,
+    easing: Easings.Linear,
   });
 
   readonly form = form(this.formData, path => {
