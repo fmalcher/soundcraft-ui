@@ -3,6 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/mixer-connection/src",
   "projectType": "library",
+  "tags": [],
   "targets": {
     "build": {
       "executor": "@nx/vite:build",
@@ -29,6 +30,5 @@
         "jestConfig": "packages/mixer-connection/jest.config.ts"
       }
     }
-  },
-  "tags": []
+  }
 }
