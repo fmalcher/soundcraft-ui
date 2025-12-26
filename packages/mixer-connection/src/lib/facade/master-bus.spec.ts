@@ -1,3 +1,4 @@
+import { describe, it, expect, beforeEach } from 'vitest';
 import { firstValueFrom } from 'rxjs';
 import { SoundcraftUI } from '../soundcraft-ui';
 import { MasterBus } from './master-bus';

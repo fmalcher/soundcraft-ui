@@ -1,3 +1,4 @@
+import { describe, it, expect, beforeEach } from 'vitest';
 import { AuxChannel, DelayableMasterChannel, MasterBus, MasterChannel } from './facade';
 import { SoundcraftUI } from './soundcraft-ui';
 import { isChannel, isDelayableMasterChannel, isMaster, isMasterChannel } from './type-guards';

@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import { DBToFaderValueCALC, faderValueToDBCALC } from './db-calculations';
 
 describe('dB Calculations', () => {

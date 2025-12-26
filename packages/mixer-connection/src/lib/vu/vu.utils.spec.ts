@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import { parseVuMessageArray, vuMessageToArray } from './vu.utils';
 import { vuMsg24_1, vuMsg24_2, vuMsg12_1 } from './vu-test-messages';
 
