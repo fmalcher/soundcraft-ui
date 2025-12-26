@@ -1,7 +1,7 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Channel Fades fadeTo EaseIn 1`] = `
-Array [
+exports[`Channel > Fades > fadeTo > EaseIn 1`] = `
+[
   1,
   0.99872,
   0.99488,
@@ -31,8 +31,8 @@ Array [
 ]
 `;
 
-exports[`Channel Fades fadeTo EaseInOut 1`] = `
-Array [
+exports[`Channel > Fades > fadeTo > EaseInOut 1`] = `
+[
   0.1,
   0.12352,
   0.14608000000000002,
@@ -62,8 +62,8 @@ Array [
 ]
 `;
 
-exports[`Channel Fades fadeTo EaseOut 1`] = `
-Array [
+exports[`Channel > Fades > fadeTo > EaseOut 1`] = `
+[
   0.7,
   0.71568,
   0.7307199999999999,
@@ -93,8 +93,8 @@ Array [
 ]
 `;
 
-exports[`Channel Fades fadeTo Linear 1`] = `
-Array [
+exports[`Channel > Fades > fadeTo > Linear 1`] = `
+[
   0.3,
   0.32,
   0.33999999999999997,
@@ -124,8 +124,8 @@ Array [
 ]
 `;
 
-exports[`Channel Fades fadeToDB EaseIn 1`] = `
-Array [
+exports[`Channel > Fades > fadeToDB > EaseIn 1`] = `
+[
   3,
   3,
   2.9,
@@ -155,8 +155,8 @@ Array [
 ]
 `;
 
-exports[`Channel Fades fadeToDB EaseInOut 1`] = `
-Array [
+exports[`Channel > Fades > fadeToDB > EaseInOut 1`] = `
+[
   6,
   5,
   4,
@@ -186,8 +186,8 @@ Array [
 ]
 `;
 
-exports[`Channel Fades fadeToDB EaseOut 1`] = `
-Array [
+exports[`Channel > Fades > fadeToDB > EaseOut 1`] = `
+[
   3,
   1.8,
   0.7,
@@ -217,8 +217,8 @@ Array [
 ]
 `;
 
-exports[`Channel Fades fadeToDB Linear 1`] = `
-Array [
+exports[`Channel > Fades > fadeToDB > Linear 1`] = `
+[
   -60,
   -55.6,
   -51.4,

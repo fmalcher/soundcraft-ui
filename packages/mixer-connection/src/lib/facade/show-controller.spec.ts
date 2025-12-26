@@ -29,7 +29,7 @@ describe('Show Controller', () => {
       conn.conn.sendMessage('SETD^var.currentSnapshot^THESNAPSHOT');
       conn.conn.sendMessage('SETD^var.currentCue^THECUE');
 
-      conn.conn.sendMessage = jest.fn();
+      conn.conn.sendMessage = vi.fn();
       conn.shows.updateCurrentSnapshot();
 
       expect(conn.conn.sendMessage).toHaveBeenCalledWith('SAVESNAPSHOT^THESHOW^THESNAPSHOT');
@@ -39,7 +39,7 @@ describe('Show Controller', () => {
       conn.conn.sendMessage('SETD^var.currentShow^THESHOW');
       conn.conn.sendMessage('SETD^var.currentCue^THECUE');
 
-      conn.conn.sendMessage = jest.fn();
+      conn.conn.sendMessage = vi.fn();
       conn.shows.updateCurrentSnapshot();
 
       expect(conn.conn.sendMessage).not.toHaveBeenCalled();
@@ -49,7 +49,7 @@ describe('Show Controller', () => {
       conn.conn.sendMessage('SETD^var.currentSnapshot^THESNAPSHOT');
       conn.conn.sendMessage('SETD^var.currentCue^THECUE');
 
-      conn.conn.sendMessage = jest.fn();
+      conn.conn.sendMessage = vi.fn();
       conn.shows.updateCurrentSnapshot();
 
       expect(conn.conn.sendMessage).not.toHaveBeenCalled();
@@ -62,7 +62,7 @@ describe('Show Controller', () => {
       conn.conn.sendMessage('SETD^var.currentSnapshot^THESNAPSHOT');
       conn.conn.sendMessage('SETD^var.currentCue^THECUE');
 
-      conn.conn.sendMessage = jest.fn();
+      conn.conn.sendMessage = vi.fn();
       conn.shows.updateCurrentCue();
 
       expect(conn.conn.sendMessage).toHaveBeenCalledWith('SAVECUE^THESHOW^THECUE');
@@ -72,7 +72,7 @@ describe('Show Controller', () => {
       conn.conn.sendMessage('SETD^var.currentShow^THESHOW');
       conn.conn.sendMessage('SETD^var.currentSnapshot^THESNAPSHOT');
 
-      conn.conn.sendMessage = jest.fn();
+      conn.conn.sendMessage = vi.fn();
       conn.shows.updateCurrentCue();
 
       expect(conn.conn.sendMessage).not.toHaveBeenCalled();
@@ -82,7 +82,7 @@ describe('Show Controller', () => {
       conn.conn.sendMessage('SETD^var.currentSnapshot^THESNAPSHOT');
       conn.conn.sendMessage('SETD^var.currentCue^THECUE');
 
-      conn.conn.sendMessage = jest.fn();
+      conn.conn.sendMessage = vi.fn();
       conn.shows.updateCurrentCue();
 
       expect(conn.conn.sendMessage).not.toHaveBeenCalled();

@@ -3,10 +3,10 @@
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
     "module": "preserve",
-    "types": ["jest", "node"],
+    "types": ["node"],
     "moduleResolution": "bundler",
     "isolatedModules": true
   },
-  "files": ["src/test-setup.ts"],
-  "include": ["**/*.spec.ts", "**/*.test.ts", "**/*.d.ts", "jest.config.ts"]
+  "files": [],
+  "include": ["**/*.spec.ts", "**/*.test.ts", "**/*.d.ts"]
 }

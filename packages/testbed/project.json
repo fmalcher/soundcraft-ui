@@ -75,14 +75,6 @@
         "buildTarget": "testbed:build"
       }
     },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "options": {
-        "jestConfig": "packages/testbed/jest.config.ts",
-        "tsConfig": "packages/testbed/tsconfig.spec.json"
-      },
-      "outputs": ["{workspaceRoot}/coverage/packages/testbed"]
-    },
     "lint": {
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],

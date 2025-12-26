@@ -9,10 +9,10 @@
   "defaultProject": "testbed",
   "generators": {
     "@nx/angular:application": {
-      "unitTestRunner": "jest"
+      "unitTestRunner": "vitest"
     },
     "@nx/angular:library": {
-      "unitTestRunner": "jest"
+      "unitTestRunner": "vitest"
     }
   },
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
@@ -25,18 +25,9 @@
     "lint": {
       "cache": true
     },
-    "@nx/jest:jest": {
-      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"],
+    "@nx/vitest:test": {
       "cache": true,
-      "options": {
-        "passWithNoTests": true
-      },
-      "configurations": {
-        "ci": {
-          "ci": true,
-          "codeCoverage": true
-        }
-      }
+      "inputs": ["default", "^production"]
     }
   },
   "namedInputs": {
@@ -50,7 +41,6 @@
       "default",
       "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
       "!{projectRoot}/tsconfig.spec.json",
-      "!{projectRoot}/jest.config.[jt]s",
       "!{projectRoot}/src/test-setup.[jt]s"
     ]
   },

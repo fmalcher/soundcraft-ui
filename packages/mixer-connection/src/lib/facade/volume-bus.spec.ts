@@ -59,8 +59,8 @@ describe('Volume Bus', () => {
   });
 
   describe('Fades', () => {
-    beforeEach(() => jest.useFakeTimers());
-    afterEach(() => jest.useRealTimers());
+    beforeEach(() => vi.useFakeTimers());
+    afterEach(() => vi.useRealTimers());
 
     it('fadeTo', async () => {
       bus.setFaderLevel(0.3);
@@ -69,10 +69,10 @@ describe('Volume Bus', () => {
       bus.faderLevel$.subscribe(e => results.push(e));
 
       bus.fadeTo(0.8, 500);
-      jest.advanceTimersByTime(500);
+      vi.advanceTimersByTime(500);
 
       expect(results).toMatchInlineSnapshot(`
-        Array [
+        [
           0.3,
           0.3384615384615385,
           0.3769230769230769,
@@ -97,10 +97,10 @@ describe('Volume Bus', () => {
       bus.faderLevelDB$.subscribe(e => results.push(e));
 
       bus.fadeToDB(-3, 500);
-      jest.advanceTimersByTime(500);
+      vi.advanceTimersByTime(500);
 
       expect(results).toMatchInlineSnapshot(`
-        Array [
+        [
           -15,
           -13.8,
           -12.7,
