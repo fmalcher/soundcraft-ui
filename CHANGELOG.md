@@ -2,6 +2,35 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.1.0](https://github.com/fmalcher/soundcraft-ui/compare/v4.0.0...v4.1.0) (2025-12-27)
+
+This is a housekeeping release with changes in the project setup and testing framework.
+As a new feature, the library now exposes infos about the device capabilities of different mixer models.
+
+### Features
+
+- add device capabilities to `DeviceInfo` ([2e1b682](https://github.com/fmalcher/soundcraft-ui/commit/2e1b682d8e0cb91a05987e7abd6cf88056bb660a))
+- add `masterDim` and `multitrack` to device capabilities ([3c25cd6](https://github.com/fmalcher/soundcraft-ui/commit/3c25cd6b575a91a8997d6c2310b377183ef3e720))
+
+### Bug Fixes
+
+- **testbed:** track channel correctly in loop for rendering ([4bac2f6](https://github.com/fmalcher/soundcraft-ui/commit/4bac2f66ff3906a9752905fbddfaf88fa7041cc4))
+- **testbed:** use concrete type over `any` ([6dd5a55](https://github.com/fmalcher/soundcraft-ui/commit/6dd5a558396821ca96ca9ead4adeca55e2b0cd70))
+- **testbed:** change default easing to Linear ([9807ae4](https://github.com/fmalcher/soundcraft-ui/commit/9807ae4c073f3245ae807dd55a3401c13aa7940e))
+
+### Other
+
+- remove wrong GitHub link in changelog ([366ea6e](https://github.com/fmalcher/soundcraft-ui/commit/366ea6e129213b8aa3251a4cc9cf66944faad3c2))
+- nx update to 21.0.2 ([d850da6](https://github.com/fmalcher/soundcraft-ui/commit/d850da63c2227f7c84568bb6a6b36d8c93af41c8))
+- nx migrate to 22.3 and Angular 21, update deps ([de5ec97](https://github.com/fmalcher/soundcraft-ui/commit/de5ec97c222ade3d2b2c448a3160748265674d1b))
+- set up Vitest for unit testing, migrate tests and remove Jest ([4c2b7db](https://github.com/fmalcher/soundcraft-ui/commit/4c2b7dbd6fa180c413e334e6d657dc2399680922))
+- add Vitest imports to all tests ([ccea043](https://github.com/fmalcher/soundcraft-ui/commit/ccea0434f728b3abfe1c1b4739a2fa9659d49bdb))
+- update dependencies, remove zone.js ([3638c4a](https://github.com/fmalcher/soundcraft-ui/commit/3638c4a3adf871afecfbee4ac04f7868fa7537aa))
+- add tests for `DeviceInfo.model` being `undefined` ([1e1ff20](https://github.com/fmalcher/soundcraft-ui/commit/1e1ff20364ea2d5ae5ab5ea47a898c9e8dda849d))
+- **testbed:** remove Component suffix, use readonly for signals ([08b2d6e](https://github.com/fmalcher/soundcraft-ui/commit/08b2d6ef57f6cdccfce4e79d28cdf420cdac2462))
+- **testbed:** remove unnecessary channel checks ([88f8cf5](https://github.com/fmalcher/soundcraft-ui/commit/88f8cf5480d69205a3aac62f8a845283c62f5004))
+- **testbed:** use Signal Forms for transition control ([2bb7a08](https://github.com/fmalcher/soundcraft-ui/commit/2bb7a081f73c838020664bc86647c813bbebde11))
+
 ## [4.0.0](https://github.com/fmalcher/soundcraft-ui/compare/v3.2.0...v4.0.0) (2025-05-08)
 
 ### Features
