@@ -33,7 +33,7 @@ export const DEVICE_CAPABILITIES: Readonly<Record<MixerModel, Readonly<DeviceCap
     player: 2,
     fx: 4,
     sub: 4,
-    aux: 4,
+    aux: 6,
     vca: 0,
     multitrack: false,
     masterDim: false,
