@@ -6,8 +6,12 @@ sidebar_position: 4
 
 The mixer exposes the following information about the device:
 
-| Call                        | Description                                                  |
-| --------------------------- | ------------------------------------------------------------ |
-| `conn.deviceInfo.model$`    | Hardware model (`ui12`, `ui16`, `ui24`) as observable stream |
-| `conn.deviceInfo.model`     | Hardware model (`ui12`, `ui16`, `ui24`) as synchronous value |
-| `conn.deviceInfo.firmware$` | Firmware version                                             |
+| Call                            | Description                                                                                |
+| ------------------------------- | ------------------------------------------------------------------------------------------ |
+| `conn.deviceInfo.model$`        | Hardware model (`ui12`, `ui16`, `ui24`) as observable stream                               |
+| `conn.deviceInfo.model`         | Hardware model (`ui12`, `ui16`, `ui24`) as synchronous value                               |
+| `conn.deviceInfo.firmware$`     | Firmware version                                                                           |
+| `conn.deviceInfo.capabilities$` | Device capabilities based on the model. Contains information about amount of channels etc. |
+
+The device capabilities are desscribed by the `DeviceCapabilities` interface.
+Capabilities of all models are available in the `DEVICE_CAPABILITIES` constant.
