@@ -9,6 +9,8 @@ export interface DeviceCapabilities {
   sub: number;
   aux: number;
   vca: number;
+  multitrack: boolean;
+  masterDim: boolean;
 }
 
 export const DEVICE_CAPABILITIES: Readonly<Record<MixerModel, Readonly<DeviceCapabilities>>> = {
@@ -21,6 +23,8 @@ export const DEVICE_CAPABILITIES: Readonly<Record<MixerModel, Readonly<DeviceCap
     sub: 4,
     aux: 4,
     vca: 0,
+    multitrack: false,
+    masterDim: false,
   },
   ui16: {
     model: 'ui16',
@@ -31,6 +35,8 @@ export const DEVICE_CAPABILITIES: Readonly<Record<MixerModel, Readonly<DeviceCap
     sub: 4,
     aux: 4,
     vca: 0,
+    multitrack: false,
+    masterDim: false,
   },
   ui24: {
     model: 'ui24',
@@ -41,5 +47,7 @@ export const DEVICE_CAPABILITIES: Readonly<Record<MixerModel, Readonly<DeviceCap
     sub: 6,
     aux: 10,
     vca: 6,
+    multitrack: true,
+    masterDim: true,
   },
 };
