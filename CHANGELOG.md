@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.1.1](https://github.com/fmalcher/soundcraft-ui/compare/v4.1.0...v4.1.1) (2025-12-27)
+
+### Bug Fixes
+
+- set correct AUX number for ui16 ([6155b8a](https://github.com/fmalcher/soundcraft-ui/commit/6155b8a28e8be729501c703ba83877b339444323))
+
 ## [4.1.0](https://github.com/fmalcher/soundcraft-ui/compare/v4.0.0...v4.1.0) (2025-12-27)
 
 This is a housekeeping release with changes in the project setup and testing framework.
