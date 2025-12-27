@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
 import { firstValueFrom } from 'rxjs';
 import { SoundcraftUI } from '../soundcraft-ui';
 import { Easings } from '../utils/transitions/easings';
