@@ -21,7 +21,12 @@ describe('DeviceInfo', () => {
     expect(await firstValueFrom(conn.deviceInfo.model$)).toBe('ui12');
   });
 
-  it('model', () => {
+  describe('model', () => {
+    it('should be undefined if no model is set yet', () => {
+      expect(conn.deviceInfo.model).toBe(undefined);
+    });
+
+    it('should return the correct model synchronously', () => {
     setMixerModel('ui24', conn);
     expect(conn.deviceInfo.model).toBe('ui24');
 
@@ -30,6 +35,8 @@ describe('DeviceInfo', () => {
 
     setMixerModel('ui12', conn);
     expect(conn.deviceInfo.model).toBe('ui12');
+    });
+  });
   });
 
   it('firmware$', async () => {
