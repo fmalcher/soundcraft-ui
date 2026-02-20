@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.0.0](https://github.com/fmalcher/soundcraft-ui/compare/v4.1.1...v5.0.0) (2026-02-20)
+
+This release removes the `modern-isomorphic-ws` and `ws` dependencies and uses the native `WebSocket` implementation instead, which is available in browsers and in Node.js 22+.
+As a result, **Node.js 22 or later is now required**.
+We consider this a breaking change and released this version as a new major.
+
+### Important changes
+
+- use native WebSocket instead of modern-isomorphic-ws ([ec61959](https://github.com/fmalcher/soundcraft-ui/commit/ec61959fdff2374ae4e4ae6cfc122e1913abeb82))
+- require Node.js >= 22 ([7561968](https://github.com/fmalcher/soundcraft-ui/commit/7561968f2f46fb4ff586390524d8a4c0a0684476))
+
+### Other
+
+- add missing imports in tests ([8e092e1](https://github.com/fmalcher/soundcraft-ui/commit/8e092e1f8271214532c5e10201215707dd6c7e51))
+- add workspace AI config for Claude and Copilot ([7c91e47](https://github.com/fmalcher/soundcraft-ui/commit/7c91e4773b5e72e226c4b3ca5cd7c0d90c0afb83))
+- upgrade nx to 22.5.1 and Angular to 21.1.5 ([386738c](https://github.com/fmalcher/soundcraft-ui/commit/386738c36325388c9bcdd415e8d3d09dab99112f))
+
 ### [4.1.1](https://github.com/fmalcher/soundcraft-ui/compare/v4.1.0...v4.1.1) (2025-12-27)
 
 ### Bug Fixes
