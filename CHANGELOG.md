@@ -19,7 +19,7 @@ We consider this a breaking change and released this version as a new major.
 - add workspace AI config for Claude and Copilot ([7c91e47](https://github.com/fmalcher/soundcraft-ui/commit/7c91e4773b5e72e226c4b3ca5cd7c0d90c0afb83))
 - upgrade nx to 22.5.1 and Angular to 21.1.5 ([386738c](https://github.com/fmalcher/soundcraft-ui/commit/386738c36325388c9bcdd415e8d3d09dab99112f))
 
-### [4.1.1](https://github.com/fmalcher/soundcraft-ui/compare/v4.1.0...v4.1.1) (2025-12-27)
+## [4.1.1](https://github.com/fmalcher/soundcraft-ui/compare/v4.1.0...v4.1.1) (2025-12-27)
 
 ### Bug Fixes
 
@@ -336,7 +336,7 @@ This release adds no new functionality and no API surface changes. However, sinc
 - create FUNDING.yml ([aa59c96](https://github.com/fmalcher/soundcraft-ui/commit/aa59c966c25cde1475eca65ec69d6fca21d7a3ee))
 - move dB calculation and benckmark to separate files ([2a8dd5d](https://github.com/fmalcher/soundcraft-ui/commit/2a8dd5dd8936813c5c6c284d21298ee3ecd0f04c))
 
-### [1.1.1](https://github.com/fmalcher/soundcraft-ui/compare/v1.1.0...v1.1.1) (2022-12-22)
+## [1.1.1](https://github.com/fmalcher/soundcraft-ui/compare/v1.1.0...v1.1.1) (2022-12-22)
 
 ### Bug Fixes
 
