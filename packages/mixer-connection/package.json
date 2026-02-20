@@ -23,8 +23,5 @@
   "engines": {
     "node": ">=22"
   },
-  "dependencies": {
-    "modern-isomorphic-ws": "1.0.5",
-    "ws": "^8.18.0"
-  }
+  "dependencies": {}
 }

@@ -31,7 +31,7 @@ export default defineConfig({
       formats: ['es', 'cjs'],
     },
     rollupOptions: {
-      external: ['modern-isomorphic-ws', 'ws'],
+      external: [],
       plugins: [
         copy({
           targets: [
