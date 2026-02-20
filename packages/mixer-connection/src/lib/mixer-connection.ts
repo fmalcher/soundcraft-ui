@@ -15,7 +15,6 @@ import {
   delay,
 } from 'rxjs';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
-import ws from 'modern-isomorphic-ws';
 
 import { ConnectionEvent, ConnectionStatus, SoundcraftUIOptions } from './types';
 
@@ -78,8 +77,7 @@ export class MixerConnection {
      */
     this.socket$ = webSocket<string>({
       url: `ws://${options.targetIP}`,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      WebSocketCtor: options.webSocketCtor || (ws as any), // cast necessary since ws object is not fully compatible to WebSocket
+      WebSocketCtor: options.webSocketCtor || WebSocket,
       serializer: msg => `3:::${msg}`,
       deserializer: ({ data }) => data,
       openObserver: {
@@ -103,7 +101,7 @@ export class MixerConnection {
     open$
       .pipe(
         switchMap(() => interval(this.keepaliveTime).pipe(takeUntil(close$))),
-        map(() => 'ALIVE')
+        map(() => 'ALIVE'),
       )
       .subscribe(msg => this.outboundSubject$.next(msg));
 
@@ -128,7 +126,7 @@ export class MixerConnection {
         delay: () =>
           timer(this.reconnectTime).pipe(
             takeUntil(this.forceClose$),
-            tap(() => this.statusSubject$.next({ type: ConnectionStatus.Reconnecting }))
+            tap(() => this.statusSubject$.next({ type: ConnectionStatus.Reconnecting })),
           ),
       }),
       // parse messages (only use those with `3:::` prefix)
@@ -137,7 +135,7 @@ export class MixerConnection {
         return match && match[2];
       }),
       filter((e): e is string => e !== null),
-      mergeMap(message => message.split('\n')) // one message can contain multiple lines with commands. split them into single emissions
+      mergeMap(message => message.split('\n')), // one message can contain multiple lines with commands. split them into single emissions
     );
 
     // send all messages to our global stream that survives reconnects
@@ -149,8 +147,8 @@ export class MixerConnection {
         filter(status => status.type === ConnectionStatus.Open),
         map(() => {
           return;
-        })
-      )
+        }),
+      ),
     );
 
     /*
@@ -187,8 +185,8 @@ export class MixerConnection {
         filter(status => status.type === ConnectionStatus.Close),
         map(() => {
           return;
-        })
-      )
+        }),
+      ),
     );
   }
 
@@ -201,7 +199,7 @@ export class MixerConnection {
       .pipe(
         filter(e => e.type === ConnectionStatus.Close),
         take(1),
-        delay(1000)
+        delay(1000),
       )
       .subscribe(() => this.connect());
 
@@ -213,8 +211,8 @@ export class MixerConnection {
         filter(status => status.type === ConnectionStatus.Open),
         map(() => {
           return;
-        })
-      )
+        }),
+      ),
     );
   }
 
