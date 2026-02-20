@@ -24,4 +24,13 @@ describe('SoundcraftUI', () => {
     }
     expect(error).toBeTruthy();
   });
+
+  it('clearMuteGroups() should send SETD^mgmask^0', () => {
+    const ui = new SoundcraftUI('127.0.0.1');
+    let message: string | undefined;
+    ui.conn.allMessages$.subscribe(msg => (message = msg));
+
+    ui.clearMuteGroups();
+    expect(message).toBe('SETD^mgmask^0');
+  });
 });
