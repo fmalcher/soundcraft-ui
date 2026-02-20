@@ -35,6 +35,9 @@
     "release": "standard-version",
     "workspace-generator": "nx workspace-generator"
   },
+  "engines": {
+    "node": ">=22"
+  },
   "private": true,
   "dependencies": {
     "@angular/common": "21.0.6",
