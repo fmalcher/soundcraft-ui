@@ -1,12 +1,12 @@
 import { Component, computed, input, signal } from '@angular/core';
-import { Field, form, max, min } from '@angular/forms/signals';
+import { FormField, form, max, min } from '@angular/forms/signals';
 import { Easings, FadeableChannel, faderValueToDB } from 'soundcraft-ui-connection';
 
 @Component({
   selector: 'sui-transition-controls',
   templateUrl: './transition-controls.html',
   styleUrl: './transition-controls.css',
-  imports: [Field],
+  imports: [FormField],
 })
 export class TransitionControls {
   readonly channel = input.required<FadeableChannel>();
