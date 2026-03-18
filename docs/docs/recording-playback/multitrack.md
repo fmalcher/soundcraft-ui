@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # Multitrack Recording
 
-The Ui24R features multi-track recording. The `MultiTackRecorder` object can be retrieved via `conn.recorderMultiTrack`.
+The Ui24R features multi-track recording. The `MultiTrackRecorder` object can be retrieved via `conn.recorderMultiTrack`.
 It supports the following operations:
 
 | Call on `MultiTrackRecorder` | Description                                                                                                                                   |

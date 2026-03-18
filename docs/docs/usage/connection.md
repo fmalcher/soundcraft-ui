@@ -5,7 +5,7 @@ sidebar_position: 1
 # Initialization and connection
 
 To get started, you need an instance of the `SoundcraftUI` class.
-It must be initialized with the IP adress of the mixer. This can be done by either directly passing the mixer IP as a parameter or by using an options object.
+It must be initialized with the IP address of the mixer. This can be done by either directly passing the mixer IP as a parameter or by using an options object.
 After this, the `SoundcraftUI` instance offers three methods to control the connection.
 
 ```ts

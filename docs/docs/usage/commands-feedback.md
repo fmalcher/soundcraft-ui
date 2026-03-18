@@ -8,7 +8,7 @@ The library exposes commands and feedback in a human-readable and object-oriente
 Feedback is published as streams that you can subscribe to. This uses the Observable object from [RxJS](https://rxjs.dev/).
 
 ```ts
-conn.master.setFaderLavel(0.5);
+conn.master.setFaderLevel(0.5);
 conn.master.input(5).solo();
 conn.aux(3).input(2).mute();
 

@@ -13,5 +13,5 @@ The mixer exposes the following information about the device:
 | `conn.deviceInfo.firmware$`     | Firmware version                                                                           |
 | `conn.deviceInfo.capabilities$` | Device capabilities based on the model. Contains information about amount of channels etc. |
 
-The device capabilities are desscribed by the `DeviceCapabilities` interface.
+The device capabilities are described by the `DeviceCapabilities` interface.
 Capabilities of all models are available in the `DEVICE_CAPABILITIES` constant.
