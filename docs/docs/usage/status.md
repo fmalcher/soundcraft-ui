@@ -27,11 +27,11 @@ conn.status$.subscribe(status => {
 
 The `ConnectionStatus` enum has the following fields and values:
 
-| Value          | Enum field name | Description                                                                                               |
-| -------------- | --------------- | --------------------------------------------------------------------------------------------------------- |
-| `OPENING`      | `Opening`       | Connecting to the mixer                                                                                   |
-| `OPEN`         | `Open`          | Successfully connected to the mixer                                                                       |
-| `CLOSING`      | `Closing`       | Disconnecting from the mixer                                                                              |
-| `CLOSE`        | `Close`         | Disconnected from the mixer                                                                               |
-| `ERROR`        | `Error`         | Connection error occured. The error object can be accessed through the `payload` property of the message. |
-| `RECONNECTING` | `Reconnecting`  | After an error, trying reconnection                                                                       |
+| Value          | Enum field name | Description                                                                                                |
+| -------------- | --------------- | ---------------------------------------------------------------------------------------------------------- |
+| `OPENING`      | `Opening`       | Connecting to the mixer                                                                                    |
+| `OPEN`         | `Open`          | Successfully connected to the mixer                                                                        |
+| `CLOSING`      | `Closing`       | Disconnecting from the mixer                                                                               |
+| `CLOSE`        | `Close`         | Disconnected from the mixer                                                                                |
+| `ERROR`        | `Error`         | Connection error occurred. The error object can be accessed through the `payload` property of the message. |
+| `RECONNECTING` | `Reconnecting`  | After an error, trying reconnection                                                                        |

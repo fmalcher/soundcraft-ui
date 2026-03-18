@@ -14,7 +14,7 @@ export class DeviceInfo {
   /** Device capabilities based on the model */
   capabilities$ = this.model$.pipe(map(model => DEVICE_CAPABILITIES[model]));
 
-  /** Firmware version of ther mixer */
+  /** Firmware version of the mixer */
   firmware$ = this.store.state$.pipe(selectRawValue<string>('firmware'));
 
   /**
