@@ -28,7 +28,7 @@
       "executor": "@nx/vitest:test",
       "outputs": ["{options.reportsDirectory}"],
       "options": {
-        "reportsDirectory": "../../coverage/packages/mixer-connection"
+        "reportsDirectory": "{projectRoot}/../../coverage/packages/mixer-connection"
       }
     }
   }
