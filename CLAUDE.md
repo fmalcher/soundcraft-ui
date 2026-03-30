@@ -1,37 +1,68 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
 # Structure of this workspace
 
 This monorepo contains a library (`mixer-connection`) that controls an audio mixer (Soundcraft Ui12/16/24R) through the WebSocket protocol.
 The `testbed` application uses this library and offers a simple testing UI to practically try out all features.
-
-The `docs` folder contains documentation for the library.
+The `docs` folder contains a Docusaurus site with library documentation (published at https://fmalcher.github.io/soundcraft-ui).
 
 ## Projects
 
 - `packages/mixer-connection` — Published library (`soundcraft-ui-connection` on npm). Zero production dependencies, pure RxJS observable API.
-- `packages/testbed` — Angular 21 demo application (Bootstrap 5 UI)
+- `packages/testbed` — Angular demo application
+
+## Common commands
+
+```bash
+# Build, test, lint (all projects)
+npx nx run-many -t build
+npx nx run-many -t test
+npx nx run-many -t lint
+
+# Single project
+npx nx test mixer-connection
+npx nx lint mixer-connection
+npx nx build mixer-connection
+
+# Format
+npx nx format:check
+npx nx format:write
+
+# Serve testbed
+npx nx serve testbed
+```
 
 ## mixer-connection architecture
 
-- **Facade pattern**: 20+ public classes (`Channel`, `MasterBus`, `AuxBus`, `FxBus`, `Player`, etc.) provide a human-readable API (e.g. `channel.setFaderLevel(0.5)`, `channel.mute()`)
-- **WebSocket connection** (`mixer-connection.ts`): Built on RxJS `webSocket()`. Messages use `3:::` prefix. Protocol commands: `SETD^path^value`, `SETS^path^value`, `BMSG^SYNC^...`. Automatic keepalive (1s) and reconnect (2s delay).
-- **State management**: Flat observable state via `scan()` from inbound messages. Selectors use a `select()` operator for reactive property access.
+- **Entry point**: `SoundcraftUI` class (in `soundcraft-ui.ts`) is the main facade. All other facades are accessed through it (e.g. `conn.master.player`, `conn.master.input(0)`).
+- **Facade pattern**: public classes (`Channel`, `MasterBus`, `AuxBus`, `FxBus`, `Player`, etc.) provide a human-readable API (e.g. `channel.setFaderLevel(0.5)`, `channel.mute()`)
+- **WebSocket connection** (`mixer-connection.ts`): Built on RxJS `webSocket()`. Protocol commands: `SETD^path^value`, `SETS^path^value`, `BMSG^SYNC^...`. Automatic keepalive and reconnect.
+- **State management** (`MixerStore`): Flat observable state via `scan()` from inbound messages. Selectors use a `select()` operator for reactive property access.
 - **Object store**: Singleton caching of facade instances to prevent duplicates when accessing the same channel.
 - **Transitions**: Fading with configurable easing (Linear, EaseIn, EaseOut, EaseInOut) and frame rate.
 - **Channel types**: `i` (input), `l` (line), `p` (player), `f` (FX return), `s` (sub group), `a` (aux)
 - **Bus types**: `master`, `aux`, `fx`
+- **Fader values**: Internally stored as linear values (0..1) matching the fader position. The API also supports dB-based operations (e.g. `changeFaderLevelDB`) that convert between dB and linear.
 
 ## Testing
 
 - Vitest with jsdom environment
 - Test files colocated with source: `*.spec.ts`
+- Tests must always cover as much as possible. All outbound messages must be verified in `outbound-messages.spec.ts`.
+- Use the existing test patterns when writing new tests.
+- Some classes are extended into subclasses that have their own tests. Keep in mind to cover all implementations.
 
 # Guidelines for working with this project
 
 - Before committing, verify correctness by running tests (`npx nx test`), linting (`npx nx lint`) and code formatting (`npx nx format:check`). Fix formatting with `npx nx format:write`.
 - Always run `npx nx format:check` before pushing.
 - Do not use `--reporter=verbose` with `npx nx test` — it causes tests to hang.
-- Make sure the documentation matches the actual implementation.
-- Report mismatches between doc comments in the code and descriptions in the docs.
+- Make sure the documentation matches the actual implementation. When adding new features or updating implementation/comments, the docs need to be updated.
+- Report and fix mismatches between doc comments in the code and descriptions in the docs.
+- Consult the `docs/` folder for context on features and API behavior before making changes.
+- Always write tests when adding new API surface.
 
 <!-- nx configuration start-->
 <!-- Leave the start & end comments to automatically receive updates. -->
