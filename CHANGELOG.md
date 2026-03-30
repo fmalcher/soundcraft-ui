@@ -2,6 +2,39 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.0.0](https://github.com/fmalcher/soundcraft-ui/compare/v5.0.0...v6.0.0) (2026-03-30)
+
+### ⚠ BREAKING CHANGES
+
+- EaseInOut now produces different values.
+  If you relied on the old behavior, use EaseOut instead.
+
+### Features
+
+- add `changeFaderLevel` and `changeGain` for relative linear changes ([84dafb9](https://github.com/fmalcher/soundcraft-ui/commit/84dafb9c3ac49a73f246752af57703d41063a12d))
+
+### Bug Fixes
+
+- use smoothstep for EaseInOut easing function ([4d5035f](https://github.com/fmalcher/soundcraft-ui/commit/4d5035f346deaabb8c74cc6164aa69e5084121d9))
+
+### Other
+
+- **testbed:** clean up testbed UI styling ([66a3f70](https://github.com/fmalcher/soundcraft-ui/commit/66a3f702588fd5c8accaf51c50e2729f2e42c094))
+- **testbed:** extract mixer IPs to component property ([d1a7f3c](https://github.com/fmalcher/soundcraft-ui/commit/d1a7f3ce67f014c6d77e2764d1db371a9e969e50))
+- add missing test coverage for mixer-connection ([a6924eb](https://github.com/fmalcher/soundcraft-ui/commit/a6924eb4fa6bf74edcd3bf446a532ad8024a602d))
+- add project info to CLAUDE.md ([21ad01d](https://github.com/fmalcher/soundcraft-ui/commit/21ad01d085da1186ef83798b4ca38c314c5c14af))
+- fix spelling mistakes in comments and documentation ([b1a8737](https://github.com/fmalcher/soundcraft-ui/commit/b1a8737c8cc745f03babe549fb2a2175eb271073))
+- nx migrate 22.6 ([89e8777](https://github.com/fmalcher/soundcraft-ui/commit/89e8777d241edfccb69c8fbd02547a78be19a1f0))
+- fix changelog formatting ([da43b04](https://github.com/fmalcher/soundcraft-ui/commit/da43b04524743cbe0ecbca3c15c44150812049b0))
+- update CLAUDE.md with expanded project guidance ([04080fa](https://github.com/fmalcher/soundcraft-ui/commit/04080fae90ebe1fb42ee40d09318afb3bdd08a89))
+- update dependencies ([0d3d80e](https://github.com/fmalcher/soundcraft-ui/commit/0d3d80ec9f86eac76c210154ec98163c2078176f))
+- **deps-dev:** bump flatted from 3.3.3 to 3.4.2 ([3b89716](https://github.com/fmalcher/soundcraft-ui/commit/3b897167f1203cd365b6796b8d66d84823723d8a))
+- **deps-dev:** bump handlebars from 4.7.8 to 4.7.9 ([3e082b0](https://github.com/fmalcher/soundcraft-ui/commit/3e082b023f00bc1b0f5b0a62c2d69b7fb45978e5))
+- **deps-dev:** bump immutable from 5.1.4 to 5.1.5 ([#191](https://github.com/fmalcher/soundcraft-ui/issues/191)) ([476c4fb](https://github.com/fmalcher/soundcraft-ui/commit/476c4fb8758930e47b6d0b7e8ce62e90e53e2920))
+- **deps-dev:** bump svgo from 3.3.2 to 3.3.3 ([#192](https://github.com/fmalcher/soundcraft-ui/issues/192)) ([3684769](https://github.com/fmalcher/soundcraft-ui/commit/3684769fb9bcc66e29a023a84584629841f57a7e))
+- **deps:** bump path-to-regexp from 0.1.10 to 1.9.0 in /docs ([072ba11](https://github.com/fmalcher/soundcraft-ui/commit/072ba11cf997d1b706aebd41e5f6852f85aea0e8))
+- **deps:** bump rollup ([#189](https://github.com/fmalcher/soundcraft-ui/issues/189)) ([08d7666](https://github.com/fmalcher/soundcraft-ui/commit/08d7666e47ffbe1ee190d22eed274dd94ca3bfb6))
+
 ## [5.0.0](https://github.com/fmalcher/soundcraft-ui/compare/v4.1.1...v5.0.0) (2026-02-20)
 
 This release removes the `modern-isomorphic-ws` and `ws` dependencies and uses the native `WebSocket` implementation instead, which is available in browsers and in Node.js 22+.
