@@ -111,6 +111,35 @@ describe('AUX Channel', () => {
       expect(await firstValueFrom(channel.gainDB$)).toBe(10);
     });
 
+    it('changeGain', async () => {
+      channel.setGain(0.5);
+      channel.changeGain(0.2);
+      expect(await firstValueFrom(channel.gain$)).toBe(0.7);
+
+      channel.changeGain(-0.4);
+      expect(await firstValueFrom(channel.gain$)).toBe(0.3);
+    });
+
+    it('changeGain should be clamped to 0..1', async () => {
+      channel.setGain(0.9);
+      channel.changeGain(0.3);
+      expect(await firstValueFrom(channel.gain$)).toBe(1);
+
+      channel.setGain(0.1);
+      channel.changeGain(-0.5);
+      expect(await firstValueFrom(channel.gain$)).toBe(0);
+    });
+
+    it('changeGain should not produce NaN from repeated calls', async () => {
+      channel.setGain(1);
+      for (let i = 0; i < 15; i++) {
+        channel.changeGain(-0.1);
+      }
+      const value = await firstValueFrom(channel.gain$);
+      expect(value).not.toBeNaN();
+      expect(value).toBe(0);
+    });
+
     it('changeGainDB', async () => {
       channel.setGainDB(4);
       channel.changeGainDB(3);
@@ -144,6 +173,35 @@ describe('AUX Channel', () => {
 
       channel.setGain(0.5555555555555556);
       expect(await firstValueFrom(channel.gainDB$)).toBe(10);
+    });
+
+    it('changeGain', async () => {
+      channel.setGain(0.5);
+      channel.changeGain(0.2);
+      expect(await firstValueFrom(channel.gain$)).toBe(0.7);
+
+      channel.changeGain(-0.4);
+      expect(await firstValueFrom(channel.gain$)).toBe(0.3);
+    });
+
+    it('changeGain should be clamped to 0..1', async () => {
+      channel.setGain(0.9);
+      channel.changeGain(0.3);
+      expect(await firstValueFrom(channel.gain$)).toBe(1);
+
+      channel.setGain(0.1);
+      channel.changeGain(-0.5);
+      expect(await firstValueFrom(channel.gain$)).toBe(0);
+    });
+
+    it('changeGain should not produce NaN from repeated calls', async () => {
+      channel.setGain(1);
+      for (let i = 0; i < 15; i++) {
+        channel.changeGain(-0.1);
+      }
+      const value = await firstValueFrom(channel.gain$);
+      expect(value).not.toBeNaN();
+      expect(value).toBe(0);
     });
 
     it('changeGainDB', async () => {

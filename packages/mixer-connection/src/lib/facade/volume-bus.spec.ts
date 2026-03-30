@@ -41,6 +41,25 @@ describe('Volume Bus', () => {
       expect(await firstValueFrom(bus.faderLevelDB$)).toBe(0);
     });
 
+    it('changeFaderLevel', async () => {
+      bus.setFaderLevel(0.5);
+      bus.changeFaderLevel(0.2);
+      expect(await firstValueFrom(bus.faderLevel$)).toBe(0.7);
+
+      bus.changeFaderLevel(-0.4);
+      expect(await firstValueFrom(bus.faderLevel$)).toBe(0.3);
+    });
+
+    it('changeFaderLevel should be clamped to 0..1', async () => {
+      bus.setFaderLevel(0.9);
+      bus.changeFaderLevel(0.3);
+      expect(await firstValueFrom(bus.faderLevel$)).toBe(1);
+
+      bus.setFaderLevel(0.1);
+      bus.changeFaderLevel(-0.5);
+      expect(await firstValueFrom(bus.faderLevel$)).toBe(0);
+    });
+
     it('changeFaderLevelDB', async () => {
       bus.setFaderLevelDB(-12);
       bus.changeFaderLevelDB(3);

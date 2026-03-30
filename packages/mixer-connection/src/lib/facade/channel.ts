@@ -11,7 +11,7 @@ import {
 } from '../state/state-selectors';
 import { sourcesToTransition, TransitionSource } from '../transitions';
 import { BusType, ChannelType } from '../types';
-import { clamp, constructReadableChannelName } from '../utils';
+import { clamp, constructReadableChannelName, roundToThreeDecimals } from '../utils';
 import { resolveDelayed } from '../utils/async-helpers';
 import { Easings } from '../utils/transitions/easings';
 import { DBToFaderValue, faderValueToDB } from '../utils/value-converters';
@@ -30,12 +30,12 @@ export class Channel implements FadeableChannel {
 
   /** Index of this channel in the stereolink compound (0 = I'm first, 1 = I'm second, -1 = not linked) */
   protected stereoIndex$ = this.store.state$.pipe(
-    select(selectStereoIndex(this.channelType, this.channel))
+    select(selectStereoIndex(this.channelType, this.channel)),
   );
 
   /** Linear level of the channel (between `0` and `1`) */
   faderLevel$ = this.store.state$.pipe(
-    select(selectFaderValue(this.channelType, this.channel, this.busType, this.bus))
+    select(selectFaderValue(this.channelType, this.channel, this.busType, this.bus)),
   );
 
   /** dB level of the channel (between `-Infinity` and `10`) */
@@ -43,14 +43,14 @@ export class Channel implements FadeableChannel {
 
   /** MUTE value of the channel (`0` or `1`) */
   mute$ = this.store.state$.pipe(
-    select(selectMute(this.channelType, this.channel, this.busType, this.bus))
+    select(selectMute(this.channelType, this.channel, this.busType, this.bus)),
   );
 
   name$ = this.store.state$.pipe(
     // Channel name is only available directly in the channel, e.g. `i.1.name`.
     // `i.1.aux.2.name` will not work!
     selectRawValue<string>(joinStatePath(this.channelType, this.channel - 1, 'name')),
-    map(name => name || constructReadableChannelName(this.channelType, this.channel))
+    map(name => name || constructReadableChannelName(this.channelType, this.channel)),
   );
 
   constructor(
@@ -59,7 +59,7 @@ export class Channel implements FadeableChannel {
     protected channelType: ChannelType,
     protected channel: number,
     protected busType: BusType = 'master',
-    protected bus = 0
+    protected bus = 0,
   ) {
     // lookup channel in the store and use existing object if possible
     const storeId = busType + bus + channelType + channel;
@@ -72,7 +72,7 @@ export class Channel implements FadeableChannel {
 
     // create transition steps and set fader level accordingly
     sourcesToTransition(this.transitionSources$, this.faderLevel$, conn).subscribe(v =>
-      this.setFaderLevelRaw(v)
+      this.setFaderLevelRaw(v),
     );
   }
 
@@ -128,6 +128,16 @@ export class Channel implements FadeableChannel {
    */
   setFaderLevelDB(dbValue: number) {
     this.setFaderLevel(DBToFaderValue(dbValue));
+  }
+
+  /**
+   * Change the fader value relatively by adding a given linear value
+   * @param offset value to add to the current linear fader value
+   */
+  changeFaderLevel(offset: number) {
+    this.faderLevel$
+      .pipe(take(1))
+      .subscribe(v => this.setFaderLevel(roundToThreeDecimals(v + offset)));
   }
 
   /**

@@ -44,10 +44,13 @@ export class MasterBus implements FadeableChannel, PannableChannel {
 
   private transitionSources$ = new Subject<TransitionSource>();
 
-  constructor(private conn: MixerConnection, private store: MixerStore) {
+  constructor(
+    private conn: MixerConnection,
+    private store: MixerStore,
+  ) {
     // create transition steps and set master fader level accordingly
     sourcesToTransition(this.transitionSources$, this.faderLevel$, conn).subscribe(v =>
-      this.setFaderLevelRaw(v)
+      this.setFaderLevelRaw(v),
     );
   }
 
@@ -161,6 +164,16 @@ export class MasterBus implements FadeableChannel, PannableChannel {
    */
   setFaderLevelDB(dbValue: number) {
     this.setFaderLevel(DBToFaderValue(dbValue));
+  }
+
+  /**
+   * Change the master fader value relatively by adding a given linear value
+   * @param offset value to add to the current linear fader value
+   */
+  changeFaderLevel(offset: number) {
+    this.faderLevel$
+      .pipe(take(1))
+      .subscribe(v => this.setFaderLevel(roundToThreeDecimals(v + offset)));
   }
 
   /**

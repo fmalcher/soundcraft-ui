@@ -15,13 +15,14 @@ Get access to a `VolumeBus` object through `conn.volume`:
 
 A `VolumeBus` supports the following operations (which are quite similar to all other fadeable channels):
 
-| Call on `VolumeBus`            | Description                                                   |
-| ------------------------------ | ------------------------------------------------------------- |
-| `name$`                        | Get readable name of the channel                              |
-| `faderLevel$`                  | Get fader level (between `0` and `1`)                         |
-| `faderLevelDB$`                | Get fader level in dB (between `-Infinity` and `10`)          |
-| `setFaderLevel(value)`         | Set fader level (between `0` and `1`)                         |
-| `setFaderLevelDB(dbValue)`     | Set fader level in dB (between `-Infinity` and `10`)          |
-| `changeFaderLevelDB(offsetDB)` | Change fader level relatively by adding a given value (in dB) |
-| `fadeTo(value, fadeTime)`      | Fade channel to value (between `0` and `1`)                   |
-| `fadeToDB(value, fadeTime)`    | Fade channel to dB value (between `-Infinity` and `10`)       |
+| Call on `VolumeBus`            | Description                                                    |
+| ------------------------------ | -------------------------------------------------------------- |
+| `name$`                        | Get readable name of the channel                               |
+| `faderLevel$`                  | Get fader level (between `0` and `1`)                          |
+| `faderLevelDB$`                | Get fader level in dB (between `-Infinity` and `10`)           |
+| `setFaderLevel(value)`         | Set fader level (between `0` and `1`)                          |
+| `setFaderLevelDB(dbValue)`     | Set fader level in dB (between `-Infinity` and `10`)           |
+| `changeFaderLevel(offset)`     | Change fader level relatively by adding a given value (linear) |
+| `changeFaderLevelDB(offsetDB)` | Change fader level relatively by adding a given value (in dB)  |
+| `fadeTo(value, fadeTime)`      | Fade channel to value (between `0` and `1`)                    |
+| `fadeToDB(value, fadeTime)`    | Fade channel to dB value (between `-Infinity` and `10`)        |

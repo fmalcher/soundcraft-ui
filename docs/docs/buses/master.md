@@ -9,15 +9,16 @@ The following operations can be used to interact with the global master fader.
 
 ## Fader Level
 
-| Call on `MasterBus`            | Description                                                              |
-| ------------------------------ | ------------------------------------------------------------------------ |
-| `faderLevel$`                  | Get master fader level (between `0` and `1`)                             |
-| `faderLevelDB$`                | Get master fader level in dB (between `-Infinity` and `10`)              |
-| `setFaderLevel(value)`         | Set the master fader level (between `0` and `1`)                         |
-| `setFaderLevelDB(dbValue)`     | Set the master fader level in dB (between `-Infinity` and `10`)          |
-| `changeFaderLevelDB(offsetDB)` | Change the master fader level relatively by adding a given value (in dB) |
-| `fadeTo(value, fadeTime)`      | Fade master to value (between `0` and `1`)                               |
-| `fadeToDB(value, fadeTime)`    | Fade master to dB value (between `-Infinity` and `10`)                   |
+| Call on `MasterBus`            | Description                                                               |
+| ------------------------------ | ------------------------------------------------------------------------- |
+| `faderLevel$`                  | Get master fader level (between `0` and `1`)                              |
+| `faderLevelDB$`                | Get master fader level in dB (between `-Infinity` and `10`)               |
+| `setFaderLevel(value)`         | Set the master fader level (between `0` and `1`)                          |
+| `setFaderLevelDB(dbValue)`     | Set the master fader level in dB (between `-Infinity` and `10`)           |
+| `changeFaderLevel(offset)`     | Change the master fader level relatively by adding a given value (linear) |
+| `changeFaderLevelDB(offsetDB)` | Change the master fader level relatively by adding a given value (in dB)  |
+| `fadeTo(value, fadeTime)`      | Fade master to value (between `0` and `1`)                                |
+| `fadeToDB(value, fadeTime)`    | Fade master to dB value (between `-Infinity` and `10`)                    |
 
 ## Pan
 
