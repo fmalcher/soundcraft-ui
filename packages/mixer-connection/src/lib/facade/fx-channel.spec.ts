@@ -41,6 +41,25 @@ describe('FX Channel', () => {
       expect(await firstValueFrom(channel.faderLevelDB$)).toBe(0);
     });
 
+    it('changeFaderLevel', async () => {
+      channel.setFaderLevel(0.5);
+      channel.changeFaderLevel(0.2);
+      expect(await firstValueFrom(channel.faderLevel$)).toBe(0.7);
+
+      channel.changeFaderLevel(-0.4);
+      expect(await firstValueFrom(channel.faderLevel$)).toBe(0.3);
+    });
+
+    it('changeFaderLevel should be clamped to 0..1', async () => {
+      channel.setFaderLevel(0.9);
+      channel.changeFaderLevel(0.3);
+      expect(await firstValueFrom(channel.faderLevel$)).toBe(1);
+
+      channel.setFaderLevel(0.1);
+      channel.changeFaderLevel(-0.5);
+      expect(await firstValueFrom(channel.faderLevel$)).toBe(0);
+    });
+
     it('changeFaderLevelDB', async () => {
       channel.setFaderLevelDB(-12);
       channel.changeFaderLevelDB(3);

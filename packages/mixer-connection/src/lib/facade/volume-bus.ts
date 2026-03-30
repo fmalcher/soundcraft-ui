@@ -3,7 +3,7 @@ import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
 import { select, selectVolumeBusValue } from '../state/state-selectors';
 import { sourcesToTransition, TransitionSource } from '../transitions';
-import { clamp, constructReadableChannelName } from '../utils';
+import { clamp, constructReadableChannelName, roundToThreeDecimals } from '../utils';
 import { resolveDelayed } from '../utils/async-helpers';
 import { Easings } from '../utils/transitions/easings';
 import { DBToFaderValue, faderValueToDB } from '../utils/value-converters';
@@ -18,7 +18,7 @@ export class VolumeBus implements FadeableChannel {
 
   /** Linear level of the volume bus (between `0` and `1`) */
   faderLevel$ = this.store.state$.pipe(
-    select(selectVolumeBusValue(this.busName, this.busId ? this.busId - 1 : undefined))
+    select(selectVolumeBusValue(this.busName, this.busId ? this.busId - 1 : undefined)),
   );
 
   /** dB level of the volume bus (between `-Infinity` and `10`) */
@@ -30,7 +30,7 @@ export class VolumeBus implements FadeableChannel {
     protected conn: MixerConnection,
     protected store: MixerStore,
     protected busName: VolumeBusType,
-    protected busId?: number
+    protected busId?: number,
   ) {
     // lookup channel in the store and use existing object if possible
     const storeId = 'volume-' + this.busName + this.busId;
@@ -43,7 +43,7 @@ export class VolumeBus implements FadeableChannel {
 
     // create transition steps and set fader level accordingly
     sourcesToTransition(this.transitionSources$, this.faderLevel$, conn).subscribe(v =>
-      this.setFaderLevelRaw(v)
+      this.setFaderLevelRaw(v),
     );
   }
 
@@ -98,6 +98,16 @@ export class VolumeBus implements FadeableChannel {
    */
   setFaderLevelDB(dbValue: number) {
     this.setFaderLevel(DBToFaderValue(dbValue));
+  }
+
+  /**
+   * Change the volume fader value relatively by adding a given linear value
+   * @param offset value to add to the current linear fader value
+   */
+  changeFaderLevel(offset: number) {
+    this.faderLevel$
+      .pipe(take(1))
+      .subscribe(v => this.setFaderLevel(roundToThreeDecimals(v + offset)));
   }
 
   /**

@@ -9,15 +9,16 @@ Therefore, these operations are available for any channel like `MasterChannel`, 
 
 ## Fader Level
 
-| Call                           | Description                                                   |
-| ------------------------------ | ------------------------------------------------------------- |
-| `faderLevel$`                  | Get fader level (between `0` and `1`)                         |
-| `faderLevelDB$`                | Get fader level in dB (between `-Infinity` and `10`)          |
-| `setFaderLevel(value)`         | Set fader level (between `0` and `1`)                         |
-| `setFaderLevelDB(dbValue)`     | Set fader level in dB (between `-Infinity` and `10`)          |
-| `changeFaderLevelDB(offsetDB)` | Change fader level relatively by adding a given value (in dB) |
-| `fadeTo(value, fadeTime)`      | Fade channel to value (between `0` and `1`)                   |
-| `fadeToDB(value, fadeTime)`    | Fade channel to dB value (between `-Infinity` and `10`)       |
+| Call                           | Description                                                    |
+| ------------------------------ | -------------------------------------------------------------- |
+| `faderLevel$`                  | Get fader level (between `0` and `1`)                          |
+| `faderLevelDB$`                | Get fader level in dB (between `-Infinity` and `10`)           |
+| `setFaderLevel(value)`         | Set fader level (between `0` and `1`)                          |
+| `setFaderLevelDB(dbValue)`     | Set fader level in dB (between `-Infinity` and `10`)           |
+| `changeFaderLevel(offset)`     | Change fader level relatively by adding a given value (linear) |
+| `changeFaderLevelDB(offsetDB)` | Change fader level relatively by adding a given value (in dB)  |
+| `fadeTo(value, fadeTime)`      | Fade channel to value (between `0` and `1`)                    |
+| `fadeToDB(value, fadeTime)`    | Fade channel to dB value (between `-Infinity` and `10`)        |
 
 ## Mute
 

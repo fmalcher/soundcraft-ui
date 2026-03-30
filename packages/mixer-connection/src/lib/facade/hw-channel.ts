@@ -2,7 +2,7 @@ import { map, switchMap, take } from 'rxjs';
 import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
 import { select, selectGain, selectPhantom } from '../state/state-selectors';
-import { clamp } from '../utils';
+import { clamp, roundToThreeDecimals } from '../utils';
 import {
   linearMappingRangeToValue,
   linearMappingValueToRange,
@@ -25,7 +25,7 @@ export class HwChannel {
         case 'ui12':
           return this.store.state$.pipe(select(selectPhantom(this.channel, 'i')));
       }
-    })
+    }),
   );
 
   /** Linear gain level of the channel (between `0` and `1`) */
@@ -38,7 +38,7 @@ export class HwChannel {
         case 'ui12':
           return this.store.state$.pipe(select(selectGain(this.channel, 'i')));
       }
-    })
+    }),
   );
 
   /** dB gain level of the channel */
@@ -53,14 +53,14 @@ export class HwChannel {
           // ui12 and ui16 gain range: -40..50 dB
           return this.gain$.pipe(map(v => linearMappingValueToRange(v, -40, 50)));
       }
-    })
+    }),
   );
 
   constructor(
     protected conn: MixerConnection,
     protected store: MixerStore,
     protected deviceInfo: DeviceInfo,
-    protected channel: number
+    protected channel: number,
   ) {
     // lookup object in the store and use existing object if possible
     const storeId = 'hw' + channel;
@@ -117,6 +117,14 @@ export class HwChannel {
     value = clamp(value, 0, 1);
     const command = `SETD^${this.fullChannelId}.gain^${value}`;
     this.conn.sendMessage(command);
+  }
+
+  /**
+   * Change the gain value relatively by adding a given linear value
+   * @param offset value to add to the current linear gain value
+   */
+  changeGain(offset: number) {
+    this.gain$.pipe(take(1)).subscribe(v => this.setGain(roundToThreeDecimals(v + offset)));
   }
 
   /**

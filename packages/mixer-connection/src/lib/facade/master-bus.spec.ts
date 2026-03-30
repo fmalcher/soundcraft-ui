@@ -133,6 +133,25 @@ describe('Master Bus', () => {
   });
 
   describe('fader level', () => {
+    it('changeFaderLevel', async () => {
+      master.setFaderLevel(0.5);
+      master.changeFaderLevel(0.2);
+      expect(await firstValueFrom(master.faderLevel$)).toBe(0.7);
+
+      master.changeFaderLevel(-0.4);
+      expect(await firstValueFrom(master.faderLevel$)).toBe(0.3);
+    });
+
+    it('changeFaderLevel should be clamped to 0..1', async () => {
+      master.setFaderLevel(0.9);
+      master.changeFaderLevel(0.3);
+      expect(await firstValueFrom(master.faderLevel$)).toBe(1);
+
+      master.setFaderLevel(0.1);
+      master.changeFaderLevel(-0.5);
+      expect(await firstValueFrom(master.faderLevel$)).toBe(0);
+    });
+
     it('should change level from -Infinity dB upwards', async () => {
       master.setFaderLevel(0); // -Infinity dB
       master.changeFaderLevelDB(3);

@@ -15,6 +15,7 @@ export interface FadeableChannel {
   setFaderLevel(value: number): void;
   setFaderLevelDB(dbValue: number): void;
 
+  changeFaderLevel(offset: number): void;
   changeFaderLevelDB(offsetDB: number): void;
 }
 
