@@ -12,6 +12,8 @@ import { ConnectionService } from './connection.service';
 export class App {
   cs = inject(ConnectionService);
 
+  mixerIps = ['10.23.23.95', '10.23.23.96'];
+
   navLinks = [
     { label: 'Master', target: '/master' },
     { label: 'Master bus', target: '/masterbus' },

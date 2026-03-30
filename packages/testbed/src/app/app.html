@@ -4,19 +4,14 @@
   @if (!cs.conn) {
   <div>
     <h2>Connection</h2>
-    @for (ip of ['10.75.23.95', '10.75.23.96']; track ip) {
+    @for (ip of mixerIps; track ip) {
     <button class="btn btn-primary me-2" (click)="connectCustomIp(ip)">
       {{ ip }}
     </button>
     }
     <div class="input-group mt-3">
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Custom mixer IP"
-        #ipInput
-        [value]="getCustomIPFromStorage()"
-      />
+      <input type="text" class="form-control" placeholder="Custom mixer IP" #ipInput
+        [value]="getCustomIPFromStorage()" />
       <button class="btn btn-primary" type="button" (click)="connectCustomIp(ipInput.value)">
         Connect
       </button>
@@ -39,9 +34,9 @@
       <ul class="nav nav-tabs nav-fill mb-3">
         @for (link of navLinks; track link) {
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="link.target" routerLinkActive="active">{{
-            link.label
-          }}</a>
+          <a class="nav-link" [routerLink]="link.target" routerLinkActive="active">
+            {{ link.label }}
+          </a>
         </li>
         }
       </ul>
