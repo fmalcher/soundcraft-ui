@@ -1,13 +1,6 @@
 <label>Delay (ms)</label>
-<input
-  type="range"
-  min="0"
-  [max]="maxValue()"
-  step="1"
-  (change)="setDelay(delayInput.value)"
-  [value]="channel().delay$ | async"
-  #delayInput
-/>
+<input type="range" min="0" [max]="maxValue()" step="1" (change)="setDelay(delayInput.value)"
+  [value]="channel().delay$ | async" #delayInput />
 <button class="btn btn-success btn-sm ms-3" (click)="changeDelay(50)">+ 50 ms</button>
-<button class="btn btn-success btn-sm ms-3" (click)="changeDelay(-30)">- 30 ms</button>
-<span class="ms-3">{{ channel().delay$ | async }} ms</span>
+<button class="btn btn-success btn-sm ms-2" (click)="changeDelay(-30)">- 30 ms</button>
+<span class="ms-3 badge text-bg-secondary">{{ channel().delay$ | async }}&nbsp;ms</span>

@@ -14,39 +14,33 @@
       @else { None }
 
       @if (channelSync.getSelectedChannel(syncId) | async; as channel) {
-        / {{ channel.name$ | async }}
-        <button class="btn btn-sm btn-success ms-1" (click)="channel.changeFaderLevelDB(-3)">-3 dB</button>
-        <button class="btn btn-sm btn-success ms-1" (click)="channel.changeFaderLevelDB(3)">+3 dB</button>
-        @if (isChannel(channel)) {
-          @let mute = channel.mute$ | async;
-          <button class="btn btn-sm ms-1"
-            [class.btn-secondary]="!mute" [class.btn-danger]="mute"
-            (click)="channel.toggleMute()">Toggle mute</button>
-        }
+      / {{ channel.name$ | async }}
+      <button class="btn btn-sm btn-success ms-1" (click)="channel.changeFaderLevelDB(-3)">- 3 dB</button>
+      <button class="btn btn-sm btn-success ms-1" (click)="channel.changeFaderLevelDB(3)">+ 3 dB</button>
+      @if (isChannel(channel)) {
+      @let mute = channel.mute$ | async;
+      <button class="btn btn-sm ms-1" [class.btn-secondary]="!mute" [class.btn-danger]="mute"
+        (click)="channel.toggleMute()">Toggle mute</button>
+      }
 
-        @if (isMasterChannel(channel)) {
-          @let solo = channel.solo$ | async;
-          <button class="btn btn-sm ms-1"
-            [class.btn-secondary]="!solo" [class.btn-warning]="solo"
-            (click)="channel.toggleSolo()">Toggle solo</button>
-        }
+      @if (isMasterChannel(channel)) {
+      @let solo = channel.solo$ | async;
+      <button class="btn btn-sm ms-1" [class.btn-secondary]="!solo" [class.btn-warning]="solo"
+        (click)="channel.toggleSolo()">Toggle solo</button>
+      }
 
-        @if (isDelayableMasterChannel(channel)) {
-          <span class="ms-1">Delay: {{ channel.delay$ | async }}&nbsp;ms</span>
-        }
+      @if (isDelayableMasterChannel(channel)) {
+      <span class="ms-1">Delay: {{ channel.delay$ | async }}&nbsp;ms</span>
+      }
       }
     </small>
   </h2>
 
   <div>
     @for (index of channelIndexes$ | async; track index) {
-    <button
-      class="btn btn-sm btn-secondary me-1 mb-1"
-      [class.btn-danger]="currentIndex === index"
-      (click)="channelSync.selectChannelIndex(index, syncId)"
-    >
-      {{ index }}</button
-    >}
+    <button class="btn btn-sm btn-secondary me-1 mb-1" [class.btn-danger]="currentIndex === index"
+      (click)="channelSync.selectChannelIndex(index, syncId)">
+      {{ index }}</button>}
   </div>
 </div>
 }

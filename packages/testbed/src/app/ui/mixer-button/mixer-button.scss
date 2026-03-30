@@ -1,7 +1,7 @@
 @use 'sass:color';
 
 button {
-  height: 45px;
+  height: 35px;
   min-width: 120px;
   background: black;
   color: white;
@@ -9,7 +9,7 @@ button {
   outline: none;
   margin-right: 10px;
   margin-top: 10px;
-  padding: 10px;
+  padding: 4px;
 
   &:hover {
     background: color.adjust(black, $lightness: 20%);

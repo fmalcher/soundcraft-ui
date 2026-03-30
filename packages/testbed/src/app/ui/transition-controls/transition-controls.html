@@ -4,23 +4,14 @@
   </div>
 
   <div class="col">
-    <input
-      type="range"
-      step="0.00000000001"
-      [formField]="form.targetValue"
-      title="Target value"
-    />
+    <input type="range" step="0.00000000001" [formField]="form.targetValue" title="Target value" />
   </div>
-  <div class="col">{{ targetValueDB() }} dB</div>
+  <div class="col">
+    <span class="badge text-bg-secondary">{{ targetValueDB() }}&nbsp;dB</span>
+  </div>
 
   <div class="col">
-    <input
-      type="number"
-      step="100"
-      class="form-control"
-      [formField]="form.fadeTime"
-      title="Fade time"
-    />
+    <input type="number" step="100" class="form-control" [formField]="form.fadeTime" title="Fade time" />
   </div>
 
   <div class="col">

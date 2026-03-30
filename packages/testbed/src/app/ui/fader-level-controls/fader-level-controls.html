@@ -1,18 +1,11 @@
 <label>Fader Level</label>
-<input
-  type="range"
-  min="0"
-  max="1"
-  step="0.00000000001"
-  (input)="setFaderLevel(faderLevelInput.value)"
-  [value]="channel().faderLevel$ | async"
-  #faderLevelInput
-/>
+<input type="range" min="0" max="1" step="0.00000000001" (input)="setFaderLevel(faderLevelInput.value)"
+  [value]="channel().faderLevel$ | async" #faderLevelInput />
 <button class="btn btn-success btn-sm ms-3" (click)="channel().changeFaderLevelDB(3)">
   + 3 dB
 </button>
-<button class="btn btn-success btn-sm ms-3" (click)="channel().changeFaderLevelDB(-3)">
+<button class="btn btn-success btn-sm ms-2" (click)="channel().changeFaderLevelDB(-3)">
   – 3 dB
 </button>
-<span class="ms-3">{{ channel().faderLevelDB$ | async }} dB</span>
-<span class="ms-3">{{ channel().faderLevel$ | async }}</span>
+<span class="badge badge-rounded text-bg-secondary ms-3">{{ channel().faderLevelDB$ | async }}&nbsp;dB</span>
+<span class="badge badge-rounded text-bg-secondary ms-2">{{ channel().faderLevel$ | async }}</span>
