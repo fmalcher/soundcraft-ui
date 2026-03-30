@@ -1,14 +1,6 @@
 <label>Pan</label>
-<input
-  type="range"
-  min="0"
-  max="1"
-  step="0.00001"
-  value="0.5"
-  [value]="channel().pan$ | async"
-  (input)="setPan(panInput.value)"
-  #panInput
-/>
+<input type="range" min="0" max="1" step="0.00001" value="0.5" [value]="channel().pan$ | async"
+  (input)="setPan(panInput.value)" #panInput />
 <button class="btn btn-success btn-sm ms-3" (click)="channel().changePan(0.1)">+ 0.1</button>
-<button class="btn btn-success btn-sm ms-3" (click)="channel().changePan(-0.1)">– 0.1</button>
-<span class="ms-3">{{ channel().pan$ | async }}</span>
+<button class="btn btn-success btn-sm ms-2" (click)="channel().changePan(-0.1)">– 0.1</button>
+<span class="ms-3 badge text-bg-secondary">{{ channel().pan$ | async }}</span>
