@@ -24,13 +24,13 @@ describe('Outbound messages', () => {
     expect(message).toBe('SETD^m.mix^0');
 
     conn.master.setFaderLevelDB(3);
-    expect(message).toBe('SETD^m.mix^0.84375627202');
+    expect(message).toBe('SETD^m.mix^0.84375627201');
 
     conn.master.setFaderLevelDB(20);
     expect(message).toBe('SETD^m.mix^1');
 
     conn.master.setFaderLevelDB(-200);
-    expect(message).toBe('SETD^m.mix^0.00126941502');
+    expect(message).toBe('SETD^m.mix^0');
 
     conn.master.setFaderLevelDB(-Infinity);
     expect(message).toBe('SETD^m.mix^0');
@@ -74,7 +74,7 @@ describe('Outbound messages', () => {
     expect(message).toBe('SETD^i.2.mix^0');
 
     conn.master.input(3).setFaderLevelDB(-12);
-    expect(message).toBe('SETD^i.2.mix^0.49333689432');
+    expect(message).toBe('SETD^i.2.mix^0.49333689429');
 
     conn.master.input(3).setMute(1);
     expect(message).toBe('SETD^i.2.mute^1');
@@ -150,7 +150,7 @@ describe('Outbound messages', () => {
     expect(message).toBe('SETD^l.0.mix^0');
 
     conn.master.line(1).setFaderLevelDB(-12);
-    expect(message).toBe('SETD^l.0.mix^0.49333689432');
+    expect(message).toBe('SETD^l.0.mix^0.49333689429');
 
     conn.master.line(1).setMute(1);
     expect(message).toBe('SETD^l.0.mute^1');
@@ -203,7 +203,7 @@ describe('Outbound messages', () => {
     expect(message).toBe('SETD^p.1.mix^0');
 
     conn.master.player(2).setFaderLevelDB(-12);
-    expect(message).toBe('SETD^p.1.mix^0.49333689432');
+    expect(message).toBe('SETD^p.1.mix^0.49333689429');
 
     conn.master.player(2).setMute(1);
     expect(message).toBe('SETD^p.1.mute^1');
@@ -253,7 +253,7 @@ describe('Outbound messages', () => {
     expect(message).toBe('SETD^a.0.mix^0');
 
     conn.master.aux(1).setFaderLevelDB(-12);
-    expect(message).toBe('SETD^a.0.mix^0.49333689432');
+    expect(message).toBe('SETD^a.0.mix^0.49333689429');
 
     conn.master.aux(1).setMute(1);
     expect(message).toBe('SETD^a.0.mute^1');
@@ -306,7 +306,7 @@ describe('Outbound messages', () => {
     expect(message).toBe('SETD^f.2.mix^0');
 
     conn.master.fx(3).setFaderLevelDB(-12);
-    expect(message).toBe('SETD^f.2.mix^0.49333689432');
+    expect(message).toBe('SETD^f.2.mix^0.49333689429');
 
     conn.master.fx(3).setMute(1);
     expect(message).toBe('SETD^f.2.mute^1');
@@ -356,7 +356,7 @@ describe('Outbound messages', () => {
     expect(message).toBe('SETD^s.3.mix^0');
 
     conn.master.sub(4).setFaderLevelDB(-12);
-    expect(message).toBe('SETD^s.3.mix^0.49333689432');
+    expect(message).toBe('SETD^s.3.mix^0.49333689429');
 
     conn.master.sub(4).setMute(1);
     expect(message).toBe('SETD^s.3.mute^1');
@@ -406,7 +406,7 @@ describe('Outbound messages', () => {
     expect(message).toBe('SETD^v.2.mix^0');
 
     conn.master.vca(3).setFaderLevelDB(-12);
-    expect(message).toBe('SETD^v.2.mix^0.49333689432');
+    expect(message).toBe('SETD^v.2.mix^0.49333689429');
 
     conn.master.vca(3).setMute(1);
     expect(message).toBe('SETD^v.2.mute^1');
