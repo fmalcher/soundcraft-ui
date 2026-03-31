@@ -1,4 +1,4 @@
-import { map, Observable } from 'rxjs';
+import { map } from 'rxjs';
 import { MixerStore } from '../state/mixer-store';
 import { selectRawValue } from '../state/state-selectors';
 import { MixerModel } from '../types';

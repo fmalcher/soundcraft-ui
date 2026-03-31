@@ -1,5 +1,4 @@
 import { clamp } from '../../utils';
-import { dBLinearLUT } from './db-lut';
 
 /**
  * Sanitize and convert a channel delay value from milliseconds to raw seconds
@@ -15,55 +14,86 @@ export function sanitizeDelayValue(valueMs: number, maximumMs: number): number {
   return value / 1000;
 }
 
+/*****************************************************/
+
 /**
- * Helper function for lookup in the LUT.
- * First, find the position which is closest to the requested source value.
- * Then do linear interpolation to find a closer value.
+ * Transfer function of the Soundcraft UI mixer fader.
+ * Converts a fader position (0..1) to a linear amplitude value.
  *
- * @param lut Lookup table as nested array
- * @param sourceVal source value to convert
- * @param sourceIndex column index of the source values
- * @param resultIndex column index of the result values
+ * @param v fader position between 0 and 1
  */
-function findInLUT(
-  lut: [number, number][],
-  sourceVal: number,
-  sourceIndex: 0 | 1,
-  resultIndex: 0 | 1
-) {
-  for (let i = 0; i < lut.length; i++) {
-    if (lut[i][sourceIndex] < sourceVal) {
-      continue;
-    }
-    if (i === 0 || i === 1 || sourceVal === lut[i][sourceIndex]) {
-      return lut[i][resultIndex];
-    } else {
-      return (
-        lut[i - 1][resultIndex] +
-        ((lut[i][resultIndex] - lut[i - 1][resultIndex]) * (sourceVal - lut[i - 1][sourceIndex])) /
-          (lut[i][sourceIndex] - lut[i - 1][sourceIndex])
-      );
-    }
+function faderToLinearAmplitude(v: number): number {
+  return (
+    (v < 0.055 ? Math.sin(28.559933214452666 * v) : 1) *
+    Math.exp(
+      (23.90844819639692 +
+        (-26.23877598214595 + (12.195249692570245 - 0.4878099877028098 * v) * v) * v) *
+        v,
+    ) *
+    2.676529517952372e-4
+  );
+}
+
+/**
+ * Derivative of faderToLinearAmplitude, used by Newton's method to invert the transfer function.
+ *
+ * @param v fader position between 0 and 1
+ */
+function faderToLinearAmplitudeDeriv(v: number): number {
+  const P =
+    (23.90844819639692 +
+      (-26.23877598214595 + (12.195249692570245 - 0.4878099877028098 * v) * v) * v) *
+    v;
+  const Pprime =
+    23.90844819639692 + (-52.4775519642919 + (36.58574907771074 - 1.9512399508112392 * v) * v) * v;
+  const expP = Math.exp(P);
+
+  if (v < 0.055) {
+    const wv = 28.559933214452666 * v;
+    return (
+      2.676529517952372e-4 * expP * (28.559933214452666 * Math.cos(wv) + Math.sin(wv) * Pprime)
+    );
   }
-  // fallback
-  return lut[0][resultIndex];
+  return 2.676529517952372e-4 * expP * Pprime;
 }
 
 /**
- * Convert fader value from dB to linear float value between 0 and 1
- * @param value fader value in dB
+ * Convert fader value from dB to linear float value between 0 and 1.
+ * Uses Newton's method to numerically invert the faderToLinearAmplitude transfer function
+ *
+ * @param dbValue fader value in dB
  */
-export function DBToFaderValue(dbValue: number) {
-  return findInLUT(dBLinearLUT, dbValue, 0, 1);
+export function DBToFaderValue(dbValue: number): number {
+  if (dbValue <= -200) return 0;
+  if (dbValue >= 10) return 1;
+
+  const target = Math.pow(10, dbValue / 20);
+
+  // Newton's method: find v where faderToLinearAmplitude(v) = target
+  let v = 0.5;
+  for (let i = 0; i < 20; i++) {
+    const delta = (faderToLinearAmplitude(v) - target) / faderToLinearAmplitudeDeriv(v);
+    v -= delta;
+    if (v < 0) v = 1e-10;
+    if (v > 1) v = 1;
+    if (Math.abs(delta) < 1e-15) break;
+  }
+  // Round to 11 decimal places to ensure consistent results across platforms.
+  // Transcendental functions (exp, sin, cos) are not required by IEEE 754 to produce
+  // bit-identical results, so the last digits of the Newton result can vary.
+  return Math.round(v * 1e11) / 1e11;
 }
 
 /**
- * Convert fader value from linear float value (between 0 and 1) to dB value
+ * Convert fader value from linear float value (between 0 and 1) to dB value.
+ * Direct calculation using the faderToLinearAmplitude transfer function
+ *
  * @param value linear fader value
  */
-export function faderValueToDB(value: number) {
-  const dbValue = findInLUT(dBLinearLUT, value, 1, 0);
-  return Math.round(dbValue * 10) / 10;
+export function faderValueToDB(value: number): number {
+  const lin = faderToLinearAmplitude(value);
+  if (lin < 1e-10) return -Infinity;
+  return Math.round(20 * Math.log10(lin) * 10) / 10 || 0;
 }
 
 /*****************************************************/
@@ -79,7 +109,7 @@ const timeMsUpperBound = 4000;
  */
 export function faderValueToTimeMs(value: number) {
   return Math.round(
-    (timeMsUpperBound - timeMsLowerBound) * Math.pow(value, 3.0517) + timeMsLowerBound
+    (timeMsUpperBound - timeMsLowerBound) * Math.pow(value, 3.0517) + timeMsLowerBound,
   );
 }
 
@@ -91,7 +121,7 @@ export function timeMsToFaderValue(timeMs: number) {
   const sanitizedTime = clamp(timeMs, timeMsLowerBound, timeMsUpperBound);
   const result = Math.pow(
     (sanitizedTime - timeMsLowerBound) / (timeMsUpperBound - timeMsLowerBound),
-    0.32768620768751844
+    0.32768620768751844,
   );
 
   return Math.floor(result * 10000000) / 10000000;
@@ -109,7 +139,7 @@ export function timeMsToFaderValue(timeMs: number) {
 export function linearMappingRangeToValue(
   rangeValue: number,
   lowerBound: number,
-  upperBound: number
+  upperBound: number,
 ): number {
   const result = (rangeValue - lowerBound) / (upperBound - lowerBound);
   return clamp(result, 0, 1);
@@ -121,7 +151,11 @@ export function linearMappingRangeToValue(
  * @param lowerBound lower bound for range
  * @param upperBound upper bound for range
  */
-export function linearMappingValueToRange(value: number, lowerBound: number, upperBound: number) {
+export function linearMappingValueToRange(
+  value: number,
+  lowerBound: number,
+  upperBound: number,
+): number {
   const result = Math.round((value * (upperBound - lowerBound) + lowerBound) * 10) / 10; // round to 1 decimal place
   return clamp(result, lowerBound, upperBound);
 }

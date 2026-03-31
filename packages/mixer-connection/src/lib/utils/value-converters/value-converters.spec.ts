@@ -30,10 +30,9 @@ describe('Value converters', () => {
       expect(result).toBe(0);
     });
 
-    it('should return a numeric value for out-of-bounds lower values', () => {
+    it('should return 0 for out-of-bounds lower values', () => {
       const result = DBToFaderValue(-200);
-      expect(result).not.toBeNaN();
-      expect(result).toMatchInlineSnapshot(`0.00126941502`);
+      expect(result).toBe(0);
     });
   });
 
