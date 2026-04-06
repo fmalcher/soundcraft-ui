@@ -41,6 +41,10 @@
         {
           "type": "test",
           "section": "Other"
+        },
+        {
+          "type": "deps",
+          "section": "Dependency updates"
         }
       ],
       "extra-files": ["packages/mixer-connection/package.json"]
