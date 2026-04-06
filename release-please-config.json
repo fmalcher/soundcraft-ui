@@ -1,0 +1,51 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "packages": {
+    ".": {
+      "release-type": "node",
+      "include-component-in-tag": false,
+      "pull-request-title-pattern": "release: v${version}",
+      "changelog-sections": [
+        {
+          "type": "feat",
+          "section": "Features"
+        },
+        {
+          "type": "fix",
+          "section": "Bug Fixes"
+        },
+        {
+          "type": "perf",
+          "section": "Other"
+        },
+        {
+          "type": "refactor",
+          "section": "Other"
+        },
+        {
+          "type": "chore",
+          "section": "Other"
+        },
+        {
+          "type": "build",
+          "section": "Other"
+        },
+        {
+          "type": "docs",
+          "section": "Other"
+        },
+        {
+          "type": "style",
+          "section": "Other"
+        },
+        {
+          "type": "test",
+          "section": "Other"
+        }
+      ],
+      "extra-files": [
+        "packages/mixer-connection/package.json"
+      ]
+    }
+  }
+}

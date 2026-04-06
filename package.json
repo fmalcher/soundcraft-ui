@@ -32,7 +32,6 @@
     "dep-graph": "nx dep-graph",
     "help": "nx help",
     "testbed": "nx serve testbed",
-    "release": "standard-version",
     "workspace-generator": "nx workspace-generator"
   },
   "engines": {
@@ -86,7 +85,6 @@
     "nx": "22.6.3",
     "prettier": "~3.6.2",
     "rollup-plugin-copy": "^3.5.0",
-    "standard-version": "^9.0.0",
     "ts-node": "10.9.1",
     "typescript": "5.9.3",
     "vite": "7.3.0",
