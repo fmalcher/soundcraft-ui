@@ -64,7 +64,7 @@
     "@nx/node": "22.6.4",
     "@nx/vite": "22.6.3",
     "@nx/vitest": "22.6.3",
-    "@nx/workspace": "22.6.3",
+    "@nx/workspace": "22.6.4",
     "@schematics/angular": "21.1.4",
     "@swc-node/register": "1.11.1",
     "@swc/core": "1.15.8",
