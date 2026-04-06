@@ -4,7 +4,7 @@
     ".": {
       "release-type": "node",
       "include-component-in-tag": false,
-      "pull-request-title-pattern": "chore: release ${version}",
+      "pull-request-title-pattern": "release: v${version}",
       "changelog-sections": [
         {
           "type": "feat",
@@ -43,7 +43,9 @@
           "section": "Other"
         }
       ],
-      "extra-files": ["packages/mixer-connection/package.json"]
+      "extra-files": [
+        "packages/mixer-connection/package.json"
+      ]
     }
   }
 }
