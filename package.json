@@ -61,7 +61,7 @@
     "@nx/angular": "22.6.4",
     "@nx/eslint-plugin": "22.6.4",
     "@nx/js": "22.6.3",
-    "@nx/node": "22.6.3",
+    "@nx/node": "22.6.4",
     "@nx/vite": "22.6.3",
     "@nx/vitest": "22.6.3",
     "@nx/workspace": "22.6.3",
