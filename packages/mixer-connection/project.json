@@ -13,10 +13,6 @@
         "configFile": "packages/mixer-connection/vite.config.mts"
       }
     },
-    "publish": {
-      "command": "node tools/scripts/publish.mjs mixer-connection {args.ver} {args.tag}",
-      "dependsOn": ["build"]
-    },
     "lint": {
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
