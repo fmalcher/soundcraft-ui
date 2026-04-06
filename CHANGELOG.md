@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.0.2](https://github.com/fmalcher/soundcraft-ui/compare/v6.0.1...v6.0.2) (2026-04-06)
+
+
+### Other
+
+* fix changelog formatting ([09106f8](https://github.com/fmalcher/soundcraft-ui/commit/09106f802f1266bdda8c59416af6946c84945f09))
+
 ## [6.0.1](https://github.com/fmalcher/soundcraft-ui/compare/v6.0.0...v6.0.1) (2026-03-31)
 
 ### Other
