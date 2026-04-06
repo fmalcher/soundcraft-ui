@@ -57,7 +57,7 @@
     "@angular-eslint/eslint-plugin": "21.3.1",
     "@angular-eslint/eslint-plugin-template": "21.3.1",
     "@angular-eslint/template-parser": "21.3.1",
-    "@angular/compiler-cli": "21.1.5",
+    "@angular/compiler-cli": "21.2.7",
     "@nx/angular": "22.6.3",
     "@nx/eslint-plugin": "22.6.3",
     "@nx/js": "22.6.3",
