@@ -74,7 +74,7 @@
     "@typescript-eslint/parser": "^8.50.1",
     "@typescript-eslint/utils": "^8.50.1",
     "@vitest/coverage-v8": "^4.0.0",
-    "@vitest/ui": "^4.0.16",
+    "@vitest/ui": "^4.1.2",
     "dotenv": "10.0.0",
     "eslint": "^9.9.1",
     "eslint-config-prettier": "^10.1.3",
