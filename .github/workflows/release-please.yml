@@ -40,8 +40,5 @@ jobs:
       - run: npm ci
       - run: npx nx build mixer-connection
       - name: Publish to npm with provenance
-        run: |
-          VERSION="${{ needs.release-please.outputs.version }}"
-          cd dist/packages/mixer-connection
-          npm pkg set version="$VERSION"
-          npm publish --access public --provenance
+        run: npm publish --access public --provenance
+        working-directory: dist/packages/mixer-connection
