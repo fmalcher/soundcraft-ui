@@ -28,7 +28,11 @@
         },
         {
           "type": "build",
-          "section": "Other"
+          "section": "Build/CI"
+        },
+        {
+          "type": "ci",
+          "section": "Build/CI"
         },
         {
           "type": "docs",
