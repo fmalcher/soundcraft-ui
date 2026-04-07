@@ -10,3 +10,4 @@ updates:
       - dependency-name: '@angular/*'
       - dependency-name: '@angular-devkit/*'
       - dependency-name: '@schematics/angular'
+      - dependency-name: '@nx/*'
