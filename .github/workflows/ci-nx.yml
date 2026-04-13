@@ -1,9 +1,9 @@
-name: CI Build and test
+name: CI Build and test (Nx Cloud)
 on:
-  push:
-    branches:
-      - main
-  pull_request:
+  # push:
+  #   branches:
+  #     - main
+  # pull_request:
   workflow_dispatch:
 
 # Needed for nx-set-shas when run on the main branch
@@ -14,8 +14,6 @@ permissions:
 jobs:
   main:
     runs-on: ubuntu-latest
-    env:
-      NX_NO_CLOUD: true
     steps:
       - uses: actions/checkout@v4
         with:
@@ -24,7 +22,10 @@ jobs:
         with:
           node-version: 22
           cache: 'npm'
+      - run: npx nx-cloud start-ci-run --distribute-on="3 linux-medium-js"
       - run: npm ci
+
       - uses: nrwl/nx-set-shas@v4
-      - run: npx nx format:check
+
+      - run: npx nx-cloud record -- nx format:check
       - run: npx nx affected -t lint test build
