@@ -82,7 +82,7 @@
     "jiti": "2.4.2",
     "jsdom": "27.4.0",
     "jsonc-eslint-parser": "^3.1.0",
-    "nx": "22.6.4",
+    "nx": "22.6.5",
     "prettier": "~3.8.1",
     "rollup-plugin-copy": "^3.5.0",
     "ts-node": "10.9.1",
