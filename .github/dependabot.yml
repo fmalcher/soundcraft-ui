@@ -1,16 +1,37 @@
 version: 2
 updates:
+  # Root dependencies (Nx Workspace)
   - package-ecosystem: 'npm'
     directory: '/'
     schedule:
       interval: 'weekly'
     commit-message:
       prefix: 'deps'
+    # These dependencies are handled by 'nx migrate' and should be ignored by Dependabot
     ignore:
-      # these deps are managed by nx
       - dependency-name: '@angular/*'
       - dependency-name: '@angular-devkit/*'
       - dependency-name: '@schematics/angular'
       - dependency-name: 'nx'
       - dependency-name: 'eslint'
       - dependency-name: '@nx/*'
+      - dependency-name: '@angular-eslint/*'
+    groups:
+      # Build & Development Tools
+      build-tools:
+        patterns:
+          - 'vite*'
+          - 'vitest*'
+          - '@vitest/*'
+          - '@swc/*'
+          - '@swc-node/*'
+          - 'rollup-plugin-*'
+          - 'jiti'
+          - 'jsdom'
+          - 'dotenv'
+      # TypeScript-related dependencies
+      typescript:
+        patterns:
+          - 'typescript'
+          - 'ts-node'
+          - '@types/*'
