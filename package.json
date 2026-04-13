@@ -68,7 +68,7 @@
     "@schematics/angular": "21.1.4",
     "@swc-node/register": "1.11.1",
     "@swc/core": "1.15.24",
-    "@swc/helpers": "0.5.18",
+    "@swc/helpers": "0.5.21",
     "@types/node": "^22.19.2",
     "@typescript-eslint/eslint-plugin": "^8.58.1",
     "@typescript-eslint/parser": "^8.58.0",
