@@ -1,5 +1,53 @@
 # Changelog
 
+## [6.0.2](https://github.com/fmalcher/soundcraft-ui/compare/v6.0.1...v6.0.2) (2026-04-15)
+
+### Other
+
+- fix changelog formatting ([09106f8](https://github.com/fmalcher/soundcraft-ui/commit/09106f802f1266bdda8c59416af6946c84945f09))
+
+### Build/CI
+
+- add 'ci' commit type and group with build in changelog ([268317c](https://github.com/fmalcher/soundcraft-ui/commit/268317c5f3a64228c6e3b0fed42e0acd66d92700))
+- add dependabot config and group dependency updates in changelog ([9219ddb](https://github.com/fmalcher/soundcraft-ui/commit/9219ddb4f7c80804586acb0d877218794ec262f8))
+- **dependabot:** add dependency groups ([7f1f603](https://github.com/fmalcher/soundcraft-ui/commit/7f1f6031fdc6299f0fbd9b27342f1f90ec7ca743))
+- **dependabot:** ignore `[@nx](https://github.com/nx)` dependencies ([c148db9](https://github.com/fmalcher/soundcraft-ui/commit/c148db9fa1c08841f621e5e8514124533b0d97af))
+- **dependabot:** ignore nx and eslint ([bf4041a](https://github.com/fmalcher/soundcraft-ui/commit/bf4041aa98591e90931ac47a8aed696c8c55bb42))
+- ignore Angular dependencies in dependabot ([c81b5e2](https://github.com/fmalcher/soundcraft-ui/commit/c81b5e25fd218f002a6dfe262ff1588bc837f7fa))
+- disable Nx Cloud and use direct execution through GitHub Actions ([44bb4c8](https://github.com/fmalcher/soundcraft-ui/commit/44bb4c8fc29a78463f3c743dfe04a521382bed08))
+- label release PR as published after npm publish ([ae1ac80](https://github.com/fmalcher/soundcraft-ui/commit/ae1ac80b577131330e916cd689a4d1c0ee4b76cf))
+- replace standard-version with release-please and CI publish ([dd89260](https://github.com/fmalcher/soundcraft-ui/commit/dd892603cd49e9d62eb964654fb40505daaa03fc))
+- simplify npm publish step ([c7eb948](https://github.com/fmalcher/soundcraft-ui/commit/c7eb948e92cd82e334dbf4decc0e7dffd954b745))
+
+### Dependency updates
+
+- bump lodash and @microsoft/api-extractor ([a0d90c3](https://github.com/fmalcher/soundcraft-ui/commit/a0d90c3086d17d11e69b4cd83196cf1573ab207f))
+- bump @nx/angular from 22.6.3 to 22.6.4 ([285520f](https://github.com/fmalcher/soundcraft-ui/commit/285520f2f242264dbbe8a87d2c12e70d46ecd975))
+- bump @nx/eslint-plugin from 22.6.3 to 22.6.4 ([28d78db](https://github.com/fmalcher/soundcraft-ui/commit/28d78db5a80065cbca8554f1145299a4bbaad254))
+- bump @nx/node from 22.6.3 to 22.6.4 ([7babed5](https://github.com/fmalcher/soundcraft-ui/commit/7babed5eda4ec1bdbb77a3842225e6088e8e574f))
+- bump @nx/workspace from 22.6.3 to 22.6.4 ([734f422](https://github.com/fmalcher/soundcraft-ui/commit/734f4222df785fcb9241a7ceedbb2dc3e74d3607))
+- bump @rollup/rollup-linux-x64-gnu from 4.9.5 to 4.60.1 ([2f38bfb](https://github.com/fmalcher/soundcraft-ui/commit/2f38bfb548efbc706116c2f7718ed0ceac82f1c3))
+- bump @swc/core from 1.15.8 to 1.15.24 ([b00557e](https://github.com/fmalcher/soundcraft-ui/commit/b00557e6cad6b90974524e2af6219e91959e70c8))
+- bump @swc/helpers from 0.5.18 to 0.5.21 ([b3b9ba2](https://github.com/fmalcher/soundcraft-ui/commit/b3b9ba2da195cd98d33a8925a50087c5f07a180c))
+- bump @typescript-eslint/eslint-plugin from 8.56.0 to 8.58.1 ([1baed2d](https://github.com/fmalcher/soundcraft-ui/commit/1baed2dbd507fb557b7731f07a782b21d4dd0fec))
+- bump @typescript-eslint/parser from 8.56.0 to 8.58.0 ([9c347fe](https://github.com/fmalcher/soundcraft-ui/commit/9c347fe6c50a92d2a3e7a2cddde56b0252c1448d))
+- bump @vitest/ui from 4.0.18 to 4.1.2 ([53c6ef5](https://github.com/fmalcher/soundcraft-ui/commit/53c6ef5af3f9d4959f03771710d0d93ab366617e))
+- bump dotenv from 10.0.0 to 17.4.2 ([cba8701](https://github.com/fmalcher/soundcraft-ui/commit/cba87010d0a3cb0029227c668f3a06fe5728bb8e))
+- bump eslint-plugin-prefer-arrow from 1.2.2 to 1.2.3 ([#223](https://github.com/fmalcher/soundcraft-ui/issues/223)) ([a8ca7d7](https://github.com/fmalcher/soundcraft-ui/commit/a8ca7d79f0ca586452d3dbcf687287e6a425db15))
+- bump follow-redirects from 1.15.11 to 1.16.0 ([24d1432](https://github.com/fmalcher/soundcraft-ui/commit/24d14327452101659a803a2ee23642e1f67752eb))
+- bump jsonc-eslint-parser from 2.4.2 to 3.1.0 ([271c3ef](https://github.com/fmalcher/soundcraft-ui/commit/271c3efa908f162c90d87e5a3a21295701e48ddf))
+- bump prettier from 3.6.2 to 3.8.1 ([d131225](https://github.com/fmalcher/soundcraft-ui/commit/d1312252272b5f87b28a507cf7fdaa81a7bb777f))
+- bump prettier from 3.8.1 to 3.8.2 ([ba01775](https://github.com/fmalcher/soundcraft-ui/commit/ba01775f8a31918bb63eeb4da939eeb3490a5a51))
+- bump the build-tools group with 5 updates ([ed737bb](https://github.com/fmalcher/soundcraft-ui/commit/ed737bbdaec6183527db53f98e98edd8765c2fb2))
+- bump ts-node from 10.9.1 to 10.9.2 ([4f92b34](https://github.com/fmalcher/soundcraft-ui/commit/4f92b341a5eccb040f684259732392baa9d1ab0d))
+- bump vite from 7.3.0 to 7.3.2 ([e85fee1](https://github.com/fmalcher/soundcraft-ui/commit/e85fee17c243f74e409137c566d1c093d9336179))
+- bump vite from 7.3.2 to 8.0.8 ([c46a636](https://github.com/fmalcher/soundcraft-ui/commit/c46a636be0ecb6d59f65615892c9b0ffeaf6bf2f))
+- bump vite-plugin-dts from 4.5.3 to 4.5.4 ([6b35fc6](https://github.com/fmalcher/soundcraft-ui/commit/6b35fc608444817af08a4d2bfd3f668d295207d5))
+- bump vite-tsconfig-paths from 4.3.2 to 6.1.1 ([dd55c59](https://github.com/fmalcher/soundcraft-ui/commit/dd55c594b9e5bf537f96bc5f0237b72419bd89fe))
+- bump vitest from 4.0.18 to 4.1.2 ([#227](https://github.com/fmalcher/soundcraft-ui/issues/227)) ([9358c21](https://github.com/fmalcher/soundcraft-ui/commit/9358c2100785d3e90857b7013b743bbfea94d868))
+- fix lockfile ([d193e7a](https://github.com/fmalcher/soundcraft-ui/commit/d193e7afdf2c69c33db233d1e00254093a7060ee))
+- nx migrate 22.6.4 ([c3f0c34](https://github.com/fmalcher/soundcraft-ui/commit/c3f0c348e4e3b64262163c73dccb9e6a863716d5))
+
 ## [6.0.1](https://github.com/fmalcher/soundcraft-ui/compare/v6.0.0...v6.0.1) (2026-03-31)
 
 ### Other
