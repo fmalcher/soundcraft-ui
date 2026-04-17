@@ -1,5 +1,13 @@
 # Changelog
 
+## [6.0.3](https://github.com/fmalcher/soundcraft-ui/compare/v6.0.2...v6.0.3) (2026-04-17)
+
+
+### Build/CI
+
+* completely disable Nx Cloud ([d869cac](https://github.com/fmalcher/soundcraft-ui/commit/d869cac7347a025102103d9f0cffea73acff3889))
+* disable Nx Cloud for release workflow ([32d041d](https://github.com/fmalcher/soundcraft-ui/commit/32d041dad3e4654c789e37b98c7517618446a9e6))
+
 ## [6.0.2](https://github.com/fmalcher/soundcraft-ui/compare/v6.0.1...v6.0.2) (2026-04-15)
 
 ### Other
