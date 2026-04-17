@@ -33,6 +33,8 @@ jobs:
       contents: read
       id-token: write
       pull-requests: write
+    env:
+      NX_NO_CLOUD: true
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
