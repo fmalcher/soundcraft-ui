@@ -1,5 +1,22 @@
 # Changelog
 
+## [6.0.4](https://github.com/fmalcher/soundcraft-ui/compare/v6.0.3...v6.0.4) (2026-04-26)
+
+
+### Build/CI
+
+* **prettier:** add CHANGELOG.md to .prettierignore ([6a65099](https://github.com/fmalcher/soundcraft-ui/commit/6a65099e7d9eb182baac4c67319e2088e12c98a3))
+
+
+### Dependency updates
+
+* bump @swc/core from 1.15.24 to 1.15.30 in the build-tools group ([355dce4](https://github.com/fmalcher/soundcraft-ui/commit/355dce48d007c9ec0b25a5be7908f618e429215c))
+* bump @typescript-eslint/eslint-plugin from 8.58.1 to 8.58.2 ([22c97fd](https://github.com/fmalcher/soundcraft-ui/commit/22c97fd6c5e7fcf70a0be485e38b564ae80c7e24))
+* bump @typescript-eslint/eslint-plugin from 8.58.2 to 8.59.0 ([2759b65](https://github.com/fmalcher/soundcraft-ui/commit/2759b65d3272691f50ddf519f9c98e9a270236af))
+* bump @typescript-eslint/parser from 8.58.2 to 8.59.0 ([053da92](https://github.com/fmalcher/soundcraft-ui/commit/053da925a43c6bbe62dbec2bea87e0dedf853986))
+* bump prettier from 3.8.2 to 3.8.3 ([37d65c6](https://github.com/fmalcher/soundcraft-ui/commit/37d65c611165b14487c37ff571c7ac5d8bab215f))
+* bump the build-tools group across 1 directory with 4 updates ([a3ce9d4](https://github.com/fmalcher/soundcraft-ui/commit/a3ce9d4806df29cfaee770fae744c63586e08d2c))
+
 ## [6.0.3](https://github.com/fmalcher/soundcraft-ui/compare/v6.0.2...v6.0.3) (2026-04-17)
 
 
