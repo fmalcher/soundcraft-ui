@@ -30,3 +30,5 @@ updates:
           - 'jiti'
           - 'jsdom'
           - 'dotenv'
+          - '@rollup/rollup-linux-x64-gnu'
+          - '@typescript-eslint/*'
