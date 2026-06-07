@@ -4,7 +4,7 @@ updates:
   - package-ecosystem: 'npm'
     directory: '/'
     schedule:
-      interval: 'weekly'
+      interval: 'monthly'
     commit-message:
       prefix: 'deps'
     # These dependencies are handled by 'nx migrate' and should be ignored by Dependabot
@@ -16,6 +16,7 @@ updates:
       - dependency-name: 'eslint'
       - dependency-name: '@nx/*'
       - dependency-name: '@angular-eslint/*'
+      - dependency-name: 'typescript'
     groups:
       # Build & Development Tools
       build-tools:
@@ -29,9 +30,3 @@ updates:
           - 'jiti'
           - 'jsdom'
           - 'dotenv'
-      # TypeScript-related dependencies
-      typescript:
-        patterns:
-          - 'typescript'
-          - 'ts-node'
-          - '@types/*'
