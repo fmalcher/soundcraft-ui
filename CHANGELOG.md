@@ -1,5 +1,47 @@
 # Changelog
 
+## [6.0.4](https://github.com/fmalcher/soundcraft-ui/compare/v6.0.3...v6.0.4) (2026-06-08)
+
+
+### Build/CI
+
+* **dependabot:** group rollup and typescript-eslint with build-tools ([13fb5a0](https://github.com/fmalcher/soundcraft-ui/commit/13fb5a0d3d52ddbbe90c62e97d797ed16b30a14b))
+* **dependabot:** switch to monthly schedule and ignore typescript ([46c2645](https://github.com/fmalcher/soundcraft-ui/commit/46c264502b13c2d24243580bfdbe3e87998e2486))
+* **prettier:** add CHANGELOG.md to .prettierignore ([6a65099](https://github.com/fmalcher/soundcraft-ui/commit/6a65099e7d9eb182baac4c67319e2088e12c98a3))
+* **release-please:** use PAT so bot pushes trigger CI on release PRs ([463624a](https://github.com/fmalcher/soundcraft-ui/commit/463624afdc4b7a088ed7c68c05b896f882cf0806))
+
+
+### Dependency updates
+
+* bump @babel/plugin-transform-modules-systemjs ([b6869a4](https://github.com/fmalcher/soundcraft-ui/commit/b6869a450510822e9df9fb3bdfbb0efa995e2f78))
+* bump @rollup/rollup-linux-x64-gnu from 4.60.1 to 4.60.2 ([9cb0ba5](https://github.com/fmalcher/soundcraft-ui/commit/9cb0ba503d4e9ceac2a235be6a8977bd8b33d5f6))
+* bump @rollup/rollup-linux-x64-gnu from 4.60.2 to 4.60.3 ([4242bdf](https://github.com/fmalcher/soundcraft-ui/commit/4242bdfce553e8f992d6fef708e3b2215ad6137f))
+* bump @rollup/rollup-linux-x64-gnu from 4.60.3 to 4.60.4 ([c42a378](https://github.com/fmalcher/soundcraft-ui/commit/c42a3782db31e2173739f69fe1c292dbe50ff1ef))
+* bump @swc/core from 1.15.24 to 1.15.30 in the build-tools group ([355dce4](https://github.com/fmalcher/soundcraft-ui/commit/355dce48d007c9ec0b25a5be7908f618e429215c))
+* bump @swc/helpers in the build-tools group across 1 directory ([74e8228](https://github.com/fmalcher/soundcraft-ui/commit/74e822877e99d8f00d5d304c914bffa7c3aa5e68))
+* bump @types/node from 22.19.11 to 25.9.2 ([a9de543](https://github.com/fmalcher/soundcraft-ui/commit/a9de54330573bd4088b37bf5c94c49984a43c129))
+* bump @typescript-eslint/eslint-plugin from 8.58.1 to 8.58.2 ([22c97fd](https://github.com/fmalcher/soundcraft-ui/commit/22c97fd6c5e7fcf70a0be485e38b564ae80c7e24))
+* bump @typescript-eslint/eslint-plugin from 8.58.2 to 8.59.0 ([2759b65](https://github.com/fmalcher/soundcraft-ui/commit/2759b65d3272691f50ddf519f9c98e9a270236af))
+* bump @typescript-eslint/eslint-plugin from 8.59.0 to 8.59.1 ([0621189](https://github.com/fmalcher/soundcraft-ui/commit/06211895a3e7a98cd2fe35e205f74e3326b07224))
+* bump @typescript-eslint/eslint-plugin from 8.59.1 to 8.59.2 ([5d84b25](https://github.com/fmalcher/soundcraft-ui/commit/5d84b2596d1f54734686ddf4966459b5a57e6735))
+* bump @typescript-eslint/eslint-plugin from 8.59.2 to 8.59.3 ([2f49270](https://github.com/fmalcher/soundcraft-ui/commit/2f492707ca2effa8814583b0f712c0df43455c74))
+* bump @typescript-eslint/eslint-plugin from 8.59.3 to 8.59.4 ([2681fb2](https://github.com/fmalcher/soundcraft-ui/commit/2681fb2b7c894dc66b501b117cbf435a8b355da8))
+* bump @typescript-eslint/eslint-plugin from 8.59.4 to 8.60.0 ([5e2080f](https://github.com/fmalcher/soundcraft-ui/commit/5e2080f25169297e7c86e760329468a75bb2280d))
+* bump @typescript-eslint/parser from 8.58.2 to 8.59.0 ([053da92](https://github.com/fmalcher/soundcraft-ui/commit/053da925a43c6bbe62dbec2bea87e0dedf853986))
+* bump @typescript-eslint/parser from 8.59.0 to 8.59.1 ([078c0a5](https://github.com/fmalcher/soundcraft-ui/commit/078c0a55d461dd162a7d032b7c946cc709155153))
+* bump @typescript-eslint/parser from 8.59.3 to 8.59.4 ([86b8a8a](https://github.com/fmalcher/soundcraft-ui/commit/86b8a8a1f502608a09da4532070ff80c6a96b806))
+* bump fast-uri from 3.1.0 to 3.1.2 ([27907a2](https://github.com/fmalcher/soundcraft-ui/commit/27907a2bea3f5a857045008a0eaab5ee2b6db104))
+* bump prettier from 3.8.2 to 3.8.3 ([37d65c6](https://github.com/fmalcher/soundcraft-ui/commit/37d65c611165b14487c37ff571c7ac5d8bab215f))
+* bump qs and express ([61003e6](https://github.com/fmalcher/soundcraft-ui/commit/61003e6d9c6fa042fb711c410ff780f6d8a544dd))
+* bump the build-tools group across 1 directory with 2 updates ([4fcd130](https://github.com/fmalcher/soundcraft-ui/commit/4fcd130b112e4024c55b7954f1d6755d40e69d4e))
+* bump the build-tools group across 1 directory with 3 updates ([8286d03](https://github.com/fmalcher/soundcraft-ui/commit/8286d033e65bb23b7aa2835325e29dec46bbabba))
+* bump the build-tools group across 1 directory with 4 updates ([5e31558](https://github.com/fmalcher/soundcraft-ui/commit/5e315582cd3fb7a4ef44a5ec0e6d6254ae74c9db))
+* bump the build-tools group across 1 directory with 4 updates ([a3ce9d4](https://github.com/fmalcher/soundcraft-ui/commit/a3ce9d4806df29cfaee770fae744c63586e08d2c))
+* bump the build-tools group with 4 updates ([9553b52](https://github.com/fmalcher/soundcraft-ui/commit/9553b520fdf9a4f62f6b5386d48945bbde1133e2))
+* bump the build-tools group with 5 updates ([2ab7b61](https://github.com/fmalcher/soundcraft-ui/commit/2ab7b617f311d5b76efdeb141ca063ff8923a2a7))
+* bump the build-tools group with 6 updates ([c767cae](https://github.com/fmalcher/soundcraft-ui/commit/c767cae6ccbb4ade628dd373052adf3df8d8b0be))
+* bump tmp from 0.2.5 to 0.2.7 ([b1cf2b3](https://github.com/fmalcher/soundcraft-ui/commit/b1cf2b387bf8403fdd3ce4c9ce42b4f09a5f0cd5))
+
 ## [6.0.3](https://github.com/fmalcher/soundcraft-ui/compare/v6.0.2...v6.0.3) (2026-04-17)
 
 
