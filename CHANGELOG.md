@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.0.5](https://github.com/fmalcher/soundcraft-ui/compare/v6.0.4...v6.0.5) (2026-06-09)
+
+
+### Dependency updates
+
+* bump shell-quote from 1.8.3 to 1.8.4 ([84fe16b](https://github.com/fmalcher/soundcraft-ui/commit/84fe16b42d007cdb06db9cacc591aa56e475e5e8))
+
 ## [6.0.4](https://github.com/fmalcher/soundcraft-ui/compare/v6.0.3...v6.0.4) (2026-06-08)
 
 
