@@ -3,12 +3,27 @@ import {
   clamp,
   constructReadableChannelName,
   fxTypeToString,
+  getLinkedChannelNumber,
   playerTimeToString,
   roundToThreeDecimals,
   transformStringValue,
 } from './utils';
 
 describe('utils', () => {
+  describe('getLinkedChannelNumber', () => {
+    it('should return the previous channel when this channel is second in the link', () => {
+      expect(getLinkedChannelNumber(4, 1)).toBe(3);
+    });
+
+    it('should return the next channel when this channel is first in the link', () => {
+      expect(getLinkedChannelNumber(4, 0)).toBe(5);
+    });
+
+    it('should return undefined when the channel is not linked', () => {
+      expect(getLinkedChannelNumber(4, -1)).toBeUndefined();
+    });
+  });
+
   describe('clamp', () => {
     it('should leave in-range values unchanged', () => {
       expect(clamp(400, 0, 500)).toBe(400);
