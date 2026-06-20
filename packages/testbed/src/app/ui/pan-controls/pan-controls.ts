@@ -1,6 +1,6 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, input } from '@angular/core';
-import { AuxChannel, MasterBus, MasterChannel } from 'soundcraft-ui-connection';
+import { PannableChannel } from 'soundcraft-ui-connection';
 
 @Component({
   selector: 'sui-pan-controls',
@@ -9,7 +9,7 @@ import { AuxChannel, MasterBus, MasterChannel } from 'soundcraft-ui-connection';
   imports: [AsyncPipe],
 })
 export class PanControls {
-  readonly channel = input.required<MasterChannel | AuxChannel | MasterBus>();
+  readonly channel = input.required<PannableChannel>();
 
   setPan(value: string) {
     this.channel().setPan(Number(value));
