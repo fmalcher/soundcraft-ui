@@ -23,4 +23,5 @@ export interface PannableChannel {
   pan$: Observable<number>;
 
   setPan(value: number): void;
+  changePan(offset: number): void;
 }
