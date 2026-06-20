@@ -6,7 +6,20 @@ import { AuxChannel } from './aux-channel';
  * Represents an AUX bus
  */
 export class AuxBus {
-  constructor(private conn: MixerConnection, private store: MixerStore, private bus: number) {}
+  constructor(
+    private conn: MixerConnection,
+    private store: MixerStore,
+    private bus: number,
+  ) {
+    // lookup object in the store and use existing object if possible
+    const storeId = 'auxbus' + bus;
+    const storedObject = this.store.objectStore.get<AuxBus>(storeId);
+    if (storedObject) {
+      return storedObject;
+    } else {
+      this.store.objectStore.set(storeId, this);
+    }
+  }
 
   /**
    * Get input channel on the AUX bus
