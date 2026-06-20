@@ -40,14 +40,21 @@ export function playerTimeToString(value: number) {
   return `${minutes}:${seconds.toString().length === 1 ? '0' : ''}${seconds}`;
 }
 
-export function getLinkedChannelNumber(channel: number, stereoIndex: number): number {
+/**
+ * Get the number of the channel that is stereo-linked to the given channel.
+ * Returns `undefined` when the channel is not linked (stereo index `-1`),
+ * so callers can skip adding a linked channel in that case.
+ * @param channel Channel number
+ * @param stereoIndex Stereo index of the channel (`0` = first, `1` = second, `-1` = not linked)
+ */
+export function getLinkedChannelNumber(channel: number, stereoIndex: number): number | undefined {
   switch (stereoIndex) {
     case 1:
       return channel - 1;
     case 0:
       return channel + 1;
     default:
-      return channel;
+      return undefined;
   }
 }
 
@@ -88,7 +95,7 @@ export function fxTypeToString(type: FxType): keyof typeof FxType {
  */
 export function constructReadableChannelName(
   type: ChannelType | VolumeBusType,
-  channel: number
+  channel: number,
 ): string {
   switch (type) {
     case 'i':
