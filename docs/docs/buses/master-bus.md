@@ -7,15 +7,16 @@ sidebar_position: 2
 A `MasterChannel` represents a channel on the master bus.
 Get access to an instance of `MasterChannel` first:
 
-| Call                    | Description                    |
-| ----------------------- | ------------------------------ |
-| `conn.master.input(2)`  | Input 2 on master bus          |
-| `conn.master.line(1)`   | Line Input 1 on master bus     |
-| `conn.master.player(1)` | Player channel 1 on master bus |
-| `conn.master.aux(2)`    | AUX channel 2 on master bus    |
-| `conn.master.fx(3)`     | FX channel 3 on master bus     |
-| `conn.master.sub(3)`    | Sub group 3 on master bus      |
-| `conn.master.vca(4)`    | VCA 4 on master bus            |
+| Call                    | Description                                |
+| ----------------------- | ------------------------------------------ |
+| `conn.master.input(2)`  | Input 2 on master bus                      |
+| `conn.master.line(1)`   | Line Input 1 on master bus                 |
+| `conn.master.player(1)` | Player channel 1 on master bus             |
+| `conn.master.aux(2)`    | AUX channel 2 on master bus                |
+| `conn.master.mtx(7)`    | Matrix output 7 on master bus (Ui24R only) |
+| `conn.master.fx(3)`     | FX channel 3 on master bus                 |
+| `conn.master.sub(3)`    | Sub group 3 on master bus                  |
+| `conn.master.vca(4)`    | VCA 4 on master bus                        |
 
 The `MasterChannel` exposes the following operations:
 

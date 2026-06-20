@@ -125,6 +125,16 @@ export function getDefaultChannelName(type: ChannelType, channel: number): strin
 }
 
 /**
+ * Construct the default human-readable name for a matrix bus output (Ui24R only).
+ * A matrix lives in the same `a` slot as the AUX it replaced, but uses a different
+ * default label.
+ * @param channel matrix bus number
+ */
+export function getDefaultMatrixName(channel: number): string {
+  return 'MTX ' + channel;
+}
+
+/**
  * Construct the default human-readable name for a volume bus (solo or headphones),
  * based on the default labels from the web interface
  * @param type volume bus type

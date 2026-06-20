@@ -8,6 +8,7 @@ import { FullStatePage } from './pages/full-state-page/full-state-page';
 import { FxBusPage } from './pages/fx-bus-page/fx-bus-page';
 import { FxSettingsPage } from './pages/fx-settings-page/fx-settings-page';
 import { HwchannelsPage } from './pages/hwchannels-page/hwchannels-page';
+import { MtxBusPage } from './pages/mtx-bus-page/mtx-bus-page';
 import { MultitrackPage } from './pages/multitrack-page/multitrack-page';
 import { MuteGroupsPage } from './pages/mute-groups-page/mute-groups-page';
 import { PlayerPage } from './pages/player-page/player-page';
@@ -20,6 +21,7 @@ export const routes: Routes = [
   { path: 'master', component: MasterPage, title: 'Master' },
   { path: 'masterbus', component: MasterBusPage, title: 'Master bus' },
   { path: 'auxbus/:bus', component: AuxBusPage, title: 'AUX bus' },
+  { path: 'mtxbus/:bus', component: MtxBusPage, title: 'MTX bus' },
   { path: 'fxbus/:bus', component: FxBusPage, title: 'FX bus' },
   { path: 'fx', component: FxSettingsPage, title: 'FX Settings' },
   { path: 'player', component: PlayerPage, title: 'Player/Rec' },

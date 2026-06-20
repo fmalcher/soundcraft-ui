@@ -14,3 +14,8 @@ export function constructSendChannelId(
 ) {
   return `${channelType}.${channel - 1}.${busType}.${bus - 1}`;
 }
+
+/** construct the channel id for a matrix source, e.g. `a.0.mtx.6` */
+export function constructMtxChannelId(channelType: ChannelType, channel: number, bus: number) {
+  return `${channelType}.${channel - 1}.mtx.${bus - 1}`;
+}

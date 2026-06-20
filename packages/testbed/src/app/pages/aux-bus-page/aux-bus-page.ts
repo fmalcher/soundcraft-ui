@@ -28,14 +28,15 @@ import { InputField } from '../../ui/input-field/input-field';
 })
 export class AuxBusPage {
   cs = inject(ConnectionService);
+  conn = this.cs.conn!;
 
   channels$ = inject(ActivatedRoute).paramMap.pipe(
-    map(params => +params.get('bus')),
+    map(params => +params.get('bus')!),
     map(bus => [
-      { channel: this.cs.conn.aux(bus).input(2), label: 'Input 2' },
-      { channel: this.cs.conn.aux(bus).line(1), label: 'Line 1' },
-      { channel: this.cs.conn.aux(bus).player(1), label: 'Player 1' },
-      { channel: this.cs.conn.aux(bus).fx(2), label: 'FX 2' },
-    ])
+      { channel: this.conn.aux(bus).input(2), label: 'Input 2' },
+      { channel: this.conn.aux(bus).line(1), label: 'Line 1' },
+      { channel: this.conn.aux(bus).player(1), label: 'Player 1' },
+      { channel: this.conn.aux(bus).fx(2), label: 'FX 2' },
+    ]),
   );
 }

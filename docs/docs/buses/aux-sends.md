@@ -30,3 +30,12 @@ An `AuxChannel` supports the following operations:
 | `setPostProc(value)`             | Set POST PROC (`1`) or PRE PROC (`0`)                                 |
 | `post$`                          | Get POST status (`0` for PRE, `1` for POST)                           |
 | `pan$`                           | Get pan value (between `0` and `1`)                                   |
+
+On the Ui24R an AUX bus can be converted into a matrix bus.
+The `AuxBus` exposes an `isMatrix$` observable to detect this:
+
+| Call on `AuxBus`        | Description                                          |
+| ----------------------- | ---------------------------------------------------- |
+| `conn.aux(7).isMatrix$` | Emits `true` when this AUX bus is currently a matrix |
+
+See the [Matrix (MTX) Bus](./matrix) section for how to control a matrix.

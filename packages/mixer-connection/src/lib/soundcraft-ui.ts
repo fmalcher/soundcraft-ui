@@ -7,6 +7,7 @@ import { DualTrackRecorder } from './facade/dual-track-recorder';
 import { FxBus } from './facade/fx-bus';
 import { HwChannel } from './facade/hw-channel';
 import { MasterBus } from './facade/master-bus';
+import { MtxBus } from './facade/mtx-bus';
 import { MultiTrackRecorder } from './facade/multi-track-recorder';
 import { MuteGroup, MuteGroupID } from './facade/mute-group';
 import { Player } from './facade/player';
@@ -111,6 +112,17 @@ export class SoundcraftUI {
    */
   aux(bus: number) {
     return new AuxBus(this.conn, this.store, bus);
+  }
+
+  /**
+   * Get matrix bus.
+   * A matrix bus is an AUX bus that has been converted into a matrix and routes
+   * other buses (AUX buses, subgroups, master) to an AUX output.
+   * Matrix buses are only available on the Ui24R.
+   * @param bus Bus number (same slot number as the AUX it replaced)
+   */
+  mtx(bus: number) {
+    return new MtxBus(this.conn, this.store, bus);
   }
 
   /**

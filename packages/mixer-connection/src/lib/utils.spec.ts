@@ -3,6 +3,7 @@ import {
   clamp,
   fxTypeToString,
   getDefaultChannelName,
+  getDefaultMatrixName,
   getDefaultVolumeBusName,
   getLinkedChannelNumber,
   playerTimeToString,
@@ -169,6 +170,13 @@ describe('utils', () => {
       expect(getDefaultVolumeBusName('solovol', 1)).toBe('SOLO LEVEL');
       expect(getDefaultVolumeBusName('hpvol', 1)).toBe('HEADPHONE 1 LEVEL');
       expect(getDefaultVolumeBusName('hpvol', 2)).toBe('HEADPHONE 2 LEVEL');
+    });
+  });
+
+  describe('getDefaultMatrixName', () => {
+    it('should construct readable matrix bus name', () => {
+      expect(getDefaultMatrixName(1)).toBe('MTX 1');
+      expect(getDefaultMatrixName(7)).toBe('MTX 7');
     });
   });
 

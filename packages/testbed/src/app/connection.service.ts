@@ -18,7 +18,7 @@ export class ConnectionService {
   }
 
   disconnect() {
-    this.conn.disconnect();
+    this.conn?.disconnect();
     this.conn = undefined;
   }
 }
