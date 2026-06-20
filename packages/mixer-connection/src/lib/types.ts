@@ -1,6 +1,6 @@
 export type ChannelType = 'i' | 'l' | 'p' | 'f' | 's' | 'a' | 'v';
 export type VolumeBusType = 'solovol' | 'hpvol';
-export type BusType = 'master' | 'aux' | 'fx';
+export type BusType = 'master' | 'aux' | 'fx' | 'mtx';
 
 export interface SoundcraftUIOptions {
   /** IP address of the mixer */

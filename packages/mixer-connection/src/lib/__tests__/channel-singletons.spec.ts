@@ -36,6 +36,18 @@ describe('Object Store Singletons', () => {
       expect(obj1 === obj2).toBe(true);
     });
 
+    it('MtxBusChannel', () => {
+      const obj1 = conn.mtx(7).aux(2);
+      const obj2 = conn.mtx(7).aux(2);
+      expect(obj1 === obj2).toBe(true);
+    });
+
+    it('MtxMasterChannel', () => {
+      const obj1 = conn.mtx(7).master();
+      const obj2 = conn.mtx(7).master();
+      expect(obj1 === obj2).toBe(true);
+    });
+
     it('VolumeBus', () => {
       const obj1 = conn.volume.headphone(1);
       const obj2 = conn.volume.headphone(1);
@@ -63,6 +75,12 @@ describe('Object Store Singletons', () => {
     it('AuxBus', () => {
       const obj1 = conn.aux(2);
       const obj2 = conn.aux(2);
+      expect(obj1 === obj2).toBe(true);
+    });
+
+    it('MtxBus', () => {
+      const obj1 = conn.mtx(7);
+      const obj2 = conn.mtx(7);
       expect(obj1 === obj2).toBe(true);
     });
   });

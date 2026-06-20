@@ -251,6 +251,28 @@ describe('Channel', () => {
           conn.conn.sendMessage('SETS^p.1.name^');
           expect(await firstValueFrom(conn.master.player(2).name$)).toBe('PLAYER R');
         });
+
+        it('should return MTX default name when the AUX slot is a matrix bus', async () => {
+          conn.conn.sendMessage('SETS^a.4.name^');
+
+          // regular AUX slot
+          expect(await firstValueFrom(conn.master.aux(5).name$)).toBe('AUX 5');
+
+          // slot switched to a matrix bus
+          conn.conn.sendMessage('SETD^a.4.matrix^1');
+          expect(await firstValueFrom(conn.master.aux(5).name$)).toBe('MTX 5');
+          expect(await firstValueFrom(conn.master.mtx(5).name$)).toBe('MTX 5');
+
+          // back to a regular AUX bus
+          conn.conn.sendMessage('SETD^a.4.matrix^0');
+          expect(await firstValueFrom(conn.master.aux(5).name$)).toBe('AUX 5');
+        });
+
+        it('should prefer a custom name over the MTX default for a matrix bus', async () => {
+          conn.conn.sendMessage('SETD^a.4.matrix^1');
+          conn.conn.sendMessage('SETS^a.4.name^MYMATRIX');
+          expect(await firstValueFrom(conn.master.mtx(5).name$)).toBe('MYMATRIX');
+        });
       });
 
       describe('setName', () => {

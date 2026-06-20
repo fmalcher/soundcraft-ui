@@ -89,6 +89,17 @@ export class MasterBus implements FadeableChannel, PannableChannel {
   }
 
   /**
+   * Get matrix output channel on the master bus.
+   * A matrix occupies the same slot as the AUX it replaced, so this is an alias
+   * for `aux(channel)` that reads more clearly when controlling a matrix output.
+   * Matrix buses are only available on the Ui24R.
+   * @param channel Channel number
+   */
+  mtx(channel: number) {
+    return new DelayableMasterChannel(this.conn, this.store, 'a', channel);
+  }
+
+  /**
    * Get FX channel on the master bus
    * @param channel Channel number
    */

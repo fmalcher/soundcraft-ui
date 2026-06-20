@@ -18,6 +18,7 @@ import {
   selectFxBpm,
   selectFxType,
   selectStereoIndex,
+  selectMatrix,
   selectPhantom,
   selectGain,
   selectVolumeBusValue,
@@ -126,6 +127,11 @@ describe('State Selectors', () => {
         const projector = selectPan('l', 2, 'fx', 3);
         expect(projector({ 'l.1.fx.2.pan': 0.9 })).toBe(0.9);
       });
+
+      it('should read pan for mtx bus', () => {
+        const projector = selectPan('a', 1, 'mtx', 7);
+        expect(projector({ 'a.0.mtx.6.pan': 0.5 })).toBe(0.5);
+      });
     });
 
     describe('selectMute', () => {
@@ -148,6 +154,11 @@ describe('State Selectors', () => {
         const projector = selectMute('l', 3, 'fx', 2);
         expect(projector({ 'l.2.fx.1.mute': 1 })).toBe(1);
       });
+
+      it('should read mute for mtx bus', () => {
+        const projector = selectMute('s', 1, 'mtx', 7);
+        expect(projector({ 's.0.mtx.6.mute': 1 })).toBe(1);
+      });
     });
 
     describe('selectFaderValue', () => {
@@ -164,6 +175,11 @@ describe('State Selectors', () => {
       it('should read value for fx bus', () => {
         const projector = selectFaderValue('l', 2, 'fx', 3);
         expect(projector({ 'l.1.fx.2.value': 0.3 })).toBe(0.3);
+      });
+
+      it('should read value for mtx bus', () => {
+        const projector = selectFaderValue('a', 1, 'mtx', 7);
+        expect(projector({ 'a.0.mtx.6.value': 0.8 })).toBe(0.8);
       });
     });
   });
@@ -274,6 +290,18 @@ describe('State Selectors', () => {
     it('should return -1 for sub group channels', () => {
       const projector = selectStereoIndex('s', 1);
       expect(projector({ 's.0.stereoIndex': 0 })).toBe(-1);
+    });
+  });
+
+  describe('selectMatrix', () => {
+    it('should read matrix state for an AUX/matrix bus', () => {
+      const projector = selectMatrix(7);
+      expect(projector({ 'a.6.matrix': 1 })).toBe(1);
+    });
+
+    it('should default to 0 when path is missing', () => {
+      const projector = selectMatrix(7);
+      expect(projector({})).toBe(0);
     });
   });
 

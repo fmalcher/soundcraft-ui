@@ -693,6 +693,181 @@ describe('Outbound messages', () => {
     expect(message).toBe('SETS^f.0.name^THENAME');
   });
 
+  it('MTX channels AUX', () => {
+    conn.mtx(7).aux(1).setFaderLevel(0.897);
+    expect(message).toBe('SETD^a.0.mtx.6.value^0.897');
+
+    conn.mtx(7).aux(1).setFaderLevel(2); // clamp upper
+    expect(message).toBe('SETD^a.0.mtx.6.value^1');
+
+    conn.mtx(7).aux(1).setFaderLevel(-1); // clamp lower
+    expect(message).toBe('SETD^a.0.mtx.6.value^0');
+
+    conn.mtx(7).aux(1).setFaderLevelDB(6);
+    expect(message).toBe('SETD^a.0.mtx.6.value^0.91653908203');
+
+    conn.mtx(7).aux(1).setMute(1);
+    expect(message).toBe('SETD^a.0.mtx.6.mute^1');
+
+    conn.mtx(7).aux(1).setMute(0);
+    expect(message).toBe('SETD^a.0.mtx.6.mute^0');
+
+    conn.mtx(7).aux(1).mute();
+    expect(message).toBe('SETD^a.0.mtx.6.mute^1');
+
+    conn.mtx(7).aux(1).unmute();
+    expect(message).toBe('SETD^a.0.mtx.6.mute^0');
+
+    conn.mtx(7).aux(1).setPan(0.12);
+    expect(message).toBe('SETD^a.0.mtx.6.pan^0.12');
+
+    conn.mtx(7).aux(1).setPan(1.12);
+    expect(message).toBe('SETD^a.0.mtx.6.pan^1'); // clamp
+
+    conn.mtx(7).aux(1).setPan(-0.12);
+    expect(message).toBe('SETD^a.0.mtx.6.pan^0'); // clamp
+
+    conn.mtx(7).aux(1).preProc();
+    expect(message).toBe('SETD^a.0.mtx.6.postproc^0');
+
+    conn.mtx(7).aux(1).postProc();
+    expect(message).toBe('SETD^a.0.mtx.6.postproc^1');
+
+    conn.mtx(7).aux(1).setPostProc(1);
+    expect(message).toBe('SETD^a.0.mtx.6.postproc^1');
+
+    conn.mtx(7).aux(1).setPostProc(0);
+    expect(message).toBe('SETD^a.0.mtx.6.postproc^0');
+
+    conn.mtx(7).aux(1).setName('THENAME');
+    expect(message).toBe('SETS^a.0.name^THENAME');
+  });
+
+  it('MTX channels SUB', () => {
+    conn.mtx(7).sub(1).setFaderLevel(0.897);
+    expect(message).toBe('SETD^s.0.mtx.6.value^0.897');
+
+    conn.mtx(7).sub(1).setFaderLevel(2); // clamp upper
+    expect(message).toBe('SETD^s.0.mtx.6.value^1');
+
+    conn.mtx(7).sub(1).setFaderLevel(-1); // clamp lower
+    expect(message).toBe('SETD^s.0.mtx.6.value^0');
+
+    conn.mtx(7).sub(1).setFaderLevelDB(6);
+    expect(message).toBe('SETD^s.0.mtx.6.value^0.91653908203');
+
+    conn.mtx(7).sub(1).setMute(1);
+    expect(message).toBe('SETD^s.0.mtx.6.mute^1');
+
+    conn.mtx(7).sub(1).setMute(0);
+    expect(message).toBe('SETD^s.0.mtx.6.mute^0');
+
+    conn.mtx(7).sub(1).mute();
+    expect(message).toBe('SETD^s.0.mtx.6.mute^1');
+
+    conn.mtx(7).sub(1).unmute();
+    expect(message).toBe('SETD^s.0.mtx.6.mute^0');
+
+    conn.mtx(7).sub(1).setPan(0.12);
+    expect(message).toBe('SETD^s.0.mtx.6.pan^0.12');
+
+    conn.mtx(7).sub(1).setPan(1.12);
+    expect(message).toBe('SETD^s.0.mtx.6.pan^1'); // clamp
+
+    conn.mtx(7).sub(1).setPan(-0.12);
+    expect(message).toBe('SETD^s.0.mtx.6.pan^0'); // clamp
+
+    conn.mtx(7).sub(1).preProc();
+    expect(message).toBe('SETD^s.0.mtx.6.postproc^0');
+
+    conn.mtx(7).sub(1).postProc();
+    expect(message).toBe('SETD^s.0.mtx.6.postproc^1');
+
+    conn.mtx(7).sub(1).setPostProc(1);
+    expect(message).toBe('SETD^s.0.mtx.6.postproc^1');
+
+    conn.mtx(7).sub(1).setPostProc(0);
+    expect(message).toBe('SETD^s.0.mtx.6.postproc^0');
+
+    conn.mtx(7).sub(1).setName('THENAME');
+    expect(message).toBe('SETS^s.0.name^THENAME');
+  });
+
+  it('MTX channels MASTER', () => {
+    conn.mtx(7).master().setFaderLevel(0.897);
+    expect(message).toBe('SETD^m.mtx.6.value^0.897');
+
+    conn.mtx(7).master().setFaderLevel(2); // clamp upper
+    expect(message).toBe('SETD^m.mtx.6.value^1');
+
+    conn.mtx(7).master().setFaderLevel(-1); // clamp lower
+    expect(message).toBe('SETD^m.mtx.6.value^0');
+
+    conn.mtx(7).master().setFaderLevelDB(6);
+    expect(message).toBe('SETD^m.mtx.6.value^0.91653908203');
+
+    conn.mtx(7).master().setMute(1);
+    expect(message).toBe('SETD^m.mtx.6.mute^1');
+
+    conn.mtx(7).master().setMute(0);
+    expect(message).toBe('SETD^m.mtx.6.mute^0');
+
+    conn.mtx(7).master().mute();
+    expect(message).toBe('SETD^m.mtx.6.mute^1');
+
+    conn.mtx(7).master().unmute();
+    expect(message).toBe('SETD^m.mtx.6.mute^0');
+
+    conn.mtx(7).master().setPan(0.12);
+    expect(message).toBe('SETD^m.mtx.6.pan^0.12');
+
+    conn.mtx(7).master().setPan(1.12);
+    expect(message).toBe('SETD^m.mtx.6.pan^1'); // clamp
+
+    conn.mtx(7).master().setPan(-0.12);
+    expect(message).toBe('SETD^m.mtx.6.pan^0'); // clamp
+
+    conn.mtx(7).master().preProc();
+    expect(message).toBe('SETD^m.mtx.6.postproc^0');
+
+    conn.mtx(7).master().postProc();
+    expect(message).toBe('SETD^m.mtx.6.postproc^1');
+
+    conn.mtx(7).master().setPostProc(1);
+    expect(message).toBe('SETD^m.mtx.6.postproc^1');
+
+    conn.mtx(7).master().setPostProc(0);
+    expect(message).toBe('SETD^m.mtx.6.postproc^0');
+  });
+
+  it('MTX output (master bus alias)', () => {
+    conn.master.mtx(7).setFaderLevel(0.4);
+    expect(message).toBe('SETD^a.6.mix^0.4');
+
+    conn.master.mtx(7).setMute(1);
+    expect(message).toBe('SETD^a.6.mute^1');
+
+    conn.master.mtx(7).setSolo(1);
+    expect(message).toBe('SETD^a.6.solo^1');
+
+    conn.master.mtx(7).setDelay(400);
+    expect(message).toBe('SETD^a.6.delay^0.4');
+
+    conn.master.mtx(7).setName('MTXNAME');
+    expect(message).toBe('SETS^a.6.name^MTXNAME');
+
+    // master.mtx(n) is an alias for master.aux(n) and returns the same object
+    expect(conn.master.mtx(7)).toBe(conn.master.aux(7));
+  });
+
+  it('switch between AUX and matrix bus', () => {
+    conn.aux(7).switchToMatrix();
+    expect(message).toBe('SETD^a.6.matrix^1');
+
+    conn.mtx(7).switchToAux();
+    expect(message).toBe('SETD^a.6.matrix^0');
+  });
+
   it('FX channels INPUT', () => {
     conn.fx(3).input(6).setFaderLevel(0.47679);
     expect(message).toBe('SETD^i.5.fx.2.value^0.47679');

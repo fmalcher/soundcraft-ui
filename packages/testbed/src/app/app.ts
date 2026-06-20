@@ -19,6 +19,7 @@ export class App {
     { label: 'Master bus', target: '/masterbus' },
     { label: 'AUX bus 1', target: '/auxbus/1' },
     { label: 'AUX bus 2', target: '/auxbus/2' },
+    { label: 'MTX bus 7', target: '/mtxbus/7' },
     { label: 'FX bus 1', target: '/fxbus/1' },
     { label: 'FX Settings', target: '/fx' },
     { label: 'Player/Rec', target: '/player' },

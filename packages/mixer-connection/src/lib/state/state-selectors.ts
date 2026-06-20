@@ -15,7 +15,7 @@ export const select = <T>(projector: Projector<T>): OperatorFunction<unknown, T>
   pipe(
     map(state => projector(state)),
     distinctUntilChanged(),
-    filter(e => e !== undefined)
+    filter(e => e !== undefined),
   );
 
 /**
@@ -42,7 +42,7 @@ const selectGenericChannelProperty = <T>(
   channelType: ChannelType,
   channel: number,
   busType: BusType,
-  bus = 1
+  bus = 1,
 ): Projector<T> => {
   switch (busType) {
     case 'master': {
@@ -51,6 +51,7 @@ const selectGenericChannelProperty = <T>(
     }
     case 'aux':
     case 'fx':
+    case 'mtx':
       return state => {
         const path = joinStatePath(channelType, channel - 1, busType, bus - 1, property);
         return getValueFromObject(state, path, defaultValue);
@@ -93,7 +94,7 @@ export const selectPan: Selector<number> = (
   channelType: ChannelType,
   channel: number,
   busType: BusType,
-  bus?: number
+  bus?: number,
 ) => selectGenericChannelProperty('pan', 0, channelType, channel, busType, bus);
 
 /**
@@ -107,7 +108,7 @@ export const selectMute: Selector<number> = (
   channelType: ChannelType,
   channel: number,
   busType: BusType,
-  bus?: number
+  bus?: number,
 ) => selectGenericChannelProperty('mute', 0, channelType, channel, busType, bus);
 
 /**
@@ -131,7 +132,7 @@ export const selectFaderValue: Selector<number> = (
   channelType: ChannelType,
   channel: number,
   busType: BusType,
-  bus = 1
+  bus = 1,
 ) => {
   {
     switch (busType) {
@@ -140,7 +141,8 @@ export const selectFaderValue: Selector<number> = (
         return state => getValueFromObject<number>(state, path);
       }
       case 'aux':
-      case 'fx': {
+      case 'fx':
+      case 'mtx': {
         const path = joinStatePath(channelType, channel - 1, busType, bus - 1, 'value');
         return state => getValueFromObject<number>(state, path);
       }
@@ -167,7 +169,7 @@ export const selectPost: Selector<number> = (
   channelType: ChannelType,
   channel: number,
   busType: BusType,
-  bus: number
+  bus: number,
 ) => {
   const path = joinStatePath(channelType, channel - 1, busType, bus - 1, 'post');
   return state => getValueFromObject(state, path, 0);
@@ -181,7 +183,7 @@ export const selectPost: Selector<number> = (
 export const selectAuxPostProc: Selector<number> = (
   channelType: ChannelType,
   channel: number,
-  aux: number
+  aux: number,
 ) => {
   const path = joinStatePath(channelType, channel - 1, 'aux', aux - 1, 'postproc');
   return state => getValueFromObject(state, path, 0);
@@ -224,6 +226,16 @@ export const selectStereoIndex: Selector<number> = (channelType: ChannelType, ch
 };
 
 /**
+ * Select whether an AUX bus is currently configured as a matrix bus.
+ * Only available on the Ui24R. Returns `0` or `1`.
+ * @param bus AUX/matrix bus number
+ */
+export const selectMatrix: Selector<number> = (bus: number) => {
+  const path = joinStatePath('a', bus - 1, 'matrix');
+  return state => getValueFromObject(state, path, 0);
+};
+
+/**
  * Select phantom power state of a hardware channel
  * @param channel
  * @param key Type of the channel: `hw` or `i`, according to the mixer model
@@ -252,7 +264,7 @@ export const selectVolumeBusValue: Selector<number> = (busName: string, busId?: 
   const path = joinStatePath(
     'settings',
     busName,
-    ...(busId !== undefined && busId >= 0 ? [busId] : [])
+    ...(busId !== undefined && busId >= 0 ? [busId] : []),
   );
   return state => getValueFromObject<number>(state, path);
 };

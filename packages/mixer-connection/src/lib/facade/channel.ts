@@ -1,17 +1,24 @@
-import { Subject, map, take } from 'rxjs';
+import { Subject, combineLatest, iif, map, take } from 'rxjs';
 
 import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
 import {
   select,
   selectFaderValue,
+  selectMatrix,
   selectMute,
   selectRawValue,
   selectStereoIndex,
 } from '../state/state-selectors';
 import { sourcesToTransition, TransitionSource } from '../transitions';
 import { BusType, ChannelType } from '../types';
-import { clamp, getDefaultChannelName, roundToThreeDecimals, sanitizeChannelName } from '../utils';
+import {
+  clamp,
+  getDefaultChannelName,
+  getDefaultMatrixName,
+  roundToThreeDecimals,
+  sanitizeChannelName,
+} from '../utils';
 import { resolveDelayed } from '../utils/async-helpers';
 import { Easings } from '../utils/transitions/easings';
 import { DBToFaderValue, faderValueToDB } from '../utils/value-converters';
@@ -46,11 +53,30 @@ export class Channel implements FadeableChannel {
     select(selectMute(this.channelType, this.channel, this.busType, this.bus)),
   );
 
-  name$ = this.store.state$.pipe(
+  private rawName$ = this.store.state$.pipe(
     // Channel name is only available directly in the channel, e.g. `i.1.name`.
     // `i.1.aux.2.name` will not work!
     selectRawValue<string>(joinStatePath(this.channelType, this.channel - 1, 'name')),
-    map(name => name || getDefaultChannelName(this.channelType, this.channel)),
+  );
+
+  private auxIsMatrix$ = this.store.state$.pipe(select(selectMatrix(this.channel)));
+
+  name$ = iif(
+    () => this.channelType !== 'a',
+    this.rawName$.pipe(map(name => name || getDefaultChannelName(this.channelType, this.channel))),
+    // an AUX slot can be switched into a matrix bus (Ui24R), which uses a different default name
+    combineLatest([this.rawName$, this.auxIsMatrix$]).pipe(
+      map(([name, isMatrix]) => {
+        if (name) {
+          return name;
+        }
+        if (isMatrix) {
+          return getDefaultMatrixName(this.channel);
+        } else {
+          return getDefaultChannelName(this.channelType, this.channel);
+        }
+      }),
+    ),
   );
 
   constructor(
