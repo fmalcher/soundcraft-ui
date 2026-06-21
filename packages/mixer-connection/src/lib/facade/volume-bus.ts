@@ -3,7 +3,7 @@ import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
 import { select, selectVolumeBusValue } from '../state/state-selectors';
 import { sourcesToTransition, TransitionSource } from '../transitions';
-import { clamp, constructReadableChannelName, roundToThreeDecimals } from '../utils';
+import { clamp, getDefaultVolumeBusName, roundToThreeDecimals } from '../utils';
 import { resolveDelayed } from '../utils/async-helpers';
 import { Easings } from '../utils/transitions/easings';
 import { DBToFaderValue, faderValueToDB } from '../utils/value-converters';
@@ -24,7 +24,7 @@ export class VolumeBus implements FadeableChannel {
   /** dB level of the volume bus (between `-Infinity` and `10`) */
   faderLevelDB$ = this.faderLevel$.pipe(map(v => faderValueToDB(v)));
 
-  name$ = of(constructReadableChannelName(this.busName, this.busId || -1));
+  name$ = of(getDefaultVolumeBusName(this.busName, this.busId || -1));
 
   constructor(
     protected conn: MixerConnection,

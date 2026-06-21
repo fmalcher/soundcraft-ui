@@ -11,7 +11,7 @@ import {
 } from '../state/state-selectors';
 import { sourcesToTransition, TransitionSource } from '../transitions';
 import { BusType, ChannelType } from '../types';
-import { clamp, constructReadableChannelName, roundToThreeDecimals } from '../utils';
+import { clamp, getDefaultChannelName, roundToThreeDecimals } from '../utils';
 import { resolveDelayed } from '../utils/async-helpers';
 import { Easings } from '../utils/transitions/easings';
 import { DBToFaderValue, faderValueToDB } from '../utils/value-converters';
@@ -50,7 +50,7 @@ export class Channel implements FadeableChannel {
     // Channel name is only available directly in the channel, e.g. `i.1.name`.
     // `i.1.aux.2.name` will not work!
     selectRawValue<string>(joinStatePath(this.channelType, this.channel - 1, 'name')),
-    map(name => name || constructReadableChannelName(this.channelType, this.channel)),
+    map(name => name || getDefaultChannelName(this.channelType, this.channel)),
   );
 
   constructor(

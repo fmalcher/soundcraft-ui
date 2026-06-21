@@ -18,6 +18,14 @@ describe('Volume Bus', () => {
     expect(obj1).toBe(obj2);
   });
 
+  describe('name$', () => {
+    it('should return the default volume bus name', async () => {
+      expect(await firstValueFrom(conn.volume.solo.name$)).toBe('SOLO LEVEL');
+      expect(await firstValueFrom(conn.volume.headphone(1).name$)).toBe('HEADPHONE 1 LEVEL');
+      expect(await firstValueFrom(conn.volume.headphone(2).name$)).toBe('HEADPHONE 2 LEVEL');
+    });
+  });
+
   describe('Fader Level', () => {
     it('faderLevel$', async () => {
       bus.setFaderLevel(0.5);
