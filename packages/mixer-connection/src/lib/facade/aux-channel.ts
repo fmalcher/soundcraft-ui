@@ -4,6 +4,7 @@ import { MixerStore } from '../state/mixer-store';
 import { select, selectPan, selectStereoIndex } from '../state/state-selectors';
 import { ChannelType } from '../types';
 import { clamp, getLinkedChannelNumber, roundToThreeDecimals } from '../utils';
+import { constructSendChannelId } from './channel-id';
 import { PannableChannel } from './interfaces';
 import { SendChannel } from './send-channel';
 
@@ -16,7 +17,7 @@ export class AuxChannel extends SendChannel implements PannableChannel {
 
   /** PAN value of the AUX channel (between `0` and `1`) */
   pan$ = this.store.state$.pipe(
-    select(selectPan(this.channelType, this.channel, this.busType, this.bus))
+    select(selectPan(this.channelType, this.channel, this.busType, this.bus)),
   );
 
   constructor(
@@ -24,7 +25,7 @@ export class AuxChannel extends SendChannel implements PannableChannel {
     store: MixerStore,
     channelType: ChannelType,
     channel: number,
-    bus: number
+    bus: number,
   ) {
     super(conn, store, channelType, channel, 'aux', bus);
 
@@ -45,12 +46,12 @@ export class AuxChannel extends SendChannel implements PannableChannel {
 
           // add linked channel on this bus
           if (linkedChNo !== undefined) {
-            allChannelIds.push(this.constructChannelId(channelType, linkedChNo, this.busType, bus));
+            allChannelIds.push(constructSendChannelId(channelType, linkedChNo, this.busType, bus));
           }
 
           // add this channel on linked AUX bus
           if (linkedAuxNo !== undefined) {
-            const cid = this.constructChannelId(channelType, channel, this.busType, linkedAuxNo);
+            const cid = constructSendChannelId(channelType, channel, this.busType, linkedAuxNo);
             allChannelIds.push(cid);
             auxLinkChannelIds.push(cid);
           }
@@ -58,11 +59,11 @@ export class AuxChannel extends SendChannel implements PannableChannel {
           // add linked channel on linked AUX bus
           if (linkedAuxNo !== undefined && linkedChNo !== undefined) {
             allChannelIds.push(
-              this.constructChannelId(channelType, linkedChNo, this.busType, linkedAuxNo)
+              constructSendChannelId(channelType, linkedChNo, this.busType, linkedAuxNo),
             );
           }
           return { allChannelIds, auxLinkChannelIds };
-        })
+        }),
       )
       .subscribe(result => {
         this.linkedChannelIds = result.allChannelIds;

@@ -6,6 +6,7 @@ import { select, selectPan, selectRawValue, selectSolo } from '../state/state-se
 import { ChannelType } from '../types';
 import { clamp, getLinkedChannelNumber, roundToThreeDecimals } from '../utils';
 import { Channel } from './channel';
+import { constructMasterChannelId } from './channel-id';
 import { PannableChannel } from './interfaces';
 import { AutomixGroupId } from './automix-controller';
 import {
@@ -17,11 +18,7 @@ import {
  * Represents a channel on the master bus
  */
 export class MasterChannel extends Channel implements PannableChannel {
-  private constructChannelId(channelType: ChannelType, channel: number) {
-    return `${channelType}.${channel - 1}`;
-  }
-
-  override fullChannelId = this.constructChannelId(this.channelType, this.channel);
+  override fullChannelId = constructMasterChannelId(this.channelType, this.channel);
   override faderLevelCommand = 'mix';
 
   /** SOLO value of the channel (`0` or `1`) */
@@ -29,7 +26,7 @@ export class MasterChannel extends Channel implements PannableChannel {
 
   /** PAN value of the channel (between `0` and `1`) */
   pan$ = this.store.state$.pipe(
-    select(selectPan(this.channelType, this.channel, this.busType, this.bus))
+    select(selectPan(this.channelType, this.channel, this.busType, this.bus)),
   );
 
   /** Assigned automix group (`a`, `b`, `none`) */
@@ -44,7 +41,7 @@ export class MasterChannel extends Channel implements PannableChannel {
         default:
           return 'none';
       }
-    })
+    }),
   );
 
   /** Automix weight (linear) for this channel (between `0` and `1`) */
@@ -55,7 +52,7 @@ export class MasterChannel extends Channel implements PannableChannel {
 
   /** Multitrack selection state for the channel (`0` or `1`) */
   multiTrackSelected$ = this.store.state$.pipe(
-    selectRawValue<number>(`${this.fullChannelId}.mtkrec`)
+    selectRawValue<number>(`${this.fullChannelId}.mtkrec`),
   );
 
   constructor(conn: MixerConnection, store: MixerStore, channelType: ChannelType, channel: number) {
@@ -67,11 +64,11 @@ export class MasterChannel extends Channel implements PannableChannel {
         map(index => {
           const linkedChannelNumber = getLinkedChannelNumber(channel, index);
           if (linkedChannelNumber !== undefined) {
-            return [this.constructChannelId(this.channelType, linkedChannelNumber)];
+            return [constructMasterChannelId(this.channelType, linkedChannelNumber)];
           } else {
             return [];
           }
-        })
+        }),
       )
       .subscribe(c => (this.linkedChannelIds = c));
   }

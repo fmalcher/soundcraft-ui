@@ -4,6 +4,7 @@ import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
 import { ChannelType } from '../types';
 import { getLinkedChannelNumber } from '../utils';
+import { constructSendChannelId } from './channel-id';
 import { SendChannel } from './send-channel';
 
 /**
@@ -15,7 +16,7 @@ export class FxChannel extends SendChannel {
     store: MixerStore,
     channelType: ChannelType,
     channel: number,
-    bus: number
+    bus: number,
   ) {
     super(conn, store, channelType, channel, 'fx', bus);
 
@@ -26,17 +27,12 @@ export class FxChannel extends SendChannel {
           const linkedChannelNumber = getLinkedChannelNumber(channel, index);
           if (linkedChannelNumber !== undefined) {
             return [
-              this.constructChannelId(
-                this.channelType,
-                linkedChannelNumber,
-                this.busType,
-                this.bus
-              ),
+              constructSendChannelId(this.channelType, linkedChannelNumber, this.busType, this.bus),
             ];
           } else {
             return [];
           }
-        })
+        }),
       )
       .subscribe(c => (this.linkedChannelIds = c));
   }
