@@ -7,6 +7,7 @@ import {
   getLinkedChannelNumber,
   playerTimeToString,
   roundToThreeDecimals,
+  sanitizeChannelName,
   transformStringValue,
 } from './utils';
 
@@ -168,6 +169,20 @@ describe('utils', () => {
       expect(getDefaultVolumeBusName('solovol', 1)).toBe('SOLO LEVEL');
       expect(getDefaultVolumeBusName('hpvol', 1)).toBe('HEADPHONE 1 LEVEL');
       expect(getDefaultVolumeBusName('hpvol', 2)).toBe('HEADPHONE 2 LEVEL');
+    });
+  });
+
+  describe('sanitizeChannelName', () => {
+    it('should remove the reserved ^ separator', () => {
+      expect(sanitizeChannelName('FO^O')).toBe('FOO');
+    });
+
+    it('should limit the name to 20 characters', () => {
+      expect(sanitizeChannelName('A'.repeat(25))).toBe('A'.repeat(20));
+    });
+
+    it('should convert the name to uppercase', () => {
+      expect(sanitizeChannelName('vocals')).toBe('VOCALS');
     });
   });
 });
