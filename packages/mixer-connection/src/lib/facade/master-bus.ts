@@ -61,7 +61,10 @@ export class MasterBus implements FadeableChannel, PannableChannel {
    * @param channel Channel number
    */
   input(channel: number) {
-    return new DelayableMasterChannel(this.conn, this.store, 'i', channel);
+    return this.store.objectStore.getOrCreate(
+      `masteri${channel}`,
+      () => new DelayableMasterChannel(this.conn, this.store, 'i', channel),
+    );
   }
 
   /**
@@ -69,7 +72,10 @@ export class MasterBus implements FadeableChannel, PannableChannel {
    * @param channel Channel number
    */
   line(channel: number) {
-    return new DelayableMasterChannel(this.conn, this.store, 'l', channel);
+    return this.store.objectStore.getOrCreate(
+      `masterl${channel}`,
+      () => new DelayableMasterChannel(this.conn, this.store, 'l', channel),
+    );
   }
 
   /**
@@ -77,7 +83,10 @@ export class MasterBus implements FadeableChannel, PannableChannel {
    * @param channel Channel number
    */
   player(channel: number) {
-    return new MasterChannel(this.conn, this.store, 'p', channel);
+    return this.store.objectStore.getOrCreate(
+      `masterp${channel}`,
+      () => new MasterChannel(this.conn, this.store, 'p', channel),
+    );
   }
 
   /**
@@ -85,7 +94,10 @@ export class MasterBus implements FadeableChannel, PannableChannel {
    * @param channel Channel number
    */
   aux(channel: number) {
-    return new DelayableMasterChannel(this.conn, this.store, 'a', channel);
+    return this.store.objectStore.getOrCreate(
+      `mastera${channel}`,
+      () => new DelayableMasterChannel(this.conn, this.store, 'a', channel),
+    );
   }
 
   /**
@@ -96,7 +108,7 @@ export class MasterBus implements FadeableChannel, PannableChannel {
    * @param channel Channel number
    */
   mtx(channel: number) {
-    return new DelayableMasterChannel(this.conn, this.store, 'a', channel);
+    return this.aux(channel);
   }
 
   /**
@@ -104,7 +116,10 @@ export class MasterBus implements FadeableChannel, PannableChannel {
    * @param channel Channel number
    */
   fx(channel: number) {
-    return new MasterChannel(this.conn, this.store, 'f', channel);
+    return this.store.objectStore.getOrCreate(
+      `masterf${channel}`,
+      () => new MasterChannel(this.conn, this.store, 'f', channel),
+    );
   }
 
   /**
@@ -112,7 +127,10 @@ export class MasterBus implements FadeableChannel, PannableChannel {
    * @param channel Channel number
    */
   sub(channel: number) {
-    return new MasterChannel(this.conn, this.store, 's', channel);
+    return this.store.objectStore.getOrCreate(
+      `masters${channel}`,
+      () => new MasterChannel(this.conn, this.store, 's', channel),
+    );
   }
 
   /**
@@ -120,7 +138,10 @@ export class MasterBus implements FadeableChannel, PannableChannel {
    * @param channel Channel number
    */
   vca(channel: number) {
-    return new MasterChannel(this.conn, this.store, 'v', channel);
+    return this.store.objectStore.getOrCreate(
+      `masterv${channel}`,
+      () => new MasterChannel(this.conn, this.store, 'v', channel),
+    );
   }
 
   /** Master actions */

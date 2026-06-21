@@ -58,16 +58,7 @@ export abstract class MtxChannel
     protected conn: MixerConnection,
     protected store: MixerStore,
     protected fullChannelId: string,
-    storeId: string,
   ) {
-    // lookup object in the store and use existing object if possible
-    const storedObject = this.store.objectStore.get<MtxChannel>(storeId);
-    if (storedObject) {
-      return storedObject;
-    } else {
-      this.store.objectStore.set(storeId, this);
-    }
-
     // create transition steps and set fader level accordingly
     sourcesToTransition(this.transitionSources$, this.faderLevel$, conn).subscribe(v =>
       this.setFaderLevelRaw(v),

@@ -13,4 +13,19 @@ export class ObjectStore {
   set(id: string, value: unknown) {
     this.store.set(id, value);
   }
+
+  /**
+   * Return the cached object for the given id or create it (and cache it) using the factory.
+   * Caching lives in the accessor methods of the facades, so that constructors always
+   * run exactly once and never re-run their side effects on a cached instance.
+   */
+  getOrCreate<T>(id: string, factory: () => T): T {
+    const existing = this.store.get(id) as T;
+    if (existing) {
+      return existing;
+    }
+    const created = factory();
+    this.store.set(id, created);
+    return created;
+  }
 }

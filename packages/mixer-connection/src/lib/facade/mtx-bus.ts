@@ -7,6 +7,7 @@ import { AuxBus } from './aux-bus';
 import { setMatrixMode } from './matrix-utils';
 import { MtxBusChannel } from './mtx-bus-channel';
 import { MtxMasterChannel } from './mtx-master-channel';
+import { auxBusStoreId } from './object-store-ids';
 
 /**
  * Represents a matrix bus.
@@ -25,23 +26,17 @@ export class MtxBus {
     private conn: MixerConnection,
     private store: MixerStore,
     private bus: number,
-  ) {
-    // lookup object in the store and use existing object if possible
-    const storeId = 'mtxbus' + bus;
-    const storedObject = this.store.objectStore.get<MtxBus>(storeId);
-    if (storedObject) {
-      return storedObject;
-    } else {
-      this.store.objectStore.set(storeId, this);
-    }
-  }
+  ) {}
 
   /**
    * Get an AUX bus as a source on the matrix
    * @param channel AUX bus number
    */
   aux(channel: number) {
-    return new MtxBusChannel(this.conn, this.store, 'a', channel, this.bus);
+    return this.store.objectStore.getOrCreate(
+      `mtx${this.bus}a${channel}`,
+      () => new MtxBusChannel(this.conn, this.store, 'a', channel, this.bus),
+    );
   }
 
   /**
@@ -49,14 +44,20 @@ export class MtxBus {
    * @param channel Subgroup number
    */
   sub(channel: number) {
-    return new MtxBusChannel(this.conn, this.store, 's', channel, this.bus);
+    return this.store.objectStore.getOrCreate(
+      `mtx${this.bus}s${channel}`,
+      () => new MtxBusChannel(this.conn, this.store, 's', channel, this.bus),
+    );
   }
 
   /**
    * Get the master mix as a source on the matrix
    */
   master() {
-    return new MtxMasterChannel(this.conn, this.store, this.bus);
+    return this.store.objectStore.getOrCreate(
+      `mtxmaster${this.bus}`,
+      () => new MtxMasterChannel(this.conn, this.store, this.bus),
+    );
   }
 
   /**
@@ -66,6 +67,9 @@ export class MtxBus {
    */
   switchToAux(): AuxBus {
     setMatrixMode(this.conn, this.store, this.bus, 0);
-    return new AuxBus(this.conn, this.store, this.bus);
+    return this.store.objectStore.getOrCreate(
+      auxBusStoreId(this.bus),
+      () => new AuxBus(this.conn, this.store, this.bus),
+    );
   }
 }

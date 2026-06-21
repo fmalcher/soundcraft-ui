@@ -87,15 +87,6 @@ export class Channel implements FadeableChannel {
     protected busType: BusType = 'master',
     protected bus = 0,
   ) {
-    // lookup channel in the store and use existing object if possible
-    const storeId = busType + bus + channelType + channel;
-    const storedObject = this.store.objectStore.get<Channel>(storeId);
-    if (storedObject) {
-      return storedObject;
-    } else {
-      this.store.objectStore.set(storeId, this);
-    }
-
     // create transition steps and set fader level accordingly
     sourcesToTransition(this.transitionSources$, this.faderLevel$, conn).subscribe(v =>
       this.setFaderLevelRaw(v),
