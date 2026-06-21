@@ -191,7 +191,7 @@ describe('Channel', () => {
 
     describe('Channel Name', () => {
       describe('name$', () => {
-        it('should read name for master channels', async () => {
+        it('should read the set name (instead of the default) for master channels', async () => {
           conn.conn.sendMessage('SETS^i.3.name^TESTNAME');
           expect(await firstValueFrom(conn.master.input(4).name$)).toBe('TESTNAME');
 
@@ -206,6 +206,9 @@ describe('Channel', () => {
 
           conn.conn.sendMessage('SETS^a.4.name^AUXMASTER');
           expect(await firstValueFrom(conn.master.aux(5).name$)).toBe('AUXMASTER');
+
+          conn.conn.sendMessage('SETS^f.1.name^FXMASTER');
+          expect(await firstValueFrom(conn.master.fx(2).name$)).toBe('FXMASTER');
 
           conn.conn.sendMessage('SETS^v.1.name^THEVCA');
           expect(await firstValueFrom(conn.master.vca(2).name$)).toBe('THEVCA');
@@ -222,9 +225,31 @@ describe('Channel', () => {
           expect(await firstValueFrom(conn.aux(1).player(2).name$)).toBe('THEPLAYER');
         });
 
-        it('should return generic readable name (CH 6) when no name is set', async () => {
+        it('should return generic readable default name when no name is set', async () => {
           conn.conn.sendMessage('SETS^i.5.name^');
           expect(await firstValueFrom(conn.master.input(6).name$)).toBe('CH 6');
+
+          conn.conn.sendMessage('SETS^a.4.name^');
+          expect(await firstValueFrom(conn.master.aux(5).name$)).toBe('AUX 5');
+
+          conn.conn.sendMessage('SETS^f.2.name^');
+          expect(await firstValueFrom(conn.master.fx(3).name$)).toBe('FX 3');
+
+          conn.conn.sendMessage('SETS^s.3.name^');
+          expect(await firstValueFrom(conn.master.sub(4).name$)).toBe('SUB 4');
+
+          conn.conn.sendMessage('SETS^v.1.name^');
+          expect(await firstValueFrom(conn.master.vca(2).name$)).toBe('VCA 2');
+
+          conn.conn.sendMessage('SETS^l.0.name^');
+          expect(await firstValueFrom(conn.master.line(1).name$)).toBe('LINE IN L');
+          conn.conn.sendMessage('SETS^l.1.name^');
+          expect(await firstValueFrom(conn.master.line(2).name$)).toBe('LINE IN R');
+
+          conn.conn.sendMessage('SETS^p.0.name^');
+          expect(await firstValueFrom(conn.master.player(1).name$)).toBe('PLAYER L');
+          conn.conn.sendMessage('SETS^p.1.name^');
+          expect(await firstValueFrom(conn.master.player(2).name$)).toBe('PLAYER R');
         });
       });
 

@@ -87,16 +87,12 @@ export function fxTypeToString(type: FxType): keyof typeof FxType {
 }
 
 /**
- * Construct a human-readable name for a channel
+ * Construct the default human-readable name for a channel,
  * based on the default labels from the web interface
- * @param type
- * @param channel
- * @returns
+ * @param type channel type
+ * @param channel channel number
  */
-export function constructReadableChannelName(
-  type: ChannelType | VolumeBusType,
-  channel: number,
-): string {
+export function getDefaultChannelName(type: ChannelType, channel: number): string {
   switch (type) {
     case 'i':
       return 'CH ' + channel;
@@ -112,10 +108,21 @@ export function constructReadableChannelName(
       return 'LINE IN ' + numberToLR(channel);
     case 'p':
       return 'PLAYER ' + numberToLR(channel);
+  }
+}
+
+/**
+ * Construct the default human-readable name for a volume bus (solo or headphones),
+ * based on the default labels from the web interface
+ * @param type volume bus type
+ * @param busId volume bus number
+ */
+export function getDefaultVolumeBusName(type: VolumeBusType, busId: number): string {
+  switch (type) {
     case 'solovol':
       return 'SOLO LEVEL';
     case 'hpvol':
-      return `HEADPHONE ${channel} LEVEL`;
+      return `HEADPHONE ${busId} LEVEL`;
   }
 }
 

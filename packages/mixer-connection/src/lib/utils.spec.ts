@@ -1,8 +1,9 @@
 import { describe, it, expect } from 'vitest';
 import {
   clamp,
-  constructReadableChannelName,
   fxTypeToString,
+  getDefaultChannelName,
+  getDefaultVolumeBusName,
   getLinkedChannelNumber,
   playerTimeToString,
   roundToThreeDecimals,
@@ -137,32 +138,36 @@ describe('utils', () => {
     });
   });
 
-  describe('constructReadableChannelName', () => {
+  describe('getDefaultChannelName', () => {
     it('should construct readable channel name', () => {
-      expect(constructReadableChannelName('i', 1)).toBe('CH 1');
-      expect(constructReadableChannelName('i', 2)).toBe('CH 2');
-      expect(constructReadableChannelName('i', 10)).toBe('CH 10');
+      expect(getDefaultChannelName('i', 1)).toBe('CH 1');
+      expect(getDefaultChannelName('i', 2)).toBe('CH 2');
+      expect(getDefaultChannelName('i', 10)).toBe('CH 10');
 
-      expect(constructReadableChannelName('a', 1)).toBe('AUX 1');
-      expect(constructReadableChannelName('a', 4)).toBe('AUX 4');
+      expect(getDefaultChannelName('a', 1)).toBe('AUX 1');
+      expect(getDefaultChannelName('a', 4)).toBe('AUX 4');
 
-      expect(constructReadableChannelName('f', 2)).toBe('FX 2');
-      expect(constructReadableChannelName('f', 3)).toBe('FX 3');
+      expect(getDefaultChannelName('f', 2)).toBe('FX 2');
+      expect(getDefaultChannelName('f', 3)).toBe('FX 3');
 
-      expect(constructReadableChannelName('s', 1)).toBe('SUB 1');
-      expect(constructReadableChannelName('s', 4)).toBe('SUB 4');
+      expect(getDefaultChannelName('s', 1)).toBe('SUB 1');
+      expect(getDefaultChannelName('s', 4)).toBe('SUB 4');
 
-      expect(constructReadableChannelName('v', 1)).toBe('VCA 1');
-      expect(constructReadableChannelName('v', 4)).toBe('VCA 4');
+      expect(getDefaultChannelName('v', 1)).toBe('VCA 1');
+      expect(getDefaultChannelName('v', 4)).toBe('VCA 4');
 
-      expect(constructReadableChannelName('l', 1)).toBe('LINE IN L');
-      expect(constructReadableChannelName('l', 2)).toBe('LINE IN R');
-      expect(constructReadableChannelName('p', 1)).toBe('PLAYER L');
-      expect(constructReadableChannelName('p', 2)).toBe('PLAYER R');
+      expect(getDefaultChannelName('l', 1)).toBe('LINE IN L');
+      expect(getDefaultChannelName('l', 2)).toBe('LINE IN R');
+      expect(getDefaultChannelName('p', 1)).toBe('PLAYER L');
+      expect(getDefaultChannelName('p', 2)).toBe('PLAYER R');
+    });
+  });
 
-      expect(constructReadableChannelName('solovol', 1)).toBe('SOLO LEVEL');
-      expect(constructReadableChannelName('hpvol', 1)).toBe('HEADPHONE 1 LEVEL');
-      expect(constructReadableChannelName('hpvol', 2)).toBe('HEADPHONE 2 LEVEL');
+  describe('getDefaultVolumeBusName', () => {
+    it('should construct readable volume bus name', () => {
+      expect(getDefaultVolumeBusName('solovol', 1)).toBe('SOLO LEVEL');
+      expect(getDefaultVolumeBusName('hpvol', 1)).toBe('HEADPHONE 1 LEVEL');
+      expect(getDefaultVolumeBusName('hpvol', 2)).toBe('HEADPHONE 2 LEVEL');
     });
   });
 });
