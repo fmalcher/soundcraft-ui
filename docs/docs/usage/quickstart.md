@@ -48,13 +48,13 @@ Open the Soundcraft Web App to see Channel 2 mute and unmute every second.
 
 ## Use in the browser (CDN)
 
-To try the library, no separate build process is necessary. You can load the library directly in the browser from a CDN.
-The package is published as CommonJS, so use a CDN that converts it to an ES module (and bundles its RxJS dependency for you):
+To try the library, no separate build process is necessary. The package ships a self-contained ES module (`index.mjs`) with its RxJS dependency bundled in, so you can load it directly in the browser from any npm CDN, for example [jsDelivr](https://www.jsdelivr.com/) or [unpkg](https://unpkg.com/):
 
-- **jsDelivr**: append `/+esm`, e.g. `https://cdn.jsdelivr.net/npm/soundcraft-ui-connection/+esm`
-- **unpkg**: append `?module`, e.g. `https://unpkg.com/soundcraft-ui-connection?module`
+```javascript
+import { SoundcraftUI } from 'https://cdn.jsdelivr.net/npm/soundcraft-ui-connection/index.mjs';
+```
 
-The following self-contained HTML page connects to a mixer and provides two buttons to mute and unmute an input channel:
+The following HTML page connects to a mixer and provides two buttons to mute and unmute an input channel:
 
 ```html
 <!DOCTYPE html>
@@ -67,7 +67,7 @@ The following self-contained HTML page connects to a mixer and provides two butt
     <button onclick="unmute(1)">Unmute 1</button>
 
     <script type="module">
-      import { SoundcraftUI } from 'https://cdn.jsdelivr.net/npm/soundcraft-ui-connection/+esm';
+      import { SoundcraftUI } from 'https://cdn.jsdelivr.net/npm/soundcraft-ui-connection/index.mjs';
 
       const conn = new SoundcraftUI('192.168.1.111');
       await conn.connect();
