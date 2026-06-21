@@ -19,6 +19,7 @@ import { ConnectionEvent, SoundcraftUIOptions } from './types';
 import { VuProcessor } from './vu/vu-processor';
 import { waitForInitParams } from './utils';
 import { ChannelSync } from './facade/channel-sync';
+import { auxBusStoreId, mtxBusStoreId } from './facade/object-store-ids';
 
 export class SoundcraftUI {
   private _options: SoundcraftUIOptions;
@@ -99,7 +100,11 @@ export class SoundcraftUI {
     this.recorderMultiTrack = new MultiTrackRecorder(this.conn, this.store);
     this.volume = {
       solo: new VolumeBus(this.conn, this.store, 'solovol'),
-      headphone: (id: number) => new VolumeBus(this.conn, this.store, 'hpvol', id),
+      headphone: (id: number) =>
+        this.store.objectStore.getOrCreate(
+          `volume-hpvol${id}`,
+          () => new VolumeBus(this.conn, this.store, 'hpvol', id),
+        ),
     };
     this.shows = new ShowController(this.conn, this.store);
     this.automix = new AutomixController(this.conn, this.store);
@@ -111,7 +116,10 @@ export class SoundcraftUI {
    * @param bus Bus number
    */
   aux(bus: number) {
-    return new AuxBus(this.conn, this.store, bus);
+    return this.store.objectStore.getOrCreate(
+      auxBusStoreId(bus),
+      () => new AuxBus(this.conn, this.store, bus),
+    );
   }
 
   /**
@@ -122,7 +130,10 @@ export class SoundcraftUI {
    * @param bus Bus number (same slot number as the AUX it replaced)
    */
   mtx(bus: number) {
-    return new MtxBus(this.conn, this.store, bus);
+    return this.store.objectStore.getOrCreate(
+      mtxBusStoreId(bus),
+      () => new MtxBus(this.conn, this.store, bus),
+    );
   }
 
   /**
@@ -130,7 +141,10 @@ export class SoundcraftUI {
    * @param bus Bus number
    */
   fx(bus: number) {
-    return new FxBus(this.conn, this.store, bus);
+    return this.store.objectStore.getOrCreate(
+      `fxbus${bus}`,
+      () => new FxBus(this.conn, this.store, bus),
+    );
   }
 
   /**
@@ -138,7 +152,10 @@ export class SoundcraftUI {
    * @param id ID of the group: `1`..`6`, `all`, `fx`
    */
   muteGroup(id: MuteGroupID) {
-    return new MuteGroup(this.conn, this.store, id);
+    return this.store.objectStore.getOrCreate(
+      `mutegroup${id}`,
+      () => new MuteGroup(this.conn, this.store, id),
+    );
   }
 
   /** Unmute all mute groups, "MUTE ALL" and "MUTE FX" */
@@ -153,7 +170,10 @@ export class SoundcraftUI {
    * @param channel Channel number
    */
   hw(channel: number) {
-    return new HwChannel(this.conn, this.store, this.deviceInfo, channel);
+    return this.store.objectStore.getOrCreate(
+      `hw${channel}`,
+      () => new HwChannel(this.conn, this.store, this.deviceInfo, channel),
+    );
   }
 
   /** Connect to the mixer. Returns a Promise that resolves when the connection is open and the initial params have likely been received by the mixer. */

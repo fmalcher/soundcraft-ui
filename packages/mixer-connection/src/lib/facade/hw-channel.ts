@@ -62,15 +62,6 @@ export class HwChannel {
     protected deviceInfo: DeviceInfo,
     protected channel: number,
   ) {
-    // lookup object in the store and use existing object if possible
-    const storeId = 'hw' + channel;
-    const storedObject = this.store.objectStore.get<HwChannel>(storeId);
-    if (storedObject) {
-      return storedObject;
-    } else {
-      this.store.objectStore.set(storeId, this);
-    }
-
     // change full channel ID according to device model
     this.deviceInfo.model$.subscribe(model => {
       switch (model) {

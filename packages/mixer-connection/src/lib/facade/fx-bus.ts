@@ -21,23 +21,21 @@ export class FxBus {
    */
   bpm$ = this.store.state$.pipe(select(selectFxBpm(this.bus)));
 
-  constructor(private conn: MixerConnection, private store: MixerStore, private bus: number) {
-    // lookup object in the store and use existing object if possible
-    const storeId = 'fxbus' + bus;
-    const storedObject = this.store.objectStore.get<FxBus>(storeId);
-    if (storedObject) {
-      return storedObject;
-    } else {
-      this.store.objectStore.set(storeId, this);
-    }
-  }
+  constructor(
+    private conn: MixerConnection,
+    private store: MixerStore,
+    private bus: number,
+  ) {}
 
   /**
    * Get input channel on the FX bus
    * @param channel Channel number
    */
   input(channel: number) {
-    return new FxChannel(this.conn, this.store, 'i', channel, this.bus);
+    return this.store.objectStore.getOrCreate(
+      `fx${this.bus}i${channel}`,
+      () => new FxChannel(this.conn, this.store, 'i', channel, this.bus),
+    );
   }
 
   /**
@@ -45,7 +43,10 @@ export class FxBus {
    * @param channel Channel number
    */
   line(channel: number) {
-    return new FxChannel(this.conn, this.store, 'l', channel, this.bus);
+    return this.store.objectStore.getOrCreate(
+      `fx${this.bus}l${channel}`,
+      () => new FxChannel(this.conn, this.store, 'l', channel, this.bus),
+    );
   }
 
   /**
@@ -53,7 +54,10 @@ export class FxBus {
    * @param channel Channel number
    */
   player(channel: number) {
-    return new FxChannel(this.conn, this.store, 'p', channel, this.bus);
+    return this.store.objectStore.getOrCreate(
+      `fx${this.bus}p${channel}`,
+      () => new FxChannel(this.conn, this.store, 'p', channel, this.bus),
+    );
   }
 
   /**
@@ -61,7 +65,10 @@ export class FxBus {
    * @param channel Channel number
    */
   sub(channel: number) {
-    return new FxChannel(this.conn, this.store, 's', channel, this.bus);
+    return this.store.objectStore.getOrCreate(
+      `fx${this.bus}s${channel}`,
+      () => new FxChannel(this.conn, this.store, 's', channel, this.bus),
+    );
   }
 
   /**

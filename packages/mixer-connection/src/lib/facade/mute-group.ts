@@ -24,17 +24,12 @@ function groupIDToIndex(id: MuteGroupID): number {
 export class MuteGroup {
   private groupIndex: number;
 
-  constructor(private conn: MixerConnection, private store: MixerStore, readonly id: MuteGroupID) {
+  constructor(
+    private conn: MixerConnection,
+    private store: MixerStore,
+    readonly id: MuteGroupID,
+  ) {
     this.groupIndex = groupIDToIndex(id);
-
-    // lookup object in the store and use existing object if possible
-    const storeId = 'mutegroup' + id;
-    const storedObject = this.store.objectStore.get<MuteGroup>(storeId);
-    if (storedObject) {
-      return storedObject;
-    } else {
-      this.store.objectStore.set(storeId, this);
-    }
   }
 
   private mgMask$ = this.store.state$.pipe(selectRawValue<number>('mgmask'));

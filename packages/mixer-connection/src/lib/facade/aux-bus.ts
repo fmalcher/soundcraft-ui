@@ -6,6 +6,7 @@ import { select, selectMatrix } from '../state/state-selectors';
 import { AuxChannel } from './aux-channel';
 import { setMatrixMode } from './matrix-utils';
 import { MtxBus } from './mtx-bus';
+import { mtxBusStoreId } from './object-store-ids';
 
 /**
  * Represents an AUX bus
@@ -21,23 +22,17 @@ export class AuxBus {
     private conn: MixerConnection,
     private store: MixerStore,
     private bus: number,
-  ) {
-    // lookup object in the store and use existing object if possible
-    const storeId = 'auxbus' + bus;
-    const storedObject = this.store.objectStore.get<AuxBus>(storeId);
-    if (storedObject) {
-      return storedObject;
-    } else {
-      this.store.objectStore.set(storeId, this);
-    }
-  }
+  ) {}
 
   /**
    * Get input channel on the AUX bus
    * @param channel Channel number
    */
   input(channel: number) {
-    return new AuxChannel(this.conn, this.store, 'i', channel, this.bus);
+    return this.store.objectStore.getOrCreate(
+      `aux${this.bus}i${channel}`,
+      () => new AuxChannel(this.conn, this.store, 'i', channel, this.bus),
+    );
   }
 
   /**
@@ -45,7 +40,10 @@ export class AuxBus {
    * @param channel Channel number
    */
   line(channel: number) {
-    return new AuxChannel(this.conn, this.store, 'l', channel, this.bus);
+    return this.store.objectStore.getOrCreate(
+      `aux${this.bus}l${channel}`,
+      () => new AuxChannel(this.conn, this.store, 'l', channel, this.bus),
+    );
   }
 
   /**
@@ -53,7 +51,10 @@ export class AuxBus {
    * @param channel Channel number
    */
   player(channel: number) {
-    return new AuxChannel(this.conn, this.store, 'p', channel, this.bus);
+    return this.store.objectStore.getOrCreate(
+      `aux${this.bus}p${channel}`,
+      () => new AuxChannel(this.conn, this.store, 'p', channel, this.bus),
+    );
   }
 
   /**
@@ -61,7 +62,10 @@ export class AuxBus {
    * @param channel Channel number
    */
   fx(channel: number) {
-    return new AuxChannel(this.conn, this.store, 'f', channel, this.bus);
+    return this.store.objectStore.getOrCreate(
+      `aux${this.bus}f${channel}`,
+      () => new AuxChannel(this.conn, this.store, 'f', channel, this.bus),
+    );
   }
 
   /**
@@ -71,6 +75,9 @@ export class AuxBus {
    */
   switchToMatrix(): MtxBus {
     setMatrixMode(this.conn, this.store, this.bus, 1);
-    return new MtxBus(this.conn, this.store, this.bus);
+    return this.store.objectStore.getOrCreate(
+      mtxBusStoreId(this.bus),
+      () => new MtxBus(this.conn, this.store, this.bus),
+    );
   }
 }

@@ -16,7 +16,7 @@ export class MtxMasterChannel extends MtxChannel {
   name$ = of('MASTER');
 
   constructor(conn: MixerConnection, store: MixerStore, bus: number) {
-    super(conn, store, `m.mtx.${bus - 1}`, 'mtxmaster' + bus);
+    super(conn, store, `m.mtx.${bus - 1}`);
 
     // the master source is not stereo-linkable itself, but it is mirrored
     // across the stereo-linked matrix output (matrix outputs live in `a` slots).

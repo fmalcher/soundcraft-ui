@@ -27,12 +27,7 @@ export class MtxBusChannel extends MtxChannel {
     private channel: number,
     private bus: number,
   ) {
-    super(
-      conn,
-      store,
-      constructMtxChannelId(channelType, channel, bus),
-      'mtx' + bus + channelType + channel,
-    );
+    super(conn, store, constructMtxChannelId(channelType, channel, bus));
 
     /**
      * create list of linked channels.
