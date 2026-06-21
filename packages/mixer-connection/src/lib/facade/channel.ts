@@ -11,7 +11,7 @@ import {
 } from '../state/state-selectors';
 import { sourcesToTransition, TransitionSource } from '../transitions';
 import { BusType, ChannelType } from '../types';
-import { clamp, getDefaultChannelName, roundToThreeDecimals } from '../utils';
+import { clamp, getDefaultChannelName, roundToThreeDecimals, sanitizeChannelName } from '../utils';
 import { resolveDelayed } from '../utils/async-helpers';
 import { Easings } from '../utils/transitions/easings';
 import { DBToFaderValue, faderValueToDB } from '../utils/value-converters';
@@ -178,11 +178,7 @@ export class Channel implements FadeableChannel {
 
   /** Set name of the channel */
   setName(name: string) {
-    name = name
-      .replace(/[\^]/gi, '') // ^ sign is not allowed
-      .substring(0, 20)
-      .toUpperCase();
-
+    name = sanitizeChannelName(name);
     const path = joinStatePath(this.channelType, this.channel - 1, 'name');
     this.conn.sendMessage(`SETS^${path}^${name}`);
   }

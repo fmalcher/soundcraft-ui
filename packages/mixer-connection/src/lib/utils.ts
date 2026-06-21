@@ -87,6 +87,19 @@ export function fxTypeToString(type: FxType): keyof typeof FxType {
 }
 
 /**
+ * Sanitize a channel name before sending it to the mixer:
+ * removes the reserved `^` separator, limits the length to 20 characters
+ * and converts the name to uppercase.
+ * @param name raw channel name
+ */
+export function sanitizeChannelName(name: string): string {
+  return name
+    .replace(/[\^]/gi, '') // ^ sign is not allowed
+    .substring(0, 20)
+    .toUpperCase();
+}
+
+/**
  * Construct the default human-readable name for a channel,
  * based on the default labels from the web interface
  * @param type channel type
