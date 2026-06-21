@@ -53,3 +53,41 @@ jobs:
         run: |
           PR_NUMBER=$(gh api "repos/${{ github.repository }}/commits/${{ needs.release-please.outputs.sha }}/pulls" --jq '.[0].number')
           gh pr edit "$PR_NUMBER" --add-label "autorelease: published"
+
+  deploy-docs:
+    name: Deploy Docs to GitHub Pages
+    needs: release-please
+    if: ${{ needs.release-please.outputs.release_created }}
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: docs
+
+      - name: Build website
+        run: npm run build
+        working-directory: docs
+
+      - name: Upload Build Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/build
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
