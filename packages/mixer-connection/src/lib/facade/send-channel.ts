@@ -5,32 +5,24 @@ import { MixerStore } from '../state/mixer-store';
 import { select, selectPost } from '../state/state-selectors';
 import { BusType, ChannelType } from '../types';
 import { Channel } from './channel';
+import { constructSendChannelId } from './channel-id';
 
 /**
  * Represents a channel on a send bus (AUX or FX).
  * Used as super class for Aux and Fx
  */
 export class SendChannel extends Channel {
-  protected constructChannelId(
-    channelType: ChannelType,
-    channel: number,
-    busType: BusType,
-    bus: number
-  ) {
-    return `${channelType}.${channel - 1}.${busType}.${bus - 1}`;
-  }
-
-  override fullChannelId = this.constructChannelId(
+  override fullChannelId = constructSendChannelId(
     this.channelType,
     this.channel,
     this.busType,
-    this.bus
+    this.bus,
   );
   override faderLevelCommand = 'value';
 
   /** PRE/POST value of the channel (`1` (POST) or `0` (PRE)) */
   post$ = this.store.state$.pipe(
-    select(selectPost(this.channelType, this.channel, this.busType, this.bus))
+    select(selectPost(this.channelType, this.channel, this.busType, this.bus)),
   );
 
   constructor(
@@ -39,7 +31,7 @@ export class SendChannel extends Channel {
     channelType: ChannelType,
     channel: number,
     busType: BusType,
-    bus: number
+    bus: number,
   ) {
     super(conn, store, channelType, channel, busType, bus);
   }
