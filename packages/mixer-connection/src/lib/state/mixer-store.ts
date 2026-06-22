@@ -1,6 +1,5 @@
 import { connectable, filter, map, ReplaySubject, scan, share } from 'rxjs';
 
-import { transformStringValue } from '../utils';
 import { MixerConnection } from '../mixer-connection';
 import { ObjectStore } from './object-store';
 
@@ -9,7 +8,7 @@ export class MixerStore {
   private setdSetsMessageMatches$ = this.conn.allMessages$.pipe(
     map(msg => msg.match(/(SETD|SETS)\^([a-zA-Z0-9.]+)\^(.*)/)),
     filter((e): e is RegExpMatchArray => e !== null),
-    share()
+    share(),
   );
 
   /** Stream of raw SETD and SETS messages */
@@ -19,16 +18,17 @@ export class MixerStore {
   readonly state$ = connectable(
     this.setdSetsMessageMatches$.pipe(
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      scan((acc: any, [, , path, value]) => {
+      scan((acc: any, [, type, path, value]) => {
+        // SETD always carries numeric values, SETS always carries strings.
         // mutable implementation
-        acc[path] = transformStringValue(value);
+        acc[path] = type === 'SETD' ? Number(value) : value;
         return acc;
 
         // Alternative immutable implementation
-        // return { ...acc, [path]: transformStringValue(value) };
-      }, {})
+        // return { ...acc, [path]: type === 'SETD' ? Number(value) : value };
+      }, {}),
     ),
-    { connector: () => new ReplaySubject(1) }
+    { connector: () => new ReplaySubject(1) },
   );
 
   /**
@@ -42,10 +42,10 @@ export class MixerStore {
       map(message => message.slice(10).split('^')),
       scan(
         (acc, [syncId, index]) => ({ ...acc, [syncId]: parseInt(index, 10) }),
-        {} as Record<string, number>
-      )
+        {} as Record<string, number>,
+      ),
     ),
-    { connector: () => new ReplaySubject(1) }
+    { connector: () => new ReplaySubject(1) },
   );
 
   readonly objectStore = new ObjectStore();

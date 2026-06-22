@@ -54,10 +54,10 @@ describe('DeviceInfo', () => {
   });
 
   it('firmware$', async () => {
-    conn.conn.sendMessage('SETD^firmware^1.2.3');
+    conn.conn.sendMessage('SETS^firmware^1.2.3');
     expect(await firstValueFrom(conn.deviceInfo.firmware$)).toBe('1.2.3');
 
-    conn.conn.sendMessage('SETD^firmware^4.5.6-abc');
+    conn.conn.sendMessage('SETS^firmware^4.5.6-abc');
     expect(await firstValueFrom(conn.deviceInfo.firmware$)).toBe('4.5.6-abc');
   });
 });

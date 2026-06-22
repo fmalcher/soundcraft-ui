@@ -58,12 +58,33 @@ describe('Mixer Store', () => {
       });
     });
 
+    it('should convert SETD values to numbers (int and float, incl. negative)', async () => {
+      sendMessage('SETD^i.3.mute^1');
+      sendMessage('SETD^i.3.mix^0.5236732');
+      sendMessage('SETD^i.3.pan^-0.25');
+      expect(await firstValueFrom(mixerStore.state$)).toEqual({
+        'i.3.mute': 1,
+        'i.3.mix': 0.5236732,
+        'i.3.pan': -0.25,
+      });
+    });
+
+    it('should keep SETS values as strings even when they look numeric', async () => {
+      sendMessage('SETS^i.3.name^34534');
+      sendMessage('SETS^var.mtk.session^0004');
+      expect(await firstValueFrom(mixerStore.state$)).toEqual({
+        'i.3.name': '34534',
+        'var.mtk.session': '0004',
+      });
+    });
+
     it('should ignore messages other than SETD or SETS', async () => {
-      sendMessage('SETD^abc^def');
+      sendMessage('SETD^abc^1');
+      sendMessage('SETS^def^ghi');
 
       sendMessage('FOO^bar^baz');
       sendMessage('XYZ^xyz^xyz');
-      expect(await firstValueFrom(mixerStore.state$)).toEqual({ abc: 'def' });
+      expect(await firstValueFrom(mixerStore.state$)).toEqual({ abc: 1, def: 'ghi' });
     });
   });
 });
