@@ -91,6 +91,19 @@ describe('MTX Bus Channel', () => {
     });
   });
 
+  describe('PRE/POST PROC', () => {
+    it('postProc$', async () => {
+      channel.postProc();
+      expect(await firstValueFrom(channel.postProc$)).toBe(1);
+
+      channel.preProc();
+      expect(await firstValueFrom(channel.postProc$)).toBe(0);
+
+      channel.setPostProc(1);
+      expect(await firstValueFrom(channel.postProc$)).toBe(1);
+    });
+  });
+
   describe('name$', () => {
     it('should return the default name for an AUX source', async () => {
       // a matrix source is always a regular AUX/subgroup (a matrix cannot be routed into a matrix)

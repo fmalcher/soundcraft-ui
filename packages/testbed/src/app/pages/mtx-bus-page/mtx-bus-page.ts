@@ -11,6 +11,7 @@ import { InputField } from '../../ui/input-field/input-field';
 import { MixerButton } from '../../ui/mixer-button/mixer-button';
 import { MuteButton } from '../../ui/mute-button/mute-button';
 import { PanControls } from '../../ui/pan-controls/pan-controls';
+import { PostprocControls } from '../../ui/postproc-controls/postproc-controls';
 import { SoloButton } from '../../ui/solo-button/solo-button';
 import { TransitionControls } from '../../ui/transition-controls/transition-controls';
 
@@ -23,6 +24,7 @@ import { TransitionControls } from '../../ui/transition-controls/transition-cont
     MuteButton,
     SoloButton,
     PanControls,
+    PostprocControls,
     FaderLevelControls,
     TransitionControls,
     DelayControls,

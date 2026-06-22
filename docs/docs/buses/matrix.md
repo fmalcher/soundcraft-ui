@@ -71,6 +71,7 @@ A channel supports the following operations:
 | `postProc()`                     | Set channel to POST PROC                                              |
 | `setPostProc(value)`             | Set POST PROC (`1`) or PRE PROC (`0`)                                 |
 | `pan$`                           | Get pan value (between `0` and `1`)                                   |
+| `postProc$`                      | Get POST PROC status (`0` for PRE PROC, `1` for POST PROC)            |
 
 :::note
 The master source (`MtxMasterChannel`) has a static name: `name$` always emits `MASTER` and there is no `setName()`.

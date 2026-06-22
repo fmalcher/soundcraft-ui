@@ -1,23 +1,28 @@
 import { combineLatest, map, take } from 'rxjs';
 import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
-import { select, selectPan, selectStereoIndex } from '../state/state-selectors';
+import { select, selectPan, selectPostProc, selectStereoIndex } from '../state/state-selectors';
 import { ChannelType } from '../types';
 import { clamp, getLinkedChannelNumber, roundToThreeDecimals } from '../utils';
 import { constructSendChannelId } from './channel-id';
-import { PannableChannel } from './interfaces';
+import { PannableChannel, PostProcessableChannel } from './interfaces';
 import { SendChannel } from './send-channel';
 
 /**
  * Represents a channel on an AUX bus
  */
-export class AuxChannel extends SendChannel implements PannableChannel {
+export class AuxChannel extends SendChannel implements PannableChannel, PostProcessableChannel {
   /** when the AUX bus is stereo-linked, this contains the ID of this channel on the linked bus */
   private auxLinkChannelIds: string[] = [];
 
   /** PAN value of the AUX channel (between `0` and `1`) */
   pan$ = this.store.state$.pipe(
     select(selectPan(this.channelType, this.channel, this.busType, this.bus)),
+  );
+
+  /** PRE/POST PROC value of the AUX channel (`1` (POST PROC) or `0` (PRE PROC)) */
+  postProc$ = this.store.state$.pipe(
+    select(selectPostProc(this.channelType, this.channel, this.busType, this.bus)),
   );
 
   constructor(

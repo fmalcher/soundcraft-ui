@@ -84,4 +84,17 @@ describe('MTX Master Channel', () => {
       expect(await firstValueFrom(channel.pan$)).toBe(0.686);
     });
   });
+
+  describe('PRE/POST PROC', () => {
+    it('postProc$', async () => {
+      channel.postProc();
+      expect(await firstValueFrom(channel.postProc$)).toBe(1);
+
+      channel.preProc();
+      expect(await firstValueFrom(channel.postProc$)).toBe(0);
+
+      channel.setPostProc(1);
+      expect(await firstValueFrom(channel.postProc$)).toBe(1);
+    });
+  });
 });

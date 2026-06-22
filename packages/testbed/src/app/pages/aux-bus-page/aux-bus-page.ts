@@ -6,7 +6,7 @@ import { AsyncPipe } from '@angular/common';
 import { ConnectionService } from '../../connection.service';
 import { MuteButton } from '../../ui/mute-button/mute-button';
 import { PrepostControls } from '../../ui/prepost-controls/prepost-controls';
-import { MixerButton } from '../../ui/mixer-button/mixer-button';
+import { PostprocControls } from '../../ui/postproc-controls/postproc-controls';
 import { FaderLevelControls } from '../../ui/fader-level-controls/fader-level-controls';
 import { PanControls } from '../../ui/pan-controls/pan-controls';
 import { TransitionControls } from '../../ui/transition-controls/transition-controls';
@@ -19,7 +19,7 @@ import { InputField } from '../../ui/input-field/input-field';
     AsyncPipe,
     MuteButton,
     PrepostControls,
-    MixerButton,
+    PostprocControls,
     FaderLevelControls,
     PanControls,
     TransitionControls,

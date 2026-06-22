@@ -39,11 +39,7 @@
 <sui-mixer-button [active]="(s.channel.mute$ | async) === 1" (press)="s.channel.toggleMute()">
   MUTE
 </sui-mixer-button>
-<!-- POST/PRE PROC -->
-<div>
-  <sui-mixer-button (press)="s.channel.preProc()">PRE PROC</sui-mixer-button>
-  <sui-mixer-button (press)="s.channel.postProc()">POST PROC</sui-mixer-button>
-</div>
+<sui-postproc-controls [channel]="s.channel" />
 <sui-fader-level-controls [channel]="s.channel" />
 <sui-pan-controls [channel]="s.channel" />
 <sui-transition-controls [channel]="s.channel" />
