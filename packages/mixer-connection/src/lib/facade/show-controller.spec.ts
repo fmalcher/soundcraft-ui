@@ -10,25 +10,25 @@ describe('Show Controller', () => {
   });
 
   it('currentShow$', async () => {
-    conn.conn.sendMessage('SETD^var.currentShow^THESHOW');
+    conn.conn.sendMessage('SETS^var.currentShow^THESHOW');
     expect(await firstValueFrom(conn.shows.currentShow$)).toBe('THESHOW');
   });
 
   it('currentSnapshot$', async () => {
-    conn.conn.sendMessage('SETD^var.currentSnapshot^THESNAPSHOT');
+    conn.conn.sendMessage('SETS^var.currentSnapshot^THESNAPSHOT');
     expect(await firstValueFrom(conn.shows.currentSnapshot$)).toBe('THESNAPSHOT');
   });
 
   it('currentCue$', async () => {
-    conn.conn.sendMessage('SETD^var.currentCue^THECUE');
+    conn.conn.sendMessage('SETS^var.currentCue^THECUE');
     expect(await firstValueFrom(conn.shows.currentCue$)).toBe('THECUE');
   });
 
   describe('updateCurrentSnapshot', () => {
     it('should send SAVESNAPSHOT message', () => {
-      conn.conn.sendMessage('SETD^var.currentShow^THESHOW');
-      conn.conn.sendMessage('SETD^var.currentSnapshot^THESNAPSHOT');
-      conn.conn.sendMessage('SETD^var.currentCue^THECUE');
+      conn.conn.sendMessage('SETS^var.currentShow^THESHOW');
+      conn.conn.sendMessage('SETS^var.currentSnapshot^THESNAPSHOT');
+      conn.conn.sendMessage('SETS^var.currentCue^THECUE');
 
       conn.conn.sendMessage = vi.fn();
       conn.shows.updateCurrentSnapshot();
@@ -37,8 +37,8 @@ describe('Show Controller', () => {
     });
 
     it('should not send message when no snapshot is given', () => {
-      conn.conn.sendMessage('SETD^var.currentShow^THESHOW');
-      conn.conn.sendMessage('SETD^var.currentCue^THECUE');
+      conn.conn.sendMessage('SETS^var.currentShow^THESHOW');
+      conn.conn.sendMessage('SETS^var.currentCue^THECUE');
 
       conn.conn.sendMessage = vi.fn();
       conn.shows.updateCurrentSnapshot();
@@ -47,8 +47,8 @@ describe('Show Controller', () => {
     });
 
     it('should not send message when no show is given', () => {
-      conn.conn.sendMessage('SETD^var.currentSnapshot^THESNAPSHOT');
-      conn.conn.sendMessage('SETD^var.currentCue^THECUE');
+      conn.conn.sendMessage('SETS^var.currentSnapshot^THESNAPSHOT');
+      conn.conn.sendMessage('SETS^var.currentCue^THECUE');
 
       conn.conn.sendMessage = vi.fn();
       conn.shows.updateCurrentSnapshot();
@@ -59,9 +59,9 @@ describe('Show Controller', () => {
 
   describe('updateCurrentCue', () => {
     it('should send SAVECUE message', () => {
-      conn.conn.sendMessage('SETD^var.currentShow^THESHOW');
-      conn.conn.sendMessage('SETD^var.currentSnapshot^THESNAPSHOT');
-      conn.conn.sendMessage('SETD^var.currentCue^THECUE');
+      conn.conn.sendMessage('SETS^var.currentShow^THESHOW');
+      conn.conn.sendMessage('SETS^var.currentSnapshot^THESNAPSHOT');
+      conn.conn.sendMessage('SETS^var.currentCue^THECUE');
 
       conn.conn.sendMessage = vi.fn();
       conn.shows.updateCurrentCue();
@@ -70,8 +70,8 @@ describe('Show Controller', () => {
     });
 
     it('should not send message when no cue is given', () => {
-      conn.conn.sendMessage('SETD^var.currentShow^THESHOW');
-      conn.conn.sendMessage('SETD^var.currentSnapshot^THESNAPSHOT');
+      conn.conn.sendMessage('SETS^var.currentShow^THESHOW');
+      conn.conn.sendMessage('SETS^var.currentSnapshot^THESNAPSHOT');
 
       conn.conn.sendMessage = vi.fn();
       conn.shows.updateCurrentCue();
@@ -80,8 +80,8 @@ describe('Show Controller', () => {
     });
 
     it('should not send message when no show is given', () => {
-      conn.conn.sendMessage('SETD^var.currentSnapshot^THESNAPSHOT');
-      conn.conn.sendMessage('SETD^var.currentCue^THECUE');
+      conn.conn.sendMessage('SETS^var.currentSnapshot^THESNAPSHOT');
+      conn.conn.sendMessage('SETS^var.currentCue^THECUE');
 
       conn.conn.sendMessage = vi.fn();
       conn.shows.updateCurrentCue();

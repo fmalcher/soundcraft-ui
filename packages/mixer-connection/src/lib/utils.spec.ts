@@ -9,7 +9,6 @@ import {
   playerTimeToString,
   roundToThreeDecimals,
   sanitizeChannelName,
-  transformStringValue,
 } from './utils';
 
 describe('utils', () => {
@@ -91,23 +90,6 @@ describe('utils', () => {
       expect(roundToThreeDecimals(1234567890.123 + Number.EPSILON)).toBe(1234567890.123);
       expect(roundToThreeDecimals(-1234567890.123)).toBe(-1234567890.123);
       expect(roundToThreeDecimals(-1234567890.123 + Number.EPSILON)).toBe(-1234567890.123);
-    });
-  });
-
-  describe('transformStringValue', () => {
-    it('should convert number string to int', () => {
-      expect(transformStringValue('123')).toBe(123);
-      expect(transformStringValue('3')).toBe(3);
-    });
-
-    it('should convert number string to float', () => {
-      expect(transformStringValue('3.141')).toBe(3.141);
-      expect(transformStringValue('0.5236732')).toBe(0.5236732);
-    });
-
-    it('should ignore unknown values', () => {
-      const value = 'hello world';
-      expect(transformStringValue(value)).toBe(value);
     });
   });
 

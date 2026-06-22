@@ -13,20 +13,6 @@ export function roundToThreeDecimals(value: number): number {
 }
 
 /**
- * Transform a given value to int, float or string
- * @param value
- */
-export function transformStringValue(value: string) {
-  if (value.match(/^-?\d+$/)) {
-    return parseInt(value, 10);
-  } else if (value.match(/^\d+\.\d+$/)) {
-    return parseFloat(value);
-  } else {
-    return value;
-  }
-}
-
-/**
  * Transform player time in seconds to human-readable format M:SS
  * @param value player time in seconds
  */
