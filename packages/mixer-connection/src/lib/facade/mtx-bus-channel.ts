@@ -75,6 +75,6 @@ export class MtxBusChannel extends MtxChannel {
   setName(name: string) {
     name = sanitizeChannelName(name);
     const path = joinStatePath(this.channelType, this.channel - 1, 'name');
-    this.conn.sendMessage(`SETS^${path}^${name}`);
+    this.conn.sets(path, name);
   }
 }

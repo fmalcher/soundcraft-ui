@@ -13,11 +13,11 @@ export class AutomixGroup {
   constructor(
     private conn: MixerConnection,
     private store: MixerStore,
-    private group: AutomixGroupId
+    private group: AutomixGroupId,
   ) {}
 
   private setState(value: number) {
-    this.conn.sendMessage(`SETD^automix.${this.group}.on^${value}`);
+    this.conn.setd(`automix.${this.group}.on`, value);
   }
 
   /** Enable this automix group */
@@ -51,7 +51,7 @@ export class AutomixController {
    * @param value linear value between `0` and `1`
    */
   setResponseTime(value: number) {
-    this.conn.sendMessage(`SETD^automix.time^${value}`);
+    this.conn.setd('automix.time', value);
   }
 
   /**
@@ -68,5 +68,8 @@ export class AutomixController {
     b: new AutomixGroup(this.conn, this.store, 'b'),
   };
 
-  constructor(private conn: MixerConnection, private store: MixerStore) {}
+  constructor(
+    private conn: MixerConnection,
+    private store: MixerStore,
+  ) {}
 }

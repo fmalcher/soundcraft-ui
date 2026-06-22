@@ -79,7 +79,7 @@ export class FxBus {
     value = clamp(value, 20, 400);
     value = Math.round(value); // make integer
 
-    this.conn.sendMessage(`SETD^f.${this.bus - 1}.bpm^${value}`);
+    this.conn.setd(`f.${this.bus - 1}.bpm`, value);
   }
 
   private assertFxParamInRange(param: number) {
@@ -112,6 +112,6 @@ export class FxBus {
     this.assertFxParamInRange(param);
 
     value = clamp(value, 0, 1);
-    this.conn.sendMessage(`SETD^${this.makeFxParamPath(param)}^${value}`);
+    this.conn.setd(this.makeFxParamPath(param), value);
   }
 }

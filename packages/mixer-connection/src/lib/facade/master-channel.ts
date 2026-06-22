@@ -80,8 +80,7 @@ export class MasterChannel extends Channel implements PannableChannel {
   setPan(value: number) {
     value = clamp(value, 0, 1);
     value = roundToThreeDecimals(value);
-    const command = `SETD^${this.fullChannelId}.pan^${value}`;
-    this.conn.sendMessage(command);
+    this.conn.setd(`${this.fullChannelId}.pan`, value);
   }
 
   /**
@@ -98,8 +97,7 @@ export class MasterChannel extends Channel implements PannableChannel {
    */
   setSolo(value: number) {
     [...this.linkedChannelIds, this.fullChannelId].forEach(cid => {
-      const command = `SETD^${cid}.solo^${value}`;
-      this.conn.sendMessage(command);
+      this.conn.setd(`${cid}.solo`, value);
     });
   }
 
@@ -127,8 +125,7 @@ export class MasterChannel extends Channel implements PannableChannel {
   private multiTrackSetSelection(value: number) {
     this.multiTrackAssertChannelType();
 
-    const command = `SETD^${this.fullChannelId}.mtkrec^${value}`;
-    this.conn.sendMessage(command);
+    this.conn.setd(`${this.fullChannelId}.mtkrec`, value);
   }
 
   /** Select this channel for multitrack recording */
@@ -171,8 +168,7 @@ export class MasterChannel extends Channel implements PannableChannel {
     }
 
     [...this.linkedChannelIds, this.fullChannelId].forEach(cid => {
-      const command = `SETD^${cid}.amixgroup^${groupValue}`;
-      this.conn.sendMessage(command);
+      this.conn.setd(`${cid}.amixgroup`, groupValue);
     });
   }
 
@@ -189,8 +185,7 @@ export class MasterChannel extends Channel implements PannableChannel {
     value = clamp(value, 0, 1);
 
     [...this.linkedChannelIds, this.fullChannelId].forEach(cid => {
-      const command = `SETD^${cid}.amix^${value}`;
-      this.conn.sendMessage(command);
+      this.conn.setd(`${cid}.amix`, value);
     });
   }
 

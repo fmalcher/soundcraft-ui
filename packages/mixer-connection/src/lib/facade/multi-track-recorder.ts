@@ -16,7 +16,7 @@ import { MtkState } from '../types';
 export class MultiTrackRecorder {
   /** Current state (playing, stopped, paused) */
   state$ = this.store.state$.pipe(
-    selectRawValue<MtkState>('var.mtk.currentState', MtkState.Stopped)
+    selectRawValue<MtkState>('var.mtk.currentState', MtkState.Stopped),
   );
 
   /** Current session name (e.g. `0001` or individual name) */
@@ -29,7 +29,7 @@ export class MultiTrackRecorder {
       } else {
         return value;
       }
-    })
+    }),
   );
 
   /** Current session length in seconds */
@@ -51,13 +51,16 @@ export class MultiTrackRecorder {
   recordingTime$ = this.store.state$.pipe(
     selectRawValue('var.mtk.rec.time', 0),
     withLatestFrom(this.recording$),
-    map(([value, recording]) => (recording ? value : 0)) // set to 0 if not actually recording. otherwise, it emits strange values
+    map(([value, recording]) => (recording ? value : 0)), // set to 0 if not actually recording. otherwise, it emits strange values
   );
 
   /** Soundcheck activation state (`0` or `1`) */
   soundcheck$ = this.store.state$.pipe(selectRawValue('var.mtk.soundcheck', 0));
 
-  constructor(private conn: MixerConnection, private store: MixerStore) {}
+  constructor(
+    private conn: MixerConnection,
+    private store: MixerStore,
+  ) {}
 
   /** Start the player */
   play() {
@@ -104,8 +107,7 @@ export class MultiTrackRecorder {
    * @param value `0` or `1`
    */
   setSoundcheck(value: number) {
-    const command = `SETD^var.mtk.soundcheck^${value}`;
-    this.conn.sendMessage(command);
+    this.conn.setd('var.mtk.soundcheck', value);
   }
 
   /** Activate soundcheck */

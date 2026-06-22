@@ -21,13 +21,13 @@ export function setMatrixMode(
   value: number,
 ) {
   // always switch the slot itself
-  conn.sendMessage(`SETD^a.${bus - 1}.matrix^${value}`);
+  conn.setd(`a.${bus - 1}.matrix`, value);
 
   // also switch the stereo-linked neighbour, if the slot is currently linked
   store.state$.pipe(select(selectStereoIndex('a', bus)), take(1)).subscribe(stereoIndex => {
     const linkedBus = getLinkedChannelNumber(bus, stereoIndex);
     if (linkedBus !== undefined) {
-      conn.sendMessage(`SETD^a.${linkedBus - 1}.matrix^${value}`);
+      conn.setd(`a.${linkedBus - 1}.matrix`, value);
     }
   });
 }

@@ -186,8 +186,7 @@ export class MasterBus implements FadeableChannel, PannableChannel {
   }
 
   private setFaderLevelRaw(value: number) {
-    const command = `SETD^m.mix^${value}`;
-    this.conn.sendMessage(command);
+    this.conn.setd('m.mix', value);
   }
 
   /**
@@ -225,8 +224,7 @@ export class MasterBus implements FadeableChannel, PannableChannel {
   setPan(value: number) {
     value = clamp(value, 0, 1);
     value = roundToThreeDecimals(value);
-    const command = `SETD^m.pan^${value}`;
-    this.conn.sendMessage(command);
+    this.conn.setd('m.pan', value);
   }
 
   /**
@@ -242,8 +240,7 @@ export class MasterBus implements FadeableChannel, PannableChannel {
    * @param value DIM value `0` or `1`
    */
   setDim(value: number) {
-    const command = `SETD^m.dim^${value}`;
-    this.conn.sendMessage(command);
+    this.conn.setd('m.dim', value);
   }
 
   /** Enable DIM on the master */
@@ -289,6 +286,6 @@ export class MasterBus implements FadeableChannel, PannableChannel {
 
   private setDelay(ms: number, side: 'L' | 'R') {
     const value = sanitizeDelayValue(ms, 500);
-    this.conn.sendMessage(`SETD^m.delay${side}^${value}`);
+    this.conn.setd(`m.delay${side}`, value);
   }
 }
