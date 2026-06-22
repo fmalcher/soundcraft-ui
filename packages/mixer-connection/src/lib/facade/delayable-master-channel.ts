@@ -34,8 +34,7 @@ export class DelayableMasterChannel extends MasterChannel {
   setDelay(ms: number) {
     const value = sanitizeDelayValue(ms, this.delayMaxValueMs);
 
-    const command = `SETD^${this.fullChannelId}.delay^${value}`;
-    this.conn.sendMessage(command);
+    this.conn.setd(`${this.fullChannelId}.delay`, value);
   }
 
   /**

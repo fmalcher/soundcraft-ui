@@ -17,7 +17,7 @@ import { PlayerState } from '../types';
 export class Player {
   /** Current state (playing, stopped, paused) */
   state$ = this.store.state$.pipe(
-    selectRawValue<PlayerState>('var.currentState', PlayerState.Stopped)
+    selectRawValue<PlayerState>('var.currentState', PlayerState.Stopped),
   );
 
   /** Current playlist name */
@@ -38,7 +38,10 @@ export class Player {
   /** Shuffle setting (`0` or `1`) */
   shuffle$ = this.store.state$.pipe(selectRawValue('settings.shuffle', 0));
 
-  constructor(private conn: MixerConnection, private store: MixerStore) {}
+  constructor(
+    private conn: MixerConnection,
+    private store: MixerStore,
+  ) {}
 
   /** Start the media player */
   play() {
@@ -87,7 +90,7 @@ export class Player {
    * @param value `0` or `1`
    */
   setShuffle(value: number) {
-    this.conn.sendMessage(`SETD^settings.shuffle^${value}`);
+    this.conn.setd('settings.shuffle', value);
   }
 
   /**
@@ -103,7 +106,7 @@ export class Player {
    * @param value
    */
   setPlayMode(value: number) {
-    this.conn.sendMessage(`SETD^settings.playMode^${value}`);
+    this.conn.setd('settings.playMode', value);
   }
 
   /** Enable manual mode */

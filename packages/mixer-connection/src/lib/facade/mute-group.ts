@@ -53,7 +53,6 @@ export class MuteGroup {
   }
 
   private setMgMask(mask: number) {
-    const command = `SETD^mgmask^${mask}`;
-    this.conn.sendMessage(command);
+    this.conn.setd('mgmask', mask);
   }
 }

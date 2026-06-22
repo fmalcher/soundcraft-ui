@@ -160,7 +160,7 @@ export class SoundcraftUI {
 
   /** Unmute all mute groups, "MUTE ALL" and "MUTE FX" */
   clearMuteGroups() {
-    this.conn.sendMessage('SETD^mgmask^0');
+    this.conn.setd('mgmask', 0);
   }
 
   /**

@@ -42,8 +42,7 @@ export class SendChannel extends Channel {
    */
   setPost(value: number) {
     [...this.linkedChannelIds, this.fullChannelId].forEach(cid => {
-      const command = `SETD^${cid}.post^${value}`;
-      this.conn.sendMessage(command);
+      this.conn.setd(`${cid}.post`, value);
     });
   }
 

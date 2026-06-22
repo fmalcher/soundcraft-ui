@@ -223,4 +223,24 @@ export class MixerConnection {
   sendMessage(msg: string) {
     this.outboundSubject$.next(msg);
   }
+
+  /**
+   * Send a `SETD` command to the mixer.
+   * `SETD` messages carry numeric (data) values, e.g. fader levels, mute states or gains.
+   * @param path Parameter path, e.g. `i.2.mute`
+   * @param value Numeric value to set
+   */
+  setd(path: string, value: number) {
+    this.sendMessage(`SETD^${path}^${value}`);
+  }
+
+  /**
+   * Send a `SETS` command to the mixer.
+   * `SETS` messages carry string values, e.g. channel names.
+   * @param path Parameter path, e.g. `i.2.name`
+   * @param value String value to set
+   */
+  sets(path: string, value: string) {
+    this.sendMessage(`SETS^${path}^${value}`);
+  }
 }

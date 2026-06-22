@@ -81,8 +81,7 @@ export class HwChannel {
    * @param value `0` or `1`
    */
   setPhantom(value: number) {
-    const command = `SETD^${this.fullChannelId}.phantom^${value}`;
-    this.conn.sendMessage(command);
+    this.conn.setd(`${this.fullChannelId}.phantom`, value);
   }
 
   /** Switch ON phantom power for the channel */
@@ -106,8 +105,7 @@ export class HwChannel {
    */
   setGain(value: number) {
     value = clamp(value, 0, 1);
-    const command = `SETD^${this.fullChannelId}.gain^${value}`;
-    this.conn.sendMessage(command);
+    this.conn.setd(`${this.fullChannelId}.gain`, value);
   }
 
   /**

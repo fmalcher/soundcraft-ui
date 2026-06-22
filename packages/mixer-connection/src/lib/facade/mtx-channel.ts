@@ -101,8 +101,7 @@ export abstract class MtxChannel
 
   private setFaderLevelRaw(value: number) {
     [...this.linkedChannelIds, this.fullChannelId].forEach(cid => {
-      const command = `SETD^${cid}.value^${value}`;
-      this.conn.sendMessage(command);
+      this.conn.setd(`${cid}.value`, value);
     });
   }
 
@@ -140,8 +139,7 @@ export abstract class MtxChannel
    */
   setMute(value: number) {
     [...this.linkedChannelIds, this.fullChannelId].forEach(cid => {
-      const command = `SETD^${cid}.mute^${value}`;
-      this.conn.sendMessage(command);
+      this.conn.setd(`${cid}.mute`, value);
     });
   }
 
@@ -169,8 +167,7 @@ export abstract class MtxChannel
     value = clamp(value, 0, 1);
     value = roundToThreeDecimals(value);
     [...this.panLinkChannelIds, this.fullChannelId].forEach(cid => {
-      const command = `SETD^${cid}.pan^${value}`;
-      this.conn.sendMessage(command);
+      this.conn.setd(`${cid}.pan`, value);
     });
   }
 
@@ -189,8 +186,7 @@ export abstract class MtxChannel
    */
   setPostProc(value: number) {
     [...this.linkedChannelIds, this.fullChannelId].forEach(cid => {
-      const command = `SETD^${cid}.postproc^${value}`;
-      this.conn.sendMessage(command);
+      this.conn.setd(`${cid}.postproc`, value);
     });
   }
 

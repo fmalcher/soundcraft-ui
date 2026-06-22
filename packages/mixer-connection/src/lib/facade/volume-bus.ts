@@ -79,8 +79,7 @@ export class VolumeBus implements FadeableChannel {
 
   private setFaderLevelRaw(value: number) {
     const bus = `${this.busName}${this.busId ? '.' + (this.busId - 1) : ''}`;
-    const command = `SETD^settings.${bus}^${value}`;
-    this.conn.sendMessage(command);
+    this.conn.setd(`settings.${bus}`, value);
   }
 
   /**

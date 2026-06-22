@@ -134,8 +134,7 @@ export class Channel implements FadeableChannel {
 
   private setFaderLevelRaw(value: number) {
     [...this.linkedChannelIds, this.fullChannelId].forEach(cid => {
-      const command = `SETD^${cid}.${this.faderLevelCommand}^${value}`;
-      this.conn.sendMessage(command);
+      this.conn.setd(`${cid}.${this.faderLevelCommand}`, value);
     });
   }
 
@@ -173,8 +172,7 @@ export class Channel implements FadeableChannel {
    */
   setMute(value: number) {
     [...this.linkedChannelIds, this.fullChannelId].forEach(cid => {
-      const command = `SETD^${cid}.mute^${value}`;
-      this.conn.sendMessage(command);
+      this.conn.setd(`${cid}.mute`, value);
     });
   }
 
@@ -197,6 +195,6 @@ export class Channel implements FadeableChannel {
   setName(name: string) {
     name = sanitizeChannelName(name);
     const path = joinStatePath(this.channelType, this.channel - 1, 'name');
-    this.conn.sendMessage(`SETS^${path}^${name}`);
+    this.conn.sets(path, name);
   }
 }

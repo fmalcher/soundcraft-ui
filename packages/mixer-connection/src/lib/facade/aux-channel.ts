@@ -85,8 +85,7 @@ export class AuxChannel extends SendChannel implements PannableChannel, PostProc
     value = clamp(value, 0, 1);
     value = roundToThreeDecimals(value);
     [...this.auxLinkChannelIds, this.fullChannelId].forEach(cid => {
-      const command = `SETD^${cid}.pan^${value}`;
-      this.conn.sendMessage(command);
+      this.conn.setd(`${cid}.pan`, value);
     });
   }
 
@@ -105,8 +104,7 @@ export class AuxChannel extends SendChannel implements PannableChannel, PostProc
    */
   setPostProc(value: number) {
     [...this.linkedChannelIds, this.fullChannelId].forEach(cid => {
-      const command = `SETD^${cid}.postproc^${value}`;
-      this.conn.sendMessage(command);
+      this.conn.setd(`${cid}.postproc`, value);
     });
   }
 
