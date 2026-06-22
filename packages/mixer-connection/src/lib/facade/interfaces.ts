@@ -25,3 +25,12 @@ export interface PannableChannel {
   setPan(value: number): void;
   changePan(offset: number): void;
 }
+
+export interface PostProcessableChannel {
+  /** PRE/POST PROC value of the channel (`1` (POST PROC) or `0` (PRE PROC)) */
+  postProc$: Observable<number>;
+
+  setPostProc(value: number): void;
+  postProc(): void;
+  preProc(): void;
+}

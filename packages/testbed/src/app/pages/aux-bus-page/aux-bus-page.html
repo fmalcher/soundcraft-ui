@@ -7,11 +7,7 @@
 <h2 class="mt-4">{{ c.label }} ({{ c.channel.name$ | async }})</h2>
 <sui-mute-button [channel]="c.channel" />
 <sui-prepost-controls [channel]="c.channel" />
-<!-- POST/PRE PROC -->
-<div>
-  <sui-mixer-button (press)="c.channel.preProc()"> PRE PROC</sui-mixer-button>
-  <sui-mixer-button (press)="c.channel.postProc()">POST PROC</sui-mixer-button>
-</div>
+<sui-postproc-controls class="ms-3" [channel]="c.channel" />
 <sui-fader-level-controls [channel]="c.channel" />
 <sui-pan-controls [channel]="c.channel" />
 <sui-transition-controls [channel]="c.channel" />

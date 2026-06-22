@@ -59,4 +59,13 @@ button {
       background: color.adjust(#069840, $lightness: 5%);
     }
   }
+
+  &.preproc {
+    color: white;
+    background: #e8590c;
+
+    &:hover {
+      background: color.adjust(#e8590c, $lightness: 10%);
+    }
+  }
 }

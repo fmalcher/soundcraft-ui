@@ -14,7 +14,7 @@ import {
   selectFaderValue,
   selectDelayValue,
   selectPost,
-  selectAuxPostProc,
+  selectPostProc,
   selectFxBpm,
   selectFxType,
   selectStereoIndex,
@@ -220,14 +220,19 @@ describe('State Selectors', () => {
     });
   });
 
-  describe('selectAuxPostProc', () => {
+  describe('selectPostProc', () => {
     it('should read postproc value for an aux send', () => {
-      const projector = selectAuxPostProc('i', 4, 2);
+      const projector = selectPostProc('i', 4, 'aux', 2);
       expect(projector({ 'i.3.aux.1.postproc': 1 })).toBe(1);
     });
 
+    it('should read postproc value for a matrix send', () => {
+      const projector = selectPostProc('a', 1, 'mtx', 7);
+      expect(projector({ 'a.0.mtx.6.postproc': 1 })).toBe(1);
+    });
+
     it('should default to 0', () => {
-      const projector = selectAuxPostProc('i', 4, 2);
+      const projector = selectPostProc('i', 4, 'aux', 2);
       expect(projector({})).toBe(0);
     });
   });

@@ -179,15 +179,15 @@ export const selectPost: Selector<number> = (
  * Select "postproc" value of a send channel
  * @param channelType
  * @param channel
+ * @param busType
+ * @param bus
  */
-export const selectAuxPostProc: Selector<number> = (
+export const selectPostProc: Selector<number> = (
   channelType: ChannelType,
   channel: number,
-  aux: number,
-) => {
-  const path = joinStatePath(channelType, channel - 1, 'aux', aux - 1, 'postproc');
-  return state => getValueFromObject(state, path, 0);
-};
+  busType: BusType,
+  bus?: number,
+) => selectGenericChannelProperty('postproc', 0, channelType, channel, busType, bus);
 
 /**
  * Select BPM value of an FX bus

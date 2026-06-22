@@ -8,7 +8,7 @@ import { clamp, roundToThreeDecimals } from '../utils';
 import { resolveDelayed } from '../utils/async-helpers';
 import { Easings } from '../utils/transitions/easings';
 import { DBToFaderValue, faderValueToDB } from '../utils/value-converters';
-import { FadeableChannel, PannableChannel } from './interfaces';
+import { FadeableChannel, PannableChannel, PostProcessableChannel } from './interfaces';
 
 /**
  * Base class for all sources routed to a matrix bus.
@@ -21,7 +21,9 @@ import { FadeableChannel, PannableChannel } from './interfaces';
  * which is the one source that can't be derived from the id (the master source has no
  * channel index and therefore no name path).
  */
-export abstract class MtxChannel implements FadeableChannel, PannableChannel {
+export abstract class MtxChannel
+  implements FadeableChannel, PannableChannel, PostProcessableChannel
+{
   /** Name of the matrix source (provided by the concrete subclass) */
   abstract readonly name$: Observable<string>;
 
@@ -38,6 +40,11 @@ export abstract class MtxChannel implements FadeableChannel, PannableChannel {
 
   /** PAN value of the matrix source (between `0` and `1`) */
   readonly pan$ = this.store.state$.pipe(selectRawValue<number>(`${this.fullChannelId}.pan`, 0));
+
+  /** PRE/POST PROC value of the matrix source (`1` (POST PROC) or `0` (PRE PROC)) */
+  readonly postProc$ = this.store.state$.pipe(
+    selectRawValue<number>(`${this.fullChannelId}.postproc`, 0),
+  );
 
   /** all linked channels (mirror on the stereo-linked matrix output and stereo-link neighbour) */
   protected linkedChannelIds: string[] = [];
