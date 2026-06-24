@@ -12,7 +12,7 @@ import { constructSendChannelId } from './channel-id';
  * Used as super class for Aux and Fx
  */
 export class SendChannel extends Channel {
-  override fullChannelId = constructSendChannelId(
+  protected override fullChannelId = constructSendChannelId(
     this.channelType,
     this.channel,
     this.busType,
@@ -21,7 +21,7 @@ export class SendChannel extends Channel {
   override faderLevelCommand = 'value';
 
   /** PRE/POST value of the channel (`1` (POST) or `0` (PRE)) */
-  post$ = this.store.state$.pipe(
+  readonly post$ = this.store.state$.pipe(
     select(selectPost(this.channelType, this.channel, this.busType, this.bus)),
   );
 

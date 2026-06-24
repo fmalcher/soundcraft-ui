@@ -18,19 +18,19 @@ import {
  * Represents a channel on the master bus
  */
 export class MasterChannel extends Channel implements PannableChannel {
-  override fullChannelId = constructMasterChannelId(this.channelType, this.channel);
+  protected override fullChannelId = constructMasterChannelId(this.channelType, this.channel);
   override faderLevelCommand = 'mix';
 
   /** SOLO value of the channel (`0` or `1`) */
-  solo$ = this.store.state$.pipe(select(selectSolo(this.channelType, this.channel)));
+  readonly solo$ = this.store.state$.pipe(select(selectSolo(this.channelType, this.channel)));
 
   /** PAN value of the channel (between `0` and `1`) */
-  pan$ = this.store.state$.pipe(
+  readonly pan$ = this.store.state$.pipe(
     select(selectPan(this.channelType, this.channel, this.busType, this.bus)),
   );
 
   /** Assigned automix group (`a`, `b`, `none`) */
-  automixGroup$ = this.store.state$.pipe(
+  readonly automixGroup$ = this.store.state$.pipe(
     selectRawValue<number>(`${this.fullChannelId}.amixgroup`),
     map((groupId): AutomixGroupId | 'none' => {
       switch (groupId) {
@@ -45,13 +45,17 @@ export class MasterChannel extends Channel implements PannableChannel {
   );
 
   /** Automix weight (linear) for this channel (between `0` and `1`) */
-  automixWeight$ = this.store.state$.pipe(selectRawValue<number>(`${this.fullChannelId}.amix`));
+  readonly automixWeight$ = this.store.state$.pipe(
+    selectRawValue<number>(`${this.fullChannelId}.amix`),
+  );
 
   /** Automix weight (dB) for this channel (between `-12` and `12` dB) */
-  automixWeightDB$ = this.automixWeight$.pipe(map(v => linearMappingValueToRange(v, -12, 12)));
+  readonly automixWeightDB$ = this.automixWeight$.pipe(
+    map(v => linearMappingValueToRange(v, -12, 12)),
+  );
 
   /** Multitrack selection state for the channel (`0` or `1`) */
-  multiTrackSelected$ = this.store.state$.pipe(
+  readonly multiTrackSelected$ = this.store.state$.pipe(
     selectRawValue<number>(`${this.fullChannelId}.mtkrec`),
   );
 

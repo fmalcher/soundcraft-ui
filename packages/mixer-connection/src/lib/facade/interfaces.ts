@@ -3,10 +3,10 @@ import { Easings } from '../utils/transitions/easings';
 
 export interface FadeableChannel {
   /** Name of the channel */
-  name$: Observable<string>;
+  readonly name$: Observable<string>;
 
-  faderLevel$: Observable<number>;
-  faderLevelDB$: Observable<number>;
+  readonly faderLevel$: Observable<number>;
+  readonly faderLevelDB$: Observable<number>;
 
   fadeTo(targetValue: number, fadeTime: number, easing: Easings, fps?: number): Promise<void>;
 
@@ -20,7 +20,7 @@ export interface FadeableChannel {
 }
 
 export interface PannableChannel {
-  pan$: Observable<number>;
+  readonly pan$: Observable<number>;
 
   setPan(value: number): void;
   changePan(offset: number): void;
@@ -28,7 +28,7 @@ export interface PannableChannel {
 
 export interface PostProcessableChannel {
   /** PRE/POST PROC value of the channel (`1` (POST PROC) or `0` (PRE PROC)) */
-  postProc$: Observable<number>;
+  readonly postProc$: Observable<number>;
 
   setPostProc(value: number): void;
   postProc(): void;

@@ -16,12 +16,12 @@ export class AuxChannel extends SendChannel implements PannableChannel, PostProc
   private auxLinkChannelIds: string[] = [];
 
   /** PAN value of the AUX channel (between `0` and `1`) */
-  pan$ = this.store.state$.pipe(
+  readonly pan$ = this.store.state$.pipe(
     select(selectPan(this.channelType, this.channel, this.busType, this.bus)),
   );
 
   /** PRE/POST PROC value of the AUX channel (`1` (POST PROC) or `0` (PRE PROC)) */
-  postProc$ = this.store.state$.pipe(
+  readonly postProc$ = this.store.state$.pipe(
     select(selectPostProc(this.channelType, this.channel, this.busType, this.bus)),
   );
 

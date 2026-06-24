@@ -15,12 +15,12 @@ import { MtkState } from '../types';
  */
 export class MultiTrackRecorder {
   /** Current state (playing, stopped, paused) */
-  state$ = this.store.state$.pipe(
+  readonly state$ = this.store.state$.pipe(
     selectRawValue<MtkState>('var.mtk.currentState', MtkState.Stopped),
   );
 
   /** Current session name (e.g. `0001` or individual name) */
-  session$ = this.store.state$.pipe(
+  readonly session$ = this.store.state$.pipe(
     selectRawValue<number | string>('var.mtk.session'),
     map(value => {
       if (typeof value === 'number') {
@@ -33,29 +33,29 @@ export class MultiTrackRecorder {
   );
 
   /** Current session length in seconds */
-  length$ = this.store.state$.pipe(select(selectMtkLength()));
+  readonly length$ = this.store.state$.pipe(select(selectMtkLength()));
 
   /** Elapsed time of current session in seconds */
-  elapsedTime$ = this.store.state$.pipe(select(selectMtkElapsedTime()));
+  readonly elapsedTime$ = this.store.state$.pipe(select(selectMtkElapsedTime()));
 
   /** Remaining time of current session in seconds */
-  remainingTime$ = this.store.state$.pipe(select(selectMtkRemainingTime()));
+  readonly remainingTime$ = this.store.state$.pipe(select(selectMtkRemainingTime()));
 
   /** Recording state (`0` or `1`) */
-  recording$ = this.store.state$.pipe(selectRawValue('var.mtk.rec.currentState', 0));
+  readonly recording$ = this.store.state$.pipe(selectRawValue('var.mtk.rec.currentState', 0));
 
   /** Recording busy state (`0` or `1`) */
-  busy$ = this.store.state$.pipe(selectRawValue('var.mtk.rec.busy', 0));
+  readonly busy$ = this.store.state$.pipe(selectRawValue('var.mtk.rec.busy', 0));
 
   /** Recording time in seconds */
-  recordingTime$ = this.store.state$.pipe(
+  readonly recordingTime$ = this.store.state$.pipe(
     selectRawValue('var.mtk.rec.time', 0),
     withLatestFrom(this.recording$),
     map(([value, recording]) => (recording ? value : 0)), // set to 0 if not actually recording. otherwise, it emits strange values
   );
 
   /** Soundcheck activation state (`0` or `1`) */
-  soundcheck$ = this.store.state$.pipe(selectRawValue('var.mtk.soundcheck', 0));
+  readonly soundcheck$ = this.store.state$.pipe(selectRawValue('var.mtk.soundcheck', 0));
 
   constructor(
     private conn: MixerConnection,

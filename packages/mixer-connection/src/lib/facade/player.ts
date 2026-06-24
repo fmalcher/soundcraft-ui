@@ -16,27 +16,27 @@ import { PlayerState } from '../types';
  */
 export class Player {
   /** Current state (playing, stopped, paused) */
-  state$ = this.store.state$.pipe(
+  readonly state$ = this.store.state$.pipe(
     selectRawValue<PlayerState>('var.currentState', PlayerState.Stopped),
   );
 
   /** Current playlist name */
-  playlist$ = this.store.state$.pipe(selectRawValue<string>('var.currentPlaylist'));
+  readonly playlist$ = this.store.state$.pipe(selectRawValue<string>('var.currentPlaylist'));
 
   /** Current track name */
-  track$ = this.store.state$.pipe(selectRawValue<string>('var.currentTrack'));
+  readonly track$ = this.store.state$.pipe(selectRawValue<string>('var.currentTrack'));
 
   /** Current track length in seconds */
-  length$ = this.store.state$.pipe(select(selectPlayerLength()));
+  readonly length$ = this.store.state$.pipe(select(selectPlayerLength()));
 
   /** Elapsed time of current track in seconds */
-  elapsedTime$ = this.store.state$.pipe(select(selectPlayerElapsedTime()));
+  readonly elapsedTime$ = this.store.state$.pipe(select(selectPlayerElapsedTime()));
 
   /** Remaining time of current track in seconds */
-  remainingTime$ = this.store.state$.pipe(select(selectPlayerRemainingTime()));
+  readonly remainingTime$ = this.store.state$.pipe(select(selectPlayerRemainingTime()));
 
   /** Shuffle setting (`0` or `1`) */
-  shuffle$ = this.store.state$.pipe(selectRawValue('settings.shuffle', 0));
+  readonly shuffle$ = this.store.state$.pipe(selectRawValue('settings.shuffle', 0));
 
   constructor(
     private conn: MixerConnection,

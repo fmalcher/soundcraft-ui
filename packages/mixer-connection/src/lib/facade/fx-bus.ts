@@ -13,13 +13,13 @@ export class FxBus {
    * Selected FX type (Reverb, Delay, Chorus, Room).
    * The numeric value can be matched using the `FxType` enum.
    */
-  fxType$ = this.store.state$.pipe(select(selectFxType(this.bus)));
+  readonly fxType$ = this.store.state$.pipe(select(selectFxType(this.bus)));
 
   /**
    * BPM value of this FX.
    * This setting is always present but might not be actually used if the selected FX does not have a BPM setting.
    */
-  bpm$ = this.store.state$.pipe(select(selectFxBpm(this.bus)));
+  readonly bpm$ = this.store.state$.pipe(select(selectFxBpm(this.bus)));
 
   constructor(
     private conn: MixerConnection,

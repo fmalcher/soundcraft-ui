@@ -13,7 +13,7 @@ import { MtxChannel } from './mtx-channel';
  * Matrix buses are only available on the Ui24R.
  */
 export class MtxMasterChannel extends MtxChannel {
-  name$ = of('MASTER');
+  readonly name$ = of('MASTER');
 
   constructor(conn: MixerConnection, store: MixerStore, bus: number) {
     super(conn, store, `m.mtx.${bus - 1}`);

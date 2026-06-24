@@ -22,17 +22,17 @@ describe('AUX Channel', () => {
   describe('Channel ID for different hardware models', () => {
     it('should use `hw` for ui24', () => {
       setMixerModel('ui24', conn);
-      expect(conn.hw(4).fullChannelId).toBe('hw.3');
+      expect(conn.hw(4)['fullChannelId']).toBe('hw.3');
     });
 
     it('should use `i` for ui16', () => {
       setMixerModel('ui16', conn);
-      expect(conn.hw(6).fullChannelId).toBe('i.5');
+      expect(conn.hw(6)['fullChannelId']).toBe('i.5');
     });
 
     it('should use `i` for ui12', () => {
       setMixerModel('ui12', conn);
-      expect(conn.hw(4).fullChannelId).toBe('i.3');
+      expect(conn.hw(4)['fullChannelId']).toBe('i.3');
     });
   });
 

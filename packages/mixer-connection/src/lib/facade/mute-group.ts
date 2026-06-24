@@ -35,7 +35,7 @@ export class MuteGroup {
   private mgMask$ = this.store.state$.pipe(selectRawValue<number>('mgmask'));
 
   /** MUTE state of the group (`0` or `1`) */
-  state$ = this.mgMask$.pipe(map(value => getValueOfBit(value, this.groupIndex)));
+  readonly state$ = this.mgMask$.pipe(map(value => getValueOfBit(value, this.groupIndex)));
 
   /** Mute the MUTE group */
   mute() {
