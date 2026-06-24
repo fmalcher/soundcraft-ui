@@ -13,10 +13,10 @@ import { DeviceInfo } from './device-info';
  * Represents a hardware input on the mixer
  */
 export class HwChannel {
-  fullChannelId = `hw.${this.channel - 1}`;
+  protected fullChannelId = `hw.${this.channel - 1}`;
 
   /** Phantom power state of the channel (`0` or `1`) */
-  phantom$ = this.deviceInfo.model$.pipe(
+  readonly phantom$ = this.deviceInfo.model$.pipe(
     switchMap(model => {
       switch (model) {
         case 'ui24':
@@ -29,7 +29,7 @@ export class HwChannel {
   );
 
   /** Linear gain level of the channel (between `0` and `1`) */
-  gain$ = this.deviceInfo.model$.pipe(
+  readonly gain$ = this.deviceInfo.model$.pipe(
     switchMap(model => {
       switch (model) {
         case 'ui24':
@@ -42,7 +42,7 @@ export class HwChannel {
   );
 
   /** dB gain level of the channel */
-  gainDB$ = this.deviceInfo.model$.pipe(
+  readonly gainDB$ = this.deviceInfo.model$.pipe(
     switchMap(model => {
       switch (model) {
         case 'ui24':

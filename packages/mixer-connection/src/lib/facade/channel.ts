@@ -29,7 +29,7 @@ import { joinStatePath } from '../utils/state-utils';
  * Represents a single channel with a fader
  */
 export class Channel implements FadeableChannel {
-  fullChannelId = `${this.channelType}.${this.channel - 1}`;
+  protected fullChannelId = `${this.channelType}.${this.channel - 1}`;
   protected faderLevelCommand = 'mix';
   protected linkedChannelIds: string[] = [];
 
@@ -41,15 +41,15 @@ export class Channel implements FadeableChannel {
   );
 
   /** Linear level of the channel (between `0` and `1`) */
-  faderLevel$ = this.store.state$.pipe(
+  readonly faderLevel$ = this.store.state$.pipe(
     select(selectFaderValue(this.channelType, this.channel, this.busType, this.bus)),
   );
 
   /** dB level of the channel (between `-Infinity` and `10`) */
-  faderLevelDB$ = this.faderLevel$.pipe(map(v => faderValueToDB(v)));
+  readonly faderLevelDB$ = this.faderLevel$.pipe(map(v => faderValueToDB(v)));
 
   /** MUTE value of the channel (`0` or `1`) */
-  mute$ = this.store.state$.pipe(
+  readonly mute$ = this.store.state$.pipe(
     select(selectMute(this.channelType, this.channel, this.busType, this.bus)),
   );
 
@@ -61,7 +61,7 @@ export class Channel implements FadeableChannel {
 
   private auxIsMatrix$ = this.store.state$.pipe(select(selectMatrix(this.channel)));
 
-  name$ = iif(
+  readonly name$ = iif(
     () => this.channelType !== 'a',
     this.rawName$.pipe(map(name => name || getDefaultChannelName(this.channelType, this.channel))),
     // an AUX slot can be switched into a matrix bus (Ui24R), which uses a different default name

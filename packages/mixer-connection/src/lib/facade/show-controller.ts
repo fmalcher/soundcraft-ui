@@ -8,15 +8,18 @@ import { selectRawValue } from '../state/state-selectors';
  */
 export class ShowController {
   /** Currently loaded show */
-  currentShow$ = this.store.state$.pipe(selectRawValue<string>('var.currentShow'));
+  readonly currentShow$ = this.store.state$.pipe(selectRawValue<string>('var.currentShow'));
 
   /** Currently loaded snapshot */
-  currentSnapshot$ = this.store.state$.pipe(selectRawValue<string>('var.currentSnapshot'));
+  readonly currentSnapshot$ = this.store.state$.pipe(selectRawValue<string>('var.currentSnapshot'));
 
   /** Currently loaded cue */
-  currentCue$ = this.store.state$.pipe(selectRawValue<string>('var.currentCue'));
+  readonly currentCue$ = this.store.state$.pipe(selectRawValue<string>('var.currentCue'));
 
-  constructor(private conn: MixerConnection, private store: MixerStore) {}
+  constructor(
+    private conn: MixerConnection,
+    private store: MixerStore,
+  ) {}
 
   /**
    * Load a show by name
@@ -67,7 +70,7 @@ export class ShowController {
     combineLatest([this.currentShow$, this.currentSnapshot$])
       .pipe(
         take(1),
-        filter(([show, snapshot]) => !!show && !!snapshot)
+        filter(([show, snapshot]) => !!show && !!snapshot),
       )
       .subscribe(([show, snapshot]) => this.saveSnapshot(show, snapshot));
   }
@@ -77,7 +80,7 @@ export class ShowController {
     combineLatest([this.currentShow$, this.currentCue$])
       .pipe(
         take(1),
-        filter(([show, cue]) => !!show && !!cue)
+        filter(([show, cue]) => !!show && !!cue),
       )
       .subscribe(([show, cue]) => this.saveCue(show, cue));
   }

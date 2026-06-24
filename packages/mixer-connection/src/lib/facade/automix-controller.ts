@@ -8,7 +8,7 @@ export type AutomixGroupId = 'a' | 'b';
 
 export class AutomixGroup {
   /** Active state of this automix group (`0` or `1`) */
-  state$ = this.store.state$.pipe(selectRawValue<number>(`automix.${this.group}.on`));
+  readonly state$ = this.store.state$.pipe(selectRawValue<number>(`automix.${this.group}.on`));
 
   constructor(
     private conn: MixerConnection,
@@ -41,10 +41,10 @@ export class AutomixGroup {
  */
 export class AutomixController {
   /** Global response time (linear, between `0` and `1`) */
-  responseTime$ = this.store.state$.pipe(selectRawValue<number>('automix.time'));
+  readonly responseTime$ = this.store.state$.pipe(selectRawValue<number>('automix.time'));
 
   /** Global response time in milliseconds (between `20` and `4000` ms) */
-  responseTimeMs$ = this.responseTime$.pipe(map(v => faderValueToTimeMs(v)));
+  readonly responseTimeMs$ = this.responseTime$.pipe(map(v => faderValueToTimeMs(v)));
 
   /**
    * Set global response time (linear)

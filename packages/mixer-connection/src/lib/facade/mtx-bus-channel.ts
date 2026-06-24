@@ -15,7 +15,7 @@ import { MtxChannel } from './mtx-channel';
  */
 export class MtxBusChannel extends MtxChannel {
   // Channel name is only available directly in the channel, e.g. `a.1.name`.
-  name$ = this.store.state$.pipe(
+  readonly name$ = this.store.state$.pipe(
     selectRawValue<string>(joinStatePath(this.channelType, this.channel - 1, 'name')),
     map(name => name || getDefaultChannelName(this.channelType, this.channel)),
   );

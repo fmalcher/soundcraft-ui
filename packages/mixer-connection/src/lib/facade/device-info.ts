@@ -9,13 +9,13 @@ export class DeviceInfo {
    * Hardware model of the mixer.
    * Possible values: `ui12`, `ui16`, `ui24`
    */
-  model$ = this.store.state$.pipe(selectRawValue<MixerModel>('model'));
+  readonly model$ = this.store.state$.pipe(selectRawValue<MixerModel>('model'));
 
   /** Device capabilities based on the model */
-  capabilities$ = this.model$.pipe(map(model => DEVICE_CAPABILITIES[model]));
+  readonly capabilities$ = this.model$.pipe(map(model => DEVICE_CAPABILITIES[model]));
 
   /** Firmware version of the mixer */
-  firmware$ = this.store.state$.pipe(selectRawValue<string>('firmware'));
+  readonly firmware$ = this.store.state$.pipe(selectRawValue<string>('firmware'));
 
   /**
    * Hardware model of the mixer.

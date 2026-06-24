@@ -1,5 +1,5 @@
 @for (channel of channels; track channel) {
-<h2 class="mt-5">HW Channel {{ channel.fullChannelId }}</h2>
+<h2 class="mt-5">HW Channel {{ $index + 1 }}</h2>
 <h3>Phantom Power</h3>
 <sui-mixer-button (press)="channel.phantomOn()">ON</sui-mixer-button>
 <sui-mixer-button (press)="channel.phantomOff()">OFF</sui-mixer-button>

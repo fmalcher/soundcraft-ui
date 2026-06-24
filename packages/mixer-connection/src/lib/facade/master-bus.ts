@@ -23,24 +23,24 @@ import { MasterChannel } from './master-channel';
  * Represents the master bus
  */
 export class MasterBus implements FadeableChannel, PannableChannel {
-  name$ = of('MASTER');
+  readonly name$ = of('MASTER');
 
   /** Linear level of the master fader (between `0` and `1`) */
-  faderLevel$ = this.store.state$.pipe(select(selectMasterValue()));
+  readonly faderLevel$ = this.store.state$.pipe(select(selectMasterValue()));
 
   /** dB level of the master fader (between `-Infinity` and `10`) */
-  faderLevelDB$ = this.faderLevel$.pipe(map(v => faderValueToDB(v)));
+  readonly faderLevelDB$ = this.faderLevel$.pipe(map(v => faderValueToDB(v)));
 
   /** PAN value of the master (between `0` and `1`) */
-  pan$ = this.store.state$.pipe(select(selectMasterPan()));
+  readonly pan$ = this.store.state$.pipe(select(selectMasterPan()));
 
   /** DIM value of the master (`0` or `1`) */
-  dim$ = this.store.state$.pipe(select(selectMasterDim()));
+  readonly dim$ = this.store.state$.pipe(select(selectMasterDim()));
 
   /** LEFT DELAY (ms) of the master */
-  delayL$ = this.store.state$.pipe(select(selectMasterDelay('L')));
+  readonly delayL$ = this.store.state$.pipe(select(selectMasterDelay('L')));
   /** RIGHT DELAY (ms) of the master */
-  delayR$ = this.store.state$.pipe(select(selectMasterDelay('R')));
+  readonly delayR$ = this.store.state$.pipe(select(selectMasterDelay('R')));
 
   private transitionSources$ = new Subject<TransitionSource>();
 

@@ -12,7 +12,9 @@ import { MasterChannel } from './master-channel';
  */
 export class DelayableMasterChannel extends MasterChannel {
   /** Delay value of the channel (between `0` and `500` ms) */
-  delay$ = this.store.state$.pipe(select(selectDelayValue(this.channelType, this.channel)));
+  readonly delay$ = this.store.state$.pipe(
+    select(selectDelayValue(this.channelType, this.channel)),
+  );
 
   /** default delay value (ms) for input channels */
   private delayMaxValueMs = 250;
