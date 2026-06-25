@@ -34,6 +34,7 @@ export class SendChannel extends Channel {
     bus: number,
   ) {
     super(conn, store, channelType, channel, busType, bus);
+    this.linkedChannelIds = [this.fullChannelId];
   }
 
   /**
@@ -41,7 +42,7 @@ export class SendChannel extends Channel {
    * @param value POST (`true`) or PRE (`false`)
    */
   setPost(value: boolean) {
-    [...this.linkedChannelIds, this.fullChannelId].forEach(cid => {
+    this.linkedChannelIds.forEach(cid => {
       this.conn.setdBool(`${cid}.post`, value);
     });
   }

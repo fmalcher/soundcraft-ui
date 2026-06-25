@@ -43,8 +43,8 @@ export class MtxBusChannel extends MtxChannel {
           const linkedMtxNo = getLinkedChannelNumber(bus, mtxIndex);
           const linkedChNo = getLinkedChannelNumber(channel, channelIndex);
 
-          const allChannelIds = []; // all linked channels on this matrix and on the linked matrix
-          const mtxLinkChannelIds = []; // this channel on the linked matrix output
+          const allChannelIds = [this.fullChannelId]; // all linked channels on this matrix and on the linked matrix
+          const mtxLinkChannelIds = [this.fullChannelId]; // this channel on the linked matrix output
 
           // add linked source channel on this matrix
           if (linkedChNo !== undefined) {

@@ -31,7 +31,7 @@ import { joinStatePath } from '../utils/state-utils';
 export class Channel implements FadeableChannel {
   protected fullChannelId = `${this.channelType}.${this.channel - 1}`;
   protected faderLevelCommand = 'mix';
-  protected linkedChannelIds: string[] = [];
+  protected linkedChannelIds: string[] = [this.fullChannelId];
 
   private transitionSources$ = new Subject<TransitionSource>();
 
@@ -133,7 +133,7 @@ export class Channel implements FadeableChannel {
   }
 
   private setFaderLevelRaw(value: number) {
-    [...this.linkedChannelIds, this.fullChannelId].forEach(cid => {
+    this.linkedChannelIds.forEach(cid => {
       this.conn.setd(`${cid}.${this.faderLevelCommand}`, value);
     });
   }
@@ -171,7 +171,7 @@ export class Channel implements FadeableChannel {
    * @param value MUTE state
    */
   setMute(value: boolean) {
-    [...this.linkedChannelIds, this.fullChannelId].forEach(cid => {
+    this.linkedChannelIds.forEach(cid => {
       this.conn.setdBool(`${cid}.mute`, value);
     });
   }
