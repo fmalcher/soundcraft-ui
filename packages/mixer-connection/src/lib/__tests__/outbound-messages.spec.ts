@@ -1102,6 +1102,9 @@ describe('Outbound messages', () => {
 
     conn.player.setAuto();
     expect(message).toBe('SETD^settings.playMode^3');
+
+    conn.player.refreshPlaylists();
+    expect(message).toBe('MEDIA_GET_PLISTS');
   });
 
   it('2-track recorder', () => {
@@ -1178,6 +1181,9 @@ describe('Outbound messages', () => {
 
     conn.shows.saveCue('testshow', 'testcue');
     expect(message).toBe('SAVECUE^testshow^testcue');
+
+    conn.shows.refreshShows();
+    expect(message).toBe('SHOWLIST');
   });
 
   it('automix controller', () => {

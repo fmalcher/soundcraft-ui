@@ -1,7 +1,8 @@
-import { take } from 'rxjs';
+import { distinctUntilChanged, filter, map, take } from 'rxjs';
 
 import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
+import { PLAYLISTS_KEY, PLAYLIST_TRACKS_KEY, requestResourceList } from '../state/resource-lists';
 import {
   select,
   selectBoolean,
@@ -10,7 +11,7 @@ import {
   selectPlayerRemainingTime,
   selectRawValue,
 } from '../state/state-selectors';
-import { PlayerState } from '../types';
+import { ConnectionStatus, PlayerState, PlaylistsWithTracks } from '../types';
 
 /**
  * Represents the media player
@@ -39,10 +40,37 @@ export class Player {
   /** Shuffle state */
   readonly shuffle$ = this.store.state$.pipe(selectBoolean('settings.shuffle'));
 
+  /**
+   * All available playlists with their tracks (playlist name -> track names).
+   * Fetched on connect; refresh manually with {@link refreshPlaylists}.
+   */
+  readonly playlistsWithTracks$ = this.store.resourceListState$.pipe(
+    map((state): PlaylistsWithTracks => {
+      const names = state[PLAYLISTS_KEY] ?? [];
+      return Object.fromEntries(
+        names.map(name => [name, state[`${PLAYLIST_TRACKS_KEY}^${name}`] ?? []]),
+      );
+    }),
+  );
+
+  /**
+   * Names of all available playlists.
+   * Fetched on connect; refresh manually with {@link refreshPlaylists}.
+   */
+  readonly playlists$ = this.store.resourceListState$.pipe(
+    map(state => state[PLAYLISTS_KEY] ?? []),
+    distinctUntilChanged((a, b) => a.length === b.length && a.every((value, i) => value === b[i])),
+  );
+
   constructor(
     private conn: MixerConnection,
     private store: MixerStore,
-  ) {}
+  ) {
+    // playlists are sent per-client on request, so (re-)fetch them on every connection open
+    this.conn.status$
+      .pipe(filter(e => e.type === ConnectionStatus.Open))
+      .subscribe(() => this.refreshPlaylists());
+  }
 
   /** Start the media player */
   play() {
@@ -118,5 +146,16 @@ export class Player {
   /** Enable automatic mode */
   setAuto() {
     this.setPlayMode(3);
+  }
+
+  /**
+   * Request the list of playlists and their tracks from the mixer.
+   * Results are exposed through {@link playlists$} and {@link playlistsWithTracks$}.
+   * This is called automatically on every connection open.
+   */
+  refreshPlaylists() {
+    requestResourceList(this.conn, 'MEDIA_GET_PLISTS', 'PLISTS').subscribe(playlists =>
+      playlists.forEach(name => this.conn.sendMessage(`MEDIA_GET_PLIST_TRACKS^${name}`)),
+    );
   }
 }

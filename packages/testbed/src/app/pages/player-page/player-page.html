@@ -15,19 +15,11 @@
   <sui-mixer-button (press)="player.next()">Next &gt;|</sui-mixer-button>
 </div>
 
-<sui-input-field
-  label="Load playlist"
-  buttonLabel="Load"
-  [value]="playlistFromInput"
-  (valueChange)="player.loadPlaylist($event); this.playlistFromInput = $event"
-/>
+<sui-input-field label="Load playlist" buttonLabel="Load" [value]="playlistFromInput"
+  (valueChange)="player.loadPlaylist($event); this.playlistFromInput = $event" />
 
-<sui-input-field
-  label="Load track from playlist {{ playlistFromInput }}"
-  buttonLabel="Load"
-  value="/Power_Shutoff.mp3"
-  (valueChange)="loadTrack($event)"
-/>
+<sui-input-field label="Load track from playlist {{ playlistFromInput }}" buttonLabel="Load" value="/Power_Shutoff.mp3"
+  (valueChange)="loadTrack($event)" />
 @if (!playlistFromInput) {
 <div class="text-muted">Set playlist first with input above!</div>
 }
@@ -56,3 +48,56 @@
 </sui-mixer-button>
 <sui-mixer-button (press)="rec.recordStart()">REC Start</sui-mixer-button>
 <sui-mixer-button (press)="rec.recordStop()">REC Stop</sui-mixer-button>
+
+<div class="mb-3">
+  <h2 class="mt-5">Playlists</h2>
+
+  <div class="mb-2">
+    <button class="btn btn-sm btn-secondary" (click)="player.refreshPlaylists()">
+      Refresh Playlists
+    </button>
+    <button class="btn btn-sm btn-outline-secondary ms-2" (click)="toggleRawJson()">
+      {{ showRawJson() ? 'Hide' : 'Show' }} raw JSON
+    </button>
+  </div>
+
+  @if (showRawJson()) {
+  <h3 class="h5"><code>playlists$</code></h3>
+  <pre class="bg-light border rounded p-2 mt-2"><code>{{ player.playlists$ | async | json }}</code></pre>
+  <h3 class="h5"><code>playlistsWithTracks$</code></h3>
+  <pre class="bg-light border rounded p-2 mt-2"><code>{{ player.playlistsWithTracks$ | async | json }}</code></pre>
+  }
+
+  <table class="table table-sm table-hover align-middle">
+    <thead>
+      <tr>
+        <th>Playlist / Track</th>
+        <th class="text-end">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (playlist of player.playlistsWithTracks$ | async | keyvalue: keepOrder; track playlist.key) {
+      <tr>
+        <td><strong>{{ playlist.key }}</strong></td>
+        <td class="text-end">
+          <button class="btn btn-xs btn-dark" (click)="player.loadPlaylist(playlist.key)">Load playlist</button>
+        </td>
+      </tr>
+      @for (track of playlist.value; track track) {
+      <tr>
+        <td class="ps-4">{{ track }}</td>
+        <td class="text-end">
+          <button class="btn btn-xs btn-outline-secondary" (click)="player.loadTrack(playlist.key, track)">
+            Load
+          </button>
+        </td>
+      </tr>
+      }
+      } @empty {
+      <tr>
+        <td colspan="2" class="text-muted">No playlists loaded</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>

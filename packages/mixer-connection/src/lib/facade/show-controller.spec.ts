@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { firstValueFrom } from 'rxjs';
 import { SoundcraftUI } from '../soundcraft-ui';
+import { MockWebSocket } from '../utils/mock-websocket';
 
 describe('Show Controller', () => {
   let conn: SoundcraftUI;
@@ -22,6 +23,75 @@ describe('Show Controller', () => {
   it('currentCue$', async () => {
     conn.conn.sendMessage('SETS^var.currentCue^THECUE');
     expect(await firstValueFrom(conn.shows.currentCue$)).toBe('THECUE');
+  });
+
+  describe('Shows listing', () => {
+    let socket: MockWebSocket;
+    let mixer: SoundcraftUI;
+    let outbound: string[];
+
+    /** outbound messages that belong to the show listing feature (ignores other facades and keepalive) */
+    const showOutbound = () =>
+      outbound.filter(msg => ['SHOWLIST', 'SNAPSHOTLIST', 'CUELIST'].includes(msg.split('^')[0]));
+
+    beforeEach(async () => {
+      mixer = new SoundcraftUI({
+        targetIP: '0.0.0.0',
+        webSocketCtor: MockWebSocket.withCapture(
+          instance => (socket = instance),
+        ) as unknown as typeof WebSocket,
+      });
+      outbound = [];
+      mixer.conn.outbound$.subscribe(msg => outbound.push(msg));
+
+      const connected = mixer.conn.connect();
+      socket.simulateOpen();
+      await connected;
+    });
+
+    it('fetches shows automatically on connection open', () => {
+      expect(showOutbound()).toEqual(['SHOWLIST']);
+    });
+
+    it('requests snapshots and cues for each show after the SHOWLIST reply', () => {
+      socket.simulateMessage('3:::SHOWLIST^Default^test');
+      expect(showOutbound()).toEqual([
+        'SHOWLIST',
+        'SNAPSHOTLIST^Default',
+        'CUELIST^Default',
+        'SNAPSHOTLIST^test',
+        'CUELIST^test',
+      ]);
+    });
+
+    it('shows$', async () => {
+      socket.simulateMessage('3:::SHOWLIST^Default^test');
+      socket.simulateMessage('3:::SNAPSHOTLIST^Default^snap1^snap2');
+      socket.simulateMessage('3:::CUELIST^Default^cue1');
+      expect(await firstValueFrom(mixer.shows.shows$)).toEqual({
+        Default: { snapshots: ['snap1', 'snap2'], cues: ['cue1'] },
+        test: { snapshots: [], cues: [] },
+      });
+    });
+
+    it('treats an empty cue list (trailing separator) as no cues', async () => {
+      socket.simulateMessage('3:::SHOWLIST^Default');
+      socket.simulateMessage('3:::CUELIST^Default^');
+      expect(await firstValueFrom(mixer.shows.shows$)).toEqual({
+        Default: { snapshots: [], cues: [] },
+      });
+    });
+
+    it('prunes removed shows when a new SHOWLIST arrives', async () => {
+      socket.simulateMessage('3:::SHOWLIST^Default^test');
+      socket.simulateMessage('3:::SNAPSHOTLIST^Default^snap1');
+
+      // test is gone now
+      socket.simulateMessage('3:::SHOWLIST^Default');
+      expect(await firstValueFrom(mixer.shows.shows$)).toEqual({
+        Default: { snapshots: ['snap1'], cues: [] },
+      });
+    });
   });
 
   describe('updateCurrentSnapshot', () => {

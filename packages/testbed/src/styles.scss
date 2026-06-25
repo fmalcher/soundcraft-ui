@@ -12,3 +12,10 @@ p {
     width: 150px;
   }
 }
+
+/* Extra-small button variant (smaller than Bootstrap's btn-sm) */
+.btn-xs {
+  --bs-btn-padding-y: 0.05rem;
+  --bs-btn-padding-x: 0.3rem;
+  --bs-btn-font-size: 0.7rem;
+}
