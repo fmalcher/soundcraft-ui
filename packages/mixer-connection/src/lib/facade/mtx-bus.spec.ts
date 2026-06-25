@@ -4,6 +4,7 @@ import { SoundcraftUI } from '../soundcraft-ui';
 import { AuxBus } from './aux-bus';
 import { MtxBusChannel } from './mtx-bus-channel';
 import { MtxMasterChannel } from './mtx-master-channel';
+import { collectMessages } from '../test.utils';
 
 describe('MTX Bus', () => {
   let conn: SoundcraftUI;
@@ -57,8 +58,7 @@ describe('MTX Bus', () => {
     });
 
     it('should switch the slot back to a regular AUX bus', () => {
-      const messages: string[] = [];
-      conn.conn.allMessages$.subscribe(m => messages.push(m));
+      const messages = collectMessages(conn);
 
       conn.mtx(7).switchToAux();
       expect(messages).toEqual(['SETD^a.6.matrix^0']);
@@ -68,8 +68,7 @@ describe('MTX Bus', () => {
       // stereo-link slots 3 & 4 (slot 3 is the first in the link)
       conn.conn.sendMessage('SETD^a.2.stereoIndex^0');
 
-      const messages: string[] = [];
-      conn.conn.allMessages$.subscribe(m => messages.push(m));
+      const messages = collectMessages(conn);
 
       conn.mtx(3).switchToAux();
       expect(messages).toEqual(['SETD^a.2.matrix^0', 'SETD^a.3.matrix^0']);
@@ -79,8 +78,7 @@ describe('MTX Bus', () => {
       // stereo-link slots 3 & 4 where slot 4 is the second in the link
       conn.conn.sendMessage('SETD^a.3.stereoIndex^1');
 
-      const messages: string[] = [];
-      conn.conn.allMessages$.subscribe(m => messages.push(m));
+      const messages = collectMessages(conn);
 
       conn.mtx(4).switchToAux();
       expect(messages).toEqual(['SETD^a.3.matrix^0', 'SETD^a.2.matrix^0']);
