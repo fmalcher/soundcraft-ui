@@ -1,5 +1,5 @@
-import { AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { AsyncPipe, JsonPipe, KeyValuePipe } from '@angular/common';
+import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { ConnectionService } from '../../connection.service';
@@ -8,17 +8,27 @@ import { ConnectionService } from '../../connection.service';
   selector: 'sui-shows-page',
   templateUrl: './shows-page.html',
   styleUrl: './shows-page.scss',
-  imports: [AsyncPipe, FormsModule],
+  imports: [AsyncPipe, JsonPipe, KeyValuePipe, FormsModule],
 })
 export class ShowsPage {
   cs = inject(ConnectionService);
-  showCtrl = this.cs.conn.shows;
+  showCtrl = this.cs.conn!.shows;
 
   formData = {
     show: 'testshow',
     snapshot: '',
     cue: '',
   };
+
+  /** keep shows in the order received instead of the keyvalue pipe's default alphabetical sort */
+  keepOrder = () => 0;
+
+  /** toggle for showing the raw JSON of the show listing */
+  showRawJson = signal(false);
+
+  toggleRawJson() {
+    this.showRawJson.update(v => !v);
+  }
 
   loadShow() {
     if (this.formData.show) {

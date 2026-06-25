@@ -4,16 +4,21 @@ import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from './mixer-store';
 
 describe('Mixer Store', () => {
-  let conn: { allMessages$: Subject<string> };
+  let conn: { allMessages$: Subject<string>; inbound$: Subject<string> };
   let mixerStore: MixerStore;
 
   function sendMessage(message: string): void {
     conn.allMessages$.next(message);
   }
 
+  function sendInbound(message: string): void {
+    conn.inbound$.next(message);
+  }
+
   beforeEach(() => {
     conn = {
       allMessages$: new Subject<string>(),
+      inbound$: new Subject<string>(),
     };
 
     mixerStore = new MixerStore(conn as unknown as MixerConnection);
@@ -94,6 +99,54 @@ describe('Mixer Store', () => {
       sendMessage('FOO^bar^baz');
       sendMessage('XYZ^xyz^xyz');
       expect(await firstValueFrom(mixerStore.state$)).toEqual({ abc: 1, def: 'ghi' });
+    });
+  });
+
+  describe('resourceListState$', () => {
+    it('stores flat lists under the command and keyed lists under command^key', async () => {
+      sendInbound('PLISTS^List1^List2^~all~');
+      sendInbound('PLIST_TRACKS^List1^a.mp3^b.mp3');
+      expect(await firstValueFrom(mixerStore.resourceListState$)).toEqual({
+        PLISTS: ['List1', 'List2', '~all~'],
+        'PLIST_TRACKS^List1': ['a.mp3', 'b.mp3'],
+      });
+    });
+
+    it('replaces a flat list when it is sent again', async () => {
+      sendInbound('PLISTS^List1^List2');
+      sendInbound('PLISTS^List1');
+      expect(await firstValueFrom(mixerStore.resourceListState$)).toEqual({
+        PLISTS: ['List1'],
+      });
+    });
+
+    it('treats a trailing-separator list as empty (e.g. `PLIST_TRACKS^List1^`)', async () => {
+      sendInbound('PLISTS^List1');
+      sendInbound('PLIST_TRACKS^List1^');
+      expect(await firstValueFrom(mixerStore.resourceListState$)).toEqual({
+        PLISTS: ['List1'],
+        'PLIST_TRACKS^List1': [],
+      });
+    });
+
+    it('stores shows, snapshots and cues under their addresses', async () => {
+      sendInbound('SHOWLIST^Default^test');
+      sendInbound('SNAPSHOTLIST^Default^snap1^snap2');
+      sendInbound('CUELIST^Default^cue1');
+      expect(await firstValueFrom(mixerStore.resourceListState$)).toEqual({
+        SHOWLIST: ['Default', 'test'],
+        'SNAPSHOTLIST^Default': ['snap1', 'snap2'],
+        'CUELIST^Default': ['cue1'],
+      });
+    });
+
+    it('ignores messages that are not configured resource lists', async () => {
+      sendInbound('SETD^i.3.mute^1');
+      sendInbound('FOO^bar');
+      sendInbound('PLISTS^List1');
+      expect(await firstValueFrom(mixerStore.resourceListState$)).toEqual({
+        PLISTS: ['List1'],
+      });
     });
   });
 });

@@ -40,6 +40,17 @@ export enum PlayerState {
   Paused = 3,
 }
 
+/** A map of playlist name to its list of track names. */
+export type PlaylistsWithTracks = Record<string, string[]>;
+
+export interface ShowDetails {
+  snapshots: string[];
+  cues: string[];
+}
+
+/** A map of show name to its snapshots and cues. */
+export type ShowsWithDetails = Record<string, ShowDetails>;
+
 export enum MtkState {
   Stopped = 0,
   Paused = 1,

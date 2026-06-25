@@ -15,6 +15,7 @@ The `ShowController` object is available in `conn.shows` and supports these oper
 | `currentShow$`                         | Currently loaded show                                                |
 | `currentSnapshot$`                     | Currently loaded snapshot                                            |
 | `currentCue$`                          | Currently loaded cue                                                 |
+| `shows$`                               | All shows with their snapshots and cues (see below)                  |
 | `loadShow(showName)`                   | Load a show by its name                                              |
 | `loadSnapshot(showName, snapshotName)` | Load a snapshot in a show by its name                                |
 | `loadCue(showName, cueName)`           | Load a cue in a show by its name                                     |
@@ -22,8 +23,23 @@ The `ShowController` object is available in `conn.shows` and supports these oper
 | `saveCue(showName, cueName)`           | Save a cue in a show. This will overwrite an existing cue.           |
 | `updateCurrentSnapshot()`              | Update/overwrite the currently loaded snapshot                       |
 | `updateCurrentCue()`                   | Update/overwrite the currently loaded cue                            |
+| `refreshShows()`                       | Request the current shows and their snapshots/cues from the mixer    |
 
 Please be aware that no confirmation is required when snapshots or cues are saved. Be careful not to overwrite existing parts by accident.
+
+## Listing shows, snapshots and cues
+
+Unlike fader levels or mute states, the available shows and their snapshots/cues are **not** part of the global mixer state. The mixer sends this information per-client and only on request. The library requests it automatically whenever the connection is (re-)established, so `shows$` emits as soon as the data arrives. Call `refreshShows()` to refresh it manually.
+
+`shows$` emits a map of show name to its snapshots and cues. As snapshots and cues are not hierarchical, they are listed side by side for each show:
+
+```ts
+conn.shows.shows$.subscribe(shows => console.log(shows));
+// {
+//   Default: { snapshots: ['* Init *', 'snap2'], cues: ['test'] },
+//   testshow: { snapshots: [], cues: [] }
+// }
+```
 
 :::info
 

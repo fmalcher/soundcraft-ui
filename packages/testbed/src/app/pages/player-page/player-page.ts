@@ -1,5 +1,5 @@
-import { AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { AsyncPipe, JsonPipe, KeyValuePipe } from '@angular/common';
+import { Component, inject, signal } from '@angular/core';
 import { map } from 'rxjs';
 import { PlayerState } from 'soundcraft-ui-connection';
 
@@ -11,13 +11,14 @@ import { TimePipe } from '../../ui/time.pipe';
 @Component({
   selector: 'sui-player-page',
   templateUrl: './player-page.html',
-  imports: [AsyncPipe, MixerButton, InputField, TimePipe],
+  styleUrl: './player-page.scss',
+  imports: [AsyncPipe, JsonPipe, KeyValuePipe, MixerButton, InputField, TimePipe],
 })
 export class PlayerPage {
   cs = inject(ConnectionService);
 
-  rec = this.cs.conn.recorderDualTrack;
-  player = this.cs.conn.player;
+  rec = this.cs.conn!.recorderDualTrack;
+  player = this.cs.conn!.player;
   playerState$ = this.player.state$.pipe(
     map(s => {
       switch (s) {
@@ -28,10 +29,20 @@ export class PlayerPage {
         case PlayerState.Paused:
           return 'PAUSED';
       }
-    })
+    }),
   );
 
   playlistFromInput = '~all~';
+
+  /** toggle for showing the raw JSON of the playlist listing */
+  showRawJson = signal(false);
+
+  toggleRawJson() {
+    this.showRawJson.update(v => !v);
+  }
+
+  /** keep playlists in the order received instead of the keyvalue pipe's default alphabetical sort */
+  keepOrder = () => 0;
 
   loadTrack(track: string) {
     if (!this.playlistFromInput) {

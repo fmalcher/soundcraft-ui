@@ -2,6 +2,7 @@ import { connectable, filter, map, ReplaySubject, scan, share } from 'rxjs';
 
 import { MixerConnection } from '../mixer-connection';
 import { ObjectStore } from './object-store';
+import { RESOURCE_LIST_CONFIG } from './resource-lists';
 
 export class MixerStore {
   /** Stream of raw SETD and SETS messages */
@@ -51,11 +52,37 @@ export class MixerStore {
     { connector: () => new ReplaySubject(1) },
   );
 
+  /**
+   * Stream of per-client resource listings (playlists, and later shows/snapshots/cues).
+   * These are not part of the global SETD/SETS state; they are sent only on request.
+   * Each message is stored under its "address" (everything before the entries), see
+   * {@link RESOURCE_LIST_CONFIG}. Scans `inbound$` only, so our own outbound requests
+   * (whose command can equal the reply command, e.g. `SHOWLIST`) do not pollute the state.
+   */
+  readonly resourceListState$ = connectable(
+    this.conn.inbound$.pipe(
+      map(msg => msg.split('^')),
+      filter(parts => parts[0] in RESOURCE_LIST_CONFIG),
+      scan(
+        (acc, parts) => {
+          const addrLen = RESOURCE_LIST_CONFIG[parts[0]].keyed ? 2 : 1;
+          const address = parts.slice(0, addrLen).join('^');
+          // empty lists are sent with a trailing separator (e.g. `CUELIST^Default^`),
+          // which yields a single empty-string entry — drop it
+          return { ...acc, [address]: parts.slice(addrLen).filter(Boolean) };
+        },
+        {} as Record<string, string[]>,
+      ),
+    ),
+    { connector: () => new ReplaySubject(1) },
+  );
+
   readonly objectStore = new ObjectStore();
 
   constructor(private conn: MixerConnection) {
     // start producing state values
     this.state$.connect();
     this.syncState$.connect();
+    this.resourceListState$.connect();
   }
 }

@@ -15,6 +15,8 @@ The Media Player can be accessed through `conn.player`. This object exposes the 
 | `elapsedTime$`               | Elapsed time of current track in seconds                                                                     |
 | `remainingTime$`             | Remaining time of current track in seconds                                                                   |
 | `shuffle$`                   | Shuffle state                                                                                                |
+| `playlists$`                 | Names of all available playlists                                                                             |
+| `playlistsWithTracks$`       | All playlists with their tracks as a map of playlist name to track names                                     |
 | `play()`                     | Play                                                                                                         |
 | `pause()`                    | Pause                                                                                                        |
 | `stop()`                     | Stop                                                                                                         |
@@ -27,3 +29,12 @@ The Media Player can be accessed through `conn.player`. This object exposes the 
 | `setPlayMode(value)`         | Set player mode like `manual` or `auto`. Values are rather internal, please use convenience functions below. |
 | `setManual()`                | Enable manual mode                                                                                           |
 | `setAuto()`                  | Enable automatic                                                                                             |
+| `refreshPlaylists()`         | Request the current playlists and their tracks from the mixer                                                |
+
+## Playlists
+
+Unlike fader levels or mute states, the available playlists and their tracks are **not** part of
+the global mixer state. The mixer sends this information per-client and only on request. The
+library requests it automatically whenever the connection is (re-)established, so `playlists$` and
+`playlistsWithTracks$` emit as soon as the data arrives. Call `refreshPlaylists()` to refresh it
+manually, e.g. after playlists have been added or removed on the device.
