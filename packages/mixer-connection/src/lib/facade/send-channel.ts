@@ -20,7 +20,7 @@ export class SendChannel extends Channel {
   );
   override faderLevelCommand = 'value';
 
-  /** PRE/POST value of the channel (`1` (POST) or `0` (PRE)) */
+  /** PRE/POST state of the channel (`false` for PRE, `true` for POST) */
   readonly post$ = this.store.state$.pipe(
     select(selectPost(this.channelType, this.channel, this.busType, this.bus)),
   );
@@ -37,27 +37,27 @@ export class SendChannel extends Channel {
   }
 
   /**
-   * Set PRE/POST value for the channel
-   * @param value `1` (POST) or `0` (PRE)
+   * Set PRE/POST state for the channel
+   * @param value POST (`true`) or PRE (`false`)
    */
-  setPost(value: number) {
+  setPost(value: boolean) {
     [...this.linkedChannelIds, this.fullChannelId].forEach(cid => {
-      this.conn.setd(`${cid}.post`, value);
+      this.conn.setdBool(`${cid}.post`, value);
     });
   }
 
   /** Set AUX channel to POST */
   post() {
-    this.setPost(1);
+    this.setPost(true);
   }
 
   /** Set AUX channel to PRE */
   pre() {
-    this.setPost(0);
+    this.setPost(false);
   }
 
-  /** Toggle PRE/POST status of the channel */
+  /** Toggle PRE/POST state of the channel */
   togglePost() {
-    this.post$.pipe(take(1)).subscribe(post => this.setPost(post ^ 1));
+    this.post$.pipe(take(1)).subscribe(post => this.setPost(!post));
   }
 }

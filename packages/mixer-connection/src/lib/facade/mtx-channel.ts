@@ -2,7 +2,7 @@ import { Observable, Subject, map, take } from 'rxjs';
 
 import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
-import { selectRawValue } from '../state/state-selectors';
+import { selectBoolean, selectRawValue } from '../state/state-selectors';
 import { sourcesToTransition, TransitionSource } from '../transitions';
 import { clamp, roundToThreeDecimals } from '../utils';
 import { resolveDelayed } from '../utils/async-helpers';
@@ -35,16 +35,14 @@ export abstract class MtxChannel
   /** dB level of the matrix source (between `-Infinity` and `10`) */
   readonly faderLevelDB$ = this.faderLevel$.pipe(map(v => faderValueToDB(v)));
 
-  /** MUTE value of the matrix source (`0` or `1`) */
-  readonly mute$ = this.store.state$.pipe(selectRawValue<number>(`${this.fullChannelId}.mute`, 0));
+  /** MUTE state of the matrix source */
+  readonly mute$ = this.store.state$.pipe(selectBoolean(`${this.fullChannelId}.mute`));
 
   /** PAN value of the matrix source (between `0` and `1`) */
   readonly pan$ = this.store.state$.pipe(selectRawValue<number>(`${this.fullChannelId}.pan`, 0));
 
-  /** PRE/POST PROC value of the matrix source (`1` (POST PROC) or `0` (PRE PROC)) */
-  readonly postProc$ = this.store.state$.pipe(
-    selectRawValue<number>(`${this.fullChannelId}.postproc`, 0),
-  );
+  /** PRE/POST PROC state of the matrix source (`false` for PRE PROC, `true` for POST PROC) */
+  readonly postProc$ = this.store.state$.pipe(selectBoolean(`${this.fullChannelId}.postproc`));
 
   /** all linked channels (mirror on the stereo-linked matrix output and stereo-link neighbour) */
   protected linkedChannelIds: string[] = [];
@@ -134,28 +132,28 @@ export abstract class MtxChannel
   }
 
   /**
-   * Set MUTE value for the matrix source
-   * @param value MUTE value `0` or `1`
+   * Set MUTE state for the matrix source
+   * @param value MUTE state
    */
-  setMute(value: number) {
+  setMute(value: boolean) {
     [...this.linkedChannelIds, this.fullChannelId].forEach(cid => {
-      this.conn.setd(`${cid}.mute`, value);
+      this.conn.setdBool(`${cid}.mute`, value);
     });
   }
 
   /** Enable MUTE for the matrix source */
   mute() {
-    this.setMute(1);
+    this.setMute(true);
   }
 
   /** Disable MUTE for the matrix source */
   unmute() {
-    this.setMute(0);
+    this.setMute(false);
   }
 
-  /** Toggle MUTE status for the matrix source */
+  /** Toggle MUTE state for the matrix source */
   toggleMute() {
-    this.mute$.pipe(take(1)).subscribe(mute => this.setMute(mute ^ 1));
+    this.mute$.pipe(take(1)).subscribe(mute => this.setMute(!mute));
   }
 
   /**
@@ -181,22 +179,22 @@ export abstract class MtxChannel
   }
 
   /**
-   * Set PRE/POST PROC value for the matrix source
-   * @param value `1` (POST PROC) or `0` (PRE PROC)
+   * Set PRE/POST PROC state for the matrix source
+   * @param value POST PROC (`true`) or PRE PROC (`false`)
    */
-  setPostProc(value: number) {
+  setPostProc(value: boolean) {
     [...this.linkedChannelIds, this.fullChannelId].forEach(cid => {
-      this.conn.setd(`${cid}.postproc`, value);
+      this.conn.setdBool(`${cid}.postproc`, value);
     });
   }
 
   /** Set matrix source to POST PROC */
   postProc() {
-    this.setPostProc(1);
+    this.setPostProc(true);
   }
 
   /** Set matrix source to PRE PROC */
   preProc() {
-    this.setPostProc(0);
+    this.setPostProc(false);
   }
 }

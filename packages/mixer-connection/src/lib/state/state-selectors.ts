@@ -25,6 +25,15 @@ export const select = <T>(projector: Projector<T>): OperatorFunction<unknown, T>
 export const selectRawValue = <T>(path: string, defaultValue?: T) =>
   select(state => getValueFromObject<T>(state, path, defaultValue));
 
+/**
+ * RxJS operator to select a boolean (on/off) value from the mixer state.
+ * The underlying numeric `0`/`1` value is coerced to `false`/`true`.
+ * @param path State key to select
+ * @param defaultValue Value to use when the state key is absent (default `false`)
+ */
+export const selectBoolean = (path: string, defaultValue = false) =>
+  select(state => Boolean(getValueFromObject<unknown>(state, path, defaultValue)));
+
 /**************************** */
 
 /**
@@ -74,8 +83,8 @@ export const selectMasterPan: Selector<number> = () => state =>
 /**
  * Select dim value of the master fader
  */
-export const selectMasterDim: Selector<number> = () => state =>
-  getValueFromObject<number>(state, 'm.dim');
+export const selectMasterDim: Selector<boolean> = () => state =>
+  Boolean(getValueFromObject<number>(state, 'm.dim'));
 
 /**
  * Select delay value of the master output (L or R)
@@ -104,21 +113,24 @@ export const selectPan: Selector<number> = (
  * @param busType
  * @param bus
  */
-export const selectMute: Selector<number> = (
+export const selectMute: Selector<boolean> = (
   channelType: ChannelType,
   channel: number,
   busType: BusType,
   bus?: number,
-) => selectGenericChannelProperty('mute', 0, channelType, channel, busType, bus);
+) => {
+  const projector = selectGenericChannelProperty('mute', 0, channelType, channel, busType, bus);
+  return state => Boolean(projector(state));
+};
 
 /**
  * Select solo value of a channel
  * @param channelType
  * @param channel
  */
-export const selectSolo: Selector<number> = (channelType: ChannelType, channel: number) => {
+export const selectSolo: Selector<boolean> = (channelType: ChannelType, channel: number) => {
   const path = joinStatePath(channelType, channel - 1, 'solo');
-  return state => getValueFromObject<number>(state, path);
+  return state => Boolean(getValueFromObject<number>(state, path));
 };
 
 /**
@@ -165,14 +177,14 @@ export const selectDelayValue: Selector<number> = (channelType: ChannelType, cha
  * @param channelType
  * @param channel
  */
-export const selectPost: Selector<number> = (
+export const selectPost: Selector<boolean> = (
   channelType: ChannelType,
   channel: number,
   busType: BusType,
   bus: number,
 ) => {
   const path = joinStatePath(channelType, channel - 1, busType, bus - 1, 'post');
-  return state => getValueFromObject(state, path, 0);
+  return state => Boolean(getValueFromObject(state, path, 0));
 };
 
 /**
@@ -182,12 +194,15 @@ export const selectPost: Selector<number> = (
  * @param busType
  * @param bus
  */
-export const selectPostProc: Selector<number> = (
+export const selectPostProc: Selector<boolean> = (
   channelType: ChannelType,
   channel: number,
   busType: BusType,
   bus?: number,
-) => selectGenericChannelProperty('postproc', 0, channelType, channel, busType, bus);
+) => {
+  const projector = selectGenericChannelProperty('postproc', 0, channelType, channel, busType, bus);
+  return state => Boolean(projector(state));
+};
 
 /**
  * Select BPM value of an FX bus
@@ -227,12 +242,12 @@ export const selectStereoIndex: Selector<number> = (channelType: ChannelType, ch
 
 /**
  * Select whether an AUX bus is currently configured as a matrix bus.
- * Only available on the Ui24R. Returns `0` or `1`.
+ * Only available on the Ui24R. Returns `true` or `false`.
  * @param bus AUX/matrix bus number
  */
-export const selectMatrix: Selector<number> = (bus: number) => {
+export const selectMatrix: Selector<boolean> = (bus: number) => {
   const path = joinStatePath('a', bus - 1, 'matrix');
-  return state => getValueFromObject(state, path, 0);
+  return state => Boolean(getValueFromObject(state, path, 0));
 };
 
 /**
@@ -240,9 +255,9 @@ export const selectMatrix: Selector<number> = (bus: number) => {
  * @param channel
  * @param key Type of the channel: `hw` or `i`, according to the mixer model
  */
-export const selectPhantom: Selector<number> = (channel: number, key: 'hw' | 'i') => {
+export const selectPhantom: Selector<boolean> = (channel: number, key: 'hw' | 'i') => {
   const path = joinStatePath(key, channel - 1, 'phantom');
-  return state => getValueFromObject<number>(state, path);
+  return state => Boolean(getValueFromObject<number>(state, path));
 };
 
 /**

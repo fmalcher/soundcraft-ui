@@ -69,9 +69,9 @@ A channel supports the following operations:
 | `changePan(offset)`              | Relatively change pan for channel. Not possible for mono MTX!         |
 | `preProc()`                      | Set channel to PRE PROC                                               |
 | `postProc()`                     | Set channel to POST PROC                                              |
-| `setPostProc(value)`             | Set POST PROC (`1`) or PRE PROC (`0`)                                 |
+| `setPostProc(value)`             | Set POST PROC (`true`) or PRE PROC (`false`)                          |
 | `pan$`                           | Get pan value (between `0` and `1`)                                   |
-| `postProc$`                      | Get POST PROC status (`0` for PRE PROC, `1` for POST PROC)            |
+| `postProc$`                      | Get POST PROC status (`false` for PRE PROC, `true` for POST PROC)     |
 
 :::note
 The master source (`MtxMasterChannel`) has a static name: `name$` always emits `MASTER` and there is no `setName()`.

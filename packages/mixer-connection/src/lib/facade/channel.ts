@@ -48,7 +48,7 @@ export class Channel implements FadeableChannel {
   /** dB level of the channel (between `-Infinity` and `10`) */
   readonly faderLevelDB$ = this.faderLevel$.pipe(map(v => faderValueToDB(v)));
 
-  /** MUTE value of the channel (`0` or `1`) */
+  /** MUTE state of the channel */
   readonly mute$ = this.store.state$.pipe(
     select(selectMute(this.channelType, this.channel, this.busType, this.bus)),
   );
@@ -167,28 +167,28 @@ export class Channel implements FadeableChannel {
   }
 
   /**
-   * Set MUTE value for the channel
-   * @param value MUTE value `0` or `1`
+   * Set MUTE state for the channel
+   * @param value MUTE state
    */
-  setMute(value: number) {
+  setMute(value: boolean) {
     [...this.linkedChannelIds, this.fullChannelId].forEach(cid => {
-      this.conn.setd(`${cid}.mute`, value);
+      this.conn.setdBool(`${cid}.mute`, value);
     });
   }
 
   /** Enable MUTE for the channel */
   mute() {
-    this.setMute(1);
+    this.setMute(true);
   }
 
   /** Disable MUTE for the channel */
   unmute() {
-    this.setMute(0);
+    this.setMute(false);
   }
 
-  /** Toggle MUTE status for the channel */
+  /** Toggle MUTE state for the channel */
   toggleMute() {
-    this.mute$.pipe(take(1)).subscribe(mute => this.setMute(mute ^ 1));
+    this.mute$.pipe(take(1)).subscribe(mute => this.setMute(!mute));
   }
 
   /** Set name of the channel */

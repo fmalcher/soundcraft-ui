@@ -23,18 +23,18 @@ describe('Mute Group', () => {
 
     it('state$', async () => {
       group.mute();
-      expect(await firstValueFrom(group.state$)).toBe(1);
+      expect(await firstValueFrom(group.state$)).toBe(true);
 
       group.unmute();
-      expect(await firstValueFrom(group.state$)).toBe(0);
+      expect(await firstValueFrom(group.state$)).toBe(false);
     });
 
     it('toggle', async () => {
       group.toggle();
-      expect(await firstValueFrom(group.state$)).toBe(1);
+      expect(await firstValueFrom(group.state$)).toBe(true);
 
       group.toggle();
-      expect(await firstValueFrom(group.state$)).toBe(0);
+      expect(await firstValueFrom(group.state$)).toBe(false);
     });
   });
 
@@ -43,18 +43,18 @@ describe('Mute Group', () => {
 
     it('state$', async () => {
       group.mute();
-      expect(await firstValueFrom(group.state$)).toBe(1);
+      expect(await firstValueFrom(group.state$)).toBe(true);
 
       group.unmute();
-      expect(await firstValueFrom(group.state$)).toBe(0);
+      expect(await firstValueFrom(group.state$)).toBe(false);
     });
 
     it('toggle', async () => {
       group.toggle();
-      expect(await firstValueFrom(group.state$)).toBe(1);
+      expect(await firstValueFrom(group.state$)).toBe(true);
 
       group.toggle();
-      expect(await firstValueFrom(group.state$)).toBe(0);
+      expect(await firstValueFrom(group.state$)).toBe(false);
     });
   });
 
@@ -63,18 +63,18 @@ describe('Mute Group', () => {
 
     it('state$', async () => {
       group.mute();
-      expect(await firstValueFrom(group.state$)).toBe(1);
+      expect(await firstValueFrom(group.state$)).toBe(true);
 
       group.unmute();
-      expect(await firstValueFrom(group.state$)).toBe(0);
+      expect(await firstValueFrom(group.state$)).toBe(false);
     });
 
     it('toggle', async () => {
       group.toggle();
-      expect(await firstValueFrom(group.state$)).toBe(1);
+      expect(await firstValueFrom(group.state$)).toBe(true);
 
       group.toggle();
-      expect(await firstValueFrom(group.state$)).toBe(0);
+      expect(await firstValueFrom(group.state$)).toBe(false);
     });
   });
 });

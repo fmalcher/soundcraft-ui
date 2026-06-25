@@ -16,13 +16,13 @@ Then pick one of the available `FxChannel`s:
 
 An `FxChannel` supports the following operations:
 
-| Call on `FxChannel`              | Description                                 |
-| -------------------------------- | ------------------------------------------- |
-| _all generic channel operations_ |                                             |
-| `post$`                          | Get POST status (`0` for PRE, `1` for POST) |
-| `pre()`                          | Set channel to PRE                          |
-| `post()`                         | Set channel to POST                         |
-| `setPost(value)`                 | Set POST (`1`) or PRE (`0`)                 |
+| Call on `FxChannel`              | Description                                        |
+| -------------------------------- | -------------------------------------------------- |
+| _all generic channel operations_ |                                                    |
+| `post$`                          | Get POST status (`false` for PRE, `true` for POST) |
+| `pre()`                          | Set channel to PRE                                 |
+| `post()`                         | Set channel to POST                                |
+| `setPost(value)`                 | Set POST (`true`) or PRE (`false`)                 |
 
 Settings for the FX processors can also be accessed through the `FxBus` class.
 See the separate [**FX Settings** docs page](../features/fx-settings) for this.

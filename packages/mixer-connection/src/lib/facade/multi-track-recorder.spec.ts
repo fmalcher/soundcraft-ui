@@ -54,18 +54,18 @@ describe('Multi-track recorder', () => {
 
   it('recording$', async () => {
     conn.conn.sendMessage('SETD^var.mtk.rec.currentState^0');
-    expect(await firstValueFrom(mtk.recording$)).toBe(0);
+    expect(await firstValueFrom(mtk.recording$)).toBe(false);
 
     conn.conn.sendMessage('SETD^var.mtk.rec.currentState^1');
-    expect(await firstValueFrom(mtk.recording$)).toBe(1);
+    expect(await firstValueFrom(mtk.recording$)).toBe(true);
   });
 
   it('busy$', async () => {
     conn.conn.sendMessage('SETD^var.mtk.rec.busy^1');
-    expect(await firstValueFrom(mtk.busy$)).toBe(1);
+    expect(await firstValueFrom(mtk.busy$)).toBe(true);
 
     conn.conn.sendMessage('SETD^var.mtk.rec.busy^0');
-    expect(await firstValueFrom(mtk.busy$)).toBe(0);
+    expect(await firstValueFrom(mtk.busy$)).toBe(false);
   });
 
   describe('recordingTime$', () => {
@@ -85,35 +85,35 @@ describe('Multi-track recorder', () => {
   describe('Soundcheck', () => {
     it('soundcheck$', async () => {
       conn.conn.sendMessage('SETD^var.mtk.soundcheck^0');
-      expect(await firstValueFrom(mtk.soundcheck$)).toBe(0);
+      expect(await firstValueFrom(mtk.soundcheck$)).toBe(false);
 
       conn.conn.sendMessage('SETD^var.mtk.soundcheck^1');
-      expect(await firstValueFrom(mtk.soundcheck$)).toBe(1);
+      expect(await firstValueFrom(mtk.soundcheck$)).toBe(true);
     });
 
     it('setSoundcheck', async () => {
-      mtk.setSoundcheck(0);
-      expect(await firstValueFrom(mtk.soundcheck$)).toBe(0);
+      mtk.setSoundcheck(false);
+      expect(await firstValueFrom(mtk.soundcheck$)).toBe(false);
 
-      mtk.setSoundcheck(1);
-      expect(await firstValueFrom(mtk.soundcheck$)).toBe(1);
+      mtk.setSoundcheck(true);
+      expect(await firstValueFrom(mtk.soundcheck$)).toBe(true);
     });
 
     it('activate/deactivateSoundcheck', async () => {
       mtk.activateSoundcheck();
-      expect(await firstValueFrom(mtk.soundcheck$)).toBe(1);
+      expect(await firstValueFrom(mtk.soundcheck$)).toBe(true);
 
       mtk.deactivateSoundcheck();
-      expect(await firstValueFrom(mtk.soundcheck$)).toBe(0);
+      expect(await firstValueFrom(mtk.soundcheck$)).toBe(false);
     });
 
     it('toggleSoundcheck', async () => {
-      mtk.setSoundcheck(0);
+      mtk.setSoundcheck(false);
       mtk.toggleSoundcheck();
-      expect(await firstValueFrom(mtk.soundcheck$)).toBe(1);
+      expect(await firstValueFrom(mtk.soundcheck$)).toBe(true);
 
       mtk.toggleSoundcheck();
-      expect(await firstValueFrom(mtk.soundcheck$)).toBe(0);
+      expect(await firstValueFrom(mtk.soundcheck$)).toBe(false);
     });
   });
 

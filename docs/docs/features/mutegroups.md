@@ -18,12 +18,12 @@ First, get access to a `MuteGroup` object:
 
 `MuteGroup` supports the following operations:
 
-| Call on `MuteGroup` | Description                  |
-| ------------------- | ---------------------------- |
-| `state$`            | Get MUTE status (`0` or `1`) |
-| `mute()`            | Mute the group               |
-| `unmute()`          | Unmute the group             |
-| `toggle()`          | Toggle mute group            |
+| Call on `MuteGroup` | Description       |
+| ------------------- | ----------------- |
+| `state$`            | Get MUTE state    |
+| `mute()`            | Mute the group    |
+| `unmute()`          | Unmute the group  |
+| `toggle()`          | Toggle mute group |
 
 Call `conn.clearMuteGroups()` to disable all MUTE groups.
 This behaves differently from the "CLEAR MUTE" button in the Soundcraft Web App which also clears channel mutes.

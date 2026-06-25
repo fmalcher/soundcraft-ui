@@ -116,6 +116,44 @@ describe('MixerConnection', () => {
     });
   });
 
+  describe('setd()', () => {
+    it('should send a SETD message with the numeric value', () => {
+      conn.sendMessage = vi.fn();
+
+      conn.setd('m.mix', 0.5);
+
+      expect(conn.sendMessage).toHaveBeenCalledWith('SETD^m.mix^0.5');
+    });
+  });
+
+  describe('sets()', () => {
+    it('should send a SETS message with the string value', () => {
+      conn.sendMessage = vi.fn();
+
+      conn.sets('i.0.name', 'Vocals');
+
+      expect(conn.sendMessage).toHaveBeenCalledWith('SETS^i.0.name^Vocals');
+    });
+  });
+
+  describe('setdBool()', () => {
+    it('should send a SETD message with 1 for true', () => {
+      conn.sendMessage = vi.fn();
+
+      conn.setdBool('i.0.mute', true);
+
+      expect(conn.sendMessage).toHaveBeenCalledWith('SETD^i.0.mute^1');
+    });
+
+    it('should send a SETD message with 0 for false', () => {
+      conn.sendMessage = vi.fn();
+
+      conn.setdBool('i.0.mute', false);
+
+      expect(conn.sendMessage).toHaveBeenCalledWith('SETD^i.0.mute^0');
+    });
+  });
+
   describe('disconnect()', () => {
     beforeEach(async () => {
       const connectPromise = conn.connect();

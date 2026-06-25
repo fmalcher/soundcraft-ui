@@ -235,6 +235,16 @@ export class MixerConnection {
   }
 
   /**
+   * Send a `SETD` command with a boolean (on/off) value to the mixer.
+   * The boolean is converted to the numeric `0`/`1` the protocol expects.
+   * @param path Parameter path, e.g. `i.2.mute`
+   * @param value Boolean value to set
+   */
+  setdBool(path: string, value: boolean) {
+    this.sendMessage(`SETD^${path}^${Number(value)}`);
+  }
+
+  /**
    * Send a `SETS` command to the mixer.
    * `SETS` messages carry string values, e.g. channel names.
    * @param path Parameter path, e.g. `i.2.name`

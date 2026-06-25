@@ -51,22 +51,22 @@ describe('Master Channel', () => {
   describe('SOLO', () => {
     it('solo$', async () => {
       channel.solo();
-      expect(await firstValueFrom(channel.solo$)).toBe(1);
+      expect(await firstValueFrom(channel.solo$)).toBe(true);
 
       channel.unsolo();
-      expect(await firstValueFrom(channel.solo$)).toBe(0);
+      expect(await firstValueFrom(channel.solo$)).toBe(false);
 
-      channel.setSolo(1);
-      expect(await firstValueFrom(channel.solo$)).toBe(1);
+      channel.setSolo(true);
+      expect(await firstValueFrom(channel.solo$)).toBe(true);
     });
 
     it('toggleSolo', async () => {
-      channel.setSolo(0);
+      channel.setSolo(false);
       channel.toggleSolo();
-      expect(await firstValueFrom(channel.solo$)).toBe(1);
+      expect(await firstValueFrom(channel.solo$)).toBe(true);
 
       channel.toggleSolo();
-      expect(await firstValueFrom(channel.solo$)).toBe(0);
+      expect(await firstValueFrom(channel.solo$)).toBe(false);
     });
   });
 
@@ -140,21 +140,21 @@ describe('Master Channel', () => {
   describe('Multitrack Config', () => {
     it('select', async () => {
       channel.multiTrackSelect();
-      expect(await firstValueFrom(channel.multiTrackSelected$)).toBe(1);
+      expect(await firstValueFrom(channel.multiTrackSelected$)).toBe(true);
     });
 
     it('unselect', async () => {
       channel.multiTrackUnselect();
-      expect(await firstValueFrom(channel.multiTrackSelected$)).toBe(0);
+      expect(await firstValueFrom(channel.multiTrackSelected$)).toBe(false);
     });
 
     it('toggle', async () => {
       channel.multiTrackUnselect();
       channel.multiTrackToggle();
-      expect(await firstValueFrom(channel.multiTrackSelected$)).toBe(1);
+      expect(await firstValueFrom(channel.multiTrackSelected$)).toBe(true);
 
       channel.multiTrackToggle();
-      expect(await firstValueFrom(channel.multiTrackSelected$)).toBe(0);
+      expect(await firstValueFrom(channel.multiTrackSelected$)).toBe(false);
     });
 
     it('should only work for input and line channels', () => {

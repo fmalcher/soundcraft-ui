@@ -37,11 +37,11 @@
   <sui-mixer-button (press)="player.setAuto()">Auto</sui-mixer-button>
 </div>
 <div>
-  <sui-mixer-button (press)="player.toggleShuffle()" [active]="!!(player.shuffle$ | async)">
+  <sui-mixer-button (press)="player.toggleShuffle()" [active]="player.shuffle$ | async">
     Shuffle Toggle
   </sui-mixer-button>
-  <sui-mixer-button (press)="player.setShuffle(1)">Shuffle On</sui-mixer-button>
-  <sui-mixer-button (press)="player.setShuffle(0)">Shuffle Off</sui-mixer-button>
+  <sui-mixer-button (press)="player.setShuffle(true)">Shuffle On</sui-mixer-button>
+  <sui-mixer-button (press)="player.setShuffle(false)">Shuffle Off</sui-mixer-button>
 </div>
 
 <h2 class="mt-5">2-Track USB Recorder</h2>
@@ -51,7 +51,7 @@
   <p><label>Busy</label> {{ rec.busy$ | async }}</p>
 </div>
 
-<sui-mixer-button (press)="rec.recordToggle()" [active]="!!(rec.recording$ | async)">
+<sui-mixer-button (press)="rec.recordToggle()" [active]="rec.recording$ | async">
   REC
 </sui-mixer-button>
 <sui-mixer-button (press)="rec.recordStart()">REC Start</sui-mixer-button>

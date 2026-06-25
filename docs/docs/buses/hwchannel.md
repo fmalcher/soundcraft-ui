@@ -19,13 +19,13 @@ First, get a `HwChannel` by calling `conn.hw(inputNumber)`, e.g. `conn.hw(1)` fo
 
 ## Phantom Power
 
-| Call on `HwChannel` | Description                           |
-| ------------------- | ------------------------------------- |
-| `phantom$`          | Get phantom power status (`0` or `1`) |
-| `phantomOn()`       | Switch ON phantom power               |
-| `phantomOff()`      | Switch OFF phantom power              |
-| `togglePhantom()`   | Toggle phantom power status           |
-| `setPhantom(value)` | Set phantom power status (`0` or `1`) |
+| Call on `HwChannel` | Description                 |
+| ------------------- | --------------------------- |
+| `phantom$`          | Get phantom power state     |
+| `phantomOn()`       | Switch ON phantom power     |
+| `phantomOff()`      | Switch OFF phantom power    |
+| `togglePhantom()`   | Toggle phantom power status |
+| `setPhantom(value)` | Set phantom power state     |
 
 ## Gain
 

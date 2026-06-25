@@ -15,7 +15,7 @@ import { DeviceInfo } from './device-info';
 export class HwChannel {
   protected fullChannelId = `hw.${this.channel - 1}`;
 
-  /** Phantom power state of the channel (`0` or `1`) */
+  /** Phantom power state of the channel */
   readonly phantom$ = this.deviceInfo.model$.pipe(
     switchMap(model => {
       switch (model) {
@@ -78,25 +78,25 @@ export class HwChannel {
 
   /**
    * Set phantom power state for the channel
-   * @param value `0` or `1`
+   * @param value phantom power state
    */
-  setPhantom(value: number) {
-    this.conn.setd(`${this.fullChannelId}.phantom`, value);
+  setPhantom(value: boolean) {
+    this.conn.setdBool(`${this.fullChannelId}.phantom`, value);
   }
 
   /** Switch ON phantom power for the channel */
   phantomOn() {
-    this.setPhantom(1);
+    this.setPhantom(true);
   }
 
   /** Switch OFF phantom power for the channel */
   phantomOff() {
-    this.setPhantom(0);
+    this.setPhantom(false);
   }
 
   /** Toggle phantom power for the channel */
   togglePhantom() {
-    this.phantom$.pipe(take(1)).subscribe(phantomOn => this.setPhantom(phantomOn ^ 1));
+    this.phantom$.pipe(take(1)).subscribe(phantomOn => this.setPhantom(!phantomOn));
   }
 
   /**

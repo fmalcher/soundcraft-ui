@@ -15,22 +15,22 @@ describe('Master Bus', () => {
   describe('DIM', () => {
     it('dim$', async () => {
       master.dim();
-      expect(await firstValueFrom(master.dim$)).toBe(1);
+      expect(await firstValueFrom(master.dim$)).toBe(true);
 
       master.undim();
-      expect(await firstValueFrom(master.dim$)).toBe(0);
+      expect(await firstValueFrom(master.dim$)).toBe(false);
 
-      master.setDim(1);
-      expect(await firstValueFrom(master.dim$)).toBe(1);
+      master.setDim(true);
+      expect(await firstValueFrom(master.dim$)).toBe(true);
     });
 
     it('toggleDim', async () => {
-      master.setDim(0);
+      master.setDim(false);
       master.toggleDim();
-      expect(await firstValueFrom(master.dim$)).toBe(1);
+      expect(await firstValueFrom(master.dim$)).toBe(true);
 
       master.toggleDim();
-      expect(await firstValueFrom(master.dim$)).toBe(0);
+      expect(await firstValueFrom(master.dim$)).toBe(false);
     });
   });
 

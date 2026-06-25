@@ -27,10 +27,10 @@ export interface PannableChannel {
 }
 
 export interface PostProcessableChannel {
-  /** PRE/POST PROC value of the channel (`1` (POST PROC) or `0` (PRE PROC)) */
-  readonly postProc$: Observable<number>;
+  /** PRE/POST PROC state of the channel (`false` for PRE PROC, `true` for POST PROC) */
+  readonly postProc$: Observable<boolean>;
 
-  setPostProc(value: number): void;
+  setPostProc(value: boolean): void;
   postProc(): void;
   preProc(): void;
 }

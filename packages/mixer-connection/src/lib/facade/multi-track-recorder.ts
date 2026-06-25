@@ -3,6 +3,7 @@ import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
 import {
   select,
+  selectBoolean,
   selectMtkElapsedTime,
   selectMtkLength,
   selectMtkRemainingTime,
@@ -41,11 +42,11 @@ export class MultiTrackRecorder {
   /** Remaining time of current session in seconds */
   readonly remainingTime$ = this.store.state$.pipe(select(selectMtkRemainingTime()));
 
-  /** Recording state (`0` or `1`) */
-  readonly recording$ = this.store.state$.pipe(selectRawValue('var.mtk.rec.currentState', 0));
+  /** Recording state */
+  readonly recording$ = this.store.state$.pipe(selectBoolean('var.mtk.rec.currentState'));
 
-  /** Recording busy state (`0` or `1`) */
-  readonly busy$ = this.store.state$.pipe(selectRawValue('var.mtk.rec.busy', 0));
+  /** Recording busy state */
+  readonly busy$ = this.store.state$.pipe(selectBoolean('var.mtk.rec.busy'));
 
   /** Recording time in seconds */
   readonly recordingTime$ = this.store.state$.pipe(
@@ -54,8 +55,8 @@ export class MultiTrackRecorder {
     map(([value, recording]) => (recording ? value : 0)), // set to 0 if not actually recording. otherwise, it emits strange values
   );
 
-  /** Soundcheck activation state (`0` or `1`) */
-  readonly soundcheck$ = this.store.state$.pipe(selectRawValue('var.mtk.soundcheck', 0));
+  /** Soundcheck activation state */
+  readonly soundcheck$ = this.store.state$.pipe(selectBoolean('var.mtk.soundcheck'));
 
   constructor(
     private conn: MixerConnection,
@@ -104,24 +105,24 @@ export class MultiTrackRecorder {
 
   /**
    * Set soundcheck (activate or deactivate)
-   * @param value `0` or `1`
+   * @param value soundcheck activation state
    */
-  setSoundcheck(value: number) {
-    this.conn.setd('var.mtk.soundcheck', value);
+  setSoundcheck(value: boolean) {
+    this.conn.setdBool('var.mtk.soundcheck', value);
   }
 
   /** Activate soundcheck */
   activateSoundcheck() {
-    this.setSoundcheck(1);
+    this.setSoundcheck(true);
   }
 
   /** Deactivate soundcheck */
   deactivateSoundcheck() {
-    this.setSoundcheck(0);
+    this.setSoundcheck(false);
   }
 
   /** Toggle soundcheck */
   toggleSoundcheck() {
-    this.soundcheck$.pipe(take(1)).subscribe(value => this.setSoundcheck(value ^ 1));
+    this.soundcheck$.pipe(take(1)).subscribe(value => this.setSoundcheck(!value));
   }
 }

@@ -4,6 +4,7 @@ import { of, firstValueFrom } from 'rxjs';
 import {
   select,
   selectRawValue,
+  selectBoolean,
   selectMasterValue,
   selectMasterPan,
   selectMasterDim,
@@ -74,6 +75,28 @@ describe('State Selectors', () => {
     });
   });
 
+  describe('selectBoolean', () => {
+    it('should coerce 1 to true', async () => {
+      const result = await firstValueFrom(of({ 'i.0.mute': 1 }).pipe(selectBoolean('i.0.mute')));
+      expect(result).toBe(true);
+    });
+
+    it('should coerce 0 to false', async () => {
+      const result = await firstValueFrom(of({ 'i.0.mute': 0 }).pipe(selectBoolean('i.0.mute')));
+      expect(result).toBe(false);
+    });
+
+    it('should default to false when the path is missing', async () => {
+      const result = await firstValueFrom(of({}).pipe(selectBoolean('missing.path')));
+      expect(result).toBe(false);
+    });
+
+    it('should use the given default value when the path is missing', async () => {
+      const result = await firstValueFrom(of({}).pipe(selectBoolean('missing.path', true)));
+      expect(result).toBe(true);
+    });
+  });
+
   describe('Master selectors', () => {
     it('selectMasterValue should read m.mix', () => {
       const projector = selectMasterValue();
@@ -87,7 +110,7 @@ describe('State Selectors', () => {
 
     it('selectMasterDim should read m.dim', () => {
       const projector = selectMasterDim();
-      expect(projector({ 'm.dim': 1 })).toBe(1);
+      expect(projector({ 'm.dim': 1 })).toBe(true);
     });
 
     it('selectMasterDelay L should read m.delayL and multiply by 1000', () => {
@@ -137,27 +160,27 @@ describe('State Selectors', () => {
     describe('selectMute', () => {
       it('should read mute for master bus', () => {
         const projector = selectMute('i', 1, 'master');
-        expect(projector({ 'i.0.mute': 1 })).toBe(1);
+        expect(projector({ 'i.0.mute': 1 })).toBe(true);
       });
 
-      it('should default to 0 for master bus', () => {
+      it('should default to false for master bus', () => {
         const projector = selectMute('i', 1, 'master');
-        expect(projector({})).toBe(0);
+        expect(projector({})).toBe(false);
       });
 
       it('should read mute for aux bus', () => {
         const projector = selectMute('i', 2, 'aux', 1);
-        expect(projector({ 'i.1.aux.0.mute': 1 })).toBe(1);
+        expect(projector({ 'i.1.aux.0.mute': 1 })).toBe(true);
       });
 
       it('should read mute for fx bus', () => {
         const projector = selectMute('l', 3, 'fx', 2);
-        expect(projector({ 'l.2.fx.1.mute': 1 })).toBe(1);
+        expect(projector({ 'l.2.fx.1.mute': 1 })).toBe(true);
       });
 
       it('should read mute for mtx bus', () => {
         const projector = selectMute('s', 1, 'mtx', 7);
-        expect(projector({ 's.0.mtx.6.mute': 1 })).toBe(1);
+        expect(projector({ 's.0.mtx.6.mute': 1 })).toBe(true);
       });
     });
 
@@ -187,12 +210,12 @@ describe('State Selectors', () => {
   describe('selectSolo', () => {
     it('should read solo state for a channel', () => {
       const projector = selectSolo('i', 3);
-      expect(projector({ 'i.2.solo': 1 })).toBe(1);
+      expect(projector({ 'i.2.solo': 1 })).toBe(true);
     });
 
-    it('should return undefined when path is missing', () => {
+    it('should return false when path is missing', () => {
       const projector = selectSolo('i', 3);
-      expect(projector({})).toBeUndefined();
+      expect(projector({})).toBe(false);
     });
   });
 
@@ -211,29 +234,29 @@ describe('State Selectors', () => {
   describe('selectPost', () => {
     it('should read post value for a send channel', () => {
       const projector = selectPost('i', 3, 'aux', 2);
-      expect(projector({ 'i.2.aux.1.post': 1 })).toBe(1);
+      expect(projector({ 'i.2.aux.1.post': 1 })).toBe(true);
     });
 
-    it('should default to 0', () => {
+    it('should default to false', () => {
       const projector = selectPost('i', 3, 'aux', 2);
-      expect(projector({})).toBe(0);
+      expect(projector({})).toBe(false);
     });
   });
 
   describe('selectPostProc', () => {
     it('should read postproc value for an aux send', () => {
       const projector = selectPostProc('i', 4, 'aux', 2);
-      expect(projector({ 'i.3.aux.1.postproc': 1 })).toBe(1);
+      expect(projector({ 'i.3.aux.1.postproc': 1 })).toBe(true);
     });
 
     it('should read postproc value for a matrix send', () => {
       const projector = selectPostProc('a', 1, 'mtx', 7);
-      expect(projector({ 'a.0.mtx.6.postproc': 1 })).toBe(1);
+      expect(projector({ 'a.0.mtx.6.postproc': 1 })).toBe(true);
     });
 
-    it('should default to 0', () => {
+    it('should default to false', () => {
       const projector = selectPostProc('i', 4, 'aux', 2);
-      expect(projector({})).toBe(0);
+      expect(projector({})).toBe(false);
     });
   });
 
@@ -301,24 +324,24 @@ describe('State Selectors', () => {
   describe('selectMatrix', () => {
     it('should read matrix state for an AUX/matrix bus', () => {
       const projector = selectMatrix(7);
-      expect(projector({ 'a.6.matrix': 1 })).toBe(1);
+      expect(projector({ 'a.6.matrix': 1 })).toBe(true);
     });
 
-    it('should default to 0 when path is missing', () => {
+    it('should default to false when path is missing', () => {
       const projector = selectMatrix(7);
-      expect(projector({})).toBe(0);
+      expect(projector({})).toBe(false);
     });
   });
 
   describe('selectPhantom', () => {
     it('should read phantom state with hw key', () => {
       const projector = selectPhantom(3, 'hw');
-      expect(projector({ 'hw.2.phantom': 1 })).toBe(1);
+      expect(projector({ 'hw.2.phantom': 1 })).toBe(true);
     });
 
     it('should read phantom state with i key', () => {
       const projector = selectPhantom(1, 'i');
-      expect(projector({ 'i.0.phantom': 1 })).toBe(1);
+      expect(projector({ 'i.0.phantom': 1 })).toBe(true);
     });
   });
 

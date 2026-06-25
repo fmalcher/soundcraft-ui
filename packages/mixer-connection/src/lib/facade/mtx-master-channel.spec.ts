@@ -48,19 +48,19 @@ describe('MTX Master Channel', () => {
   describe('MUTE', () => {
     it('mute$', async () => {
       channel.mute();
-      expect(await firstValueFrom(channel.mute$)).toBe(1);
+      expect(await firstValueFrom(channel.mute$)).toBe(true);
 
       channel.unmute();
-      expect(await firstValueFrom(channel.mute$)).toBe(0);
+      expect(await firstValueFrom(channel.mute$)).toBe(false);
     });
 
     it('toggleMute', async () => {
-      channel.setMute(0);
+      channel.setMute(false);
       channel.toggleMute();
-      expect(await firstValueFrom(channel.mute$)).toBe(1);
+      expect(await firstValueFrom(channel.mute$)).toBe(true);
 
       channel.toggleMute();
-      expect(await firstValueFrom(channel.mute$)).toBe(0);
+      expect(await firstValueFrom(channel.mute$)).toBe(false);
     });
   });
 
@@ -88,13 +88,13 @@ describe('MTX Master Channel', () => {
   describe('PRE/POST PROC', () => {
     it('postProc$', async () => {
       channel.postProc();
-      expect(await firstValueFrom(channel.postProc$)).toBe(1);
+      expect(await firstValueFrom(channel.postProc$)).toBe(true);
 
       channel.preProc();
-      expect(await firstValueFrom(channel.postProc$)).toBe(0);
+      expect(await firstValueFrom(channel.postProc$)).toBe(false);
 
-      channel.setPostProc(1);
-      expect(await firstValueFrom(channel.postProc$)).toBe(1);
+      channel.setPostProc(true);
+      expect(await firstValueFrom(channel.postProc$)).toBe(true);
     });
   });
 });

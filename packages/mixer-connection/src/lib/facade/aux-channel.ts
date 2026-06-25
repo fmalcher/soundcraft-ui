@@ -20,7 +20,7 @@ export class AuxChannel extends SendChannel implements PannableChannel, PostProc
     select(selectPan(this.channelType, this.channel, this.busType, this.bus)),
   );
 
-  /** PRE/POST PROC value of the AUX channel (`1` (POST PROC) or `0` (PRE PROC)) */
+  /** PRE/POST PROC state of the AUX channel (`false` for PRE PROC, `true` for POST PROC) */
   readonly postProc$ = this.store.state$.pipe(
     select(selectPostProc(this.channelType, this.channel, this.busType, this.bus)),
   );
@@ -99,22 +99,22 @@ export class AuxChannel extends SendChannel implements PannableChannel, PostProc
   }
 
   /**
-   * Set PRE/POST PROC value for the AUX channel
-   * @param value `1` (POST PROC) or `0` (PRE PROC)
+   * Set PRE/POST PROC state for the AUX channel
+   * @param value POST PROC (`true`) or PRE PROC (`false`)
    */
-  setPostProc(value: number) {
+  setPostProc(value: boolean) {
     [...this.linkedChannelIds, this.fullChannelId].forEach(cid => {
-      this.conn.setd(`${cid}.postproc`, value);
+      this.conn.setdBool(`${cid}.postproc`, value);
     });
   }
 
   /** Set AUX channel to POST PROC */
   postProc() {
-    this.setPostProc(1);
+    this.setPostProc(true);
   }
 
   /** Set AUX channel to PRE PROC */
   preProc() {
-    this.setPostProc(0);
+    this.setPostProc(false);
   }
 }

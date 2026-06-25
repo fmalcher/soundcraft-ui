@@ -34,7 +34,7 @@ export class MasterBus implements FadeableChannel, PannableChannel {
   /** PAN value of the master (between `0` and `1`) */
   readonly pan$ = this.store.state$.pipe(select(selectMasterPan()));
 
-  /** DIM value of the master (`0` or `1`) */
+  /** DIM state of the master */
   readonly dim$ = this.store.state$.pipe(select(selectMasterDim()));
 
   /** LEFT DELAY (ms) of the master */
@@ -236,26 +236,26 @@ export class MasterBus implements FadeableChannel, PannableChannel {
   }
 
   /**
-   * Set DIM value for the master
-   * @param value DIM value `0` or `1`
+   * Set DIM state for the master
+   * @param value DIM state
    */
-  setDim(value: number) {
-    this.conn.setd('m.dim', value);
+  setDim(value: boolean) {
+    this.conn.setdBool('m.dim', value);
   }
 
   /** Enable DIM on the master */
   dim() {
-    this.setDim(1);
+    this.setDim(true);
   }
 
   /** Disable DIM on the master */
   undim() {
-    this.setDim(0);
+    this.setDim(false);
   }
 
   /** Toggle DIM on the master */
   toggleDim() {
-    this.dim$.pipe(take(1)).subscribe(dim => this.setDim(dim ^ 1));
+    this.dim$.pipe(take(1)).subscribe(dim => this.setDim(!dim));
   }
 
   /** Set LEFT DELAY (ms) for master output. Maximum 500 ms */

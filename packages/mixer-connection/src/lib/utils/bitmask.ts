@@ -35,13 +35,13 @@ export function setBit(value: number, bitIndex: number) {
 }
 
 /**
- * Return the value of a specific bit in `value`
+ * Return whether a specific bit in `value` is set
  * @param value Source value
  * @param bitIndex Bit index, right to left
  */
-export function getValueOfBit(value: number, bitIndex: number) {
+export function getValueOfBit(value: number, bitIndex: number): boolean {
   if (bitIndex < 0) {
-    return value;
+    return false;
   }
-  return value & (1 << bitIndex) ? 1 : 0;
+  return Boolean(value & (1 << bitIndex));
 }

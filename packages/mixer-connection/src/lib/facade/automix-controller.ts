@@ -1,14 +1,14 @@
 import { map, take } from 'rxjs';
 import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
-import { selectRawValue } from '../state/state-selectors';
+import { selectBoolean, selectRawValue } from '../state/state-selectors';
 import { faderValueToTimeMs, timeMsToFaderValue } from '../utils/value-converters/value-converters';
 
 export type AutomixGroupId = 'a' | 'b';
 
 export class AutomixGroup {
-  /** Active state of this automix group (`0` or `1`) */
-  readonly state$ = this.store.state$.pipe(selectRawValue<number>(`automix.${this.group}.on`));
+  /** Active state of this automix group */
+  readonly state$ = this.store.state$.pipe(selectBoolean(`automix.${this.group}.on`));
 
   constructor(
     private conn: MixerConnection,
@@ -16,23 +16,23 @@ export class AutomixGroup {
     private group: AutomixGroupId,
   ) {}
 
-  private setState(value: number) {
-    this.conn.setd(`automix.${this.group}.on`, value);
+  private setState(value: boolean) {
+    this.conn.setdBool(`automix.${this.group}.on`, value);
   }
 
   /** Enable this automix group */
   enable() {
-    this.setState(1);
+    this.setState(true);
   }
 
   /** Disable this automix group */
   disable() {
-    this.setState(0);
+    this.setState(false);
   }
 
   /** Toggle the state of this automix group */
   toggle() {
-    this.state$.pipe(take(1)).subscribe(value => this.setState(value ^ 1));
+    this.state$.pipe(take(1)).subscribe(value => this.setState(!value));
   }
 }
 
