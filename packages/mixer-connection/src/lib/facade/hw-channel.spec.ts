@@ -41,48 +41,48 @@ describe('AUX Channel', () => {
 
     it('phantom$', async () => {
       channel.phantomOn();
-      expect(await firstValueFrom(channel.phantom$)).toBe(1);
+      expect(await firstValueFrom(channel.phantom$)).toBe(true);
 
       channel.phantomOff();
-      expect(await firstValueFrom(channel.phantom$)).toBe(0);
+      expect(await firstValueFrom(channel.phantom$)).toBe(false);
 
-      channel.setPhantom(1);
-      expect(await firstValueFrom(channel.phantom$)).toBe(1);
+      channel.setPhantom(true);
+      expect(await firstValueFrom(channel.phantom$)).toBe(true);
     });
 
     it('togglePhantom', async () => {
-      channel.setPhantom(0);
+      channel.setPhantom(false);
       channel.togglePhantom();
-      expect(await firstValueFrom(channel.phantom$)).toBe(1);
+      expect(await firstValueFrom(channel.phantom$)).toBe(true);
 
       channel.togglePhantom();
-      expect(await firstValueFrom(channel.phantom$)).toBe(0);
+      expect(await firstValueFrom(channel.phantom$)).toBe(false);
     });
 
     it('phantom Ui24', async () => {
       setMixerModel('ui24', conn);
 
       conn.conn.sendMessage('SETD^hw.2.phantom^0');
-      expect(await firstValueFrom(channel.phantom$)).toBe(0);
+      expect(await firstValueFrom(channel.phantom$)).toBe(false);
 
       conn.conn.sendMessage('SETD^hw.2.phantom^1');
-      expect(await firstValueFrom(channel.phantom$)).toBe(1);
+      expect(await firstValueFrom(channel.phantom$)).toBe(true);
 
       channel.togglePhantom();
-      expect(await firstValueFrom(channel.phantom$)).toBe(0);
+      expect(await firstValueFrom(channel.phantom$)).toBe(false);
     });
 
     it('phantom Ui12/Ui16', async () => {
       setMixerModel('ui16', conn);
 
       conn.conn.sendMessage('SETD^i.2.phantom^0');
-      expect(await firstValueFrom(channel.phantom$)).toBe(0);
+      expect(await firstValueFrom(channel.phantom$)).toBe(false);
 
       conn.conn.sendMessage('SETD^i.2.phantom^1');
-      expect(await firstValueFrom(channel.phantom$)).toBe(1);
+      expect(await firstValueFrom(channel.phantom$)).toBe(true);
 
       channel.togglePhantom();
-      expect(await firstValueFrom(channel.phantom$)).toBe(0);
+      expect(await firstValueFrom(channel.phantom$)).toBe(false);
     });
   });
 

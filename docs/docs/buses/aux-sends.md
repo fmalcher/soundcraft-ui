@@ -24,12 +24,12 @@ An `AuxChannel` supports the following operations:
 | `pre()`                          | Set channel to PRE                                                    |
 | `post()`                         | Set channel to POST                                                   |
 | `togglePost()`                   | Toggle PRE/POST status                                                |
-| `setPost(value)`                 | Set POST (`1`) or PRE (`0`)                                           |
+| `setPost(value)`                 | Set POST (`true`) or PRE (`false`)                                    |
 | `preProc()`                      | Set channel to PRE PROC                                               |
 | `postProc()`                     | Set channel to POST PROC                                              |
-| `setPostProc(value)`             | Set POST PROC (`1`) or PRE PROC (`0`)                                 |
-| `post$`                          | Get POST status (`0` for PRE, `1` for POST)                           |
-| `postProc$`                      | Get POST PROC status (`0` for PRE PROC, `1` for POST PROC)            |
+| `setPostProc(value)`             | Set POST PROC (`true`) or PRE PROC (`false`)                          |
+| `post$`                          | Get POST status (`false` for PRE, `true` for POST)                    |
+| `postProc$`                      | Get POST PROC status (`false` for PRE PROC, `true` for POST PROC)     |
 | `pan$`                           | Get pan value (between `0` and `1`)                                   |
 
 On the Ui24R an AUX bus can be converted into a matrix bus.

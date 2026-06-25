@@ -22,13 +22,13 @@ Therefore, these operations are available for any channel like `MasterChannel`, 
 
 ## Mute
 
-| Call             | Description                       |
-| ---------------- | --------------------------------- |
-| `setMute(value)` | Set mute for channel (`0` or `1`) |
-| `mute()`         | Mute channel                      |
-| `unmute()`       | Unmute channel                    |
-| `toggleMute()`   | Toggle mute status                |
-| `mute$`          | Get mute status (`0` or `1`)      |
+| Call             | Description          |
+| ---------------- | -------------------- |
+| `setMute(value)` | Set mute for channel |
+| `mute()`         | Mute channel         |
+| `unmute()`       | Unmute channel       |
+| `toggleMute()`   | Toggle mute status   |
+| `mute$`          | Get mute state       |
 
 ## Other operations
 

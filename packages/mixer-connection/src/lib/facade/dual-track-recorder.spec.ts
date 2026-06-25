@@ -14,18 +14,18 @@ describe('DualTrackRecorder', () => {
 
   it('recording$', async () => {
     conn.conn.sendMessage('SETD^var.isRecording^1');
-    expect(await firstValueFrom(recorder.recording$)).toBe(1);
+    expect(await firstValueFrom(recorder.recording$)).toBe(true);
 
     conn.conn.sendMessage('SETD^var.isRecording^0');
-    expect(await firstValueFrom(recorder.recording$)).toBe(0);
+    expect(await firstValueFrom(recorder.recording$)).toBe(false);
   });
 
   it('busy$', async () => {
     conn.conn.sendMessage('SETD^var.recBusy^1');
-    expect(await firstValueFrom(recorder.busy$)).toBe(1);
+    expect(await firstValueFrom(recorder.busy$)).toBe(true);
 
     conn.conn.sendMessage('SETD^var.recBusy^0');
-    expect(await firstValueFrom(recorder.busy$)).toBe(0);
+    expect(await firstValueFrom(recorder.busy$)).toBe(false);
   });
 
   describe('Recording Start/Stop', () => {

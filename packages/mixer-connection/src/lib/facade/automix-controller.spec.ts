@@ -96,51 +96,51 @@ describe('Automix Controller', () => {
     it('state$', async () => {
       // A
       conn.conn.sendMessage('SETD^automix.a.on^1');
-      expect(await firstValueFrom(groupA.state$)).toBe(1);
+      expect(await firstValueFrom(groupA.state$)).toBe(true);
 
       conn.conn.sendMessage('SETD^automix.b.on^1');
-      expect(await firstValueFrom(groupB.state$)).toBe(1);
+      expect(await firstValueFrom(groupB.state$)).toBe(true);
 
       // B
       conn.conn.sendMessage('SETD^automix.a.on^0');
-      expect(await firstValueFrom(groupA.state$)).toBe(0);
+      expect(await firstValueFrom(groupA.state$)).toBe(false);
 
       conn.conn.sendMessage('SETD^automix.b.on^0');
-      expect(await firstValueFrom(groupB.state$)).toBe(0);
+      expect(await firstValueFrom(groupB.state$)).toBe(false);
     });
 
     it('enable/disable', async () => {
       // A
       groupA.enable();
-      expect(await firstValueFrom(groupA.state$)).toBe(1);
+      expect(await firstValueFrom(groupA.state$)).toBe(true);
 
       groupA.disable();
-      expect(await firstValueFrom(groupA.state$)).toBe(0);
+      expect(await firstValueFrom(groupA.state$)).toBe(false);
 
       // B
       groupB.enable();
-      expect(await firstValueFrom(groupB.state$)).toBe(1);
+      expect(await firstValueFrom(groupB.state$)).toBe(true);
 
       groupB.disable();
-      expect(await firstValueFrom(groupB.state$)).toBe(0);
+      expect(await firstValueFrom(groupB.state$)).toBe(false);
     });
 
     it('toggle', async () => {
       // A
       groupA.enable();
       groupA.toggle();
-      expect(await firstValueFrom(groupA.state$)).toBe(0);
+      expect(await firstValueFrom(groupA.state$)).toBe(false);
 
       groupA.toggle();
-      expect(await firstValueFrom(groupA.state$)).toBe(1);
+      expect(await firstValueFrom(groupA.state$)).toBe(true);
 
       // B
       groupA.disable();
       groupA.toggle();
-      expect(await firstValueFrom(groupA.state$)).toBe(1);
+      expect(await firstValueFrom(groupA.state$)).toBe(true);
 
       groupA.toggle();
-      expect(await firstValueFrom(groupA.state$)).toBe(0);
+      expect(await firstValueFrom(groupA.state$)).toBe(false);
     });
   });
 });

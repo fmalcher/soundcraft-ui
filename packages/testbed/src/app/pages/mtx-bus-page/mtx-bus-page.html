@@ -36,7 +36,7 @@
 </div>
 @for (s of vm.sources; track s.label) {
 <h2 class="mt-4">{{ s.label }} ({{ s.channel.name$ | async }})</h2>
-<sui-mixer-button [active]="(s.channel.mute$ | async) === 1" (press)="s.channel.toggleMute()">
+<sui-mixer-button [active]="s.channel.mute$ | async" (press)="s.channel.toggleMute()">
   MUTE
 </sui-mixer-button>
 <sui-postproc-controls [channel]="s.channel" />

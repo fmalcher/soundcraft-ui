@@ -12,22 +12,22 @@ import { getLinkedChannelNumber } from '../utils';
  * linked neighbour slot is switched as well, so a linked pair always stays
  * consistent (both AUX or both matrix). Matrix buses are only available on the Ui24R.
  *
- * @param value `1` to switch to matrix, `0` to switch back to a regular AUX bus
+ * @param value `true` to switch to matrix, `false` to switch back to a regular AUX bus
  */
 export function setMatrixMode(
   conn: MixerConnection,
   store: MixerStore,
   bus: number,
-  value: number,
+  value: boolean,
 ) {
   // always switch the slot itself
-  conn.setd(`a.${bus - 1}.matrix`, value);
+  conn.setdBool(`a.${bus - 1}.matrix`, value);
 
   // also switch the stereo-linked neighbour, if the slot is currently linked
   store.state$.pipe(select(selectStereoIndex('a', bus)), take(1)).subscribe(stereoIndex => {
     const linkedBus = getLinkedChannelNumber(bus, stereoIndex);
     if (linkedBus !== undefined) {
-      conn.setd(`a.${linkedBus - 1}.matrix`, value);
+      conn.setdBool(`a.${linkedBus - 1}.matrix`, value);
     }
   });
 }

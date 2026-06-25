@@ -1,8 +1,4 @@
-<sui-mixer-button
-  activeClass="solo"
-  [active]="!!(channel().solo$ | async)"
-  (press)="channel().toggleSolo()"
->
+<sui-mixer-button activeClass="solo" [active]="channel().solo$ | async" (press)="channel().toggleSolo()">
   Solo toggle {{ label() }}
 </sui-mixer-button>
 <sui-mixer-button (press)="channel().solo()">Solo {{ label() }}</sui-mixer-button>

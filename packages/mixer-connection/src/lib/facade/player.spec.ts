@@ -53,20 +53,20 @@ describe('Player', () => {
 
   describe('Shuffle', () => {
     it('shuffle$', async () => {
-      player.setShuffle(0);
-      expect(await firstValueFrom(player.shuffle$)).toBe(0);
+      player.setShuffle(false);
+      expect(await firstValueFrom(player.shuffle$)).toBe(false);
 
-      player.setShuffle(1);
-      expect(await firstValueFrom(player.shuffle$)).toBe(1);
+      player.setShuffle(true);
+      expect(await firstValueFrom(player.shuffle$)).toBe(true);
     });
 
     it('toggleShuffle', async () => {
-      player.setShuffle(0);
+      player.setShuffle(false);
       player.toggleShuffle();
-      expect(await firstValueFrom(player.shuffle$)).toBe(1);
+      expect(await firstValueFrom(player.shuffle$)).toBe(true);
 
       player.toggleShuffle();
-      expect(await firstValueFrom(player.shuffle$)).toBe(0);
+      expect(await firstValueFrom(player.shuffle$)).toBe(false);
     });
   });
 });

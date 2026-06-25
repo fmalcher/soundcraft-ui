@@ -81,44 +81,44 @@ describe('FX Channel', () => {
   describe('PRE/POST', () => {
     it('post$', async () => {
       channel.post();
-      expect(await firstValueFrom(channel.post$)).toBe(1);
+      expect(await firstValueFrom(channel.post$)).toBe(true);
 
       channel.pre();
-      expect(await firstValueFrom(channel.post$)).toBe(0);
+      expect(await firstValueFrom(channel.post$)).toBe(false);
 
-      channel.setPost(1);
-      expect(await firstValueFrom(channel.post$)).toBe(1);
+      channel.setPost(true);
+      expect(await firstValueFrom(channel.post$)).toBe(true);
     });
 
     it('togglePost', async () => {
-      channel.setPost(0);
+      channel.setPost(false);
       channel.togglePost();
-      expect(await firstValueFrom(channel.post$)).toBe(1);
+      expect(await firstValueFrom(channel.post$)).toBe(true);
 
       channel.togglePost();
-      expect(await firstValueFrom(channel.post$)).toBe(0);
+      expect(await firstValueFrom(channel.post$)).toBe(false);
     });
   });
 
   describe('MUTE', () => {
     it('mute$', async () => {
       channel.mute();
-      expect(await firstValueFrom(channel.mute$)).toBe(1);
+      expect(await firstValueFrom(channel.mute$)).toBe(true);
 
       channel.unmute();
-      expect(await firstValueFrom(channel.mute$)).toBe(0);
+      expect(await firstValueFrom(channel.mute$)).toBe(false);
 
-      channel.setMute(1);
-      expect(await firstValueFrom(channel.mute$)).toBe(1);
+      channel.setMute(true);
+      expect(await firstValueFrom(channel.mute$)).toBe(true);
     });
 
     it('toggleMute', async () => {
-      channel.setMute(0);
+      channel.setMute(false);
       channel.toggleMute();
-      expect(await firstValueFrom(channel.mute$)).toBe(1);
+      expect(await firstValueFrom(channel.mute$)).toBe(true);
 
       channel.toggleMute();
-      expect(await firstValueFrom(channel.mute$)).toBe(0);
+      expect(await firstValueFrom(channel.mute$)).toBe(false);
     });
   });
 });

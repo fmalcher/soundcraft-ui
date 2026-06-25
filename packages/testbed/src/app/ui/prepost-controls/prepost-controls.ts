@@ -1,7 +1,7 @@
 import { AsyncPipe } from '@angular/common';
 import { toSignal, toObservable } from '@angular/core/rxjs-interop';
 import { Component, input } from '@angular/core';
-import { map, switchMap } from 'rxjs';
+import { switchMap } from 'rxjs';
 import { SendChannel } from 'soundcraft-ui-connection';
 import { MixerButton } from '../mixer-button/mixer-button';
 
@@ -14,11 +14,7 @@ import { MixerButton } from '../mixer-button/mixer-button';
 export class PrepostControls {
   readonly channel = input.required<SendChannel>();
 
-  readonly post = toSignal(
-    toObservable(this.channel).pipe(
-      switchMap(channel => channel.post$),
-      map(e => !!e)
-    ),
-    { initialValue: false }
-  );
+  readonly post = toSignal(toObservable(this.channel).pipe(switchMap(channel => channel.post$)), {
+    initialValue: false,
+  });
 }

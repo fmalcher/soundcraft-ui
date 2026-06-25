@@ -8,7 +8,7 @@ import { Component, computed, input, output } from '@angular/core';
 })
 export class MixerButton {
   readonly activeClass = input('default-active');
-  readonly active = input(false);
+  readonly active = input<boolean | null>(false);
   readonly press = output();
 
   readonly classDefinition = computed(() => {

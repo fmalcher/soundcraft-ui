@@ -2,7 +2,13 @@ import { map, take } from 'rxjs';
 
 import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
-import { select, selectPan, selectRawValue, selectSolo } from '../state/state-selectors';
+import {
+  select,
+  selectBoolean,
+  selectPan,
+  selectRawValue,
+  selectSolo,
+} from '../state/state-selectors';
 import { ChannelType } from '../types';
 import { clamp, getLinkedChannelNumber, roundToThreeDecimals } from '../utils';
 import { Channel } from './channel';
@@ -21,7 +27,7 @@ export class MasterChannel extends Channel implements PannableChannel {
   protected override fullChannelId = constructMasterChannelId(this.channelType, this.channel);
   override faderLevelCommand = 'mix';
 
-  /** SOLO value of the channel (`0` or `1`) */
+  /** SOLO state of the channel */
   readonly solo$ = this.store.state$.pipe(select(selectSolo(this.channelType, this.channel)));
 
   /** PAN value of the channel (between `0` and `1`) */
@@ -54,9 +60,9 @@ export class MasterChannel extends Channel implements PannableChannel {
     map(v => linearMappingValueToRange(v, -12, 12)),
   );
 
-  /** Multitrack selection state for the channel (`0` or `1`) */
+  /** Multitrack selection state for the channel */
   readonly multiTrackSelected$ = this.store.state$.pipe(
-    selectRawValue<number>(`${this.fullChannelId}.mtkrec`),
+    selectBoolean(`${this.fullChannelId}.mtkrec`),
   );
 
   constructor(conn: MixerConnection, store: MixerStore, channelType: ChannelType, channel: number) {
@@ -96,28 +102,28 @@ export class MasterChannel extends Channel implements PannableChannel {
   }
 
   /**
-   * Set SOLO value for the channel
-   * @param value SOLO value `0` or `1`
+   * Set SOLO state for the channel
+   * @param value SOLO state
    */
-  setSolo(value: number) {
+  setSolo(value: boolean) {
     [...this.linkedChannelIds, this.fullChannelId].forEach(cid => {
-      this.conn.setd(`${cid}.solo`, value);
+      this.conn.setdBool(`${cid}.solo`, value);
     });
   }
 
   /** Enable SOLO for the channel */
   solo() {
-    this.setSolo(1);
+    this.setSolo(true);
   }
 
   /** Disable SOLO for the channel */
   unsolo() {
-    this.setSolo(0);
+    this.setSolo(false);
   }
 
-  /** Toggle SOLO status for the channel */
+  /** Toggle SOLO state for the channel */
   toggleSolo() {
-    this.solo$.pipe(take(1)).subscribe(solo => this.setSolo(solo ^ 1));
+    this.solo$.pipe(take(1)).subscribe(solo => this.setSolo(!solo));
   }
 
   private multiTrackAssertChannelType() {
@@ -126,20 +132,20 @@ export class MasterChannel extends Channel implements PannableChannel {
     }
   }
 
-  private multiTrackSetSelection(value: number) {
+  private multiTrackSetSelection(value: boolean) {
     this.multiTrackAssertChannelType();
 
-    this.conn.setd(`${this.fullChannelId}.mtkrec`, value);
+    this.conn.setdBool(`${this.fullChannelId}.mtkrec`, value);
   }
 
   /** Select this channel for multitrack recording */
   multiTrackSelect() {
-    this.multiTrackSetSelection(1);
+    this.multiTrackSetSelection(true);
   }
 
   /** Remove this channel from multitrack recording */
   multiTrackUnselect() {
-    this.multiTrackSetSelection(0);
+    this.multiTrackSetSelection(false);
   }
 
   /** Toggle multitrack recording for this channel */
@@ -147,7 +153,7 @@ export class MasterChannel extends Channel implements PannableChannel {
     this.multiTrackAssertChannelType();
     this.multiTrackSelected$
       .pipe(take(1))
-      .subscribe(selected => this.multiTrackSetSelection(selected ^ 1));
+      .subscribe(selected => this.multiTrackSetSelection(!selected));
   }
 
   /** Assign this channel to an automix group. This also includes stereo-linked channels.

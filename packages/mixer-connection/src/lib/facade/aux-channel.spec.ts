@@ -51,35 +51,35 @@ describe('AUX Channel', () => {
   describe('PRE/POST', () => {
     it('post$', async () => {
       channel.post();
-      expect(await firstValueFrom(channel.post$)).toBe(1);
+      expect(await firstValueFrom(channel.post$)).toBe(true);
 
       channel.pre();
-      expect(await firstValueFrom(channel.post$)).toBe(0);
+      expect(await firstValueFrom(channel.post$)).toBe(false);
 
-      channel.setPost(1);
-      expect(await firstValueFrom(channel.post$)).toBe(1);
+      channel.setPost(true);
+      expect(await firstValueFrom(channel.post$)).toBe(true);
     });
 
     it('togglePost', async () => {
-      channel.setPost(0);
+      channel.setPost(false);
       channel.togglePost();
-      expect(await firstValueFrom(channel.post$)).toBe(1);
+      expect(await firstValueFrom(channel.post$)).toBe(true);
 
       channel.togglePost();
-      expect(await firstValueFrom(channel.post$)).toBe(0);
+      expect(await firstValueFrom(channel.post$)).toBe(false);
     });
   });
 
   describe('PRE/POST PROC', () => {
     it('postProc$', async () => {
       channel.postProc();
-      expect(await firstValueFrom(channel.postProc$)).toBe(1);
+      expect(await firstValueFrom(channel.postProc$)).toBe(true);
 
       channel.preProc();
-      expect(await firstValueFrom(channel.postProc$)).toBe(0);
+      expect(await firstValueFrom(channel.postProc$)).toBe(false);
 
-      channel.setPostProc(1);
-      expect(await firstValueFrom(channel.postProc$)).toBe(1);
+      channel.setPostProc(true);
+      expect(await firstValueFrom(channel.postProc$)).toBe(true);
     });
   });
 });

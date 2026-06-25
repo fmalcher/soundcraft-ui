@@ -4,6 +4,7 @@ import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
 import {
   select,
+  selectBoolean,
   selectPlayerElapsedTime,
   selectPlayerLength,
   selectPlayerRemainingTime,
@@ -35,8 +36,8 @@ export class Player {
   /** Remaining time of current track in seconds */
   readonly remainingTime$ = this.store.state$.pipe(select(selectPlayerRemainingTime()));
 
-  /** Shuffle setting (`0` or `1`) */
-  readonly shuffle$ = this.store.state$.pipe(selectRawValue('settings.shuffle', 0));
+  /** Shuffle state */
+  readonly shuffle$ = this.store.state$.pipe(selectBoolean('settings.shuffle'));
 
   constructor(
     private conn: MixerConnection,
@@ -86,18 +87,18 @@ export class Player {
   }
 
   /**
-   * Set player shuffle setting
-   * @param value `0` or `1`
+   * Set player shuffle state
+   * @param value shuffle state
    */
-  setShuffle(value: number) {
-    this.conn.setd('settings.shuffle', value);
+  setShuffle(value: boolean) {
+    this.conn.setdBool('settings.shuffle', value);
   }
 
   /**
-   * Toggle player shuffle setting
+   * Toggle player shuffle state
    */
   toggleShuffle() {
-    this.shuffle$.pipe(take(1)).subscribe(value => this.setShuffle(value ^ 1));
+    this.shuffle$.pipe(take(1)).subscribe(value => this.setShuffle(!value));
   }
 
   /**

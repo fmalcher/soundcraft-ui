@@ -59,19 +59,19 @@ describe('Bit Mask Utils', () => {
   });
 
   describe('getValueOfBit', () => {
-    it('should get 0', () => {
+    it('should get false for an unset bit', () => {
       const result = getValueOfBit(0b1010100, 3);
-      expect(result).toBe(0);
+      expect(result).toBe(false);
     });
 
-    it('should get 1', () => {
+    it('should get true for a set bit', () => {
       const result = getValueOfBit(0b1010100, 2);
-      expect(result).toBe(1);
+      expect(result).toBe(true);
     });
 
-    it('should ignore negative bit index', () => {
+    it('should return false for a negative bit index', () => {
       const result = getValueOfBit(0b100, -5);
-      expect(result.toString(2)).toBe('100');
+      expect(result).toBe(false);
     });
   });
 });

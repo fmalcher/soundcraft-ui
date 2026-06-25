@@ -13,7 +13,7 @@
   <sui-mixer-button (press)="mtk.play()">PLAY</sui-mixer-button>
   <sui-mixer-button (press)="mtk.pause()">PAUSE</sui-mixer-button>
   <sui-mixer-button (press)="mtk.stop()">STOP</sui-mixer-button>
-  <sui-mixer-button (press)="mtk.recordToggle()" [active]="!!(mtk.recording$ | async)">
+  <sui-mixer-button (press)="mtk.recordToggle()" [active]="mtk.recording$ | async">
     REC
   </sui-mixer-button>
   <sui-mixer-button (press)="mtk.recordStart()">REC Start</sui-mixer-button>
@@ -24,7 +24,7 @@
   <h2>Soundcheck</h2>
   <sui-mixer-button (press)="mtk.activateSoundcheck()">Activate</sui-mixer-button>
   <sui-mixer-button (press)="mtk.deactivateSoundcheck()">Deactivate</sui-mixer-button>
-  <sui-mixer-button (press)="mtk.toggleSoundcheck()" [active]="!!(mtk.soundcheck$ | async)">
+  <sui-mixer-button (press)="mtk.toggleSoundcheck()" [active]="mtk.soundcheck$ | async">
     Toggle
   </sui-mixer-button>
 </div>
@@ -38,7 +38,7 @@
     <sui-mixer-button (press)="c.channel.multiTrackUnselect()">Unselect</sui-mixer-button>
     <sui-mixer-button
       (press)="c.channel.multiTrackToggle()"
-      [active]="!!(c.channel.multiTrackSelected$ | async)"
+      [active]="c.channel.multiTrackSelected$ | async"
       >Toggle</sui-mixer-button
     >
   </div>

@@ -50,10 +50,10 @@ describe('Outbound messages', () => {
     conn.master.undim();
     expect(message).toBe('SETD^m.dim^0');
 
-    conn.master.setDim(1);
+    conn.master.setDim(true);
     expect(message).toBe('SETD^m.dim^1');
 
-    conn.master.setDim(0);
+    conn.master.setDim(false);
     expect(message).toBe('SETD^m.dim^0');
 
     conn.master.setDelayL(500);
@@ -76,10 +76,10 @@ describe('Outbound messages', () => {
     conn.master.input(3).setFaderLevelDB(-12);
     expect(message).toBe('SETD^i.2.mix^0.49333689429');
 
-    conn.master.input(3).setMute(1);
+    conn.master.input(3).setMute(true);
     expect(message).toBe('SETD^i.2.mute^1');
 
-    conn.master.input(3).setMute(0);
+    conn.master.input(3).setMute(false);
     expect(message).toBe('SETD^i.2.mute^0');
 
     conn.master.input(3).mute();
@@ -97,10 +97,10 @@ describe('Outbound messages', () => {
     conn.master.input(3).setPan(1.1);
     expect(message).toBe('SETD^i.2.pan^1'); // clamp
 
-    conn.master.input(3).setSolo(0);
+    conn.master.input(3).setSolo(false);
     expect(message).toBe('SETD^i.2.solo^0');
 
-    conn.master.input(3).setSolo(1);
+    conn.master.input(3).setSolo(true);
     expect(message).toBe('SETD^i.2.solo^1');
 
     conn.master.input(3).solo();
@@ -152,10 +152,10 @@ describe('Outbound messages', () => {
     conn.master.line(1).setFaderLevelDB(-12);
     expect(message).toBe('SETD^l.0.mix^0.49333689429');
 
-    conn.master.line(1).setMute(1);
+    conn.master.line(1).setMute(true);
     expect(message).toBe('SETD^l.0.mute^1');
 
-    conn.master.line(1).setMute(0);
+    conn.master.line(1).setMute(false);
     expect(message).toBe('SETD^l.0.mute^0');
 
     conn.master.line(1).mute();
@@ -173,10 +173,10 @@ describe('Outbound messages', () => {
     conn.master.line(1).setPan(3);
     expect(message).toBe('SETD^l.0.pan^1'); // clamp
 
-    conn.master.line(1).setSolo(0);
+    conn.master.line(1).setSolo(false);
     expect(message).toBe('SETD^l.0.solo^0');
 
-    conn.master.line(1).setSolo(1);
+    conn.master.line(1).setSolo(true);
     expect(message).toBe('SETD^l.0.solo^1');
 
     conn.master.line(1).solo();
@@ -205,10 +205,10 @@ describe('Outbound messages', () => {
     conn.master.player(2).setFaderLevelDB(-12);
     expect(message).toBe('SETD^p.1.mix^0.49333689429');
 
-    conn.master.player(2).setMute(1);
+    conn.master.player(2).setMute(true);
     expect(message).toBe('SETD^p.1.mute^1');
 
-    conn.master.player(2).setMute(0);
+    conn.master.player(2).setMute(false);
     expect(message).toBe('SETD^p.1.mute^0');
 
     conn.master.player(2).mute();
@@ -226,10 +226,10 @@ describe('Outbound messages', () => {
     conn.master.player(2).setPan(1.3);
     expect(message).toBe('SETD^p.1.pan^1'); // clamp
 
-    conn.master.player(2).setSolo(0);
+    conn.master.player(2).setSolo(false);
     expect(message).toBe('SETD^p.1.solo^0');
 
-    conn.master.player(2).setSolo(1);
+    conn.master.player(2).setSolo(true);
     expect(message).toBe('SETD^p.1.solo^1');
 
     conn.master.player(2).solo();
@@ -255,10 +255,10 @@ describe('Outbound messages', () => {
     conn.master.aux(1).setFaderLevelDB(-12);
     expect(message).toBe('SETD^a.0.mix^0.49333689429');
 
-    conn.master.aux(1).setMute(1);
+    conn.master.aux(1).setMute(true);
     expect(message).toBe('SETD^a.0.mute^1');
 
-    conn.master.aux(1).setMute(0);
+    conn.master.aux(1).setMute(false);
     expect(message).toBe('SETD^a.0.mute^0');
 
     conn.master.aux(1).mute();
@@ -276,10 +276,10 @@ describe('Outbound messages', () => {
     conn.master.aux(1).setPan(2.2);
     expect(message).toBe('SETD^a.0.pan^1'); // clamp
 
-    conn.master.aux(1).setSolo(0);
+    conn.master.aux(1).setSolo(false);
     expect(message).toBe('SETD^a.0.solo^0');
 
-    conn.master.aux(1).setSolo(1);
+    conn.master.aux(1).setSolo(true);
     expect(message).toBe('SETD^a.0.solo^1');
 
     conn.master.aux(1).solo();
@@ -308,10 +308,10 @@ describe('Outbound messages', () => {
     conn.master.fx(3).setFaderLevelDB(-12);
     expect(message).toBe('SETD^f.2.mix^0.49333689429');
 
-    conn.master.fx(3).setMute(1);
+    conn.master.fx(3).setMute(true);
     expect(message).toBe('SETD^f.2.mute^1');
 
-    conn.master.fx(3).setMute(0);
+    conn.master.fx(3).setMute(false);
     expect(message).toBe('SETD^f.2.mute^0');
 
     conn.master.fx(3).mute();
@@ -329,10 +329,10 @@ describe('Outbound messages', () => {
     conn.master.fx(3).setPan(10);
     expect(message).toBe('SETD^f.2.pan^1'); // clamp
 
-    conn.master.fx(3).setSolo(0);
+    conn.master.fx(3).setSolo(false);
     expect(message).toBe('SETD^f.2.solo^0');
 
-    conn.master.fx(3).setSolo(1);
+    conn.master.fx(3).setSolo(true);
     expect(message).toBe('SETD^f.2.solo^1');
 
     conn.master.fx(3).solo();
@@ -358,10 +358,10 @@ describe('Outbound messages', () => {
     conn.master.sub(4).setFaderLevelDB(-12);
     expect(message).toBe('SETD^s.3.mix^0.49333689429');
 
-    conn.master.sub(4).setMute(1);
+    conn.master.sub(4).setMute(true);
     expect(message).toBe('SETD^s.3.mute^1');
 
-    conn.master.sub(4).setMute(0);
+    conn.master.sub(4).setMute(false);
     expect(message).toBe('SETD^s.3.mute^0');
 
     conn.master.sub(4).mute();
@@ -379,10 +379,10 @@ describe('Outbound messages', () => {
     conn.master.sub(4).setPan(5.4);
     expect(message).toBe('SETD^s.3.pan^1'); // clamp
 
-    conn.master.sub(4).setSolo(0);
+    conn.master.sub(4).setSolo(false);
     expect(message).toBe('SETD^s.3.solo^0');
 
-    conn.master.sub(4).setSolo(1);
+    conn.master.sub(4).setSolo(true);
     expect(message).toBe('SETD^s.3.solo^1');
 
     conn.master.sub(4).solo();
@@ -408,10 +408,10 @@ describe('Outbound messages', () => {
     conn.master.vca(3).setFaderLevelDB(-12);
     expect(message).toBe('SETD^v.2.mix^0.49333689429');
 
-    conn.master.vca(3).setMute(1);
+    conn.master.vca(3).setMute(true);
     expect(message).toBe('SETD^v.2.mute^1');
 
-    conn.master.vca(3).setMute(0);
+    conn.master.vca(3).setMute(false);
     expect(message).toBe('SETD^v.2.mute^0');
 
     conn.master.vca(3).mute();
@@ -429,10 +429,10 @@ describe('Outbound messages', () => {
     conn.master.vca(3).setPan(-0.1);
     expect(message).toBe('SETD^v.2.pan^0'); // clamp
 
-    conn.master.vca(3).setSolo(0);
+    conn.master.vca(3).setSolo(false);
     expect(message).toBe('SETD^v.2.solo^0');
 
-    conn.master.vca(3).setSolo(1);
+    conn.master.vca(3).setSolo(true);
     expect(message).toBe('SETD^v.2.solo^1');
 
     conn.master.vca(3).solo();
@@ -458,10 +458,10 @@ describe('Outbound messages', () => {
     conn.aux(2).input(7).setFaderLevelDB(6);
     expect(message).toBe('SETD^i.6.aux.1.value^0.91653908203');
 
-    conn.aux(2).input(7).setMute(1);
+    conn.aux(2).input(7).setMute(true);
     expect(message).toBe('SETD^i.6.aux.1.mute^1');
 
-    conn.aux(2).input(7).setMute(0);
+    conn.aux(2).input(7).setMute(false);
     expect(message).toBe('SETD^i.6.aux.1.mute^0');
 
     conn.aux(2).input(7).mute();
@@ -485,10 +485,10 @@ describe('Outbound messages', () => {
     conn.aux(2).input(7).post();
     expect(message).toBe('SETD^i.6.aux.1.post^1');
 
-    conn.aux(2).input(7).setPost(1);
+    conn.aux(2).input(7).setPost(true);
     expect(message).toBe('SETD^i.6.aux.1.post^1');
 
-    conn.aux(2).input(7).setPost(0);
+    conn.aux(2).input(7).setPost(false);
     expect(message).toBe('SETD^i.6.aux.1.post^0');
 
     conn.aux(2).input(7).preProc();
@@ -497,10 +497,10 @@ describe('Outbound messages', () => {
     conn.aux(2).input(7).postProc();
     expect(message).toBe('SETD^i.6.aux.1.postproc^1');
 
-    conn.aux(2).input(7).setPostProc(1);
+    conn.aux(2).input(7).setPostProc(true);
     expect(message).toBe('SETD^i.6.aux.1.postproc^1');
 
-    conn.aux(2).input(7).setPostProc(0);
+    conn.aux(2).input(7).setPostProc(false);
     expect(message).toBe('SETD^i.6.aux.1.postproc^0');
 
     conn.aux(2).input(7).setName('THENAME');
@@ -520,10 +520,10 @@ describe('Outbound messages', () => {
     conn.aux(2).line(1).setFaderLevelDB(6);
     expect(message).toBe('SETD^l.0.aux.1.value^0.91653908203');
 
-    conn.aux(2).line(1).setMute(1);
+    conn.aux(2).line(1).setMute(true);
     expect(message).toBe('SETD^l.0.aux.1.mute^1');
 
-    conn.aux(2).line(1).setMute(0);
+    conn.aux(2).line(1).setMute(false);
     expect(message).toBe('SETD^l.0.aux.1.mute^0');
 
     conn.aux(2).line(1).mute();
@@ -547,10 +547,10 @@ describe('Outbound messages', () => {
     conn.aux(2).line(1).post();
     expect(message).toBe('SETD^l.0.aux.1.post^1');
 
-    conn.aux(2).line(1).setPost(1);
+    conn.aux(2).line(1).setPost(true);
     expect(message).toBe('SETD^l.0.aux.1.post^1');
 
-    conn.aux(2).line(1).setPost(0);
+    conn.aux(2).line(1).setPost(false);
     expect(message).toBe('SETD^l.0.aux.1.post^0');
 
     conn.aux(2).line(1).preProc();
@@ -559,10 +559,10 @@ describe('Outbound messages', () => {
     conn.aux(2).line(1).postProc();
     expect(message).toBe('SETD^l.0.aux.1.postproc^1');
 
-    conn.aux(2).line(1).setPostProc(1);
+    conn.aux(2).line(1).setPostProc(true);
     expect(message).toBe('SETD^l.0.aux.1.postproc^1');
 
-    conn.aux(2).line(1).setPostProc(0);
+    conn.aux(2).line(1).setPostProc(false);
     expect(message).toBe('SETD^l.0.aux.1.postproc^0');
 
     conn.aux(2).line(1).setName('THENAME');
@@ -582,10 +582,10 @@ describe('Outbound messages', () => {
     conn.aux(2).player(2).setFaderLevelDB(6);
     expect(message).toBe('SETD^p.1.aux.1.value^0.91653908203');
 
-    conn.aux(2).player(2).setMute(1);
+    conn.aux(2).player(2).setMute(true);
     expect(message).toBe('SETD^p.1.aux.1.mute^1');
 
-    conn.aux(2).player(2).setMute(0);
+    conn.aux(2).player(2).setMute(false);
     expect(message).toBe('SETD^p.1.aux.1.mute^0');
 
     conn.aux(2).player(2).mute();
@@ -609,10 +609,10 @@ describe('Outbound messages', () => {
     conn.aux(2).player(2).post();
     expect(message).toBe('SETD^p.1.aux.1.post^1');
 
-    conn.aux(2).player(2).setPost(1);
+    conn.aux(2).player(2).setPost(true);
     expect(message).toBe('SETD^p.1.aux.1.post^1');
 
-    conn.aux(2).player(2).setPost(0);
+    conn.aux(2).player(2).setPost(false);
     expect(message).toBe('SETD^p.1.aux.1.post^0');
 
     conn.aux(2).player(2).preProc();
@@ -621,10 +621,10 @@ describe('Outbound messages', () => {
     conn.aux(2).player(2).postProc();
     expect(message).toBe('SETD^p.1.aux.1.postproc^1');
 
-    conn.aux(2).player(2).setPostProc(1);
+    conn.aux(2).player(2).setPostProc(true);
     expect(message).toBe('SETD^p.1.aux.1.postproc^1');
 
-    conn.aux(2).player(2).setPostProc(0);
+    conn.aux(2).player(2).setPostProc(false);
     expect(message).toBe('SETD^p.1.aux.1.postproc^0');
 
     conn.aux(2).player(2).setName('THENAME');
@@ -644,10 +644,10 @@ describe('Outbound messages', () => {
     conn.aux(2).fx(1).setFaderLevelDB(6);
     expect(message).toBe('SETD^f.0.aux.1.value^0.91653908203');
 
-    conn.aux(2).fx(1).setMute(1);
+    conn.aux(2).fx(1).setMute(true);
     expect(message).toBe('SETD^f.0.aux.1.mute^1');
 
-    conn.aux(2).fx(1).setMute(0);
+    conn.aux(2).fx(1).setMute(false);
     expect(message).toBe('SETD^f.0.aux.1.mute^0');
 
     conn.aux(2).fx(1).mute();
@@ -671,10 +671,10 @@ describe('Outbound messages', () => {
     conn.aux(2).fx(1).post();
     expect(message).toBe('SETD^f.0.aux.1.post^1');
 
-    conn.aux(2).fx(1).setPost(1);
+    conn.aux(2).fx(1).setPost(true);
     expect(message).toBe('SETD^f.0.aux.1.post^1');
 
-    conn.aux(2).fx(1).setPost(0);
+    conn.aux(2).fx(1).setPost(false);
     expect(message).toBe('SETD^f.0.aux.1.post^0');
 
     conn.aux(2).fx(1).preProc();
@@ -683,10 +683,10 @@ describe('Outbound messages', () => {
     conn.aux(2).fx(1).postProc();
     expect(message).toBe('SETD^f.0.aux.1.postproc^1');
 
-    conn.aux(2).fx(1).setPostProc(1);
+    conn.aux(2).fx(1).setPostProc(true);
     expect(message).toBe('SETD^f.0.aux.1.postproc^1');
 
-    conn.aux(2).fx(1).setPostProc(0);
+    conn.aux(2).fx(1).setPostProc(false);
     expect(message).toBe('SETD^f.0.aux.1.postproc^0');
 
     conn.aux(2).fx(1).setName('THENAME');
@@ -706,10 +706,10 @@ describe('Outbound messages', () => {
     conn.mtx(7).aux(1).setFaderLevelDB(6);
     expect(message).toBe('SETD^a.0.mtx.6.value^0.91653908203');
 
-    conn.mtx(7).aux(1).setMute(1);
+    conn.mtx(7).aux(1).setMute(true);
     expect(message).toBe('SETD^a.0.mtx.6.mute^1');
 
-    conn.mtx(7).aux(1).setMute(0);
+    conn.mtx(7).aux(1).setMute(false);
     expect(message).toBe('SETD^a.0.mtx.6.mute^0');
 
     conn.mtx(7).aux(1).mute();
@@ -733,10 +733,10 @@ describe('Outbound messages', () => {
     conn.mtx(7).aux(1).postProc();
     expect(message).toBe('SETD^a.0.mtx.6.postproc^1');
 
-    conn.mtx(7).aux(1).setPostProc(1);
+    conn.mtx(7).aux(1).setPostProc(true);
     expect(message).toBe('SETD^a.0.mtx.6.postproc^1');
 
-    conn.mtx(7).aux(1).setPostProc(0);
+    conn.mtx(7).aux(1).setPostProc(false);
     expect(message).toBe('SETD^a.0.mtx.6.postproc^0');
 
     conn.mtx(7).aux(1).setName('THENAME');
@@ -756,10 +756,10 @@ describe('Outbound messages', () => {
     conn.mtx(7).sub(1).setFaderLevelDB(6);
     expect(message).toBe('SETD^s.0.mtx.6.value^0.91653908203');
 
-    conn.mtx(7).sub(1).setMute(1);
+    conn.mtx(7).sub(1).setMute(true);
     expect(message).toBe('SETD^s.0.mtx.6.mute^1');
 
-    conn.mtx(7).sub(1).setMute(0);
+    conn.mtx(7).sub(1).setMute(false);
     expect(message).toBe('SETD^s.0.mtx.6.mute^0');
 
     conn.mtx(7).sub(1).mute();
@@ -783,10 +783,10 @@ describe('Outbound messages', () => {
     conn.mtx(7).sub(1).postProc();
     expect(message).toBe('SETD^s.0.mtx.6.postproc^1');
 
-    conn.mtx(7).sub(1).setPostProc(1);
+    conn.mtx(7).sub(1).setPostProc(true);
     expect(message).toBe('SETD^s.0.mtx.6.postproc^1');
 
-    conn.mtx(7).sub(1).setPostProc(0);
+    conn.mtx(7).sub(1).setPostProc(false);
     expect(message).toBe('SETD^s.0.mtx.6.postproc^0');
 
     conn.mtx(7).sub(1).setName('THENAME');
@@ -806,10 +806,10 @@ describe('Outbound messages', () => {
     conn.mtx(7).master().setFaderLevelDB(6);
     expect(message).toBe('SETD^m.mtx.6.value^0.91653908203');
 
-    conn.mtx(7).master().setMute(1);
+    conn.mtx(7).master().setMute(true);
     expect(message).toBe('SETD^m.mtx.6.mute^1');
 
-    conn.mtx(7).master().setMute(0);
+    conn.mtx(7).master().setMute(false);
     expect(message).toBe('SETD^m.mtx.6.mute^0');
 
     conn.mtx(7).master().mute();
@@ -833,10 +833,10 @@ describe('Outbound messages', () => {
     conn.mtx(7).master().postProc();
     expect(message).toBe('SETD^m.mtx.6.postproc^1');
 
-    conn.mtx(7).master().setPostProc(1);
+    conn.mtx(7).master().setPostProc(true);
     expect(message).toBe('SETD^m.mtx.6.postproc^1');
 
-    conn.mtx(7).master().setPostProc(0);
+    conn.mtx(7).master().setPostProc(false);
     expect(message).toBe('SETD^m.mtx.6.postproc^0');
   });
 
@@ -844,10 +844,10 @@ describe('Outbound messages', () => {
     conn.master.mtx(7).setFaderLevel(0.4);
     expect(message).toBe('SETD^a.6.mix^0.4');
 
-    conn.master.mtx(7).setMute(1);
+    conn.master.mtx(7).setMute(true);
     expect(message).toBe('SETD^a.6.mute^1');
 
-    conn.master.mtx(7).setSolo(1);
+    conn.master.mtx(7).setSolo(true);
     expect(message).toBe('SETD^a.6.solo^1');
 
     conn.master.mtx(7).setDelay(400);
@@ -881,10 +881,10 @@ describe('Outbound messages', () => {
     conn.fx(3).input(6).setFaderLevelDB(9.4);
     expect(message).toBe('SETD^i.5.fx.2.value^0.98845064599');
 
-    conn.fx(3).input(6).setMute(1);
+    conn.fx(3).input(6).setMute(true);
     expect(message).toBe('SETD^i.5.fx.2.mute^1');
 
-    conn.fx(3).input(6).setMute(0);
+    conn.fx(3).input(6).setMute(false);
     expect(message).toBe('SETD^i.5.fx.2.mute^0');
 
     conn.fx(3).input(6).mute();
@@ -899,10 +899,10 @@ describe('Outbound messages', () => {
     conn.fx(3).input(6).post();
     expect(message).toBe('SETD^i.5.fx.2.post^1');
 
-    conn.fx(3).input(6).setPost(1);
+    conn.fx(3).input(6).setPost(true);
     expect(message).toBe('SETD^i.5.fx.2.post^1');
 
-    conn.fx(3).input(6).setPost(0);
+    conn.fx(3).input(6).setPost(false);
     expect(message).toBe('SETD^i.5.fx.2.post^0');
 
     conn.fx(3).input(6).setName('THENAME');
@@ -922,10 +922,10 @@ describe('Outbound messages', () => {
     conn.fx(3).line(2).setFaderLevelDB(9.4);
     expect(message).toBe('SETD^l.1.fx.2.value^0.98845064599');
 
-    conn.fx(3).line(2).setMute(1);
+    conn.fx(3).line(2).setMute(true);
     expect(message).toBe('SETD^l.1.fx.2.mute^1');
 
-    conn.fx(3).line(2).setMute(0);
+    conn.fx(3).line(2).setMute(false);
     expect(message).toBe('SETD^l.1.fx.2.mute^0');
 
     conn.fx(3).line(2).mute();
@@ -940,10 +940,10 @@ describe('Outbound messages', () => {
     conn.fx(3).line(2).post();
     expect(message).toBe('SETD^l.1.fx.2.post^1');
 
-    conn.fx(3).line(2).setPost(1);
+    conn.fx(3).line(2).setPost(true);
     expect(message).toBe('SETD^l.1.fx.2.post^1');
 
-    conn.fx(3).line(2).setPost(0);
+    conn.fx(3).line(2).setPost(false);
     expect(message).toBe('SETD^l.1.fx.2.post^0');
 
     conn.fx(3).line(2).setName('THENAME');
@@ -963,10 +963,10 @@ describe('Outbound messages', () => {
     conn.fx(3).player(1).setFaderLevelDB(9.4);
     expect(message).toBe('SETD^p.0.fx.2.value^0.98845064599');
 
-    conn.fx(3).player(1).setMute(1);
+    conn.fx(3).player(1).setMute(true);
     expect(message).toBe('SETD^p.0.fx.2.mute^1');
 
-    conn.fx(3).player(1).setMute(0);
+    conn.fx(3).player(1).setMute(false);
     expect(message).toBe('SETD^p.0.fx.2.mute^0');
 
     conn.fx(3).player(1).mute();
@@ -981,10 +981,10 @@ describe('Outbound messages', () => {
     conn.fx(3).player(1).post();
     expect(message).toBe('SETD^p.0.fx.2.post^1');
 
-    conn.fx(3).player(1).setPost(1);
+    conn.fx(3).player(1).setPost(true);
     expect(message).toBe('SETD^p.0.fx.2.post^1');
 
-    conn.fx(3).player(1).setPost(0);
+    conn.fx(3).player(1).setPost(false);
     expect(message).toBe('SETD^p.0.fx.2.post^0');
 
     conn.fx(3).player(1).setName('THENAME');
@@ -1004,10 +1004,10 @@ describe('Outbound messages', () => {
     conn.fx(3).sub(4).setFaderLevelDB(9.4);
     expect(message).toBe('SETD^s.3.fx.2.value^0.98845064599');
 
-    conn.fx(3).sub(4).setMute(1);
+    conn.fx(3).sub(4).setMute(true);
     expect(message).toBe('SETD^s.3.fx.2.mute^1');
 
-    conn.fx(3).sub(4).setMute(0);
+    conn.fx(3).sub(4).setMute(false);
     expect(message).toBe('SETD^s.3.fx.2.mute^0');
 
     conn.fx(3).sub(4).mute();
@@ -1022,10 +1022,10 @@ describe('Outbound messages', () => {
     conn.fx(3).sub(4).post();
     expect(message).toBe('SETD^s.3.fx.2.post^1');
 
-    conn.fx(3).sub(4).setPost(1);
+    conn.fx(3).sub(4).setPost(true);
     expect(message).toBe('SETD^s.3.fx.2.post^1');
 
-    conn.fx(3).sub(4).setPost(0);
+    conn.fx(3).sub(4).setPost(false);
     expect(message).toBe('SETD^s.3.fx.2.post^0');
 
     conn.fx(3).sub(4).setName('THENAME');
@@ -1085,10 +1085,10 @@ describe('Outbound messages', () => {
     conn.player.loadTrack('~root~', 'mytrack.mp3');
     expect(message).toBe('MEDIA_SWITCH_TRACK^~root~^mytrack.mp3');
 
-    conn.player.setShuffle(1);
+    conn.player.setShuffle(true);
     expect(message).toBe('SETD^settings.shuffle^1');
 
-    conn.player.setShuffle(0);
+    conn.player.setShuffle(false);
     expect(message).toBe('SETD^settings.shuffle^0');
 
     conn.player.setPlayMode(0);
@@ -1124,10 +1124,10 @@ describe('Outbound messages', () => {
     mtk.recordToggle();
     expect(message).toBe('MTK_REC_TOGGLE');
 
-    mtk.setSoundcheck(0);
+    mtk.setSoundcheck(false);
     expect(message).toBe('SETD^var.mtk.soundcheck^0');
 
-    mtk.setSoundcheck(1);
+    mtk.setSoundcheck(true);
     expect(message).toBe('SETD^var.mtk.soundcheck^1');
 
     mtk.deactivateSoundcheck();
@@ -1228,10 +1228,10 @@ describe('Outbound messages', () => {
     it('Ui24', () => {
       setMixerModel('ui24', conn);
 
-      conn.hw(1).setPhantom(1);
+      conn.hw(1).setPhantom(true);
       expect(message).toBe('SETD^hw.0.phantom^1');
 
-      conn.hw(2).setPhantom(0);
+      conn.hw(2).setPhantom(false);
       expect(message).toBe('SETD^hw.1.phantom^0');
 
       conn.hw(3).phantomOn();
@@ -1259,10 +1259,10 @@ describe('Outbound messages', () => {
     it('Ui16', () => {
       setMixerModel('ui16', conn);
 
-      conn.hw(1).setPhantom(1);
+      conn.hw(1).setPhantom(true);
       expect(message).toBe('SETD^i.0.phantom^1');
 
-      conn.hw(2).setPhantom(0);
+      conn.hw(2).setPhantom(false);
       expect(message).toBe('SETD^i.1.phantom^0');
 
       conn.hw(3).phantomOn();
@@ -1290,10 +1290,10 @@ describe('Outbound messages', () => {
     it('Ui12', () => {
       setMixerModel('ui12', conn);
 
-      conn.hw(1).setPhantom(1);
+      conn.hw(1).setPhantom(true);
       expect(message).toBe('SETD^i.0.phantom^1');
 
-      conn.hw(2).setPhantom(0);
+      conn.hw(2).setPhantom(false);
       expect(message).toBe('SETD^i.1.phantom^0');
 
       conn.hw(3).phantomOn();

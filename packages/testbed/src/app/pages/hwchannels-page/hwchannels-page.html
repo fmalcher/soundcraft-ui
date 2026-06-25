@@ -3,7 +3,7 @@
 <h3>Phantom Power</h3>
 <sui-mixer-button (press)="channel.phantomOn()">ON</sui-mixer-button>
 <sui-mixer-button (press)="channel.phantomOff()">OFF</sui-mixer-button>
-<sui-mixer-button (press)="channel.togglePhantom()" [active]="!!(channel.phantom$ | async)">
+<sui-mixer-button (press)="channel.togglePhantom()" [active]="channel.phantom$ | async">
   Toggle
 </sui-mixer-button>
 <div class="mt-3">

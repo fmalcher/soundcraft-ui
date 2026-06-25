@@ -26,12 +26,12 @@ const groupB = conn.automix.groups.b;
 
 Each group exposes the following methods and properties:
 
-| Call on `AutomixGroup` | Description                                     |
-| ---------------------- | ----------------------------------------------- |
-| `enable()`             | Globally enable this automix group              |
-| `disable()`            | Globally disable this automix group             |
-| `toggle()`             | Toggle the state of this automix group          |
-| `state$`               | Active state of this automix group (`0` or `1`) |
+| Call on `AutomixGroup` | Description                            |
+| ---------------------- | -------------------------------------- |
+| `enable()`             | Globally enable this automix group     |
+| `disable()`            | Globally disable this automix group    |
+| `toggle()`             | Toggle the state of this automix group |
+| `state$`               | Active state of this automix group     |
 
 ## Automix Channel Assignment
 

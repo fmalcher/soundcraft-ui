@@ -1,5 +1,3 @@
-import { map } from 'rxjs';
-
 import { MixerConnection } from '../mixer-connection';
 import { MixerStore } from '../state/mixer-store';
 import { select, selectMatrix } from '../state/state-selectors';
@@ -16,7 +14,7 @@ export class AuxBus {
    * Whether this AUX bus is currently configured as a matrix bus (Ui24R only).
    * When `true`, this slot is a matrix and should be controlled through `conn.mtx(n)` instead.
    */
-  readonly isMatrix$ = this.store.state$.pipe(select(selectMatrix(this.bus)), map(Boolean));
+  readonly isMatrix$ = this.store.state$.pipe(select(selectMatrix(this.bus)));
 
   constructor(
     private conn: MixerConnection,
@@ -74,7 +72,7 @@ export class AuxBus {
    * @returns the matrix bus (`MtxBus`) for the same slot
    */
   switchToMatrix(): MtxBus {
-    setMatrixMode(this.conn, this.store, this.bus, 1);
+    setMatrixMode(this.conn, this.store, this.bus, true);
     return this.store.objectStore.getOrCreate(
       mtxBusStoreId(this.bus),
       () => new MtxBus(this.conn, this.store, this.bus),

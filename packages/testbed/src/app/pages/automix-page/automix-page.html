@@ -20,7 +20,7 @@
   <h2>{{ g.label }}</h2>
   <sui-mixer-button (press)="g.group.enable()">Enable</sui-mixer-button>
   <sui-mixer-button (press)="g.group.disable()">Disable</sui-mixer-button>
-  <sui-mixer-button (press)="g.group.toggle()" [active]="!!(g.group.state$ | async)">Toggle</sui-mixer-button>
+  <sui-mixer-button (press)="g.group.toggle()" [active]="g.group.state$ | async">Toggle</sui-mixer-button>
 </div>
 } @for (c of channels; track c) {
 <div class="mb-4">

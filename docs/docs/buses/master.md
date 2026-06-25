@@ -41,13 +41,13 @@ The following operations can be used to interact with the global master fader.
 
 ## DIM (Ui24R only)
 
-| Call on `MasterBus` | Description                        |
-| ------------------- | ---------------------------------- |
-| `dim$`              | Get master dim status (`0` or `1`) |
-| `dim()`             | Dim master                         |
-| `undim()`           | Undim master                       |
-| `toggleDim()`       | Toggle master dim                  |
-| `setDim(value)`     | Set master dim (`0` or `1`)        |
+| Call on `MasterBus` | Description          |
+| ------------------- | -------------------- |
+| `dim$`              | Get master dim state |
+| `dim()`             | Dim master           |
+| `undim()`           | Undim master         |
+| `toggleDim()`       | Toggle master dim    |
+| `setDim(value)`     | Set master dim       |
 
 ## Other operations
 

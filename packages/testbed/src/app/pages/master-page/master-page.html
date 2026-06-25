@@ -4,7 +4,7 @@
 <sui-transition-controls [channel]="master" />
 
 <div>
-  <sui-mixer-button activeClass="dim" [active]="!!(master.dim$ | async)" (press)="master.toggleDim()">
+  <sui-mixer-button activeClass="dim" [active]="master.dim$ | async" (press)="master.toggleDim()">
     DIM toggle
   </sui-mixer-button>
 
