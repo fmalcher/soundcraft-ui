@@ -1,4 +1,4 @@
-import { debounceTime, firstValueFrom, race, timer } from 'rxjs';
+import { debounceTime, firstValueFrom, map, race, timer } from 'rxjs';
 import { MixerStore } from './state/mixer-store';
 import { ChannelType, FxType, VolumeBusType } from './types';
 
@@ -141,5 +141,7 @@ export function getDefaultVolumeBusName(type: VolumeBusType, busId: number): str
  * In case the state never stands still for 50 ms, the 250 ms timeout will emit finally.
  */
 export function waitForInitParams(store: MixerStore): Promise<void> {
-  return firstValueFrom(race(store.state$.pipe(debounceTime(25)), timer(250)));
+  return firstValueFrom(
+    race(store.state$.pipe(debounceTime(25)), timer(250)).pipe(map(() => undefined)),
+  );
 }
