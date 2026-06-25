@@ -12,8 +12,8 @@ import { SendChannel } from './send-channel';
  * Represents a channel on an AUX bus
  */
 export class AuxChannel extends SendChannel implements PannableChannel, PostProcessableChannel {
-  /** when the AUX bus is stereo-linked, this contains the ID of this channel on the linked bus */
-  private auxLinkChannelIds: string[] = [];
+  /** when the AUX bus is stereo-linked, this also contains the ID of this channel on the linked bus */
+  private auxLinkChannelIds: string[] = [this.fullChannelId];
 
   /** PAN value of the AUX channel (between `0` and `1`) */
   readonly pan$ = this.store.state$.pipe(
@@ -46,8 +46,8 @@ export class AuxChannel extends SendChannel implements PannableChannel, PostProc
           const linkedAuxNo = getLinkedChannelNumber(bus, auxIndex);
           const linkedChNo = getLinkedChannelNumber(channel, channelIndex);
 
-          const allChannelIds = []; // all linked channels on this bus and on the linked bus
-          const auxLinkChannelIds = []; // this channel on the linked bus
+          const allChannelIds = [this.fullChannelId]; // all linked channels on this bus and on the linked bus
+          const auxLinkChannelIds = [this.fullChannelId]; // this channel on the linked bus
 
           // add linked channel on this bus
           if (linkedChNo !== undefined) {
@@ -84,7 +84,7 @@ export class AuxChannel extends SendChannel implements PannableChannel, PostProc
   setPan(value: number) {
     value = clamp(value, 0, 1);
     value = roundToThreeDecimals(value);
-    [...this.auxLinkChannelIds, this.fullChannelId].forEach(cid => {
+    this.auxLinkChannelIds.forEach(cid => {
       this.conn.setd(`${cid}.pan`, value);
     });
   }
@@ -103,7 +103,7 @@ export class AuxChannel extends SendChannel implements PannableChannel, PostProc
    * @param value POST PROC (`true`) or PRE PROC (`false`)
    */
   setPostProc(value: boolean) {
-    [...this.linkedChannelIds, this.fullChannelId].forEach(cid => {
+    this.linkedChannelIds.forEach(cid => {
       this.conn.setdBool(`${cid}.postproc`, value);
     });
   }

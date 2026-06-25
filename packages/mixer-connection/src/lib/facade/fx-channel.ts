@@ -27,10 +27,11 @@ export class FxChannel extends SendChannel {
           const linkedChannelNumber = getLinkedChannelNumber(channel, index);
           if (linkedChannelNumber !== undefined) {
             return [
+              this.fullChannelId,
               constructSendChannelId(this.channelType, linkedChannelNumber, this.busType, this.bus),
             ];
           } else {
-            return [];
+            return [this.fullChannelId];
           }
         }),
       )

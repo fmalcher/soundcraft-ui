@@ -45,10 +45,10 @@ export abstract class MtxChannel
   readonly postProc$ = this.store.state$.pipe(selectBoolean(`${this.fullChannelId}.postproc`));
 
   /** all linked channels (mirror on the stereo-linked matrix output and stereo-link neighbour) */
-  protected linkedChannelIds: string[] = [];
+  protected linkedChannelIds: string[] = [this.fullChannelId];
 
   /** channels that mirror the PAN value (the stereo-linked matrix output, but not a neighbour source) */
-  protected panLinkChannelIds: string[] = [];
+  protected panLinkChannelIds: string[] = [this.fullChannelId];
 
   private transitionSources$ = new Subject<TransitionSource>();
 
@@ -98,7 +98,7 @@ export abstract class MtxChannel
   }
 
   private setFaderLevelRaw(value: number) {
-    [...this.linkedChannelIds, this.fullChannelId].forEach(cid => {
+    this.linkedChannelIds.forEach(cid => {
       this.conn.setd(`${cid}.value`, value);
     });
   }
@@ -136,7 +136,7 @@ export abstract class MtxChannel
    * @param value MUTE state
    */
   setMute(value: boolean) {
-    [...this.linkedChannelIds, this.fullChannelId].forEach(cid => {
+    this.linkedChannelIds.forEach(cid => {
       this.conn.setdBool(`${cid}.mute`, value);
     });
   }
@@ -164,7 +164,7 @@ export abstract class MtxChannel
   setPan(value: number) {
     value = clamp(value, 0, 1);
     value = roundToThreeDecimals(value);
-    [...this.panLinkChannelIds, this.fullChannelId].forEach(cid => {
+    this.panLinkChannelIds.forEach(cid => {
       this.conn.setd(`${cid}.pan`, value);
     });
   }
@@ -183,7 +183,7 @@ export abstract class MtxChannel
    * @param value POST PROC (`true`) or PRE PROC (`false`)
    */
   setPostProc(value: boolean) {
-    [...this.linkedChannelIds, this.fullChannelId].forEach(cid => {
+    this.linkedChannelIds.forEach(cid => {
       this.conn.setdBool(`${cid}.postproc`, value);
     });
   }

@@ -29,23 +29,23 @@ describe('Stereo linking', () => {
 
       let messages = collectMessages(conn);
       channel.setFaderLevel(0.5);
-      expect(messages).toEqual(['SETD^i.3.mix^0.5', 'SETD^i.2.mix^0.5']);
+      expect(messages).toEqual(['SETD^i.2.mix^0.5', 'SETD^i.3.mix^0.5']);
 
       messages = collectMessages(conn);
       channel.setMute(true);
-      expect(messages).toEqual(['SETD^i.3.mute^1', 'SETD^i.2.mute^1']);
+      expect(messages).toEqual(['SETD^i.2.mute^1', 'SETD^i.3.mute^1']);
 
       messages = collectMessages(conn);
       channel.setSolo(true);
-      expect(messages).toEqual(['SETD^i.3.solo^1', 'SETD^i.2.solo^1']);
+      expect(messages).toEqual(['SETD^i.2.solo^1', 'SETD^i.3.solo^1']);
 
       messages = collectMessages(conn);
       channel.automixAssignGroup('a');
-      expect(messages).toEqual(['SETD^i.3.amixgroup^0', 'SETD^i.2.amixgroup^0']);
+      expect(messages).toEqual(['SETD^i.2.amixgroup^0', 'SETD^i.3.amixgroup^0']);
 
       messages = collectMessages(conn);
       channel.automixSetWeight(0.5);
-      expect(messages).toEqual(['SETD^i.3.amix^0.5', 'SETD^i.2.amix^0.5']);
+      expect(messages).toEqual(['SETD^i.2.amix^0.5', 'SETD^i.3.amix^0.5']);
     });
 
     it('should mirror commands to the linked neighbour (second in link)', () => {
@@ -55,7 +55,7 @@ describe('Stereo linking', () => {
 
       const messages = collectMessages(conn);
       channel.setFaderLevel(0.5);
-      expect(messages).toEqual(['SETD^i.2.mix^0.5', 'SETD^i.3.mix^0.5']);
+      expect(messages).toEqual(['SETD^i.3.mix^0.5', 'SETD^i.2.mix^0.5']);
     });
 
     it('should NOT mirror PAN (it is the only per-channel setting)', () => {
@@ -84,11 +84,11 @@ describe('Stereo linking', () => {
 
       let messages = collectMessages(conn);
       conn.master.line(1).setFaderLevel(0.5);
-      expect(messages).toEqual(['SETD^l.1.mix^0.5', 'SETD^l.0.mix^0.5']);
+      expect(messages).toEqual(['SETD^l.0.mix^0.5', 'SETD^l.1.mix^0.5']);
 
       messages = collectMessages(conn);
       conn.master.player(1).setMute(true);
-      expect(messages).toEqual(['SETD^p.1.mute^1', 'SETD^p.0.mute^1']);
+      expect(messages).toEqual(['SETD^p.0.mute^1', 'SETD^p.1.mute^1']);
     });
   });
 
@@ -104,19 +104,19 @@ describe('Stereo linking', () => {
 
       let messages = collectMessages(conn);
       channel.setFaderLevel(0.5);
-      expect(messages).toEqual(['SETD^i.3.aux.1.value^0.5', 'SETD^i.2.aux.1.value^0.5']);
+      expect(messages).toEqual(['SETD^i.2.aux.1.value^0.5', 'SETD^i.3.aux.1.value^0.5']);
 
       messages = collectMessages(conn);
       channel.setMute(true);
-      expect(messages).toEqual(['SETD^i.3.aux.1.mute^1', 'SETD^i.2.aux.1.mute^1']);
+      expect(messages).toEqual(['SETD^i.2.aux.1.mute^1', 'SETD^i.3.aux.1.mute^1']);
 
       messages = collectMessages(conn);
       channel.setPost(true);
-      expect(messages).toEqual(['SETD^i.3.aux.1.post^1', 'SETD^i.2.aux.1.post^1']);
+      expect(messages).toEqual(['SETD^i.2.aux.1.post^1', 'SETD^i.3.aux.1.post^1']);
 
       messages = collectMessages(conn);
       channel.setPostProc(true);
-      expect(messages).toEqual(['SETD^i.3.aux.1.postproc^1', 'SETD^i.2.aux.1.postproc^1']);
+      expect(messages).toEqual(['SETD^i.2.aux.1.postproc^1', 'SETD^i.3.aux.1.postproc^1']);
     });
   });
 
@@ -132,7 +132,7 @@ describe('Stereo linking', () => {
 
       const messages = collectMessages(conn);
       channel.setFaderLevel(0.5);
-      expect(messages).toEqual(['SETD^i.2.aux.1.value^0.5', 'SETD^i.2.aux.0.value^0.5']);
+      expect(messages).toEqual(['SETD^i.2.aux.0.value^0.5', 'SETD^i.2.aux.1.value^0.5']);
     });
 
     it('should mirror PAN to this channel on the linked bus', () => {
@@ -140,7 +140,7 @@ describe('Stereo linking', () => {
 
       const messages = collectMessages(conn);
       channel.setPan(0.5);
-      expect(messages).toEqual(['SETD^i.2.aux.1.pan^0.5', 'SETD^i.2.aux.0.pan^0.5']);
+      expect(messages).toEqual(['SETD^i.2.aux.0.pan^0.5', 'SETD^i.2.aux.1.pan^0.5']);
     });
   });
 
@@ -157,10 +157,10 @@ describe('Stereo linking', () => {
       const messages = collectMessages(conn);
       channel.setFaderLevel(0.5);
       expect(messages).toEqual([
+        'SETD^i.2.aux.0.value^0.5', // self
         'SETD^i.3.aux.0.value^0.5', // neighbour on this bus
         'SETD^i.2.aux.1.value^0.5', // this channel on the linked bus
         'SETD^i.3.aux.1.value^0.5', // neighbour on the linked bus
-        'SETD^i.2.aux.0.value^0.5', // self
       ]);
     });
 
@@ -170,10 +170,10 @@ describe('Stereo linking', () => {
       const messages = collectMessages(conn);
       channel.setMute(true);
       expect(messages).toEqual([
+        'SETD^i.2.aux.0.mute^1',
         'SETD^i.3.aux.0.mute^1',
         'SETD^i.2.aux.1.mute^1',
         'SETD^i.3.aux.1.mute^1',
-        'SETD^i.2.aux.0.mute^1',
       ]);
     });
 
@@ -183,10 +183,10 @@ describe('Stereo linking', () => {
       const messages = collectMessages(conn);
       channel.setPost(true);
       expect(messages).toEqual([
+        'SETD^i.2.aux.0.post^1',
         'SETD^i.3.aux.0.post^1',
         'SETD^i.2.aux.1.post^1',
         'SETD^i.3.aux.1.post^1',
-        'SETD^i.2.aux.0.post^1',
       ]);
     });
 
@@ -196,10 +196,10 @@ describe('Stereo linking', () => {
       const messages = collectMessages(conn);
       channel.setPostProc(true);
       expect(messages).toEqual([
+        'SETD^i.2.aux.0.postproc^1',
         'SETD^i.3.aux.0.postproc^1',
         'SETD^i.2.aux.1.postproc^1',
         'SETD^i.3.aux.1.postproc^1',
-        'SETD^i.2.aux.0.postproc^1',
       ]);
     });
 
@@ -208,7 +208,7 @@ describe('Stereo linking', () => {
 
       const messages = collectMessages(conn);
       channel.setPan(0.5);
-      expect(messages).toEqual(['SETD^i.2.aux.1.pan^0.5', 'SETD^i.2.aux.0.pan^0.5']);
+      expect(messages).toEqual(['SETD^i.2.aux.0.pan^0.5', 'SETD^i.2.aux.1.pan^0.5']);
     });
   });
 
@@ -222,10 +222,10 @@ describe('Stereo linking', () => {
       const messages = collectMessages(conn);
       channel.setMute(true);
       expect(messages).toEqual([
+        'SETD^i.3.aux.1.mute^1', // self
         'SETD^i.2.aux.1.mute^1', // neighbour on this bus
         'SETD^i.3.aux.0.mute^1', // this channel on the linked bus
         'SETD^i.2.aux.0.mute^1', // neighbour on the linked bus
-        'SETD^i.3.aux.1.mute^1', // self
       ]);
     });
   });

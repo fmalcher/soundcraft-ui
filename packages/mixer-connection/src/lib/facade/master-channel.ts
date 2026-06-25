@@ -67,6 +67,7 @@ export class MasterChannel extends Channel implements PannableChannel {
 
   constructor(conn: MixerConnection, store: MixerStore, channelType: ChannelType, channel: number) {
     super(conn, store, channelType, channel);
+    this.linkedChannelIds = [this.fullChannelId];
 
     // create list of channel IDs that are linked with this channel
     this.stereoIndex$
@@ -74,9 +75,12 @@ export class MasterChannel extends Channel implements PannableChannel {
         map(index => {
           const linkedChannelNumber = getLinkedChannelNumber(channel, index);
           if (linkedChannelNumber !== undefined) {
-            return [constructMasterChannelId(this.channelType, linkedChannelNumber)];
+            return [
+              this.fullChannelId,
+              constructMasterChannelId(this.channelType, linkedChannelNumber),
+            ];
           } else {
-            return [];
+            return [this.fullChannelId];
           }
         }),
       )
@@ -106,7 +110,7 @@ export class MasterChannel extends Channel implements PannableChannel {
    * @param value SOLO state
    */
   setSolo(value: boolean) {
-    [...this.linkedChannelIds, this.fullChannelId].forEach(cid => {
+    this.linkedChannelIds.forEach(cid => {
       this.conn.setdBool(`${cid}.solo`, value);
     });
   }
@@ -177,7 +181,7 @@ export class MasterChannel extends Channel implements PannableChannel {
         break;
     }
 
-    [...this.linkedChannelIds, this.fullChannelId].forEach(cid => {
+    this.linkedChannelIds.forEach(cid => {
       this.conn.setd(`${cid}.amixgroup`, groupValue);
     });
   }
@@ -194,7 +198,7 @@ export class MasterChannel extends Channel implements PannableChannel {
   automixSetWeight(value: number) {
     value = clamp(value, 0, 1);
 
-    [...this.linkedChannelIds, this.fullChannelId].forEach(cid => {
+    this.linkedChannelIds.forEach(cid => {
       this.conn.setd(`${cid}.amix`, value);
     });
   }

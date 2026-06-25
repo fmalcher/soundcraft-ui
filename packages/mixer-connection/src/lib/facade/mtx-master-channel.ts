@@ -26,12 +26,14 @@ export class MtxMasterChannel extends MtxChannel {
         select(selectStereoIndex('a', bus)),
         map(mtxIndex => {
           const linkedMtxNo = getLinkedChannelNumber(bus, mtxIndex);
-          return linkedMtxNo !== undefined ? [`m.mtx.${linkedMtxNo - 1}`] : [];
+          return linkedMtxNo !== undefined
+            ? [this.fullChannelId, `m.mtx.${linkedMtxNo - 1}`]
+            : [this.fullChannelId];
         }),
       )
-      .subscribe(mirror => {
-        this.linkedChannelIds = mirror;
-        this.panLinkChannelIds = mirror;
+      .subscribe(linkedChannels => {
+        this.linkedChannelIds = linkedChannels;
+        this.panLinkChannelIds = linkedChannels;
       });
   }
 }
