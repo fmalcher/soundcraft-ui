@@ -21,17 +21,7 @@ export class MultiTrackRecorder {
   );
 
   /** Current session name (e.g. `0001` or individual name) */
-  readonly session$ = this.store.state$.pipe(
-    selectRawValue<number | string>('var.mtk.session'),
-    map(value => {
-      if (typeof value === 'number') {
-        // convert to 4-digit string
-        return value.toString().padStart(4, '0');
-      } else {
-        return value;
-      }
-    }),
-  );
+  readonly session$ = this.store.state$.pipe(selectRawValue<string>('var.mtk.session'));
 
   /** Current session length in seconds */
   readonly length$ = this.store.state$.pipe(select(selectMtkLength()));
