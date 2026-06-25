@@ -129,12 +129,8 @@ export class MixerConnection {
             tap(() => this.statusSubject$.next({ type: ConnectionStatus.Reconnecting })),
           ),
       }),
-      // parse messages (only use those with `3:::` prefix)
-      map(message => {
-        const match = message.match(/^(3:::)([\s\S]*)/);
-        return match && match[2];
-      }),
-      filter((e): e is string => e !== null),
+      filter(message => message.startsWith('3:::')), // only use messages with `3:::` prefix
+      map(message => message.slice(4)), // remove prefix
       mergeMap(message => message.split('\n')), // one message can contain multiple lines with commands. split them into single emissions
     );
 
