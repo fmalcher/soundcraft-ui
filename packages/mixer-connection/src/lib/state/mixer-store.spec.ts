@@ -78,6 +78,15 @@ describe('Mixer Store', () => {
       });
     });
 
+    it('should keep the full value when it contains the ^ separator', async () => {
+      sendMessage('SETS^i.3.name^foo^bar');
+      sendMessage('SETS^i.4.name^a^b^c');
+      expect(await firstValueFrom(mixerStore.state$)).toEqual({
+        'i.3.name': 'foo^bar',
+        'i.4.name': 'a^b^c',
+      });
+    });
+
     it('should ignore messages other than SETD or SETS', async () => {
       sendMessage('SETD^abc^1');
       sendMessage('SETS^def^ghi');
