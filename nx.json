@@ -45,5 +45,6 @@
     ]
   },
   "defaultBase": "main",
-  "analytics": false
+  "analytics": false,
+  "neverConnectToCloud": true
 }

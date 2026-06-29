@@ -8,3 +8,5 @@
 
 *.html
 CHANGELOG.md
+
+.nx/self-healing
