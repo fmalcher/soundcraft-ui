@@ -24,6 +24,16 @@ export default defineConfig({
       entryRoot: 'src',
       tsconfigPath: join(__dirname, 'tsconfig.lib.json'),
     }),
+    copy({
+      verbose: true,
+      targets: [
+        {
+          src: ['README.md', 'package.json'],
+          dest: '../../dist/packages/mixer-connection/',
+        },
+      ],
+      hook: 'writeBundle',
+    }),
   ],
   resolve: {
     tsconfigPaths: true,
@@ -40,17 +50,6 @@ export default defineConfig({
     },
     rolldownOptions: {
       external: [],
-      plugins: [
-        copy({
-          targets: [
-            {
-              src: 'packages/mixer-connection/README.md',
-              dest: 'dist/packages/mixer-connection/',
-            },
-          ],
-          hook: 'writeBundle',
-        }),
-      ],
     },
   },
 });
