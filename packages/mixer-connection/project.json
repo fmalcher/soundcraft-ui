@@ -6,11 +6,13 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@nx/vite:build",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{projectRoot}/{options.outDir}",
+        "{workspaceRoot}/dist/packages/mixer-connection"
+      ],
       "options": {
-        "outputPath": "dist/packages/mixer-connection",
-        "configFile": "packages/mixer-connection/vite.config.mts"
+        "config": "./vite.config.mts",
+        "outDir": "../../dist/packages/mixer-connection"
       }
     },
     "lint": {

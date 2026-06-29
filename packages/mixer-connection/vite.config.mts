@@ -1,10 +1,20 @@
 /// <reference types='vitest' />
 import { defineConfig } from 'vite';
-import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 
 import dts from 'vite-plugin-dts';
 import { join } from 'path';
 import copy from 'rollup-plugin-copy';
+
+// These options were migrated by @nx/vite:convert-to-inferred from the project.json file.
+const configValues = { default: {} };
+
+// Determine the correct configValue to use based on the configuration
+const nxConfiguration = process.env.NX_TASK_TARGET_CONFIGURATION ?? 'default';
+
+const options = {
+  ...configValues.default,
+  ...(configValues[nxConfiguration] ?? {}),
+};
 
 export default defineConfig({
   root: __dirname,
@@ -14,12 +24,10 @@ export default defineConfig({
       entryRoot: 'src',
       tsconfigPath: join(__dirname, 'tsconfig.lib.json'),
     }),
-    nxViteTsPaths(),
   ],
-  // Uncomment this if you are using workers.
-  // worker: {
-  //   plugins: () => [ nxViteTsPaths() ],
-  // },
+  resolve: {
+    tsconfigPaths: true,
+  },
   build: {
     outDir: '../../dist/packages/mixer-connection',
     reportCompressedSize: true,

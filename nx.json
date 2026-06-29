@@ -46,5 +46,18 @@
   },
   "defaultBase": "main",
   "analytics": false,
-  "neverConnectToCloud": true
+  "neverConnectToCloud": true,
+  "plugins": [
+    {
+      "plugin": "@nx/vite/plugin",
+      "options": {
+        "buildTargetName": "build",
+        "serveTargetName": "serve",
+        "previewTargetName": "preview",
+        "serveStaticTargetName": "serve-static",
+        "devTargetName": "dev",
+        "typecheckTargetName": "typecheck"
+      }
+    }
+  ]
 }
