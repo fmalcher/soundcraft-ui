@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.0.1](https://github.com/fmalcher/soundcraft-ui/compare/v7.0.0...v7.0.1) (2026-06-29)
+
+
+### Build/CI
+
+* **mixer-connection:** copy package.json and README into dist ([45de95e](https://github.com/fmalcher/soundcraft-ui/commit/45de95eb087b4edb0c709c2f1d9e0109f59217e0))
+
 ## [7.0.0](https://github.com/fmalcher/soundcraft-ui/compare/v6.0.4...v7.0.0) (2026-06-29)
 
 This is a major release with a lot of internal refactoring and improvement.

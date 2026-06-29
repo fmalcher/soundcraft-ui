@@ -1,7 +1,7 @@
 {
   "name": "soundcraft-ui-connection",
   "description": "Library for controlling the Soundcraft Ui series audio mixers",
-  "version": "7.0.0",
+  "version": "7.0.1",
   "type": "commonjs",
   "main": "./index.js",
   "module": "./index.mjs",
