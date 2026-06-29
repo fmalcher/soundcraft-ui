@@ -1,5 +1,64 @@
 # Changelog
 
+## [7.0.0](https://github.com/fmalcher/soundcraft-ui/compare/v6.0.4...v7.0.0) (2026-06-29)
+
+This is a major release with a lot of internal refactoring and improvement.
+All features have been manually and thoroughly tested by a human on real hardware.
+
+### ⚠ BREAKING CHANGES
+
+* Observables `mute$`, `solo$`, `dim$`, `phantom$`, `post$`, `postProc$`, `multiTrackSelected$`, `shuffle$`, `recording$`, `busy$`, `soundcheck$`, automix `state$` and mute-group `state$` now emit `true`/`false` instead of `1`/`0`. Setters `setMute`, `setSolo`, `setDim`, `setPhantom`, `setPost`, `setPostProc`, `setShuffle` and `setSoundcheck` now accept a `boolean` instead of a number.
+* public observable properties are now readonly; fullChannelId is now protected.
+
+### Features
+
+* add support for matrix (MTX) buses (Ui24R) ([363e62b](https://github.com/fmalcher/soundcraft-ui/commit/363e62b898cc4d2584531364c81a61c6fc9cd3ef))
+* cache AuxBus instances in the object store ([b5b365d](https://github.com/fmalcher/soundcraft-ui/commit/b5b365d140e0f1e5f663f50f476f49be625d1751))
+* declare package entry points (main/module/types/exports) ([f3f42f5](https://github.com/fmalcher/soundcraft-ui/commit/f3f42f54caedc837c3d56ac878113177a7be0cd5))
+* emit booleans for on/off state and accept booleans in setters ([b3fcf97](https://github.com/fmalcher/soundcraft-ui/commit/b3fcf972e9d41e6e9e424da286a6049347e28535))
+* **mixer-connection:** expose playlists, shows, snapshots and cues ([ad5f71c](https://github.com/fmalcher/soundcraft-ui/commit/ad5f71cbe0f56fa531cea3ba92515345b35193be))
+* PostProcessableChannel interface + postProc$ observable ([69268f6](https://github.com/fmalcher/soundcraft-ui/commit/69268f62af1604e9b829e3cd059316eed2268d27))
+
+
+### Bug Fixes
+
+* add changePan to PannableChannel interface ([4485bca](https://github.com/fmalcher/soundcraft-ui/commit/4485bcab8b71ae30326418a97329c5da3ffd9fd6))
+* only convert SETD values to numbers, keep SETS as strings ([cea70f0](https://github.com/fmalcher/soundcraft-ui/commit/cea70f012ba31adc47cf0dc73f506c98c743cb5b))
+* return undefined from getLinkedChannelNumber when not linked ([d4e8c25](https://github.com/fmalcher/soundcraft-ui/commit/d4e8c2597571eafe707ca4f8ace5f918cc219cab))
+* **testbed:** accept number | null in TimePipe for AsyncPipe usage ([7ef7e34](https://github.com/fmalcher/soundcraft-ui/commit/7ef7e349fcef15f989f199fb6ee36129f53ee2ec))
+
+
+### Other
+
+* add `collectMessages()` util to capture messages ([1e065c5](https://github.com/fmalcher/soundcraft-ui/commit/1e065c5add3bfaff817852c31714977addbe3293))
+* add browser/CDN quickstart example for muting a channel ([912b41a](https://github.com/fmalcher/soundcraft-ui/commit/912b41a9de8f532bab07aa04d7d6d806594196d4))
+* add setd()/sets() helpers and use them across facades ([43038ad](https://github.com/fmalcher/soundcraft-ui/commit/43038ad71403621a7c64e54a6e045e6dde15cb46))
+* add tests for stereo linking ([8821150](https://github.com/fmalcher/soundcraft-ui/commit/8821150436389b938f2df32a0a3edf9debdddb7e))
+* extract channel id construction into shared helper functions ([c955f3e](https://github.com/fmalcher/soundcraft-ui/commit/c955f3e9173459a96d27883d99a11def33f9de0e))
+* extract sanitizeChannelName util ([9bb6e5b](https://github.com/fmalcher/soundcraft-ui/commit/9bb6e5bd3644460d9cbc4cbe4babb52d9956f1b5))
+* improve inbound message filtering ([5b8905c](https://github.com/fmalcher/soundcraft-ui/commit/5b8905cebc86adeb9a434ded4c365260706775ab))
+* make facade observable properties readonly, hide fullChannelId ([d8c8973](https://github.com/fmalcher/soundcraft-ui/commit/d8c897325093d69a26b2798872671a195c38fc4f))
+* move facade caching from constructors into accessor methods ([7535949](https://github.com/fmalcher/soundcraft-ui/commit/75359496ef1335d7aa8cb3ac56446f231cb34917))
+* parse SETD/SETS messages without regex in MixerStore ([6cac073](https://github.com/fmalcher/soundcraft-ui/commit/6cac0733dfcacf255688d4efac1b2e3c5ad55114))
+* pre-build linked channel arrays to avoid allocations on operation ([660555f](https://github.com/fmalcher/soundcraft-ui/commit/660555f864bc1606f0eb546a10c98e7f4a806c0a))
+* split constructReadableChannelName into focused name helpers ([28333d4](https://github.com/fmalcher/soundcraft-ui/commit/28333d41110a020ae0816a6e459d2553f45c97f0))
+* **testbed:** add border-radius for mixer-button ([3d228a8](https://github.com/fmalcher/soundcraft-ui/commit/3d228a8edc3978d9407e3a21846caf91b7d9cb33))
+* type MultiTrackRecorder.session$ as string ([d619aa8](https://github.com/fmalcher/soundcraft-ui/commit/d619aa8f6ad97b1064ae57904478c287f2c0b363))
+
+
+### Build/CI
+
+* deploy docs to GitHub Pages only on release ([17dd078](https://github.com/fmalcher/soundcraft-ui/commit/17dd078adc88eb03ee8af557ed8e75f97922c14a))
+* migrate vite config to inferred targets ([#318](https://github.com/fmalcher/soundcraft-ui/issues/318)) ([4387684](https://github.com/fmalcher/soundcraft-ui/commit/4387684d877da1c91712d63692f189d8ba4a334f))
+
+
+### Dependency updates
+
+* bump launch-editor from 2.13.0 to 2.14.1 ([d61672f](https://github.com/fmalcher/soundcraft-ui/commit/d61672f18554fd50912511dbb397a893390cb636))
+* bump shell-quote from 1.8.3 to 1.8.4 ([84fe16b](https://github.com/fmalcher/soundcraft-ui/commit/84fe16b42d007cdb06db9cacc591aa56e475e5e8))
+* bump webpack-dev-server and @angular-devkit/build-angular ([487ed97](https://github.com/fmalcher/soundcraft-ui/commit/487ed971a975addff79a29b42918c1ae35ab2f68))
+* nx migrate 23.0.0 ([fc85492](https://github.com/fmalcher/soundcraft-ui/commit/fc85492bed689f2eab4a9ad217ecba69a6cdb478))
+
 ## [6.0.4](https://github.com/fmalcher/soundcraft-ui/compare/v6.0.3...v6.0.4) (2026-06-08)
 
 
