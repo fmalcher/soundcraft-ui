@@ -1,5 +1,14 @@
 # Changelog
 
+## [7.0.2](https://github.com/fmalcher/soundcraft-ui/compare/v7.0.1...v7.0.2) (2026-07-01)
+
+
+### Dependency updates
+
+* bump @types/node from 25.9.2 to 26.1.0 ([be0c35d](https://github.com/fmalcher/soundcraft-ui/commit/be0c35da37540c5037e2ac85e9101afcedd150ea))
+* bump prettier from 3.8.3 to 3.9.4 ([37e304e](https://github.com/fmalcher/soundcraft-ui/commit/37e304ed6e2cda8f5534856ebce1d960f2d1306e))
+* bump the build-tools group with 10 updates ([8a5b3c3](https://github.com/fmalcher/soundcraft-ui/commit/8a5b3c37f2ccbf37a8ba1a1472cc67b8cca8ff34))
+
 ## [7.0.1](https://github.com/fmalcher/soundcraft-ui/compare/v7.0.0...v7.0.1) (2026-06-29)
 
 
