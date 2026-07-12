@@ -16,6 +16,9 @@ import { VolumeBusType } from '../types';
 export class VolumeBus implements FadeableChannel {
   private transitionSources$ = new Subject<TransitionSource>();
 
+  /** State path of this bus, e.g. `settings.solovol` or `settings.hpvol.0` */
+  private busPath = `settings.${this.busName}${this.busId ? '.' + (this.busId - 1) : ''}`;
+
   /** Linear level of the volume bus (between `0` and `1`) */
   readonly faderLevel$ = this.store.state$.pipe(
     select(selectVolumeBusValue(this.busName, this.busId ? this.busId - 1 : undefined)),
@@ -78,8 +81,7 @@ export class VolumeBus implements FadeableChannel {
   }
 
   private setFaderLevelRaw(value: number) {
-    const bus = `${this.busName}${this.busId ? '.' + (this.busId - 1) : ''}`;
-    this.conn.setd(`settings.${bus}`, value);
+    this.conn.setd(this.busPath, value);
   }
 
   /**
