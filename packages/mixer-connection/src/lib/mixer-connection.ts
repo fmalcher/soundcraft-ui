@@ -2,6 +2,7 @@ import {
   interval,
   merge,
   Subject,
+  Subscription,
   filter,
   switchMap,
   takeUntil,
@@ -42,6 +43,12 @@ export class MixerConnection {
   private statusSubject$ = new Subject<ConnectionEvent>();
   private outboundSubject$ = new Subject<string>();
   private inboundSubject$ = new Subject<string>();
+
+  /**
+   * active subscription that pipes socket messages into the inbound stream.
+   * Used to guard against parallel connections when connect() is called multiple times.
+   */
+  private socketSubscription?: Subscription;
 
   private _status: ConnectionStatus = ConnectionStatus.Close;
 
@@ -108,8 +115,31 @@ export class MixerConnection {
     this.outbound$.subscribe(this.socket$);
   }
 
+  /** Returns a promise that resolves when the connection status becomes Open */
+  private waitForOpenStatus(): Promise<void> {
+    return firstValueFrom(
+      this.status$.pipe(
+        filter(status => status.type === ConnectionStatus.Open),
+        map(() => {
+          return;
+        }),
+      ),
+    );
+  }
+
   /** Connect to socket and retry if connection lost */
   connect() {
+    // Guard against parallel connections:
+    // every additional call would create another socket subscription,
+    // causing all inbound messages to be processed multiple times.
+    if (this.socketSubscription && !this.socketSubscription.closed) {
+      if (this._status === ConnectionStatus.Open) {
+        return Promise.resolve();
+      }
+      // a connection attempt is already in progress: wait for it to open
+      return this.waitForOpenStatus();
+    }
+
     this.statusSubject$.next({ type: ConnectionStatus.Opening });
     const messages$ = this.socket$.pipe(
       tap({
@@ -136,7 +166,7 @@ export class MixerConnection {
     // One raw message can contain multiple lines with commands: split them into single emissions.
     // Single-line messages are the common case (every VU frame, every SETD/SETS),
     // so they take an allocation-free fast path.
-    messages$.subscribe(message => {
+    this.socketSubscription = messages$.subscribe(message => {
       if (message.includes('\n')) {
         for (const line of message.split('\n')) {
           this.inboundSubject$.next(line);
@@ -147,14 +177,7 @@ export class MixerConnection {
     });
 
     // return promise that resolves when the connection is open
-    return firstValueFrom(
-      this.status$.pipe(
-        filter(status => status.type === ConnectionStatus.Open),
-        map(() => {
-          return;
-        }),
-      ),
-    );
+    return this.waitForOpenStatus();
 
     /*
     // Keep for later: echo
@@ -211,14 +234,7 @@ export class MixerConnection {
     this.disconnect();
 
     // return promise that resolves when the connection is open again
-    return firstValueFrom(
-      this.status$.pipe(
-        filter(status => status.type === ConnectionStatus.Open),
-        map(() => {
-          return;
-        }),
-      ),
-    );
+    return this.waitForOpenStatus();
   }
 
   /**
