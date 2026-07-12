@@ -84,6 +84,66 @@ describe('MixerConnection', () => {
         expect(messages).toEqual(['SETD^i.0.mix^0.5', 'SETD^i.1.mix^0.8']);
       });
     });
+
+    describe('when connect() is called multiple times', () => {
+      it('should resolve immediately when already connected', async () => {
+        const connectPromise = conn.connect();
+        wsMock.simulateOpen();
+        await connectPromise;
+
+        // must resolve without another open event
+        await conn.connect();
+
+        expect(conn.status).toBe(ConnectionStatus.Open);
+      });
+
+      it('should not process inbound messages twice after a duplicate connect()', async () => {
+        const connectPromise = conn.connect();
+        wsMock.simulateOpen();
+        await connectPromise;
+
+        await conn.connect();
+
+        const messages: string[] = [];
+        conn.inbound$.subscribe(msg => messages.push(msg));
+        wsMock.simulateMessage('3:::SETD^i.0.mix^0.5');
+
+        expect(messages).toEqual(['SETD^i.0.mix^0.5']);
+      });
+
+      it('should share the connection attempt when called while opening', async () => {
+        const first = conn.connect();
+        const second = conn.connect();
+
+        wsMock.simulateOpen();
+        await first;
+        await second;
+
+        const messages: string[] = [];
+        conn.inbound$.subscribe(msg => messages.push(msg));
+        wsMock.simulateMessage('3:::SETD^i.0.mix^0.5');
+
+        expect(messages).toEqual(['SETD^i.0.mix^0.5']);
+      });
+
+      it('should connect again after disconnect', async () => {
+        const first = conn.connect();
+        wsMock.simulateOpen();
+        await first;
+
+        conn.disconnect();
+
+        const second = conn.connect();
+        wsMock.simulateOpen();
+        await second;
+
+        const messages: string[] = [];
+        conn.inbound$.subscribe(msg => messages.push(msg));
+        wsMock.simulateMessage('3:::SETD^i.0.mix^0.5');
+
+        expect(messages).toEqual(['SETD^i.0.mix^0.5']);
+      });
+    });
   });
 
   describe('sendMessage()', () => {

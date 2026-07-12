@@ -25,3 +25,6 @@ All three methods return a Promise that resolves when the operation has finished
 This is useful when you want to wait for the connection to be open before you start using the mixer.
 Please note that these Promises will not reject on errors.
 If you want to receive errors, use the `status$` Observable instead.
+
+Calling `connect()` while a connection is already open or being established has no additional effect:
+the method just returns a Promise that resolves when the connection is open.
