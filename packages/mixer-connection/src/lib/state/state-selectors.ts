@@ -60,11 +60,10 @@ const selectGenericChannelProperty = <T>(
     }
     case 'aux':
     case 'fx':
-    case 'mtx':
-      return state => {
-        const path = joinStatePath(channelType, channel - 1, busType, bus - 1, property);
-        return getValueFromObject(state, path, defaultValue);
-      };
+    case 'mtx': {
+      const path = joinStatePath(channelType, channel - 1, busType, bus - 1, property);
+      return state => getValueFromObject(state, path, defaultValue);
+    }
   }
 };
 
