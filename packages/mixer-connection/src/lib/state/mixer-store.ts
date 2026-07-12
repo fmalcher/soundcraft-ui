@@ -61,8 +61,13 @@ export class MixerStore {
    */
   readonly resourceListState$ = connectable(
     this.conn.inbound$.pipe(
+      // check the command prefix before splitting, so that high-frequency messages
+      // (e.g. VU2 meter frames) don't get split into arrays just to be discarded
+      filter(msg => {
+        const sep = msg.indexOf('^');
+        return (sep === -1 ? msg : msg.slice(0, sep)) in RESOURCE_LIST_CONFIG;
+      }),
       map(msg => msg.split('^')),
-      filter(parts => parts[0] in RESOURCE_LIST_CONFIG),
       scan(
         (acc, parts) => {
           const addrLen = RESOURCE_LIST_CONFIG[parts[0]].keyed ? 2 : 1;
