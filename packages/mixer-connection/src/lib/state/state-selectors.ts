@@ -230,14 +230,12 @@ export const selectFxType: Selector<FxType> = (bus = 1) => {
  * @param channel
  */
 export const selectStereoIndex: Selector<number> = (channelType: ChannelType, channel: number) => {
+  // only input, line, player and aux can be linked
+  if (!['i', 'l', 'p', 'a'].includes(channelType)) {
+    return () => -1;
+  }
   const path = joinStatePath(channelType, channel - 1, 'stereoIndex');
-  return state => {
-    // only input, line, player and aux can be linked
-    if (['i', 'l', 'p', 'a'].includes(channelType)) {
-      return getValueFromObject(state, path, -1);
-    }
-    return -1;
-  };
+  return state => getValueFromObject(state, path, -1);
 };
 
 /**
