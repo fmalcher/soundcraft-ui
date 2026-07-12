@@ -2,7 +2,6 @@ import {
   interval,
   merge,
   Subject,
-  mergeMap,
   filter,
   switchMap,
   takeUntil,
@@ -131,11 +130,21 @@ export class MixerConnection {
       }),
       filter(message => message.startsWith('3:::')), // only use messages with `3:::` prefix
       map(message => message.slice(4)), // remove prefix
-      mergeMap(message => message.split('\n')), // one message can contain multiple lines with commands. split them into single emissions
     );
 
-    // send all messages to our global stream that survives reconnects
-    messages$.subscribe(msg => this.inboundSubject$.next(msg));
+    // Send all messages to our global stream that survives reconnects.
+    // One raw message can contain multiple lines with commands: split them into single emissions.
+    // Single-line messages are the common case (every VU frame, every SETD/SETS),
+    // so they take an allocation-free fast path.
+    messages$.subscribe(message => {
+      if (message.includes('\n')) {
+        for (const line of message.split('\n')) {
+          this.inboundSubject$.next(line);
+        }
+      } else {
+        this.inboundSubject$.next(message);
+      }
+    });
 
     // return promise that resolves when the connection is open
     return firstValueFrom(
