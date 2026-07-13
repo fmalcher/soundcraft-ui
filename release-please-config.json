@@ -16,39 +16,39 @@
         },
         {
           "type": "perf",
-          "section": "Other"
+          "section": "Performance Improvements"
+        },
+        {
+          "type": "test",
+          "section": "Tests"
         },
         {
           "type": "refactor",
-          "section": "Other"
+          "section": "Code Refactoring"
         },
         {
-          "type": "chore",
-          "section": "Other"
-        },
-        {
-          "type": "build",
-          "section": "Build/CI"
-        },
-        {
-          "type": "ci",
-          "section": "Build/CI"
+          "type": "deps",
+          "section": "Dependency Updates"
         },
         {
           "type": "docs",
-          "section": "Other"
+          "section": "Documentation"
+        },
+        {
+          "type": "build",
+          "section": "Build System & CI"
+        },
+        {
+          "type": "ci",
+          "section": "Build System & CI"
         },
         {
           "type": "style",
           "section": "Other"
         },
         {
-          "type": "test",
+          "type": "chore",
           "section": "Other"
-        },
-        {
-          "type": "deps",
-          "section": "Dependency updates"
         }
       ],
       "extra-files": ["packages/mixer-connection/package.json"]
