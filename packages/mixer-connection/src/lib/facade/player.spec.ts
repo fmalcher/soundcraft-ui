@@ -97,6 +97,18 @@ describe('Player', () => {
       expect(await firstValueFrom(mixer.player.playlists$)).toEqual(['List1', 'List2', '~all~']);
     });
 
+    it('playlists$ should only re-emit when the list of names actually changes', () => {
+      const emissions: string[][] = [];
+      mixer.player.playlists$.subscribe(names => emissions.push(names));
+
+      socket.simulateMessage('3:::PLISTS^List1^List2');
+      socket.simulateMessage('3:::PLISTS^List1^List2'); // identical -> suppressed
+      socket.simulateMessage('3:::PLISTS^List1^Other'); // same length, different name
+      socket.simulateMessage('3:::PLISTS^List1'); // different length
+
+      expect(emissions).toEqual([['List1', 'List2'], ['List1', 'Other'], ['List1']]);
+    });
+
     it('playlistsWithTracks$', async () => {
       socket.simulateMessage('3:::PLISTS^List1^List2^~all~');
       socket.simulateMessage('3:::PLIST_TRACKS^List1^a.mp3^b.mp3');

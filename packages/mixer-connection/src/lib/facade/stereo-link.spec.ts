@@ -241,4 +241,196 @@ describe('Stereo linking', () => {
       expect(messages).toEqual(['SETD^i.2.aux.1.value^0.5']);
     });
   });
+
+  describe('FX channels', () => {
+    // FX buses are never stereo-linked pairs (unlike AUX buses), so only the source
+    // channel can be linked. Mirroring therefore reaches at most the neighbour source.
+    it('should mirror commands to the linked neighbour (first in link)', () => {
+      conn.conn.sendMessage('SETD^i.2.stereoIndex^0'); // input 3 & 4 linked, input 3 first
+      const channel = conn.fx(1).input(3);
+
+      let messages = collectMessages(conn);
+      channel.setFaderLevel(0.5);
+      expect(messages).toEqual(['SETD^i.2.fx.0.value^0.5', 'SETD^i.3.fx.0.value^0.5']);
+
+      messages = collectMessages(conn);
+      channel.setMute(true);
+      expect(messages).toEqual(['SETD^i.2.fx.0.mute^1', 'SETD^i.3.fx.0.mute^1']);
+
+      messages = collectMessages(conn);
+      channel.setPost(true);
+      expect(messages).toEqual(['SETD^i.2.fx.0.post^1', 'SETD^i.3.fx.0.post^1']);
+    });
+
+    it('should mirror commands to the linked neighbour (second in link)', () => {
+      conn.conn.sendMessage('SETD^i.3.stereoIndex^1'); // input 3 & 4 linked, input 4 second
+      const channel = conn.fx(1).input(4);
+
+      const messages = collectMessages(conn);
+      channel.setFaderLevel(0.5);
+      expect(messages).toEqual(['SETD^i.3.fx.0.value^0.5', 'SETD^i.2.fx.0.value^0.5']);
+    });
+
+    it('should not mirror anything when the channel is not linked', () => {
+      // unrelated message so the state exists and stereoIndex resolves to -1
+      conn.conn.sendMessage('SETD^m.mix^0.5');
+      const channel = conn.fx(1).input(3);
+
+      const messages = collectMessages(conn);
+      channel.setFaderLevel(0.5);
+      expect(messages).toEqual(['SETD^i.2.fx.0.value^0.5']);
+    });
+  });
+
+  describe('matrix channels', () => {
+    // A matrix source has two independently-linkable axes: the source (an AUX bus or
+    // subgroup) and the matrix output (which lives in an `a` slot, keyed like an AUX
+    // bus). Both use `selectStereoIndex('a', ...)`. As with AUX channels, a single
+    // command can reach up to 4 channels; PAN only mirrors across the matrix-output
+    // link, never to the source neighbour.
+    describe('AUX source — only the source is linked', () => {
+      it('should mirror to the neighbour source on the same matrix', () => {
+        conn.conn.sendMessage('SETD^a.6.stereoIndex^-1'); // matrix output (mtx 7) not linked
+        conn.conn.sendMessage('SETD^a.2.stereoIndex^0'); // aux 3 & 4 linked, aux 3 first
+        const channel = conn.mtx(7).aux(3);
+
+        const messages = collectMessages(conn);
+        channel.setFaderLevel(0.5);
+        expect(messages).toEqual(['SETD^a.2.mtx.6.value^0.5', 'SETD^a.3.mtx.6.value^0.5']);
+      });
+    });
+
+    describe('AUX source — only the matrix output is linked', () => {
+      beforeEach(() => {
+        conn.conn.sendMessage('SETD^a.2.stereoIndex^-1'); // aux 3 not linked
+        conn.conn.sendMessage('SETD^a.6.stereoIndex^0'); // matrix 7 & 8 linked, matrix 7 first
+      });
+
+      it('should mirror this source to the linked matrix output', () => {
+        const channel = conn.mtx(7).aux(3);
+
+        const messages = collectMessages(conn);
+        channel.setFaderLevel(0.5);
+        expect(messages).toEqual(['SETD^a.2.mtx.6.value^0.5', 'SETD^a.2.mtx.7.value^0.5']);
+      });
+
+      it('should mirror PAN to this source on the linked matrix output', () => {
+        const channel = conn.mtx(7).aux(3);
+
+        const messages = collectMessages(conn);
+        channel.setPan(0.5);
+        expect(messages).toEqual(['SETD^a.2.mtx.6.pan^0.5', 'SETD^a.2.mtx.7.pan^0.5']);
+      });
+    });
+
+    describe('AUX source — both the source and the matrix output are linked (4 channels)', () => {
+      beforeEach(() => {
+        conn.conn.sendMessage('SETD^a.2.stereoIndex^0'); // aux 3 & 4 linked, aux 3 first
+        conn.conn.sendMessage('SETD^a.6.stereoIndex^0'); // matrix 7 & 8 linked, matrix 7 first
+      });
+
+      it('should set faderLevel on all four channels', () => {
+        const channel = conn.mtx(7).aux(3);
+
+        const messages = collectMessages(conn);
+        channel.setFaderLevel(0.5);
+        expect(messages).toEqual([
+          'SETD^a.2.mtx.6.value^0.5', // self
+          'SETD^a.3.mtx.6.value^0.5', // neighbour source on this matrix
+          'SETD^a.2.mtx.7.value^0.5', // this source on the linked matrix
+          'SETD^a.3.mtx.7.value^0.5', // neighbour source on the linked matrix
+        ]);
+      });
+
+      it('should set MUTE on all four channels', () => {
+        const channel = conn.mtx(7).aux(3);
+
+        const messages = collectMessages(conn);
+        channel.setMute(true);
+        expect(messages).toEqual([
+          'SETD^a.2.mtx.6.mute^1',
+          'SETD^a.3.mtx.6.mute^1',
+          'SETD^a.2.mtx.7.mute^1',
+          'SETD^a.3.mtx.7.mute^1',
+        ]);
+      });
+
+      it('should set PRE/POST PROC on all four channels', () => {
+        const channel = conn.mtx(7).aux(3);
+
+        const messages = collectMessages(conn);
+        channel.setPostProc(true);
+        expect(messages).toEqual([
+          'SETD^a.2.mtx.6.postproc^1',
+          'SETD^a.3.mtx.6.postproc^1',
+          'SETD^a.2.mtx.7.postproc^1',
+          'SETD^a.3.mtx.7.postproc^1',
+        ]);
+      });
+
+      it('should mirror PAN only to this source on both matrices (not the neighbours)', () => {
+        const channel = conn.mtx(7).aux(3);
+
+        const messages = collectMessages(conn);
+        channel.setPan(0.5);
+        expect(messages).toEqual(['SETD^a.2.mtx.6.pan^0.5', 'SETD^a.2.mtx.7.pan^0.5']);
+      });
+    });
+
+    describe('AUX source — lower-numbered link partners (second in link)', () => {
+      it('should resolve the partner source and matrix downwards', () => {
+        conn.conn.sendMessage('SETD^a.3.stereoIndex^1'); // aux 3 & 4 linked, aux 4 second
+        conn.conn.sendMessage('SETD^a.7.stereoIndex^1'); // matrix 7 & 8 linked, matrix 8 second
+        const channel = conn.mtx(8).aux(4);
+
+        const messages = collectMessages(conn);
+        channel.setMute(true);
+        expect(messages).toEqual([
+          'SETD^a.3.mtx.7.mute^1', // self
+          'SETD^a.2.mtx.7.mute^1', // neighbour source on this matrix
+          'SETD^a.3.mtx.6.mute^1', // this source on the linked matrix
+          'SETD^a.2.mtx.6.mute^1', // neighbour source on the linked matrix
+        ]);
+      });
+    });
+
+    describe('AUX source — not linked', () => {
+      it('should only address the source itself', () => {
+        // unrelated message so the state exists and both stereo indices resolve to -1
+        conn.conn.sendMessage('SETD^m.mix^0.5');
+        const channel = conn.mtx(7).aux(3);
+
+        const messages = collectMessages(conn);
+        channel.setFaderLevel(0.5);
+        expect(messages).toEqual(['SETD^a.2.mtx.6.value^0.5']);
+      });
+    });
+
+    describe('master source', () => {
+      // The master mix has no channel index (path `m.mtx.<bus>`) and is not linkable
+      // itself, but it is mirrored across the stereo-linked matrix output.
+      it('should mirror to the master on the linked matrix output', () => {
+        conn.conn.sendMessage('SETD^a.6.stereoIndex^0'); // matrix 7 & 8 linked, matrix 7 first
+        const channel = conn.mtx(7).master();
+
+        let messages = collectMessages(conn);
+        channel.setFaderLevel(0.5);
+        expect(messages).toEqual(['SETD^m.mtx.6.value^0.5', 'SETD^m.mtx.7.value^0.5']);
+
+        // PAN uses the same single mirror as the other sends
+        messages = collectMessages(conn);
+        channel.setPan(0.5);
+        expect(messages).toEqual(['SETD^m.mtx.6.pan^0.5', 'SETD^m.mtx.7.pan^0.5']);
+      });
+
+      it('should only address the master itself when the matrix output is not linked', () => {
+        conn.conn.sendMessage('SETD^m.mix^0.5');
+        const channel = conn.mtx(7).master();
+
+        const messages = collectMessages(conn);
+        channel.setFaderLevel(0.5);
+        expect(messages).toEqual(['SETD^m.mtx.6.value^0.5']);
+      });
+    });
+  });
 });

@@ -47,6 +47,14 @@ describe('ChannelSync', () => {
     expect(nextCallback).not.toHaveBeenCalled();
   });
 
+  it('should not send anything from selectChannel when the device model is unknown', () => {
+    // no model-info message has been received yet, so the model is undefined
+    vi.spyOn(conn.conn, 'sendMessage');
+    cs.selectChannel('i', 3);
+    cs.selectChannel('master');
+    expect(conn.conn.sendMessage).not.toHaveBeenCalled();
+  });
+
   describe('selectChannel', () => {
     beforeEach(() => {
       vi.spyOn(conn.conn, 'sendMessage');
