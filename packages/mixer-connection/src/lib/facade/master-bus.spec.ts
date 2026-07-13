@@ -1,6 +1,8 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { firstValueFrom } from 'rxjs';
 import { SoundcraftUI } from '../soundcraft-ui';
+import { Easings } from '../utils/transitions/easings';
+import { DBToFaderValue } from '../utils/value-converters';
 import { MasterBus } from './master-bus';
 
 describe('Master Bus', () => {
@@ -157,7 +159,35 @@ describe('Master Bus', () => {
       master.changeFaderLevelDB(3);
 
       expect(await firstValueFrom(master.faderLevelDB$)).toBe(-97);
-      expect(await firstValueFrom(master.faderLevel$)).not.toBe(0);
+      expect(await firstValueFrom(master.faderLevel$)).toBe(DBToFaderValue(-97));
+    });
+  });
+
+  describe('fader transition', () => {
+    beforeEach(() => vi.useFakeTimers());
+    afterEach(() => vi.useRealTimers());
+
+    it('fadeTo should transition the master fader to the target linear value', () => {
+      const results: number[] = [];
+      master.faderLevel$.subscribe(v => results.push(v));
+
+      master.setFaderLevel(0.3);
+      master.fadeTo(0.8, 1000, Easings.Linear);
+      vi.advanceTimersByTime(1000);
+
+      expect(results.length).toBeGreaterThan(2); // multiple intermediate steps
+      expect(results.at(-1)).toBe(0.8);
+    });
+
+    it('fadeToDB should transition the master fader to the target dB value', () => {
+      const results: number[] = [];
+      master.faderLevelDB$.subscribe(v => results.push(v));
+
+      master.setFaderLevelDB(-60);
+      master.fadeToDB(-3, 1000, Easings.Linear);
+      vi.advanceTimersByTime(1000);
+
+      expect(results.at(-1)).toBe(-3);
     });
   });
 });

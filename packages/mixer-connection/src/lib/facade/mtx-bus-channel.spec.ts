@@ -1,6 +1,8 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { firstValueFrom } from 'rxjs';
 import { SoundcraftUI } from '../soundcraft-ui';
+import { Easings } from '../utils/transitions/easings';
+import { DBToFaderValue } from '../utils/value-converters';
 import { MtxBusChannel } from './mtx-bus-channel';
 import { MtxChannel } from './mtx-channel';
 
@@ -39,6 +41,42 @@ describe('MTX Bus Channel', () => {
 
       channel.changeFaderLevel(-0.4);
       expect(await firstValueFrom(channel.faderLevel$)).toBe(0.3);
+    });
+
+    it('changeFaderLevelDB should change the level from -Infinity dB upwards', async () => {
+      channel.setFaderLevel(0); // -Infinity dB
+      channel.changeFaderLevelDB(3);
+
+      expect(await firstValueFrom(channel.faderLevelDB$)).toBe(-97);
+      expect(await firstValueFrom(channel.faderLevel$)).toBe(DBToFaderValue(-97));
+    });
+  });
+
+  describe('fader transition', () => {
+    beforeEach(() => vi.useFakeTimers());
+    afterEach(() => vi.useRealTimers());
+
+    it('fadeTo should transition the matrix source to the target linear value', () => {
+      const results: number[] = [];
+      channel.faderLevel$.subscribe(v => results.push(v));
+
+      channel.setFaderLevel(0.3);
+      channel.fadeTo(0.8, 1000, Easings.Linear);
+      vi.advanceTimersByTime(1000);
+
+      expect(results.length).toBeGreaterThan(2); // multiple intermediate steps
+      expect(results.at(-1)).toBe(0.8);
+    });
+
+    it('fadeToDB should transition the matrix source to the target dB value', () => {
+      const results: number[] = [];
+      channel.faderLevelDB$.subscribe(v => results.push(v));
+
+      channel.setFaderLevelDB(-60);
+      channel.fadeToDB(-3, 1000, Easings.Linear);
+      vi.advanceTimersByTime(1000);
+
+      expect(results.at(-1)).toBe(-3);
     });
   });
 
