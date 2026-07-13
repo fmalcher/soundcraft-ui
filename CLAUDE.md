@@ -56,6 +56,13 @@ npx nx serve testbed
 
 # Guidelines for working with this project
 
+## Performance work
+
+- Performance optimizations must be justified by real message frequency, not synthetic benchmarks. Hot paths (hundreds of messages/sec): the `state$` scan, the inbound message pipeline, VU frames, fade-transition writes. Cold paths (user-paced, a few messages per session): `syncState$`, `resourceListState$`, user actions — do not micro-optimize these.
+- Streams with user-paced updates keep immutable emissions, so consumers get snapshot semantics (`pairwise`, reference comparison, safely held references). The mutable accumulator in `state$` is a documented exception for the hot path only — do not spread that pattern to other streams.
+
+## General
+
 - Before committing, verify correctness by running tests (`npx nx test`), linting (`npx nx lint`) and code formatting (`npx nx format:check`). Fix formatting with `npx nx format:write`.
 - Always run `npx nx format:check` before pushing.
 - Do not use `--reporter=verbose` with `npx nx test` — it causes tests to hang.
