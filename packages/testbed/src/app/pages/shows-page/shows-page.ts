@@ -12,7 +12,7 @@ import { ConnectionService } from '../../connection.service';
 })
 export class ShowsPage {
   cs = inject(ConnectionService);
-  showCtrl = this.cs.conn!.shows;
+  showCtrl = this.cs.connection.shows;
 
   formData = {
     show: 'testshow',

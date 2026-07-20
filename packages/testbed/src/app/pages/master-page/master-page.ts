@@ -12,7 +12,7 @@ import { TransitionControls } from '../../ui/transition-controls/transition-cont
   imports: [AsyncPipe, MixerButton, FaderLevelControls, PanControls, TransitionControls],
 })
 export class MasterPage {
-  master = inject(ConnectionService).conn.master;
+  master = inject(ConnectionService).connection.master;
 
   delays = [
     {

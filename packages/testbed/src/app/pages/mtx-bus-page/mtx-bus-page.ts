@@ -33,10 +33,10 @@ import { TransitionControls } from '../../ui/transition-controls/transition-cont
 })
 export class MtxBusPage {
   cs = inject(ConnectionService);
-  conn = this.cs.conn!;
+  conn = this.cs.connection;
 
   vm$ = inject(ActivatedRoute).paramMap.pipe(
-    map(params => +params.get('bus')!),
+    map(params => Number(params.get('bus'))),
     map(bus => ({
       bus,
       aux: this.conn.aux(bus),

@@ -26,7 +26,7 @@ import { InputField } from '../../ui/input-field/input-field';
   ],
 })
 export class MasterBusPage {
-  master = inject(ConnectionService).conn.master;
+  master = inject(ConnectionService).connection.master;
 
   channels = [
     { channel: this.master.input(2), label: 'Input 2' },

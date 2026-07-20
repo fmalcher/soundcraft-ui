@@ -12,11 +12,11 @@ import { MixerButton } from '../../ui/mixer-button/mixer-button';
 export class MuteGroupsPage {
   cs = inject(ConnectionService);
 
-  groups: MuteGroup[] = [1, 2, 3, 4, 5, 6, 'fx', 'all'].map((id: MuteGroupID) =>
-    this.cs.conn.muteGroup(id)
+  groups: MuteGroup[] = ([1, 2, 3, 4, 5, 6, 'fx', 'all'] as MuteGroupID[]).map(id =>
+    this.cs.connection.muteGroup(id),
   );
 
   clearMuteGroups() {
-    this.cs.conn.clearMuteGroups();
+    this.cs.connection.clearMuteGroups();
   }
 }

@@ -13,7 +13,7 @@ import { vuValueToDB } from 'soundcraft-ui-connection';
   imports: [AsyncPipe, JsonPipe, VuMeter],
 })
 export class VuPage {
-  vuProcessor = inject(ConnectionService).conn.vuProcessor;
+  vuProcessor = inject(ConnectionService).connection.vuProcessor;
 
   vuData$ = this.vuProcessor.vuData$;
   readonly fullStateVisible = signal(false);

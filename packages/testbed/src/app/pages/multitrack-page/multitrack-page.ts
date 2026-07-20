@@ -13,8 +13,8 @@ import { TimePipe } from '../../ui/time.pipe';
 })
 export class MultitrackPage {
   #cs = inject(ConnectionService);
-  mtk = this.#cs.conn.recorderMultiTrack;
-  master = this.#cs.conn.master;
+  mtk = this.#cs.connection.recorderMultiTrack;
+  master = this.#cs.connection.master;
 
   channels = [
     { channel: this.master.input(1), label: 'Input 1' },
@@ -34,6 +34,6 @@ export class MultitrackPage {
         case MtkState.Paused:
           return 'PAUSED';
       }
-    })
+    }),
   );
 }

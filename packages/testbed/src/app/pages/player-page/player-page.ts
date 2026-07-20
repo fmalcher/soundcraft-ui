@@ -17,8 +17,8 @@ import { TimePipe } from '../../ui/time.pipe';
 export class PlayerPage {
   cs = inject(ConnectionService);
 
-  rec = this.cs.conn!.recorderDualTrack;
-  player = this.cs.conn!.player;
+  rec = this.cs.connection.recorderDualTrack;
+  player = this.cs.connection.player;
   playerState$ = this.player.state$.pipe(
     map(s => {
       switch (s) {
