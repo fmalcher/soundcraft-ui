@@ -12,6 +12,6 @@ import { ConnectionService } from '../../connection.service';
 export class FullStatePage {
   cs = inject(ConnectionService);
 
-  state$ = this.cs.conn.store.state$;
+  state$ = this.cs.connection.store.state$;
   countKeys$ = this.state$.pipe(map(state => Object.keys(state).length));
 }

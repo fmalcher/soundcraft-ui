@@ -13,7 +13,7 @@ import { MixerButton } from '../../ui/mixer-button/mixer-button';
 export class HwchannelsPage {
   cs = inject(ConnectionService);
 
-  channels = [this.cs.conn.hw(1), this.cs.conn.hw(2), this.cs.conn.hw(3)];
+  channels = [this.cs.connection.hw(1), this.cs.connection.hw(2), this.cs.connection.hw(3)];
 
   setGain(channel: HwChannel, value: string) {
     channel.setGain(Number(value));

@@ -15,10 +15,10 @@ export class FxSettingsPage {
   cs = inject(ConnectionService);
 
   buses = [
-    { label: 'FX 1', fx: this.cs.conn.fx(1) },
-    { label: 'FX 2', fx: this.cs.conn.fx(2) },
-    { label: 'FX 3', fx: this.cs.conn.fx(3) },
-    { label: 'FX 4', fx: this.cs.conn.fx(4) },
+    { label: 'FX 1', fx: this.cs.connection.fx(1) },
+    { label: 'FX 2', fx: this.cs.connection.fx(2) },
+    { label: 'FX 3', fx: this.cs.connection.fx(3) },
+    { label: 'FX 4', fx: this.cs.connection.fx(4) },
   ];
 
   withFxType(fxType$: Observable<FxType>): Observable<string> {

@@ -8,7 +8,7 @@ import { Component, computed, input } from '@angular/core';
 })
 export class VuMeter {
   readonly mode = input<'pre' | 'post' | 'postFader'>('pre');
-  readonly value = input<number>();
+  readonly value = input(0);
   readonly label = input('');
 
   readonly barWidth = computed(() => (1 - this.value()) * 100 + '%');

@@ -11,11 +11,12 @@ import { isChannel, isDelayableMasterChannel, isMasterChannel } from 'soundcraft
   imports: [AsyncPipe, JsonPipe],
 })
 export class ChannelsyncPage {
-  channelSync = inject(ConnectionService).conn.channelSync;
-  syncState$ = inject(ConnectionService).conn.store.syncState$;
+  #cs = inject(ConnectionService);
+  channelSync = this.#cs.connection.channelSync;
+  syncState$ = this.#cs.connection.store.syncState$;
 
   syncIds = ['SYNC_ID', 'foo', 'bar'];
-  channelIndexes$ = inject(ConnectionService).conn.deviceInfo.model$.pipe(
+  channelIndexes$ = this.#cs.connection.deviceInfo.model$.pipe(
     map(model => {
       let length = 54; // ui24
       if (model === 'ui16') {
@@ -26,7 +27,7 @@ export class ChannelsyncPage {
       }
 
       return [-1, ...Array.from({ length }, (_, i) => i), 100];
-    })
+    }),
   );
 
   isChannel = isChannel;

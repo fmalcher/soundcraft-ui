@@ -11,11 +11,7 @@
 <sui-delay [channel]="c.channel" [maxValue]="c.delayMax || 250" />
 }
 
-<sui-input-field
-  label="Channel Name"
-  buttonLabel="Set"
-  [value]="c.channel.name$ | async"
-  (valueChange)="c.channel.setName($event)"
-/>
+<sui-input-field label="Channel Name" buttonLabel="Set" [value]="(c.channel.name$ | async) ?? ''"
+  (valueChange)="c.channel.setName($event)" />
 
 }

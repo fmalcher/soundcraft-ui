@@ -13,17 +13,17 @@ import { MasterChannel } from 'soundcraft-ui-connection';
 export class AutomixPage {
   cs = inject(ConnectionService);
 
-  automix = this.cs.conn.automix;
+  automix = this.cs.connection.automix;
   groups = [
     { label: 'Automix Group A', group: this.automix.groups.a },
     { label: 'Automix Group B', group: this.automix.groups.b },
   ];
 
   channels = [
-    { channel: this.cs.conn.master.input(1), label: 'Input 1' },
-    { channel: this.cs.conn.master.input(2), label: 'Input 2' },
-    { channel: this.cs.conn.master.input(3), label: 'Input 3' },
-    { channel: this.cs.conn.master.input(4), label: 'Input 4' },
+    { channel: this.cs.connection.master.input(1), label: 'Input 1' },
+    { channel: this.cs.connection.master.input(2), label: 'Input 2' },
+    { channel: this.cs.connection.master.input(3), label: 'Input 3' },
+    { channel: this.cs.connection.master.input(4), label: 'Input 4' },
   ];
 
   setWeight(channel: MasterChannel, value: string) {

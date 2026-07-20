@@ -8,5 +8,13 @@
     "moduleResolution": "bundler"
   },
   "files": ["src/main.ts"],
-  "exclude": []
+  "exclude": [],
+  "angularCompilerOptions": {
+    "extendedDiagnostics": {
+      "checks": {
+        "nullishCoalescingNotNullable": "error",
+        "optionalChainNotNullable": "error"
+      }
+    }
+  }
 }

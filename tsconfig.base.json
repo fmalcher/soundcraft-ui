@@ -18,7 +18,8 @@
     "baseUrl": ".",
     "paths": {
       "soundcraft-ui-connection": ["packages/mixer-connection/src/index.ts"]
-    }
+    },
+    "strict": true
   },
   "exclude": ["node_modules", "tmp"]
 }

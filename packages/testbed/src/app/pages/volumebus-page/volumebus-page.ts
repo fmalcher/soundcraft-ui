@@ -12,8 +12,8 @@ export class VolumebusPage {
   cs = inject(ConnectionService);
 
   channels = [
-    { label: 'Solo Level', channel: this.cs.conn.volume.solo },
-    { label: 'Headphone 1 Volume', channel: this.cs.conn.volume.headphone(1) },
-    { label: 'Headphone 2 Volume', channel: this.cs.conn.volume.headphone(2) },
+    { label: 'Solo Level', channel: this.cs.connection.volume.solo },
+    { label: 'Headphone 1 Volume', channel: this.cs.connection.volume.headphone(1) },
+    { label: 'Headphone 2 Volume', channel: this.cs.connection.volume.headphone(2) },
   ];
 }
