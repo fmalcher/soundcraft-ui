@@ -1,10 +1,11 @@
 <form (submit)="fade()" class="row">
   <div class="col">
-    <label>Fade to</label>
+    <label [for]="targetValueId.id">Fade to</label>
   </div>
 
   <div class="col">
-    <input type="range" step="0.00000000001" [formField]="form.targetValue" title="Target value" />
+    <input type="range" step="0.00000000001" [formField]="form.targetValue" title="Target value" suiRandomId
+      #targetValueId="randomId" />
   </div>
   <div class="col">
     <span class="badge text-bg-secondary">{{ targetValueDB() }}&nbsp;dB</span>

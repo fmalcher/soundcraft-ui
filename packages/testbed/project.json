@@ -16,9 +16,7 @@
     "build": {
       "executor": "@angular/build:application",
       "defaultConfiguration": "production",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/packages/testbed",
         "index": "packages/testbed/src/index.html",
@@ -26,13 +24,8 @@
         "polyfills": [],
         "tsConfig": "packages/testbed/tsconfig.app.json",
         "aot": true,
-        "assets": [
-          "packages/testbed/src/favicon.ico",
-          "packages/testbed/src/assets"
-        ],
-        "styles": [
-          "packages/testbed/src/styles.scss"
-        ],
+        "assets": ["packages/testbed/src/favicon.ico", "packages/testbed/src/assets"],
+        "styles": ["packages/testbed/src/styles.scss"],
         "scripts": []
       },
       "configurations": {
@@ -84,10 +77,7 @@
     },
     "lint": {
       "options": {
-        "args": [
-          "**/*.ts",
-          "**/*.html"
-        ]
+        "args": ["**/*.ts", "**/*.html"]
       }
     }
   }

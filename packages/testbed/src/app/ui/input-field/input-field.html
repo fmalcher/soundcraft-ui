@@ -1,6 +1,6 @@
-<label>{{ label() }}</label>
 <div class="input-group input-group-sm mb-3 w-50">
-  <input type="text" class="form-control form-control-sm" [value]="value()" #input />
+  <label [for]="input.id">{{ label() }}</label>
+  <input type="text" class="form-control form-control-sm" [value]="value()" #input suiRandomId />
   <button class="btn btn-secondary btn-sm" type="button" (click)="value.set(input.value)">
     {{ buttonLabel() }}
   </button>

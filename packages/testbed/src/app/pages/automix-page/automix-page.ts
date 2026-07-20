@@ -3,12 +3,13 @@ import { Component, inject } from '@angular/core';
 import { ConnectionService } from '../../connection.service';
 import { MixerButton } from '../../ui/mixer-button/mixer-button';
 import { MasterChannel } from 'soundcraft-ui-connection';
+import { RandomIdDirective } from '../../random-id.directive';
 
 @Component({
   selector: 'sui-automix-page',
   templateUrl: './automix-page.html',
   styleUrl: './automix-page.css',
-  imports: [AsyncPipe, MixerButton],
+  imports: [AsyncPipe, MixerButton, RandomIdDirective],
 })
 export class AutomixPage {
   cs = inject(ConnectionService);

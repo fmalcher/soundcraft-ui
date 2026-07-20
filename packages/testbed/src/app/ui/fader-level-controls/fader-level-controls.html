@@ -1,6 +1,6 @@
-<label>Fader Level</label>
+<label [for]="faderLevelInput.id">Fader Level</label>
 <input type="range" min="0" max="1" step="0.00000000001" (input)="setFaderLevel(faderLevelInput.value)"
-  [value]="channel().faderLevel$ | async" #faderLevelInput />
+  [value]="channel().faderLevel$ | async" #faderLevelInput suiRandomId />
 <button class="btn btn-success btn-sm ms-3" (click)="channel().changeFaderLevelDB(3)">
   + 3 dB
 </button>

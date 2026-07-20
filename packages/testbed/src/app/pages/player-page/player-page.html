@@ -1,10 +1,10 @@
 <div class="mb-3">
-  <p><label>State</label> {{ playerState$ | async }}</p>
-  <p><label>Playlist</label> {{ player.playlist$ | async }}</p>
-  <p><label>Track</label> {{ player.track$ | async }}</p>
-  <p><label>Track length (s)</label> {{ player.length$ | async | time }}</p>
-  <p><label>Elapsed time (s)</label> {{ player.elapsedTime$ | async | time }}</p>
-  <p><label>Remaining time (s)</label> {{ player.remainingTime$ | async | time }}</p>
+  <p><span class="label">State</span> {{ playerState$ | async }}</p>
+  <p><span class="label">Playlist</span> {{ player.playlist$ | async }}</p>
+  <p><span class="label">Track</span> {{ player.track$ | async }}</p>
+  <p><span class="label">Track length (s)</span> {{ player.length$ | async | time }}</p>
+  <p><span class="label">Elapsed time (s)</span> {{ player.elapsedTime$ | async | time }}</p>
+  <p><span class="label">Remaining time (s)</span> {{ player.remainingTime$ | async | time }}</p>
 </div>
 
 <div class="mb-3">
@@ -39,8 +39,8 @@
 <h2 class="mt-5">2-Track USB Recorder</h2>
 
 <div>
-  <p><label>Recording</label> {{ rec.recording$ | async }}</p>
-  <p><label>Busy</label> {{ rec.busy$ | async }}</p>
+  <p><span class="label">Recording</span> {{ rec.recording$ | async }}</p>
+  <p><span class="label">Busy</span> {{ rec.busy$ | async }}</p>
 </div>
 
 <sui-mixer-button (press)="rec.recordToggle()" [active]="rec.recording$ | async">

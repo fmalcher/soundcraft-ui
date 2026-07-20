@@ -13,6 +13,12 @@ p {
   }
 }
 
+.label {
+  display: inline-block;
+  font-weight: bold;
+  width: 150px;
+}
+
 /* Extra-small button variant (smaller than Bootstrap's btn-sm) */
 .btn-xs {
   --bs-btn-padding-y: 0.05rem;
