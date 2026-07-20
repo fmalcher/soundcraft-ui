@@ -1,12 +1,13 @@
 import { Component, computed, input, signal } from '@angular/core';
 import { FormField, form, max, min } from '@angular/forms/signals';
 import { Easings, FadeableChannel, faderValueToDB } from 'soundcraft-ui-connection';
+import { RandomIdDirective } from '../../random-id.directive';
 
 @Component({
   selector: 'sui-transition-controls',
   templateUrl: './transition-controls.html',
   styleUrl: './transition-controls.css',
-  imports: [FormField],
+  imports: [FormField, RandomIdDirective],
 })
 export class TransitionControls {
   readonly channel = input.required<FadeableChannel>();

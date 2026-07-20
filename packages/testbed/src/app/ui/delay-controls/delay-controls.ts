@@ -1,12 +1,13 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, input } from '@angular/core';
 import { DelayableMasterChannel } from 'soundcraft-ui-connection';
+import { RandomIdDirective } from '../../random-id.directive';
 
 @Component({
   selector: 'sui-delay',
   templateUrl: './delay-controls.html',
   styleUrl: './delay-controls.css',
-  imports: [AsyncPipe],
+  imports: [AsyncPipe, RandomIdDirective],
 })
 export class DelayControls {
   readonly channel = input.required<DelayableMasterChannel>();

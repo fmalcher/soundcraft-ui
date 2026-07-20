@@ -1,7 +1,7 @@
 <div>
-  <p><label>Current show</label> {{ showCtrl.currentShow$ | async }}</p>
-  <p><label>Current snapshot</label> {{ showCtrl.currentSnapshot$ | async }}</p>
-  <p><label>Current cue</label> {{ showCtrl.currentCue$ | async }}</p>
+  <p><span class="label">Current show</span> {{ showCtrl.currentShow$ | async }}</p>
+  <p><span class="label">Current snapshot</span> {{ showCtrl.currentSnapshot$ | async }}</p>
+  <p><span class="label">Current cue</span> {{ showCtrl.currentCue$ | async }}</p>
 </div>
 
 <div class="mt-3">
@@ -71,16 +71,16 @@
 <div class="container">
   <div class="row">
     <div class="col-sm">
-      <label>Show</label>
-      <input type="text" class="form-control" [(ngModel)]="formData.show" />
+      <label for="showInput">Show</label>
+      <input type="text" class="form-control" id="showInput" [(ngModel)]="formData.show" />
     </div>
     <div class="col-sm">
-      <label>Snapshot</label>
-      <input type="text" class="form-control" [(ngModel)]="formData.snapshot" />
+      <label for="snapshotInput">Snapshot</label>
+      <input type="text" class="form-control" id="snapshotInput" [(ngModel)]="formData.snapshot" />
     </div>
     <div class="col-sm">
-      <label>Cue</label>
-      <input type="text" class="form-control" [(ngModel)]="formData.cue" />
+      <label for="cueInput">Cue</label>
+      <input type="text" class="form-control" id="cueInput" [(ngModel)]="formData.cue" />
     </div>
   </div>
 

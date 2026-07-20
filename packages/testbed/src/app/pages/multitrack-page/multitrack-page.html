@@ -1,12 +1,12 @@
 <div class="mb-3">
-  <p><label>State</label> {{ state$ | async }}</p>
-  <p><label>Session</label> {{ mtk.session$ | async }}</p>
-  <p><label>Length (s)</label> {{ mtk.length$ | async | time }}</p>
-  <p><label>Elapsed time (s)</label> {{ mtk.elapsedTime$ | async | time }}</p>
-  <p><label>Remaining time (s)</label> {{ mtk.remainingTime$ | async | time }}</p>
-  <p><label>Recording time (s)</label> {{ mtk.recordingTime$ | async | time }}</p>
-  <p><label>Recording</label> {{ mtk.recording$ | async }}</p>
-  <p><label>Busy</label> {{ mtk.busy$ | async }}</p>
+  <p><span class="label">State</span> {{ state$ | async }}</p>
+  <p><span class="label">Session</span> {{ mtk.session$ | async }}</p>
+  <p><span class="label">Length (s)</span> {{ mtk.length$ | async | time }}</p>
+  <p><span class="label">Elapsed time (s)</span> {{ mtk.elapsedTime$ | async | time }}</p>
+  <p><span class="label">Remaining time (s)</span> {{ mtk.remainingTime$ | async | time }}</p>
+  <p><span class="label">Recording time (s)</span> {{ mtk.recordingTime$ | async | time }}</p>
+  <p><span class="label">Recording</span> {{ mtk.recording$ | async }}</p>
+  <p><span class="label">Busy</span> {{ mtk.busy$ | async }}</p>
 </div>
 
 <div class="mb-3">
@@ -36,11 +36,8 @@
     <h3>{{ c.label }}</h3>
     <sui-mixer-button (press)="c.channel.multiTrackSelect()">Select</sui-mixer-button>
     <sui-mixer-button (press)="c.channel.multiTrackUnselect()">Unselect</sui-mixer-button>
-    <sui-mixer-button
-      (press)="c.channel.multiTrackToggle()"
-      [active]="c.channel.multiTrackSelected$ | async"
-      >Toggle</sui-mixer-button
-    >
+    <sui-mixer-button (press)="c.channel.multiTrackToggle()"
+      [active]="c.channel.multiTrackSelected$ | async">Toggle</sui-mixer-button>
   </div>
   }
 </div>
