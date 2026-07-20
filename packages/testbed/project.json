@@ -14,7 +14,11 @@
   },
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:application",
+      "executor": "@angular/build:application",
+      "defaultConfiguration": "production",
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/packages/testbed",
         "index": "packages/testbed/src/index.html",
@@ -22,8 +26,13 @@
         "polyfills": [],
         "tsConfig": "packages/testbed/tsconfig.app.json",
         "aot": true,
-        "assets": ["packages/testbed/src/favicon.ico", "packages/testbed/src/assets"],
-        "styles": ["packages/testbed/src/styles.scss"],
+        "assets": [
+          "packages/testbed/src/favicon.ico",
+          "packages/testbed/src/assets"
+        ],
+        "styles": [
+          "packages/testbed/src/styles.scss"
+        ],
         "scripts": []
       },
       "configurations": {
@@ -52,12 +61,12 @@
           "sourceMap": true,
           "namedChunks": true
         }
-      },
-      "defaultConfiguration": "production",
-      "outputs": ["{options.outputPath}"]
+      }
     },
     "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
+      "executor": "@angular/build:dev-server",
+      "defaultConfiguration": "development",
+      "continuous": true,
       "configurations": {
         "production": {
           "buildTarget": "testbed:build:production"
@@ -65,9 +74,7 @@
         "development": {
           "buildTarget": "testbed:build:development"
         }
-      },
-      "defaultConfiguration": "development",
-      "continuous": true
+      }
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
@@ -76,10 +83,11 @@
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["packages/testbed/**/*.ts", "packages/testbed/**/*.html"]
+        "args": [
+          "**/*.ts",
+          "**/*.html"
+        ]
       }
     }
   }

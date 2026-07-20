@@ -1,9 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Service } from '@angular/core';
 import { SoundcraftUI } from 'soundcraft-ui-connection';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export class ConnectionService {
   conn?: SoundcraftUI;
 

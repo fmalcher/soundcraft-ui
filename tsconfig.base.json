@@ -19,7 +19,10 @@
     "paths": {
       "soundcraft-ui-connection": ["packages/mixer-connection/src/index.ts"]
     },
-    "strict": true
+    "strict": true,
+    "noUncheckedSideEffectImports": false,
+    "types": ["*"],
+    "ignoreDeprecations": "6.0"
   },
   "exclude": ["node_modules", "tmp"]
 }
