@@ -1,6 +1,4 @@
-import { Component, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs';
+import { Component, computed, inject, input, numberAttribute } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 
 import { ConnectionService } from '../../connection.service';
@@ -30,13 +28,12 @@ export class AuxBusPage {
   cs = inject(ConnectionService);
   conn = this.cs.connection;
 
-  channels$ = inject(ActivatedRoute).paramMap.pipe(
-    map(params => Number(params.get('bus'))),
-    map(bus => [
-      { channel: this.conn.aux(bus).input(2), label: 'Input 2' },
-      { channel: this.conn.aux(bus).line(1), label: 'Line 1' },
-      { channel: this.conn.aux(bus).player(1), label: 'Player 1' },
-      { channel: this.conn.aux(bus).fx(2), label: 'FX 2' },
-    ]),
-  );
+  bus = input.required({ transform: numberAttribute });
+
+  channels = computed(() => [
+    { channel: this.conn.aux(this.bus()).input(2), label: 'Input 2' },
+    { channel: this.conn.aux(this.bus()).line(1), label: 'Line 1' },
+    { channel: this.conn.aux(this.bus()).player(1), label: 'Player 1' },
+    { channel: this.conn.aux(this.bus()).fx(2), label: 'FX 2' },
+  ]);
 }

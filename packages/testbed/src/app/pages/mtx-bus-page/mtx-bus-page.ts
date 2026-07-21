@@ -1,7 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs';
+import { Component, computed, inject, input, numberAttribute } from '@angular/core';
 import { MtxChannel, MtxMasterChannel } from 'soundcraft-ui-connection';
 
 import { ConnectionService } from '../../connection.service';
@@ -35,19 +33,18 @@ export class MtxBusPage {
   cs = inject(ConnectionService);
   conn = this.cs.connection;
 
-  vm$ = inject(ActivatedRoute).paramMap.pipe(
-    map(params => Number(params.get('bus'))),
-    map(bus => ({
-      bus,
-      aux: this.conn.aux(bus),
-      mtx: this.conn.mtx(bus),
-      // matrix output lives in the AUX slot it replaced
-      output: this.conn.master.mtx(bus),
-      sources: [
-        { channel: this.conn.mtx(bus).aux(1), label: 'AUX 1' },
-        { channel: this.conn.mtx(bus).sub(1), label: 'Sub 1' },
-        { channel: this.conn.mtx(bus).master(), label: 'Master' },
-      ] as { channel: MtxChannel | MtxMasterChannel; label: string }[],
-    })),
-  );
+  bus = input.required({ transform: numberAttribute });
+
+  vm = computed(() => ({
+    bus: this.bus(),
+    aux: this.conn.aux(this.bus()),
+    mtx: this.conn.mtx(this.bus()),
+    // matrix output lives in the AUX slot it replaced
+    output: this.conn.master.mtx(this.bus()),
+    sources: [
+      { channel: this.conn.mtx(this.bus()).aux(1), label: 'AUX 1' },
+      { channel: this.conn.mtx(this.bus()).sub(1), label: 'Sub 1' },
+      { channel: this.conn.mtx(this.bus()).master(), label: 'Master' },
+    ] as { channel: MtxChannel | MtxMasterChannel; label: string }[],
+  }));
 }

@@ -1,6 +1,5 @@
-@if (vm$ | async; as vm) {
-@let isMatrix = vm.mtx.isMatrix$ | async;
-<h1>MTX bus {{ vm.bus }}</h1>
+@let isMatrix = vm().mtx.isMatrix$ | async;
+<h1>MTX bus {{ vm().bus }}</h1>
 
 <div class="text-muted">
   MTX buses are only available on the Ui24R. The AUX slot must be converted to a matrix for these
@@ -13,28 +12,28 @@
 </div>
 <div class="my-2">
   @if (!isMatrix) {
-  <sui-mixer-button (press)="vm.aux.switchToMatrix()">Switch to matrix</sui-mixer-button>
+  <sui-mixer-button (press)="vm().aux.switchToMatrix()">Switch to matrix</sui-mixer-button>
   } @else {
-  <sui-mixer-button (press)="vm.mtx.switchToAux()">Switch to AUX</sui-mixer-button>
+  <sui-mixer-button (press)="vm().mtx.switchToAux()">Switch to AUX</sui-mixer-button>
   }
 </div>
 
 <!-- MTX output (level/name/mute/solo/delay), controlled via the AUX slot -->
-@let name = (vm.output.name$ | async) || '';
+@let name = (vm().output.name$ | async) || '';
 <h2 class="mt-4">MTX output ({{ name }})</h2>
-<sui-mute-button [channel]="vm.output" />
-<sui-solo-button [channel]="vm.output" />
-<sui-fader-level-controls [channel]="vm.output" />
-<sui-transition-controls [channel]="vm.output" />
-<sui-delay [channel]="vm.output" [maxValue]="500" />
-<sui-input-field label="MTX Name" buttonLabel="Set" [value]="name" (valueChange)="vm.output.setName($event)" />
+<sui-mute-button [channel]="vm().output" />
+<sui-solo-button [channel]="vm().output" />
+<sui-fader-level-controls [channel]="vm().output" />
+<sui-transition-controls [channel]="vm().output" />
+<sui-delay [channel]="vm().output" [maxValue]="500" />
+<sui-input-field label="MTX Name" buttonLabel="Set" [value]="name" (valueChange)="vm().output.setName($event)" />
 
 <!-- Sources routed into the MTX bus -->
 <div class="text-muted mt-4">
   Note: Pan is only possible for stereo-linked MTX buses. Pan does not work on a single mono MTX
   bus.
 </div>
-@for (s of vm.sources; track s.label) {
+@for (s of vm().sources; track s.label) {
 <h2 class="mt-4">{{ s.label }} ({{ s.channel.name$ | async }})</h2>
 <sui-mixer-button [active]="s.channel.mute$ | async" (press)="s.channel.toggleMute()">
   MUTE
@@ -43,5 +42,4 @@
 <sui-fader-level-controls [channel]="s.channel" />
 <sui-pan-controls [channel]="s.channel" />
 <sui-transition-controls [channel]="s.channel" />
-}
 }

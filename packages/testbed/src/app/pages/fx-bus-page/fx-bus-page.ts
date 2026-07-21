@@ -1,6 +1,4 @@
-import { Component, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs';
+import { Component, computed, inject, input, numberAttribute } from '@angular/core';
 
 import { ConnectionService } from '../../connection.service';
 import { AsyncPipe } from '@angular/common';
@@ -25,13 +23,12 @@ import { InputField } from '../../ui/input-field/input-field';
 export class FxBusPage {
   cs = inject(ConnectionService);
 
-  channels$ = inject(ActivatedRoute).paramMap.pipe(
-    map(params => Number(params.get('bus'))),
-    map(bus => [
-      { channel: this.cs.connection.fx(bus).input(2), label: 'Input 2' },
-      { channel: this.cs.connection.fx(bus).line(1), label: 'Line 1' },
-      { channel: this.cs.connection.fx(bus).player(1), label: 'Player 1' },
-      { channel: this.cs.connection.fx(bus).sub(3), label: 'Sub group 3' },
-    ]),
-  );
+  bus = input.required({ transform: numberAttribute });
+
+  channels = computed(() => [
+    { channel: this.cs.connection.fx(this.bus()).input(2), label: 'Input 2' },
+    { channel: this.cs.connection.fx(this.bus()).line(1), label: 'Line 1' },
+    { channel: this.cs.connection.fx(this.bus()).player(1), label: 'Player 1' },
+    { channel: this.cs.connection.fx(this.bus()).sub(3), label: 'Sub group 3' },
+  ]);
 }
