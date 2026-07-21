@@ -1,5 +1,72 @@
 # Changelog
 
+## [7.0.2](https://github.com/fmalcher/soundcraft-ui/compare/v7.0.1...v7.0.2) (2026-07-21)
+
+
+### Bug Fixes
+
+* **mixer-connection:** guard connect() against parallel connections ([ca34a7b](https://github.com/fmalcher/soundcraft-ui/commit/ca34a7be359f587663e229cecfb82ec1b8186723))
+* **testbed:** associate labels with form controls, add randomId directive ([df4493c](https://github.com/fmalcher/soundcraft-ui/commit/df4493c308f35e39bd30a8ebd0910ba078f2c3fa))
+
+
+### Performance Improvements
+
+* **mixer-connection:** filter resource list messages before splitting ([f4b597a](https://github.com/fmalcher/soundcraft-ui/commit/f4b597ae3bb2a6d886c1d014a700d31f84d674ba))
+* **mixer-connection:** hoist linkable-type check out of selectStereoIndex projector ([add76d3](https://github.com/fmalcher/soundcraft-ui/commit/add76d3e0adc7fa04793eb3dccb8c39f0238ccbc))
+* **mixer-connection:** precompute state path in aux/fx/mtx channel selectors ([ae683fa](https://github.com/fmalcher/soundcraft-ui/commit/ae683fa775c33269d9b13d7cef277396b976742f))
+* **mixer-connection:** precompute volume bus state path ([2a22762](https://github.com/fmalcher/soundcraft-ui/commit/2a227627712d5782983ed8841ece8b8f72aba099))
+* **mixer-connection:** split inbound multi-line messages allocation-free ([0a99fee](https://github.com/fmalcher/soundcraft-ui/commit/0a99feeaa5bd78264f34ee1b08cf7b4fae03ca65))
+
+
+### Tests
+
+* **mixer-connection:** cover FX/matrix stereo-link mirroring and edge cases ([31b462b](https://github.com/fmalcher/soundcraft-ui/commit/31b462b619c89cd33d4068a0eae13c17f0000718))
+
+
+### Code Refactoring
+
+* **testbed:** enable TypeScript strict mode ([028b6dd](https://github.com/fmalcher/soundcraft-ui/commit/028b6dd594dbb86940f460a25324d933c9a44220))
+* **testbed:** migrate Template-Driven Forms to Signal Forms ([45aae94](https://github.com/fmalcher/soundcraft-ui/commit/45aae94b60db2c62c2328bd9cbde881f65a2dc3b))
+* **testbed:** use component input binding for route params ([7dc7ddf](https://github.com/fmalcher/soundcraft-ui/commit/7dc7ddf0dab27e9f3c38af04ed021e32413362fe))
+
+
+### Dependency Updates
+
+* bump @mdx-js/react from 3.0.1 to 3.1.1 in /docs ([d4820c5](https://github.com/fmalcher/soundcraft-ui/commit/d4820c5eb1c428a1217b07a83558b19572d37de2))
+* bump @types/node from 25.9.2 to 26.1.0 ([be0c35d](https://github.com/fmalcher/soundcraft-ui/commit/be0c35da37540c5037e2ac85e9101afcedd150ea))
+* bump body-parser and express in /docs ([602eea4](https://github.com/fmalcher/soundcraft-ui/commit/602eea4f62b1d62e4ff16326a1dd8cc9aaf4f68f))
+* bump prettier from 3.8.3 to 3.9.4 ([37e304e](https://github.com/fmalcher/soundcraft-ui/commit/37e304ed6e2cda8f5534856ebce1d960f2d1306e))
+* bump prettier from 3.9.5 to 3.9.6 ([ac92aea](https://github.com/fmalcher/soundcraft-ui/commit/ac92aeaf46518e64278f05e6f19916564791c5ca))
+* bump the build-tools group across 1 directory with 3 updates ([fc11025](https://github.com/fmalcher/soundcraft-ui/commit/fc11025b153966e483c4748f1be40d64faf3cebc))
+* bump the build-tools group with 10 updates ([8a5b3c3](https://github.com/fmalcher/soundcraft-ui/commit/8a5b3c37f2ccbf37a8ba1a1472cc67b8cca8ff34))
+* bump the docusaurus group in /docs with 5 updates ([519c05b](https://github.com/fmalcher/soundcraft-ui/commit/519c05b800d52c3d210507a5586b875c58cb59d1))
+* bump typescript from 5.5.4 to 7.0.2 in /docs ([87e94e5](https://github.com/fmalcher/soundcraft-ui/commit/87e94e584a061eb72bc8aa522b1af9cdeefd874e))
+* bump undici and @angular-devkit/build-angular ([315703c](https://github.com/fmalcher/soundcraft-ui/commit/315703c0d401d51d26a734d565c1abe9b927446b))
+* bump websocket-driver from 0.7.4 to 0.7.5 ([93db985](https://github.com/fmalcher/soundcraft-ui/commit/93db9850b91df3a6690534abc622d44fe01b9c9b))
+* bump ws from 8.18.0 to 8.21.1 ([8f9a68f](https://github.com/fmalcher/soundcraft-ui/commit/8f9a68fddaf27709126299292a8002cadb79aec8))
+* nx migrate 23.1.0 and upgrade to Angular 22 ([f6d9356](https://github.com/fmalcher/soundcraft-ui/commit/f6d935600f83a30e1f4ce0a62540fe6bbb10c24b))
+
+
+### Documentation
+
+* add performance guidelines to CLAUDE.md ([f77d94a](https://github.com/fmalcher/soundcraft-ui/commit/f77d94a7a326760977fa181d62926d2e361843de))
+
+
+### Build System & CI
+
+* **dependabot:** add /docs config with deps commit prefix ([a136f99](https://github.com/fmalcher/soundcraft-ui/commit/a136f9999d2b14a62a50f21b9fe2f2384e84a7a7))
+* **deps:** bump @babel/core from 7.25.8 to 7.29.7 in /docs ([3c055a6](https://github.com/fmalcher/soundcraft-ui/commit/3c055a6fada5afa7255d1f0ec3d847c53e7e6086))
+* **deps:** bump shell-quote from 1.8.1 to 1.10.0 in /docs ([7bd86be](https://github.com/fmalcher/soundcraft-ui/commit/7bd86be976558dd79f7741da60cbcde78a625bef))
+* **deps:** bump websocket-driver from 0.7.4 to 0.7.5 in /docs ([e89fd5b](https://github.com/fmalcher/soundcraft-ui/commit/e89fd5ba4c82ff9673a7b5cf29d62f01b06aaf2a))
+* group docs dependabot updates to reduce PR noise ([9533f91](https://github.com/fmalcher/soundcraft-ui/commit/9533f91963cf672e7098267dccae98ec08d075c1))
+* only run docs build for docs changes and skip main build for docs-only changes ([941ff72](https://github.com/fmalcher/soundcraft-ui/commit/941ff72d7da634ab555eed49ee789736549cef9a))
+* use Node.js 24 for build and test job ([b9208f1](https://github.com/fmalcher/soundcraft-ui/commit/b9208f19f3b5f69cf2d7a345c0ebcad77e889e79))
+
+
+### Other
+
+* split changelog into per-type sections ([40e99bb](https://github.com/fmalcher/soundcraft-ui/commit/40e99bbc847f819ed23ecba47c3a18a360123477))
+
 ## [7.0.1](https://github.com/fmalcher/soundcraft-ui/compare/v7.0.0...v7.0.1) (2026-06-29)
 
 
