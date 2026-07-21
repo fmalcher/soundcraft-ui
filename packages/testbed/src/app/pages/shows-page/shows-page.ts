@@ -1,24 +1,26 @@
 import { AsyncPipe, JsonPipe, KeyValuePipe } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 
 import { ConnectionService } from '../../connection.service';
+import { form, FormField } from '@angular/forms/signals';
 
 @Component({
   selector: 'sui-shows-page',
   templateUrl: './shows-page.html',
   styleUrl: './shows-page.scss',
-  imports: [AsyncPipe, JsonPipe, KeyValuePipe, FormsModule],
+  imports: [AsyncPipe, JsonPipe, KeyValuePipe, FormField],
 })
 export class ShowsPage {
   cs = inject(ConnectionService);
   showCtrl = this.cs.connection.shows;
 
-  formData = {
+  formData = signal({
     show: 'testshow',
     snapshot: '',
     cue: '',
-  };
+  });
+
+  showsForm = form(this.formData);
 
   /** keep shows in the order received instead of the keyvalue pipe's default alphabetical sort */
   keepOrder = () => 0;
@@ -31,32 +33,41 @@ export class ShowsPage {
   }
 
   loadShow() {
-    if (this.formData.show) {
-      this.showCtrl.loadShow(this.formData.show);
+    const show = this.formData().show;
+    if (show) {
+      this.showCtrl.loadShow(show);
     }
   }
 
   loadSnapshot() {
-    if (this.formData.show && this.formData.snapshot) {
-      this.showCtrl.loadSnapshot(this.formData.show, this.formData.snapshot);
+    const show = this.formData().show;
+    const snapshot = this.showsForm.snapshot().value();
+    if (show && snapshot) {
+      this.showCtrl.loadSnapshot(show, snapshot);
     }
   }
 
   loadCue() {
-    if (this.formData.show && this.formData.cue) {
-      this.showCtrl.loadCue(this.formData.show, this.formData.cue);
+    const show = this.formData().show;
+    const cue = this.formData().cue;
+    if (show && cue) {
+      this.showCtrl.loadCue(show, cue);
     }
   }
 
   saveSnapshot() {
-    if (this.formData.show && this.formData.snapshot) {
-      this.showCtrl.saveSnapshot(this.formData.show, this.formData.snapshot);
+    const show = this.formData().show;
+    const snapshot = this.formData().snapshot;
+    if (show && snapshot) {
+      this.showCtrl.saveSnapshot(show, snapshot);
     }
   }
 
   saveCue() {
-    if (this.formData.show && this.formData.cue) {
-      this.showCtrl.saveCue(this.formData.show, this.formData.cue);
+    const show = this.formData().show;
+    const cue = this.formData().cue;
+    if (show && cue) {
+      this.showCtrl.saveCue(show, cue);
     }
   }
 }
