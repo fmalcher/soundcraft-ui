@@ -32,3 +32,11 @@ updates:
           - 'dotenv'
           - '@rollup/rollup-linux-x64-gnu'
           - '@typescript-eslint/*'
+
+  # Docs dependencies (Docusaurus site)
+  - package-ecosystem: 'npm'
+    directory: '/docs'
+    schedule:
+      interval: 'monthly'
+    commit-message:
+      prefix: 'deps'
