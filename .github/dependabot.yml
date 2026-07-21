@@ -40,3 +40,16 @@ updates:
       interval: 'monthly'
     commit-message:
       prefix: 'deps'
+    groups:
+      # Docusaurus core & plugins
+      docusaurus:
+        patterns:
+          - '@docusaurus/*'
+      # React ecosystem
+      react:
+        patterns:
+          - 'react'
+          - 'react-dom'
+          - '@mdx-js/*'
+          - 'prism-react-renderer'
+          - 'clsx'
