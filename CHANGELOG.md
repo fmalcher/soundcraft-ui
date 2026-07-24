@@ -1,5 +1,21 @@
 # Changelog
 
+## [7.0.3](https://github.com/fmalcher/soundcraft-ui/compare/v7.0.2...v7.0.3) (2026-07-24)
+
+
+### Dependency Updates
+
+* bump lodash from 4.17.21 to 4.18.1 in /docs ([15632c0](https://github.com/fmalcher/soundcraft-ui/commit/15632c0c3e47bb28b77b92a518f61f7cd685cae2))
+* bump mdast-util-to-hast from 13.2.0 to 13.2.1 in /docs ([a2da853](https://github.com/fmalcher/soundcraft-ui/commit/a2da85332ecc9394abf38ac025be966cc2818492))
+* bump svgo from 3.3.2 to 3.3.4 in /docs ([d805549](https://github.com/fmalcher/soundcraft-ui/commit/d805549d7e21440754277917a22ffc4cd01da66a))
+* bump the react group across 1 directory with 3 updates ([a304d8f](https://github.com/fmalcher/soundcraft-ui/commit/a304d8f277faebca39ae74657f6c50703920344d))
+* bump webpack from 5.95.0 to 5.109.0 in /docs ([4a7742c](https://github.com/fmalcher/soundcraft-ui/commit/4a7742c4e6303ac591bd421fd88cc5fe21c9e047))
+
+
+### Build System & CI
+
+* always run main build so required check reports for docs-only PRs ([cbc27a0](https://github.com/fmalcher/soundcraft-ui/commit/cbc27a041b4eb37c3c3344a1fd0f4c9790bf0841))
+
 ## [7.0.2](https://github.com/fmalcher/soundcraft-ui/compare/v7.0.1...v7.0.2) (2026-07-21)
 
 
