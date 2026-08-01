@@ -68,7 +68,7 @@
     "@nx/workspace": "23.1.0",
     "@schematics/angular": "22.0.7",
     "@swc-node/register": "1.12.1",
-    "@swc/core": "1.15.46",
+    "@swc/core": "1.15.47",
     "@swc/helpers": "0.5.23",
     "@types/node": "^26.1.0",
     "@typescript-eslint/eslint-plugin": "^8.62.1",
@@ -82,7 +82,7 @@
     "eslint-config-prettier": "^10.1.3",
     "eslint-plugin-prefer-arrow": "1.2.3",
     "jiti": "2.7.0",
-    "jsdom": "29.1.1",
+    "jsdom": "30.0.1",
     "jsonc-eslint-parser": "^3.1.0",
     "nx": "23.1.0",
     "prettier": "~3.9.6",
@@ -97,6 +97,6 @@
     "vitest": "^4.1.2"
   },
   "optionalDependencies": {
-    "@rollup/rollup-linux-x64-gnu": "4.62.2"
+    "@rollup/rollup-linux-x64-gnu": "4.62.3"
   }
 }
