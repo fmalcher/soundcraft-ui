@@ -1,3 +1,5 @@
-<span class="ms-3"><strong>Number of entries:</strong> {{ countKeys$ | async }}</span>
+<span class="ms-3"><strong>Number of entries:</strong> {{ countKeys() }}</span>
 
-<pre>{{ state$ | async | json }}</pre>
+<button class="btn btn-sm btn-secondary ms-3" (click)="exportState()">Export as JSON</button>
+
+<pre>{{ state() | json }}</pre>
