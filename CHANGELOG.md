@@ -1,5 +1,38 @@
 # Changelog
 
+## [7.0.3](https://github.com/fmalcher/soundcraft-ui/compare/v7.0.2...v7.0.3) (2026-09-01)
+
+
+### Dependency Updates
+
+* bump @hono/node-server from 1.19.14 to 1.19.17 ([#366](https://github.com/fmalcher/soundcraft-ui/issues/366)) ([0274780](https://github.com/fmalcher/soundcraft-ui/commit/02747804b6dd0f2cdade5c43c7288d1721be568a))
+* bump @types/node from 26.1.1 to 26.1.2 ([93ac9e5](https://github.com/fmalcher/soundcraft-ui/commit/93ac9e5492faad6a5b685bda327531428b8e1e73))
+* bump @types/node from 26.1.2 to 26.4.0 ([#374](https://github.com/fmalcher/soundcraft-ui/issues/374)) ([70680eb](https://github.com/fmalcher/soundcraft-ui/commit/70680ebcfcd1b58de22481f9569ab07d2e161810))
+* bump brace-expansion from 1.1.16 to 1.1.18 in /docs ([311cf92](https://github.com/fmalcher/soundcraft-ui/commit/311cf92b33c0b43d744c4269d325d6003052a1dd))
+* bump browserslist from 4.28.6 to 4.28.8 ([#376](https://github.com/fmalcher/soundcraft-ui/issues/376)) ([c10ed10](https://github.com/fmalcher/soundcraft-ui/commit/c10ed10ef93026455ea5480f5da5600cd2c07d94))
+* bump browserslist from 4.28.6 to 4.28.8 in /docs ([#375](https://github.com/fmalcher/soundcraft-ui/issues/375)) ([d55112e](https://github.com/fmalcher/soundcraft-ui/commit/d55112eb8590850472d642dd7f57291426476087))
+* bump fast-uri from 3.1.4 to 3.1.5 ([6bc60fc](https://github.com/fmalcher/soundcraft-ui/commit/6bc60fc45dd3bd58bf3a4461ea18ec055d6d39ac))
+* bump fast-uri from 3.1.4 to 3.1.5 in /docs ([de596f8](https://github.com/fmalcher/soundcraft-ui/commit/de596f8a090eb9b604b16316d22560a11d57d522))
+* bump hono from 4.12.31 to 4.13.1 ([#365](https://github.com/fmalcher/soundcraft-ui/issues/365)) ([f120a97](https://github.com/fmalcher/soundcraft-ui/commit/f120a97d4e2666f7bb9bb2b63c0ee1806af035b6))
+* bump ip-address from 10.2.0 to 10.4.0 ([295257d](https://github.com/fmalcher/soundcraft-ui/commit/295257d2d8337ee8387faa3c6e07d32f5a859147))
+* bump js-yaml from 4.1.0 to 4.3.1 in /docs ([#364](https://github.com/fmalcher/soundcraft-ui/issues/364)) ([81ee4c1](https://github.com/fmalcher/soundcraft-ui/commit/81ee4c10dee4205b3f651a901ed1f30f05b4f4ee))
+* bump jsonc-eslint-parser from 3.1.0 to 3.3.0 ([#373](https://github.com/fmalcher/soundcraft-ui/issues/373)) ([5bd4618](https://github.com/fmalcher/soundcraft-ui/commit/5bd4618788b88cabfc38b9a701b4c393876ecd1e))
+* bump lodash from 4.17.21 to 4.18.1 in /docs ([15632c0](https://github.com/fmalcher/soundcraft-ui/commit/15632c0c3e47bb28b77b92a518f61f7cd685cae2))
+* bump mdast-util-to-hast from 13.2.0 to 13.2.1 in /docs ([a2da853](https://github.com/fmalcher/soundcraft-ui/commit/a2da85332ecc9394abf38ac025be966cc2818492))
+* bump postcss from 8.5.20 to 8.5.25 in /docs ([ef0f1f7](https://github.com/fmalcher/soundcraft-ui/commit/ef0f1f78acb4205f11a9c3b18d54f21302b6934c))
+* bump svgo from 3.3.2 to 3.3.4 in /docs ([d805549](https://github.com/fmalcher/soundcraft-ui/commit/d805549d7e21440754277917a22ffc4cd01da66a))
+* bump the build-tools group with 3 updates ([1fc36f2](https://github.com/fmalcher/soundcraft-ui/commit/1fc36f22abc083c86e4ab00404c965ae850cae22))
+* bump the react group across 1 directory with 3 updates ([a304d8f](https://github.com/fmalcher/soundcraft-ui/commit/a304d8f277faebca39ae74657f6c50703920344d))
+* bump the react group in /docs with 2 updates ([#370](https://github.com/fmalcher/soundcraft-ui/issues/370)) ([29b2d1b](https://github.com/fmalcher/soundcraft-ui/commit/29b2d1b80231d75d861fc8b6a2d145215b221253))
+* bump typescript-eslint from 8.65.0 to 8.68.0 ([#372](https://github.com/fmalcher/soundcraft-ui/issues/372)) ([356dcbf](https://github.com/fmalcher/soundcraft-ui/commit/356dcbfa4143967a275a2175684e65c19849033e))
+* bump undici from 6.27.0 to 6.28.0 ([#363](https://github.com/fmalcher/soundcraft-ui/issues/363)) ([178ee8e](https://github.com/fmalcher/soundcraft-ui/commit/178ee8ecbb87b7ec77483546230b9a8c11337621))
+* bump webpack from 5.95.0 to 5.109.0 in /docs ([4a7742c](https://github.com/fmalcher/soundcraft-ui/commit/4a7742c4e6303ac591bd421fd88cc5fe21c9e047))
+
+
+### Build System & CI
+
+* always run main build so required check reports for docs-only PRs ([cbc27a0](https://github.com/fmalcher/soundcraft-ui/commit/cbc27a041b4eb37c3c3344a1fd0f4c9790bf0841))
+
 ## [7.0.2](https://github.com/fmalcher/soundcraft-ui/compare/v7.0.1...v7.0.2) (2026-07-21)
 
 
