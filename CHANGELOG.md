@@ -1,5 +1,13 @@
 # Changelog
 
+## [7.0.4](https://github.com/fmalcher/soundcraft-ui/compare/v7.0.3...v7.0.4) (2026-09-03)
+
+
+### Dependency Updates
+
+* bump fast-uri from 3.1.5 to 3.1.7 ([#378](https://github.com/fmalcher/soundcraft-ui/issues/378)) ([6c29611](https://github.com/fmalcher/soundcraft-ui/commit/6c2961134291561800b3b4fb3c0ac7cd5968eea5))
+* bump fast-uri from 3.1.5 to 3.1.7 in /docs ([#377](https://github.com/fmalcher/soundcraft-ui/issues/377)) ([6281456](https://github.com/fmalcher/soundcraft-ui/commit/6281456c12736daa9fa2557af3ed2411c3c42848))
+
 ## [7.0.3](https://github.com/fmalcher/soundcraft-ui/compare/v7.0.2...v7.0.3) (2026-09-01)
 
 
