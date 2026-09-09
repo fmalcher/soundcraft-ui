@@ -1,5 +1,20 @@
 # Changelog
 
+## [7.0.4](https://github.com/fmalcher/soundcraft-ui/compare/v7.0.3...v7.0.4) (2026-09-09)
+
+
+### Dependency Updates
+
+* bump colord from 2.9.3 to 2.10.0 in /docs ([dd160c7](https://github.com/fmalcher/soundcraft-ui/commit/dd160c7fe3dfaeca92db93b2878878c50ce53814))
+* bump fast-uri from 3.1.5 to 3.1.7 ([#378](https://github.com/fmalcher/soundcraft-ui/issues/378)) ([6c29611](https://github.com/fmalcher/soundcraft-ui/commit/6c2961134291561800b3b4fb3c0ac7cd5968eea5))
+* bump fast-uri from 3.1.5 to 3.1.7 in /docs ([#377](https://github.com/fmalcher/soundcraft-ui/issues/377)) ([6281456](https://github.com/fmalcher/soundcraft-ui/commit/6281456c12736daa9fa2557af3ed2411c3c42848))
+* bump hono from 4.13.1 to 4.13.7 ([af609b5](https://github.com/fmalcher/soundcraft-ui/commit/af609b569c2798df76aca2d19326cee4dc86ac31))
+* bump joi from 17.13.3 to 17.13.7 in /docs ([d81e0ff](https://github.com/fmalcher/soundcraft-ui/commit/d81e0ff431944c518c62f589aa9a6be96d3e5109))
+* bump js-yaml ([7db0ab2](https://github.com/fmalcher/soundcraft-ui/commit/7db0ab22b0afbf34cf740750b9719b4515d88ced))
+* bump js-yaml from 4.3.1 to 4.3.2 in /docs ([7ba8065](https://github.com/fmalcher/soundcraft-ui/commit/7ba8065f9de3027d9a9bad0490bcda0205f1b602))
+* bump svgo from 3.3.4 to 3.3.5 in /docs ([4a52525](https://github.com/fmalcher/soundcraft-ui/commit/4a525258409cf903ea9d8ea7a2556c3119fd9f17))
+* bump svgo from 4.0.2 to 4.1.0 ([6f032dc](https://github.com/fmalcher/soundcraft-ui/commit/6f032dcff4ceffd67a1bdd10133408a216bbde6c))
+
 ## [7.0.3](https://github.com/fmalcher/soundcraft-ui/compare/v7.0.2...v7.0.3) (2026-09-01)
 
 
