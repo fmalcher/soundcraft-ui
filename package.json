@@ -94,7 +94,7 @@
     "vite-plugin-dts": "5.0.3",
     "vite-plugin-eslint": "^1.8.1",
     "vite-tsconfig-paths": "^6.1.1",
-    "vitest": "^4.1.2"
+    "vitest": "^4.1.11"
   },
   "optionalDependencies": {
     "@rollup/rollup-linux-x64-gnu": "4.62.3"
