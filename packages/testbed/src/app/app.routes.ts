@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { MasterPage } from './pages/master-page/master-page';
 import { MasterBusPage } from './pages/master-bus-page/master-bus-page';
 import { AutomixPage } from './pages/automix-page/automix-page';
+import { EqPage } from './pages/eq-page/eq-page';
 import { AuxBusPage } from './pages/aux-bus-page/aux-bus-page';
 import { ChannelsyncPage } from './pages/channelsync-page/channelsync-page';
 import { FullStatePage } from './pages/full-state-page/full-state-page';
@@ -20,6 +21,7 @@ export const routes: Routes = [
   { path: '', redirectTo: 'master', pathMatch: 'full' },
   { path: 'master', component: MasterPage, title: 'Master' },
   { path: 'masterbus', component: MasterBusPage, title: 'Master bus' },
+  { path: 'eq', component: EqPage, title: 'EQ' },
   { path: 'auxbus/:bus', component: AuxBusPage, title: 'AUX bus' },
   { path: 'mtxbus/:bus', component: MtxBusPage, title: 'MTX bus' },
   { path: 'fxbus/:bus', component: FxBusPage, title: 'FX bus' },
