@@ -17,6 +17,7 @@ export class App {
   navLinks = [
     { label: 'Master', target: '/master' },
     { label: 'Master bus', target: '/masterbus' },
+    { label: 'EQ', target: '/eq' },
     { label: 'AUX bus 1', target: '/auxbus/1' },
     { label: 'AUX bus 2', target: '/auxbus/2' },
     { label: 'MTX bus 7', target: '/mtxbus/7' },
