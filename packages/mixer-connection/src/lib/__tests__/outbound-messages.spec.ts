@@ -1230,6 +1230,113 @@ describe('Outbound messages', () => {
     expect(message).toBe('BMSG^SYNC^customSyncId^15');
   });
 
+  it('channel EQ', () => {
+    const eq = conn.master.input(3).eq;
+
+    // on/off
+    eq.disable();
+    expect(message).toBe('SETD^i.2.eq.bypass^1');
+
+    eq.enable();
+    expect(message).toBe('SETD^i.2.eq.bypass^0');
+
+    eq.setEnabled(false);
+    expect(message).toBe('SETD^i.2.eq.bypass^1');
+
+    // band frequency (Hz)
+    eq.band(1).setFrequency(1000);
+    expect(message).toBe('SETD^i.2.eq.b1.freq^0.5584347738');
+
+    eq.band(1).setFrequency(10);
+    expect(message).toBe('SETD^i.2.eq.b1.freq^0'); // clamp
+
+    eq.band(1).setFrequency(30000);
+    expect(message).toBe('SETD^i.2.eq.b1.freq^1'); // clamp
+
+    // band Q
+    eq.band(2).setQ(2);
+    expect(message).toBe('SETD^i.2.eq.b2.q^0.6467426608');
+
+    eq.band(2).setQ(0.01);
+    expect(message).toBe('SETD^i.2.eq.b2.q^0'); // clamp
+
+    eq.band(2).setQ(20);
+    expect(message).toBe('SETD^i.2.eq.b2.q^1'); // clamp
+
+    // band gain
+    eq.band(3).setGainDB(6);
+    expect(message).toBe('SETD^i.2.eq.b3.gain^0.65');
+
+    eq.band(3).setGainDB(25);
+    expect(message).toBe('SETD^i.2.eq.b3.gain^1'); // clamp
+
+    eq.band(3).setGainDB(-25);
+    expect(message).toBe('SETD^i.2.eq.b3.gain^0'); // clamp
+
+    eq.band(4).setGain(0.25);
+    expect(message).toBe('SETD^i.2.eq.b4.gain^0.25');
+
+    eq.band(4).setGain(1.5);
+    expect(message).toBe('SETD^i.2.eq.b4.gain^1'); // clamp
+
+    eq.band(4).setGainDB(0);
+    eq.band(4).changeGainDB(-3);
+    expect(message).toBe('SETD^i.2.eq.b4.gain^0.425');
+
+    // high-pass filter
+    eq.hpf.setFrequency(80);
+    expect(message).toBe('SETD^i.2.eq.hpf.freq^0.197891213');
+
+    eq.hpf.setFrequency(2000);
+    expect(message).toBe('SETD^i.2.eq.hpf.freq^0.5584347738'); // clamp to 1 kHz
+
+    eq.hpf.setFrequency(5);
+    expect(message).toBe('SETD^i.2.eq.hpf.freq^0'); // clamp, off
+
+    eq.hpf.setFrequency(100);
+    eq.hpf.disable();
+    expect(message).toBe('SETD^i.2.eq.hpf.freq^0');
+
+    eq.hpf.setSlope(12);
+    expect(message).toBe('SETD^i.2.eq.hpf.slope^0');
+
+    eq.hpf.setSlope(24);
+    expect(message).toBe('SETD^i.2.eq.hpf.slope^1');
+
+    eq.hpf.setSlope(36);
+    expect(message).toBe('SETD^i.2.eq.hpf.slope^2');
+
+    // low-pass filter
+    eq.lpf.setFrequency(12000);
+    expect(message).toBe('SETD^i.2.eq.lpf.freq^0.9131510628');
+
+    eq.lpf.setFrequency(500);
+    expect(message).toBe('SETD^i.2.eq.lpf.freq^0.5584347738'); // clamp to 1 kHz
+
+    eq.lpf.setFrequency(30000);
+    expect(message).toBe('SETD^i.2.eq.lpf.freq^1'); // clamp, off
+
+    eq.lpf.setFrequency(8000);
+    eq.lpf.disable();
+    expect(message).toBe('SETD^i.2.eq.lpf.freq^1');
+
+    eq.lpf.setSlope(36);
+    expect(message).toBe('SETD^i.2.eq.lpf.slope^2');
+
+    // other channel types
+    conn.master.line(1).eq.band(4).setQ(1);
+    expect(message).toBe('SETD^l.0.eq.b4.q^0.5252185347');
+
+    conn.master.player(2).eq.band(1).setGainDB(-6);
+    expect(message).toBe('SETD^p.1.eq.b1.gain^0.35');
+
+    conn.master.fx(3).eq.band(2).setFrequency(4000);
+    expect(message).toBe('SETD^f.2.eq.b2.freq^0.7563259869');
+
+    conn.master.sub(4).eq.hpf.setFrequency(100);
+    expect(message).toBe('SETD^s.3.eq.hpf.freq^0.2297445837');
+  });
+
   describe('hw channels', () => {
     it('Ui24', () => {
       setMixerModel('ui24', conn);

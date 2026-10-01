@@ -1,0 +1,6 @@
+@for (c of channels; track c) {
+<div class="mb-5">
+  <h2>{{ c.label }} ({{ c.channel.name$ | async }})</h2>
+  <sui-eq-controls [eq]="c.channel.eq" [showLpf]="!!c.lpf" />
+</div>
+}
