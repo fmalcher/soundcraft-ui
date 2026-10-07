@@ -9,22 +9,22 @@ import {
 } from './eq-converters';
 
 /**
- * Raw EQ values of a real Ui24R, see `example-state.json`:
+ * Raw default EQ values, identical on Ui12, Ui16 and Ui24R (see `reference-states/`):
  * the default bands are 200 Hz, 1 kHz, 4 kHz, 10 kHz and 16 kHz with Q 1 and 0 dB.
  */
-const UI24_DEFAULT_FREQUENCIES: [number, number][] = [
+const DEFAULT_FREQUENCIES: [number, number][] = [
   [200, 0.3286901902],
   [1000, 0.5584347738],
   [4000, 0.7563259869],
   [10000, 0.887124964],
   [16000, 0.9542171999],
 ];
-const UI24_DEFAULT_Q = 0.5252185347;
+const DEFAULT_Q = 0.5252185347;
 
 describe('EQ value converters', () => {
   describe('frequencyToFaderValue', () => {
-    it('should convert the default band frequencies of a Ui24R', () => {
-      UI24_DEFAULT_FREQUENCIES.forEach(([hz, raw]) => {
+    it('should convert the default band frequencies of the mixer', () => {
+      DEFAULT_FREQUENCIES.forEach(([hz, raw]) => {
         expect(frequencyToFaderValue(hz)).toBe(raw);
       });
     });
@@ -43,8 +43,8 @@ describe('EQ value converters', () => {
   });
 
   describe('faderValueToFrequency', () => {
-    it('should convert the default band frequencies of a Ui24R', () => {
-      UI24_DEFAULT_FREQUENCIES.forEach(([hz, raw]) => {
+    it('should convert the default band frequencies of the mixer', () => {
+      DEFAULT_FREQUENCIES.forEach(([hz, raw]) => {
         expect(faderValueToFrequency(raw)).toBe(hz);
       });
     });
@@ -68,8 +68,8 @@ describe('EQ value converters', () => {
   });
 
   describe('qToFaderValue', () => {
-    it('should convert the default Q of a Ui24R', () => {
-      expect(qToFaderValue(1)).toBe(UI24_DEFAULT_Q);
+    it('should convert the default Q of the mixer', () => {
+      expect(qToFaderValue(1)).toBe(DEFAULT_Q);
     });
 
     it('should convert the range limits', () => {
@@ -86,8 +86,8 @@ describe('EQ value converters', () => {
   });
 
   describe('faderValueToQ', () => {
-    it('should convert the default Q of a Ui24R', () => {
-      expect(faderValueToQ(UI24_DEFAULT_Q)).toBe(1);
+    it('should convert the default Q of the mixer', () => {
+      expect(faderValueToQ(DEFAULT_Q)).toBe(1);
     });
 
     it('should convert to two decimals', () => {
