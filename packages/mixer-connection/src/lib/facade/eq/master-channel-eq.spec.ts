@@ -37,7 +37,7 @@ describe('Master channel EQ', () => {
   it('should control the channel it belongs to', async () => {
     const messages = collectMessages(conn);
     conn.master.input(3).eq.band(1).setGainDB(6);
-    conn.master.line(2).eq.disable();
+    conn.master.line(2).eq.bypass();
     conn.master.player(1).eq.hpf.setSlope(24);
     conn.master.fx(4).eq.band(4).setFrequency(1000);
     conn.master.sub(6).eq.band(2).setQ(1);
@@ -62,7 +62,7 @@ describe('Master channel EQ', () => {
       expect(messages).toEqual(['SETD^i.2.eq.b1.gain^0.65', 'SETD^i.3.eq.b1.gain^0.65']);
 
       messages = collectMessages(conn);
-      eq.disable();
+      eq.bypass();
       expect(messages).toEqual(['SETD^i.2.eq.bypass^1', 'SETD^i.3.eq.bypass^1']);
 
       messages = collectMessages(conn);
@@ -87,7 +87,7 @@ describe('Master channel EQ', () => {
       conn.conn.sendMessage('SETD^p.0.stereoIndex^0');
 
       const messages = collectMessages(conn);
-      conn.master.line(1).eq.enable();
+      conn.master.line(1).eq.unbypass();
       conn.master.player(1).eq.band(3).setGainDB(-3);
       expect(messages).toEqual([
         'SETD^l.0.eq.bypass^0',

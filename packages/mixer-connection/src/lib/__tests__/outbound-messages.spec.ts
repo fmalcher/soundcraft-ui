@@ -1233,14 +1233,20 @@ describe('Outbound messages', () => {
   it('channel EQ', () => {
     const eq = conn.master.input(3).eq;
 
-    // on/off
-    eq.disable();
+    // bypass
+    eq.bypass();
     expect(message).toBe('SETD^i.2.eq.bypass^1');
 
-    eq.enable();
+    eq.unbypass();
     expect(message).toBe('SETD^i.2.eq.bypass^0');
 
-    eq.setEnabled(false);
+    eq.setBypass(true);
+    expect(message).toBe('SETD^i.2.eq.bypass^1');
+
+    eq.setBypass(false);
+    expect(message).toBe('SETD^i.2.eq.bypass^0');
+
+    eq.toggleBypass();
     expect(message).toBe('SETD^i.2.eq.bypass^1');
 
     // band frequency (Hz)
