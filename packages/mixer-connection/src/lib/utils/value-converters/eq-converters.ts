@@ -4,7 +4,7 @@ import { linearMappingRangeToValue, linearMappingValueToRange } from './value-co
 /*
  * Conversions for the parametric channel EQ.
  * The curves are the ones the mixer's web app uses (`VtoFREQ`, `VtoQ`, `VtoEQGAIN20`).
- * They reproduce the raw default values of a Ui24R exactly, e.g. 200 Hz = 0.3286901902 and Q 1 = 0.5252185347.
+ * They reproduce the raw default values of the Ui12, Ui16 and Ui24R exactly, e.g. 200 Hz = 0.3286901902 and Q 1 = 0.5252185347.
  */
 
 /** Lowest EQ frequency (Hz), raw value `0` */

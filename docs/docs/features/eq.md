@@ -89,4 +89,4 @@ The library exports the conversion functions, e.g. for your own controls:
 | `faderValueToEqGainDB(value)`   | Linear value to band gain in dB                |
 
 The curves are the ones used by the mixer's web app ([#228](https://github.com/fmalcher/soundcraft-ui/issues/228)).
-They reproduce the default values of a Ui24R exactly, e.g. the default bands at 200 Hz, 1 kHz, 4 kHz and 10 kHz with Q 1.
+They reproduce the default values of the Ui12, Ui16 and Ui24R exactly, e.g. the default bands at 200 Hz, 1 kHz, 4 kHz and 10 kHz with Q 1.
