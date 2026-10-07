@@ -31,7 +31,7 @@ export class EqFilter {
   /** Whether the filter is switched on */
   readonly enabled$ = this.selectParam('freq').pipe(map(v => v !== this.range.offValue));
 
-  /** Slope of the filter in dB/oct (`12`, `24` or `36`, Ui24R only) */
+  /** Slope of the filter in dB/oct (`12`, `24` or `36`). Ui24R only, never emits on the Ui12 and Ui16. */
   readonly slope$ = this.selectParam('slope').pipe(map(v => valueToSlope(v)));
 
   /**
@@ -66,7 +66,7 @@ export class EqFilter {
   }
 
   /**
-   * Set the slope of the filter (Ui24R only)
+   * Set the slope of the filter (Ui24R only, no effect on the Ui12 and Ui16)
    * @param slope `12`, `24` or `36` dB/oct
    */
   setSlope(slope: EqFilterSlope) {
