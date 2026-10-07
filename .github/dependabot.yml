@@ -1,10 +1,14 @@
 version: 2
+
+# npm: version updates are disabled (open-pull-requests-limit: 0), so Dependabot
+# only opens PRs for security updates. Groups apply to security updates only.
 updates:
   # Root dependencies (Nx Workspace)
   - package-ecosystem: 'npm'
     directory: '/'
     schedule:
       interval: 'monthly'
+    open-pull-requests-limit: 0
     commit-message:
       prefix: 'deps'
     # These dependencies are handled by 'nx migrate' and should be ignored by Dependabot
@@ -20,6 +24,7 @@ updates:
     groups:
       # Build & Development Tools
       build-tools:
+        applies-to: security-updates
         patterns:
           - 'vite*'
           - 'vitest*'
@@ -38,18 +43,33 @@ updates:
     directory: '/docs'
     schedule:
       interval: 'monthly'
+    open-pull-requests-limit: 0
     commit-message:
       prefix: 'deps'
     groups:
       # Docusaurus core & plugins
       docusaurus:
+        applies-to: security-updates
         patterns:
           - '@docusaurus/*'
       # React ecosystem
       react:
+        applies-to: security-updates
         patterns:
           - 'react'
           - 'react-dom'
           - '@mdx-js/*'
           - 'prism-react-renderer'
           - 'clsx'
+
+  # GitHub Actions used in workflows
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'monthly'
+    commit-message:
+      prefix: 'ci'
+    groups:
+      github-actions:
+        patterns:
+          - '*'
