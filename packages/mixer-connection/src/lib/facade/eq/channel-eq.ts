@@ -49,7 +49,7 @@ export class ChannelEq {
   }
 
   /**
-   * Low-pass filter (Ui24R only).
+   * Low-pass filter (Ui24R only, on the Ui12 and Ui16 its observables never emit and its setters have no effect).
    * Only input channels have a low-pass filter, other channel types throw an error.
    */
   get lpf(): EqFilter {

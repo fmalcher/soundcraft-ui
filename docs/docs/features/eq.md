@@ -66,6 +66,13 @@ A filter is switched off with its lowest (high-pass) or highest (low-pass) frequ
 | `slope$`           | Slope in dB/oct (`12`, `24` or `36`, Ui24R only)                                                         |
 | `setSlope(slope)`  | Set the slope to `12`, `24` or `36` dB/oct (Ui24R only)                                                  |
 
+:::info[Ui24R only]
+
+The low-pass filter (`eq.lpf`) and the filter slope (`slope$`, `setSlope()`) are only available on the Ui24R.
+The Ui12 and Ui16 do not have these settings: the observables never emit a value, and the setters have no effect.
+
+:::
+
 ## Value conversion
 
 Internally, the mixer stores all EQ values as linear values between `0` and `1`.
