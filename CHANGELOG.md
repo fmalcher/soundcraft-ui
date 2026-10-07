@@ -1,5 +1,53 @@
 # Changelog
 
+## [7.1.0](https://github.com/fmalcher/soundcraft-ui/compare/v7.0.3...v7.1.0) (2026-10-07)
+
+
+### Features
+
+* **testbed:** add JSON export button to full-state page ([9f4bac0](https://github.com/fmalcher/soundcraft-ui/commit/9f4bac0e1ce4d6a36854039a681b55614374d2e2))
+
+
+### Dependency Updates
+
+* bump ajv from 6.12.6 to 6.15.0 in /docs ([8ae609c](https://github.com/fmalcher/soundcraft-ui/commit/8ae609c208613d92a8420feaff1b1673d5d1581b))
+* bump brace-expansion from 1.1.18 to 1.1.21 in /docs ([f0ecc86](https://github.com/fmalcher/soundcraft-ui/commit/f0ecc86973210c5639cef0e9787641b659cfc16b))
+* bump colord from 2.9.3 to 2.10.0 in /docs ([dd160c7](https://github.com/fmalcher/soundcraft-ui/commit/dd160c7fe3dfaeca92db93b2878878c50ce53814))
+* bump compression from 1.8.1 to 1.8.2 in /docs ([b422bb9](https://github.com/fmalcher/soundcraft-ui/commit/b422bb9d35d2a4e5fdf96e7628c15888c05664d3))
+* bump fast-uri from 3.1.5 to 3.1.7 ([#378](https://github.com/fmalcher/soundcraft-ui/issues/378)) ([6c29611](https://github.com/fmalcher/soundcraft-ui/commit/6c2961134291561800b3b4fb3c0ac7cd5968eea5))
+* bump fast-uri from 3.1.5 to 3.1.7 in /docs ([#377](https://github.com/fmalcher/soundcraft-ui/issues/377)) ([6281456](https://github.com/fmalcher/soundcraft-ui/commit/6281456c12736daa9fa2557af3ed2411c3c42848))
+* bump fast-uri from 3.1.7 to 3.1.8 in /docs ([b2eb4de](https://github.com/fmalcher/soundcraft-ui/commit/b2eb4de5754871ad6d234a21942a0426f5175fbb))
+* bump hono from 4.13.1 to 4.13.7 ([af609b5](https://github.com/fmalcher/soundcraft-ui/commit/af609b569c2798df76aca2d19326cee4dc86ac31))
+* bump http-cache-semantics from 4.2.0 to 4.3.0 in /docs ([a33f4c1](https://github.com/fmalcher/soundcraft-ui/commit/a33f4c111211eb34e964dc0e3b317550776d4574))
+* bump image-size from 2.0.2 to 2.0.4 in /docs ([9bdb9ac](https://github.com/fmalcher/soundcraft-ui/commit/9bdb9ac8771076cdd87a24f85f63ddbaecd809c3))
+* bump ip-address from 10.4.0 to 10.7.2 ([351c9b5](https://github.com/fmalcher/soundcraft-ui/commit/351c9b5967b34e4157ba27bbfa65d4d067c80465))
+* bump joi from 17.13.3 to 17.13.7 in /docs ([d81e0ff](https://github.com/fmalcher/soundcraft-ui/commit/d81e0ff431944c518c62f589aa9a6be96d3e5109))
+* bump joi from 17.13.7 to 17.13.8 in /docs ([f94f042](https://github.com/fmalcher/soundcraft-ui/commit/f94f042a8ddd08404e44515a56d4c2ee7fabc8a0))
+* bump js-yaml ([7db0ab2](https://github.com/fmalcher/soundcraft-ui/commit/7db0ab22b0afbf34cf740750b9719b4515d88ced))
+* bump js-yaml from 4.3.1 to 4.3.2 in /docs ([7ba8065](https://github.com/fmalcher/soundcraft-ui/commit/7ba8065f9de3027d9a9bad0490bcda0205f1b602))
+* bump nanoid from 3.3.16 to 3.3.19 in /docs ([2fc297f](https://github.com/fmalcher/soundcraft-ui/commit/2fc297f1564a3d541fd9b761ba1ac45d9e40168b))
+* bump picomatch from 2.3.1 to 2.3.2 in /docs ([6d63278](https://github.com/fmalcher/soundcraft-ui/commit/6d6327850e49771ae3efcb975bef16a077fd2b53))
+* bump proxy-addr from 2.0.7 to 2.0.8 in /docs ([a8aa43f](https://github.com/fmalcher/soundcraft-ui/commit/a8aa43f624b5f87851a8c3ed761ad5ade7792b72))
+* bump qs in /docs in the other-security group across 1 directory ([540ff0b](https://github.com/fmalcher/soundcraft-ui/commit/540ff0ba15d5aecaa147993b4f5bd6ecd1f76855))
+* bump shell-quote from 1.10.0 to 1.12.0 in /docs ([e0519a1](https://github.com/fmalcher/soundcraft-ui/commit/e0519a1a86aff8cc796f3d5b435be12b6cb9b6dd))
+* bump source-map-js from 1.2.1 to 1.2.2 in /docs ([a410416](https://github.com/fmalcher/soundcraft-ui/commit/a410416f854eaa87efa45e21e313e60cec51b466))
+* bump svgo from 3.3.4 to 3.3.5 in /docs ([4a52525](https://github.com/fmalcher/soundcraft-ui/commit/4a525258409cf903ea9d8ea7a2556c3119fd9f17))
+* bump svgo from 4.0.2 to 4.1.0 ([6f032dc](https://github.com/fmalcher/soundcraft-ui/commit/6f032dcff4ceffd67a1bdd10133408a216bbde6c))
+* bump the react group in /docs with 2 updates ([4322dc1](https://github.com/fmalcher/soundcraft-ui/commit/4322dc17850a0892e6cb4bc259fbd43e2da329c1))
+* bump undici from 6.28.0 to 6.29.0 ([53140c4](https://github.com/fmalcher/soundcraft-ui/commit/53140c4f37f746952a7a58da968c88601a597fc1))
+
+
+### Build System & CI
+
+* bump the github-actions group with 6 updates ([9b60414](https://github.com/fmalcher/soundcraft-ui/commit/9b60414b3db4340ed0fc3752dcf62e5a513eb739))
+
+
+### Other
+
+* group all Dependabot security updates per directory ([7c546a4](https://github.com/fmalcher/soundcraft-ui/commit/7c546a40d2b67417f46560cfcd085f14435fdc09))
+* limit Dependabot npm PRs to security updates, add GitHub Actions updates ([2ea8062](https://github.com/fmalcher/soundcraft-ui/commit/2ea80621bfac9859fd99e9a94cf3d863f6293cc9))
+* **mixer-connection:** drop unused state model, add reference state JSON ([cb840a7](https://github.com/fmalcher/soundcraft-ui/commit/cb840a72a82c5b95f2fa940a69cb5ee901bbefd8))
+
 ## [7.0.3](https://github.com/fmalcher/soundcraft-ui/compare/v7.0.2...v7.0.3) (2026-09-01)
 
 
