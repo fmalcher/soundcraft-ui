@@ -37,6 +37,11 @@ updates:
           - 'dotenv'
           - '@rollup/rollup-linux-x64-gnu'
           - '@typescript-eslint/*'
+      # Everything else (mostly transitive dependencies)
+      other-security:
+        applies-to: security-updates
+        patterns:
+          - '*'
 
   # Docs dependencies (Docusaurus site)
   - package-ecosystem: 'npm'
@@ -61,6 +66,11 @@ updates:
           - '@mdx-js/*'
           - 'prism-react-renderer'
           - 'clsx'
+      # Everything else (mostly transitive dependencies)
+      other-security:
+        applies-to: security-updates
+        patterns:
+          - '*'
 
   # GitHub Actions used in workflows
   - package-ecosystem: 'github-actions'
