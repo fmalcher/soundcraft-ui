@@ -1,7 +1,7 @@
 <div class="mb-3">
-  <sui-mixer-button (press)="eq().toggle()" [active]="eq().enabled$ | async">EQ</sui-mixer-button>
-  <sui-mixer-button (press)="eq().enable()">Enable</sui-mixer-button>
-  <sui-mixer-button (press)="eq().disable()">Disable</sui-mixer-button>
+  <sui-mixer-button (press)="eq().toggleBypass()" [active]="eq().bypass$ | async">Bypass toggle</sui-mixer-button>
+  <sui-mixer-button (press)="eq().bypass()">Bypass</sui-mixer-button>
+  <sui-mixer-button (press)="eq().unbypass()">Unbypass</sui-mixer-button>
 </div>
 
 @for (n of bands; track n) {

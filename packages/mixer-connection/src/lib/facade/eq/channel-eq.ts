@@ -1,8 +1,8 @@
-import { map, take } from 'rxjs';
+import { take } from 'rxjs';
 
 import { MixerConnection } from '../../mixer-connection';
 import { MixerStore } from '../../state/mixer-store';
-import { selectRawValue } from '../../state/state-selectors';
+import { selectBoolean } from '../../state/state-selectors';
 import { ChannelType } from '../../types';
 import { EqBand } from './eq-band';
 import { EqFilter } from './eq-filter';
@@ -22,11 +22,8 @@ export class ChannelEq {
   private bands: EqBand[] = [];
   private lowPass?: EqFilter;
 
-  /** Whether the EQ is switched on (the inverted bypass switch of the mixer) */
-  readonly enabled$ = this.store.state$.pipe(
-    selectRawValue<number>(eqBypassPath(this.channelId)),
-    map(bypass => !bypass),
-  );
+  /** BYPASS state of the EQ (`true` if the EQ is switched off) */
+  readonly bypass$ = this.store.state$.pipe(selectBoolean(eqBypassPath(this.channelId)));
 
   /** High-pass filter */
   readonly hpf = new EqFilter(this.conn, this.store, this.channelId, this.linkedChannelIds, 'hpf');
@@ -85,27 +82,27 @@ export class ChannelEq {
   }
 
   /**
-   * Switch the EQ on or off
-   * @param value `true` to switch the EQ on, `false` to bypass it
+   * Set BYPASS state for the EQ
+   * @param value BYPASS state (`true` switches the EQ off)
    */
-  setEnabled(value: boolean) {
+  setBypass(value: boolean) {
     this.linkedChannelIds().forEach(cid => {
-      this.conn.setdBool(eqBypassPath(cid), !value);
+      this.conn.setdBool(eqBypassPath(cid), value);
     });
   }
 
-  /** Switch the EQ on */
-  enable() {
-    this.setEnabled(true);
+  /** Enable BYPASS for the EQ (switch the EQ off) */
+  bypass() {
+    this.setBypass(true);
   }
 
-  /** Switch the EQ off (bypass) */
-  disable() {
-    this.setEnabled(false);
+  /** Disable BYPASS for the EQ (switch the EQ on) */
+  unbypass() {
+    this.setBypass(false);
   }
 
-  /** Toggle the EQ on/off */
-  toggle() {
-    this.enabled$.pipe(take(1)).subscribe(enabled => this.setEnabled(!enabled));
+  /** Toggle BYPASS state for the EQ */
+  toggleBypass() {
+    this.bypass$.pipe(take(1)).subscribe(bypass => this.setBypass(!bypass));
   }
 }

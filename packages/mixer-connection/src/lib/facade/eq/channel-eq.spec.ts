@@ -23,37 +23,42 @@ describe('Channel EQ', () => {
     expect(() => new ChannelEq(conn.conn, conn.store, 'v', 'v.0', () => [])).toThrow();
   });
 
-  describe('on/off', () => {
-    it('enabled$ should be the inverted bypass switch', async () => {
+  describe('bypass', () => {
+    it('bypass$ should reflect the bypass switch of the mixer', async () => {
       conn.conn.sendMessage('SETD^i.2.eq.bypass^1');
-      expect(await firstValueFrom(eq.enabled$)).toBe(false);
+      expect(await firstValueFrom(eq.bypass$)).toBe(true);
 
       conn.conn.sendMessage('SETD^i.2.eq.bypass^0');
-      expect(await firstValueFrom(eq.enabled$)).toBe(true);
+      expect(await firstValueFrom(eq.bypass$)).toBe(false);
     });
 
-    it('enable, disable and setEnabled', async () => {
+    it('bypass$ should be false if the state key is missing', async () => {
+      conn.conn.sendMessage('SETD^i.2.mute^0');
+      expect(await firstValueFrom(eq.bypass$)).toBe(false);
+    });
+
+    it('bypass, unbypass and setBypass', async () => {
       const messages = collectMessages(conn);
-      eq.disable();
-      eq.enable();
-      eq.setEnabled(false);
-      eq.setEnabled(true);
+      eq.bypass();
+      eq.unbypass();
+      eq.setBypass(true);
+      eq.setBypass(false);
       expect(messages).toEqual([
         'SETD^i.2.eq.bypass^1',
         'SETD^i.2.eq.bypass^0',
         'SETD^i.2.eq.bypass^1',
         'SETD^i.2.eq.bypass^0',
       ]);
-      expect(await firstValueFrom(eq.enabled$)).toBe(true);
+      expect(await firstValueFrom(eq.bypass$)).toBe(false);
     });
 
-    it('toggle', async () => {
-      eq.enable();
-      eq.toggle();
-      expect(await firstValueFrom(eq.enabled$)).toBe(false);
+    it('toggleBypass', async () => {
+      eq.unbypass();
+      eq.toggleBypass();
+      expect(await firstValueFrom(eq.bypass$)).toBe(true);
 
-      eq.toggle();
-      expect(await firstValueFrom(eq.enabled$)).toBe(true);
+      eq.toggleBypass();
+      expect(await firstValueFrom(eq.bypass$)).toBe(false);
     });
   });
 
@@ -103,7 +108,7 @@ describe('Channel EQ', () => {
 
     linked = ['i.2', 'i.3'];
     const messages = collectMessages(conn);
-    eq.disable();
+    eq.bypass();
     eq.band(4).setGainDB(6);
     eq.hpf.disable();
     eq.lpf.disable();

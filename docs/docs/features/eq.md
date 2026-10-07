@@ -15,18 +15,20 @@ const eq = conn.master.input(3).eq;
 AUX channels (graphic EQ) and VCA channels have no parametric EQ, so accessing `eq` on them throws an error.
 When channels are stereo-linked, all EQ settings are applied to both channels.
 
-## EQ on/off
+## EQ bypass
 
-| Call on `ChannelEq` | Description                                                             |
-| ------------------- | ----------------------------------------------------------------------- |
-| `enabled$`          | Whether the EQ is switched on (the inverted bypass switch of the mixer) |
-| `setEnabled(value)` | Switch the EQ on (`true`) or off (`false`)                              |
-| `enable()`          | Switch the EQ on                                                        |
-| `disable()`         | Switch the EQ off (bypass)                                              |
-| `toggle()`          | Toggle the EQ on/off                                                    |
-| `band(n)`           | Get EQ band `n` (between `1` and `4`), see below                        |
-| `hpf`               | High-pass filter, see below                                             |
-| `lpf`               | Low-pass filter (input channels only, Ui24R only), see below            |
+The EQ is switched on and off with the bypass switch of the mixer: when the EQ is bypassed, it is switched off.
+
+| Call on `ChannelEq` | Description                                                  |
+| ------------------- | ------------------------------------------------------------ |
+| `bypass$`           | BYPASS state of the EQ (`true` if the EQ is switched off)    |
+| `setBypass(value)`  | Set BYPASS state (`true` switches the EQ off)                |
+| `bypass()`          | Enable BYPASS (switch the EQ off)                            |
+| `unbypass()`        | Disable BYPASS (switch the EQ on)                            |
+| `toggleBypass()`    | Toggle BYPASS state                                          |
+| `band(n)`           | Get EQ band `n` (between `1` and `4`), see below             |
+| `hpf`               | High-pass filter, see below                                  |
+| `lpf`               | Low-pass filter (input channels only, Ui24R only), see below |
 
 ## EQ bands
 
