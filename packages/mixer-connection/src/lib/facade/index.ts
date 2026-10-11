@@ -6,6 +6,7 @@ export * from './channel-sync';
 export * from './delayable-master-channel';
 export * from './device-info';
 export * from './dual-track-recorder';
+export * from './eq/index';
 export * from './fx-bus';
 export * from './fx-channel';
 export * from './hw-channel';
