@@ -6,12 +6,12 @@ import { join } from 'path';
 import copy from 'rollup-plugin-copy';
 
 export default defineConfig({
-  root: __dirname,
+  root: import.meta.dirname,
   cacheDir: '../../node_modules/.vite/mixer-connection',
   plugins: [
     dts({
       entryRoot: 'src',
-      tsconfigPath: join(__dirname, 'tsconfig.lib.json'),
+      tsconfigPath: join(import.meta.dirname, 'tsconfig.lib.json'),
     }),
     copy({
       verbose: true,
