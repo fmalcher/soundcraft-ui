@@ -17,6 +17,7 @@ import { MixerButton } from '../mixer-button/mixer-button';
 @Component({
   selector: 'sui-eq-controls',
   templateUrl: './eq-controls.html',
+  styleUrl: './eq-controls.css',
   imports: [AsyncPipe, MixerButton, RandomIdDirective],
 })
 export class EqControls {
