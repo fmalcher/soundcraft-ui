@@ -19,17 +19,13 @@ import {
 
 /**
  * Represents the high-pass or low-pass filter of the channel EQ.
- * A filter is switched off with a special raw frequency value:
- * `0` (20 Hz) for the high-pass filter, `1` (22050 Hz) for the low-pass filter.
+ * To switch a filter off, set it to its lowest (high-pass, `20` Hz) or highest (low-pass, `22050` Hz) frequency.
  */
 export class EqFilter {
   private range = EQ_FILTERS[this.type];
 
   /** Frequency of the filter in Hz (`20` for a switched off high-pass, `22050` for a switched off low-pass filter) */
   readonly frequency$ = this.selectParam('freq').pipe(map(v => faderValueToFrequency(v)));
-
-  /** Whether the filter is switched on */
-  readonly enabled$ = this.selectParam('freq').pipe(map(v => v !== this.range.offValue));
 
   /** Slope of the filter in dB/oct (`12`, `24` or `36`). Ui24R only, never emits on the Ui12 and Ui16. */
   readonly slope$ = this.selectParam('slope').pipe(map(v => valueToSlope(v)));
@@ -50,7 +46,7 @@ export class EqFilter {
   ) {}
 
   /**
-   * Set the frequency of the filter and switch it on.
+   * Set the frequency of the filter.
    * High-pass filter: between `20` and `1000` Hz (`20` switches it off).
    * Low-pass filter: between `1000` and `22050` Hz (`22050` switches it off).
    * @param hz frequency in Hz
@@ -58,11 +54,6 @@ export class EqFilter {
   setFrequency(hz: number) {
     const value = clamp(hz, this.range.minHz, this.range.maxHz);
     this.setParam('freq', frequencyToFaderValue(value));
-  }
-
-  /** Switch the filter off */
-  disable() {
-    this.setParam('freq', this.range.offValue);
   }
 
   /**

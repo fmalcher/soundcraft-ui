@@ -70,7 +70,7 @@ describe('Master channel EQ', () => {
       expect(messages).toEqual(['SETD^i.2.eq.hpf.slope^1', 'SETD^i.3.eq.hpf.slope^1']);
 
       messages = collectMessages(conn);
-      eq.lpf.disable();
+      eq.lpf.setFrequency(22050);
       expect(messages).toEqual(['SETD^i.2.eq.lpf.freq^1', 'SETD^i.3.eq.lpf.freq^1']);
     });
 

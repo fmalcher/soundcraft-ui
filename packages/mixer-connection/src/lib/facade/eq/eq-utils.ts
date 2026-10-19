@@ -17,12 +17,12 @@ export const EQ_BAND_COUNT = 4;
 /** Channel types with a parametric EQ: input, line, player, FX and sub group */
 const EQ_CHANNEL_TYPES: ChannelType[] = ['i', 'l', 'p', 'f', 's'];
 
-/** Frequency range of the filters and the raw value that switches them off */
+/** Frequency range of the filters */
 export const EQ_FILTERS: Readonly<
-  Record<EqFilterType, Readonly<{ minHz: number; maxHz: number; offValue: number }>>
+  Record<EqFilterType, Readonly<{ minHz: number; maxHz: number }>>
 > = {
-  hpf: { minHz: EQ_FREQUENCY_MIN, maxHz: 1000, offValue: 0 },
-  lpf: { minHz: 1000, maxHz: EQ_FREQUENCY_MAX, offValue: 1 },
+  hpf: { minHz: EQ_FREQUENCY_MIN, maxHz: 1000 },
+  lpf: { minHz: 1000, maxHz: EQ_FREQUENCY_MAX },
 };
 
 const SLOPES: EqFilterSlope[] = [12, 24, 36];

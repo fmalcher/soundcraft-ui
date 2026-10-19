@@ -96,11 +96,11 @@ describe('EQ utils', () => {
 
   describe('EQ_FILTERS', () => {
     it('should describe the high-pass filter', () => {
-      expect(EQ_FILTERS.hpf).toEqual({ minHz: 20, maxHz: 1000, offValue: 0 });
+      expect(EQ_FILTERS.hpf).toEqual({ minHz: 20, maxHz: 1000 });
     });
 
     it('should describe the low-pass filter', () => {
-      expect(EQ_FILTERS.lpf).toEqual({ minHz: 1000, maxHz: 22050, offValue: 1 });
+      expect(EQ_FILTERS.lpf).toEqual({ minHz: 1000, maxHz: 22050 });
     });
   });
 });
