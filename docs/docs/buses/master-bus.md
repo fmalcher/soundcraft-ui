@@ -31,6 +31,7 @@ The `MasterChannel` exposes the following operations:
 | `solo()`                         | Enable solo                               |
 | `unsolo()`                       | Disable solo                              |
 | `toggleSolo()`                   | Toggle solo status                        |
+| `eq`                             | Channel EQ (not for AUX and VCA channels) |
 
 For `input`, `line` and `aux` master channels, the bus returns a `DelayableMasterChannel` object which is a subtype of `MasterChannel`.
 It contains the following members:
@@ -43,3 +44,4 @@ It contains the following members:
 | `delay$`                  | Get channel delay in milliseconds                                                                                            |
 
 Input channels on the master bus also support [automix](../features/automix) and [multitrack](../recording-playback/multitrack) settings, see separate sections.
+The [channel EQ](../features/eq) is available for input, line, player, FX and sub group channels.

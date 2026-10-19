@@ -1,0 +1,119 @@
+<div class="mb-4">
+  <sui-mixer-button (press)="eq().toggleBypass()" [active]="eq().bypass$ | async">Bypass toggle</sui-mixer-button>
+  <sui-mixer-button (press)="eq().bypass()">Bypass</sui-mixer-button>
+  <sui-mixer-button (press)="eq().unbypass()">Unbypass</sui-mixer-button>
+</div>
+
+@for (n of bands; track n) {
+@let band = eq().band(n);
+<section>
+  <h3 class="h5">Band {{ n }}</h3>
+
+  <div class="eq-row">
+    <label [for]="freqInput.id">Frequency</label>
+    <input type="range" min="0" max="1" step="0.0001" (input)="setBandFrequency(band, freqInput.value)"
+      [value]="frequencyToFaderValue((band.frequency$ | async) ?? 20)" #freqInput suiRandomId />
+    <div class="values">
+      <span class="badge text-bg-secondary">{{ band.frequency$ | async }}&nbsp;Hz</span>
+    </div>
+    <div class="buttons">
+      @for (hz of [100, 1000, 5000]; track hz) {
+      <button class="btn btn-outline-success btn-sm" (click)="band.setFrequency(hz)">{{ hz }} Hz</button>
+      }
+    </div>
+  </div>
+
+  <div class="eq-row">
+    <label [for]="qInput.id">Q</label>
+    <input type="range" min="0" max="1" step="0.0001" (input)="setBandQ(band, qInput.value)"
+      [value]="qToFaderValue((band.q$ | async) ?? 1)" #qInput suiRandomId />
+    <div class="values">
+      <span class="badge text-bg-secondary">Q&nbsp;{{ band.q$ | async }}</span>
+    </div>
+    <div class="buttons">
+      <button class="btn btn-outline-success btn-sm" (click)="band.setQ(1)">Q 1</button>
+    </div>
+  </div>
+
+  <div class="eq-row">
+    <label [for]="gainInput.id">Gain</label>
+    <input type="range" min="0" max="1" step="0.0001" (input)="setBandGain(band, gainInput.value)"
+      [value]="band.gain$ | async" #gainInput suiRandomId />
+    <div class="values">
+      <span class="badge text-bg-secondary">{{ band.gainDB$ | async }}&nbsp;dB</span>
+      <span class="badge text-bg-secondary">{{ band.gain$ | async }}</span>
+    </div>
+    <div class="buttons">
+      <button class="btn btn-success btn-sm" (click)="band.changeGainDB(3)">+ 3 dB</button>
+      <button class="btn btn-success btn-sm" (click)="band.changeGainDB(-3)">– 3 dB</button>
+      <button class="btn btn-outline-success btn-sm" (click)="band.setGainDB(0)">0 dB</button>
+    </div>
+  </div>
+</section>
+}
+
+<section>
+  <h3 class="h5">High-pass filter</h3>
+
+  <div class="eq-row">
+    <label [for]="hpfInput.id">Frequency</label>
+    <input type="range" [min]="0" [max]="hpfMax" step="0.0001" (input)="setFilterFrequency(eq().hpf, hpfInput.value)"
+      [value]="frequencyToFaderValue((eq().hpf.frequency$ | async) ?? 20)" #hpfInput suiRandomId />
+    <div class="values">
+      <span class="badge text-bg-secondary">{{ eq().hpf.frequency$ | async }}&nbsp;Hz</span>
+    </div>
+    <div class="buttons">
+      <button class="btn btn-outline-success btn-sm" (click)="eq().hpf.setFrequency(80)">80 Hz</button>
+    </div>
+  </div>
+
+  <div class="eq-row">
+    <span class="label">Slope</span>
+    <span></span>
+    <div class="values">
+      <span class="badge text-bg-secondary">{{ eq().hpf.slope$ | async }}&nbsp;dB/oct</span>
+    </div>
+    <div class="buttons">
+      @for (s of slopes; track s) {
+      <button class="btn btn-outline-secondary btn-sm" [class.active]="(eq().hpf.slope$ | async) === s"
+        (click)="eq().hpf.setSlope(s)">
+        {{ s }} dB/oct
+      </button>
+      }
+    </div>
+  </div>
+</section>
+
+@if (showLpf()) {
+<section>
+  <h3 class="h5">Low-pass filter (Ui24R only)</h3>
+
+  <div class="eq-row">
+    <label [for]="lpfInput.id">Frequency</label>
+    <input type="range" [min]="lpfMin" [max]="1" step="0.0001" (input)="setFilterFrequency(eq().lpf, lpfInput.value)"
+      [value]="frequencyToFaderValue((eq().lpf.frequency$ | async) ?? 22050)" #lpfInput suiRandomId />
+    <div class="values">
+      <span class="badge text-bg-secondary">{{ eq().lpf.frequency$ | async }}&nbsp;Hz</span>
+    </div>
+    <div class="buttons">
+      <button class="btn btn-outline-success btn-sm" (click)="eq().lpf.setFrequency(8000)">8 kHz</button>
+    </div>
+  </div>
+
+  <div class="eq-row">
+    <span class="label">Slope</span>
+    <span></span>
+    <div class="values">
+      <span class="badge text-bg-secondary">{{ eq().lpf.slope$ | async }}&nbsp;dB/oct</span>
+    </div>
+    <div class="buttons">
+      @for (s of slopes; track s) {
+      <button class="btn btn-outline-secondary btn-sm" [class.active]="(eq().lpf.slope$ | async) === s"
+        (click)="eq().lpf.setSlope(s)">
+        {{ s }} dB/oct
+      </button>
+      }
+    </div>
+  </div>
+</section>
+}

@@ -19,6 +19,7 @@ import {
   linearMappingRangeToValue,
   linearMappingValueToRange,
 } from '../utils/value-converters/value-converters';
+import { ChannelEq } from './eq/channel-eq';
 
 /**
  * Represents a channel on the master bus
@@ -64,6 +65,25 @@ export class MasterChannel extends Channel implements PannableChannel {
   readonly multiTrackSelected$ = this.store.state$.pipe(
     selectBoolean(`${this.fullChannelId}.mtkrec`),
   );
+
+  private channelEq?: ChannelEq;
+
+  /**
+   * Parametric EQ of the channel (4 bands, high-pass and low-pass filter).
+   * Only available for input, line, player, FX and sub group channels, other channels throw an error.
+   */
+  get eq(): ChannelEq {
+    if (!this.channelEq) {
+      this.channelEq = new ChannelEq(
+        this.conn,
+        this.store,
+        this.channelType,
+        this.fullChannelId,
+        () => this.linkedChannelIds,
+      );
+    }
+    return this.channelEq;
+  }
 
   constructor(conn: MixerConnection, store: MixerStore, channelType: ChannelType, channel: number) {
     super(conn, store, channelType, channel);
