@@ -1299,9 +1299,8 @@ describe('Outbound messages', () => {
     eq.hpf.setFrequency(5);
     expect(message).toBe('SETD^i.2.eq.hpf.freq^0'); // clamp, off
 
-    eq.hpf.setFrequency(100);
-    eq.hpf.disable();
-    expect(message).toBe('SETD^i.2.eq.hpf.freq^0');
+    eq.hpf.setFrequency(20);
+    expect(message).toBe('SETD^i.2.eq.hpf.freq^0'); // off
 
     eq.hpf.setSlope(12);
     expect(message).toBe('SETD^i.2.eq.hpf.slope^0');
@@ -1322,9 +1321,8 @@ describe('Outbound messages', () => {
     eq.lpf.setFrequency(30000);
     expect(message).toBe('SETD^i.2.eq.lpf.freq^1'); // clamp, off
 
-    eq.lpf.setFrequency(8000);
-    eq.lpf.disable();
-    expect(message).toBe('SETD^i.2.eq.lpf.freq^1');
+    eq.lpf.setFrequency(22050);
+    expect(message).toBe('SETD^i.2.eq.lpf.freq^1'); // off
 
     eq.lpf.setSlope(36);
     expect(message).toBe('SETD^i.2.eq.lpf.slope^2');

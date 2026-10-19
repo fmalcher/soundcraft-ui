@@ -57,16 +57,20 @@ band.setGainDB(-3);
 
 The high-pass filter (`eq.hpf`) and the low-pass filter (`eq.lpf`) are objects of type `EqFilter`.
 The low-pass filter only exists on input channels of the Ui24R.
-A filter is switched off with its lowest (high-pass) or highest (low-pass) frequency.
+There is no separate switch to turn a filter off.
+Instead, set it to its lowest (high-pass) or highest (low-pass) frequency:
 
-| Call on `EqFilter` | Description                                                                                              |
-| ------------------ | -------------------------------------------------------------------------------------------------------- |
-| `enabled$`         | Whether the filter is switched on                                                                        |
-| `frequency$`       | Frequency in Hz (`20` for a switched off high-pass, `22050` for a switched off low-pass filter)          |
-| `setFrequency(hz)` | Set the frequency and switch the filter on. High-pass: `20` to `1000` Hz, low-pass: `1000` to `22050` Hz |
-| `disable()`        | Switch the filter off                                                                                    |
-| `slope$`           | Slope in dB/oct (`12`, `24` or `36`, Ui24R only)                                                         |
-| `setSlope(slope)`  | Set the slope to `12`, `24` or `36` dB/oct (Ui24R only)                                                  |
+```ts
+eq.hpf.setFrequency(20); // switch off the high-pass filter
+eq.lpf.setFrequency(22050); // switch off the low-pass filter
+```
+
+| Call on `EqFilter` | Description                                                                                     |
+| ------------------ | ----------------------------------------------------------------------------------------------- |
+| `frequency$`       | Frequency in Hz (`20` for a switched off high-pass, `22050` for a switched off low-pass filter) |
+| `setFrequency(hz)` | Set the frequency. High-pass: `20` to `1000` Hz, low-pass: `1000` to `22050` Hz                 |
+| `slope$`           | Slope in dB/oct (`12`, `24` or `36`, Ui24R only)                                                |
+| `setSlope(slope)`  | Set the slope to `12`, `24` or `36` dB/oct (Ui24R only)                                         |
 
 :::info[Ui24R only]
 

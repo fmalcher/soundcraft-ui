@@ -110,8 +110,8 @@ describe('Channel EQ', () => {
     const messages = collectMessages(conn);
     eq.bypass();
     eq.band(4).setGainDB(6);
-    eq.hpf.disable();
-    eq.lpf.disable();
+    eq.hpf.setFrequency(20);
+    eq.lpf.setFrequency(22050);
     expect(messages).toEqual([
       'SETD^i.2.eq.bypass^1',
       'SETD^i.3.eq.bypass^1',

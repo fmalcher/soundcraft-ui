@@ -19,36 +19,27 @@ describe('EQ filter', () => {
       hpf = new EqFilter(conn.conn, conn.store, 'i.2', () => ['i.2'], 'hpf');
     });
 
-    it('should be off at raw value 0', async () => {
+    it('should be at 20 Hz (off) at raw value 0', async () => {
       conn.conn.sendMessage('SETD^i.2.eq.hpf.freq^0');
-      expect(await firstValueFrom(hpf.enabled$)).toBe(false);
       expect(await firstValueFrom(hpf.frequency$)).toBe(20);
     });
 
-    it('setFrequency should switch it on', async () => {
+    it('setFrequency', async () => {
       conn.conn.sendMessage('SETD^i.2.eq.hpf.freq^0');
       const messages = collectMessages(conn);
       hpf.setFrequency(80);
       expect(messages).toEqual(['SETD^i.2.eq.hpf.freq^0.197891213']);
       expect(await firstValueFrom(hpf.frequency$)).toBe(80);
-      expect(await firstValueFrom(hpf.enabled$)).toBe(true);
     });
 
     it('setFrequency should be clamped to 20..1000 Hz, 20 Hz is off', async () => {
       hpf.setFrequency(5000);
       expect(await firstValueFrom(hpf.frequency$)).toBe(1000);
 
-      hpf.setFrequency(10);
-      expect(await firstValueFrom(hpf.frequency$)).toBe(20);
-      expect(await firstValueFrom(hpf.enabled$)).toBe(false);
-    });
-
-    it('disable', async () => {
-      hpf.setFrequency(100);
       const messages = collectMessages(conn);
-      hpf.disable();
+      hpf.setFrequency(10);
       expect(messages).toEqual(['SETD^i.2.eq.hpf.freq^0']);
-      expect(await firstValueFrom(hpf.enabled$)).toBe(false);
+      expect(await firstValueFrom(hpf.frequency$)).toBe(20);
     });
 
     it('slope', async () => {
@@ -76,33 +67,26 @@ describe('EQ filter', () => {
       lpf = new EqFilter(conn.conn, conn.store, 'i.2', () => ['i.2'], 'lpf');
     });
 
-    it('should be off at raw value 1', async () => {
+    it('should be at 22050 Hz (off) at raw value 1', async () => {
       conn.conn.sendMessage('SETD^i.2.eq.lpf.freq^1');
-      expect(await firstValueFrom(lpf.enabled$)).toBe(false);
       expect(await firstValueFrom(lpf.frequency$)).toBe(22050);
     });
 
-    it('setFrequency should switch it on', async () => {
+    it('setFrequency', async () => {
       const messages = collectMessages(conn);
       lpf.setFrequency(12000);
       expect(messages).toEqual(['SETD^i.2.eq.lpf.freq^0.9131510628']);
       expect(await firstValueFrom(lpf.frequency$)).toBe(12000);
-      expect(await firstValueFrom(lpf.enabled$)).toBe(true);
     });
 
     it('setFrequency should be clamped to 1000..22050 Hz, 22050 Hz is off', async () => {
       lpf.setFrequency(500);
       expect(await firstValueFrom(lpf.frequency$)).toBe(1000);
 
-      lpf.setFrequency(30000);
-      expect(await firstValueFrom(lpf.frequency$)).toBe(22050);
-      expect(await firstValueFrom(lpf.enabled$)).toBe(false);
-    });
-
-    it('disable', async () => {
       const messages = collectMessages(conn);
-      lpf.disable();
+      lpf.setFrequency(30000);
       expect(messages).toEqual(['SETD^i.2.eq.lpf.freq^1']);
+      expect(await firstValueFrom(lpf.frequency$)).toBe(22050);
     });
 
     it('slope', async () => {
@@ -125,7 +109,7 @@ describe('EQ filter', () => {
     const messages = collectMessages(conn);
     hpf.setFrequency(100);
     hpf.setSlope(36);
-    hpf.disable();
+    hpf.setFrequency(20);
     expect(messages).toEqual([
       'SETD^l.0.eq.hpf.freq^0.2297445837',
       'SETD^l.1.eq.hpf.freq^0.2297445837',
