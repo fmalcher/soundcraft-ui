@@ -1,5 +1,13 @@
 # Changelog
 
+## [7.1.1](https://github.com/fmalcher/soundcraft-ui/compare/v7.1.0...v7.1.1) (2026-10-20)
+
+
+### Dependency Updates
+
+* bump the other-security group across 1 directory with 2 updates ([#414](https://github.com/fmalcher/soundcraft-ui/issues/414)) ([372e292](https://github.com/fmalcher/soundcraft-ui/commit/372e292bd117599f94cfda0faa66eac279a6fa21))
+* bump vite from 8.1.5 to 8.1.6 in the build-tools group across 1 directory ([#411](https://github.com/fmalcher/soundcraft-ui/issues/411)) ([89e49c1](https://github.com/fmalcher/soundcraft-ui/commit/89e49c11f0898b234af73af7e1e20621b971b251))
+
 ## [7.1.0](https://github.com/fmalcher/soundcraft-ui/compare/v7.0.3...v7.1.0) (2026-10-19)
 
 
